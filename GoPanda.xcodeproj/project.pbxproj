@@ -1,0 +1,536 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D154615D1D07294800127DB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615C1D07294800127DB3 /* main.m */; };
+		D15461601D07294800127DB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615F1D07294800127DB3 /* AppDelegate.m */; };
+		D15461631D07294800127DB3 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461621D07294800127DB3 /* GameScene.m */; };
+		D15461651D07294800127DB3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15461641D07294800127DB3 /* GameScene.sks */; };
+		D15461681D07294800127DB3 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461671D07294800127DB3 /* GameViewController.m */; };
+		D154616B1D07294800127DB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D15461691D07294800127DB3 /* Main.storyboard */; };
+		D154616D1D07294800127DB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D154616C1D07294800127DB3 /* Assets.xcassets */; };
+		D15461701D07294800127DB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D154616E1D07294800127DB3 /* LaunchScreen.storyboard */; };
+		D154617B1D07294900127DB3 /* GoPandaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D154617A1D07294900127DB3 /* GoPandaTests.m */; };
+		D15461861D07294900127DB3 /* GoPandaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461851D07294900127DB3 /* GoPandaUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D15461771D07294900127DB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D15461501D07294800127DB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D15461571D07294800127DB3;
+			remoteInfo = GoPanda;
+		};
+		D15461821D07294900127DB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D15461501D07294800127DB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D15461571D07294800127DB3;
+			remoteInfo = GoPanda;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		D15461581D07294800127DB3 /* GoPanda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoPanda.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D154615C1D07294800127DB3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D154615E1D07294800127DB3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D154615F1D07294800127DB3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D15461611D07294800127DB3 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		D15461621D07294800127DB3 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		D15461641D07294800127DB3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		D15461661D07294800127DB3 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		D15461671D07294800127DB3 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		D154616A1D07294800127DB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D154616C1D07294800127DB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D154616F1D07294800127DB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D15461711D07294800127DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D15461761D07294900127DB3 /* GoPandaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoPandaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D154617A1D07294900127DB3 /* GoPandaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPandaTests.m; sourceTree = "<group>"; };
+		D154617C1D07294900127DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D15461811D07294900127DB3 /* GoPandaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoPandaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D15461851D07294900127DB3 /* GoPandaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPandaUITests.m; sourceTree = "<group>"; };
+		D15461871D07294900127DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D15461551D07294800127DB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D15461731D07294900127DB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D154617E1D07294900127DB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D154614F1D07294800127DB3 = {
+			isa = PBXGroup;
+			children = (
+				D154615A1D07294800127DB3 /* GoPanda */,
+				D15461791D07294900127DB3 /* GoPandaTests */,
+				D15461841D07294900127DB3 /* GoPandaUITests */,
+				D15461591D07294800127DB3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D15461591D07294800127DB3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D15461581D07294800127DB3 /* GoPanda.app */,
+				D15461761D07294900127DB3 /* GoPandaTests.xctest */,
+				D15461811D07294900127DB3 /* GoPandaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D154615A1D07294800127DB3 /* GoPanda */ = {
+			isa = PBXGroup;
+			children = (
+				D154615E1D07294800127DB3 /* AppDelegate.h */,
+				D154615F1D07294800127DB3 /* AppDelegate.m */,
+				D15461611D07294800127DB3 /* GameScene.h */,
+				D15461621D07294800127DB3 /* GameScene.m */,
+				D15461641D07294800127DB3 /* GameScene.sks */,
+				D15461661D07294800127DB3 /* GameViewController.h */,
+				D15461671D07294800127DB3 /* GameViewController.m */,
+				D15461691D07294800127DB3 /* Main.storyboard */,
+				D154616C1D07294800127DB3 /* Assets.xcassets */,
+				D154616E1D07294800127DB3 /* LaunchScreen.storyboard */,
+				D15461711D07294800127DB3 /* Info.plist */,
+				D154615B1D07294800127DB3 /* Supporting Files */,
+			);
+			path = GoPanda;
+			sourceTree = "<group>";
+		};
+		D154615B1D07294800127DB3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D154615C1D07294800127DB3 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D15461791D07294900127DB3 /* GoPandaTests */ = {
+			isa = PBXGroup;
+			children = (
+				D154617A1D07294900127DB3 /* GoPandaTests.m */,
+				D154617C1D07294900127DB3 /* Info.plist */,
+			);
+			path = GoPandaTests;
+			sourceTree = "<group>";
+		};
+		D15461841D07294900127DB3 /* GoPandaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D15461851D07294900127DB3 /* GoPandaUITests.m */,
+				D15461871D07294900127DB3 /* Info.plist */,
+			);
+			path = GoPandaUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D15461571D07294800127DB3 /* GoPanda */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D154618A1D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPanda" */;
+			buildPhases = (
+				D15461541D07294800127DB3 /* Sources */,
+				D15461551D07294800127DB3 /* Frameworks */,
+				D15461561D07294800127DB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GoPanda;
+			productName = GoPanda;
+			productReference = D15461581D07294800127DB3 /* GoPanda.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D15461751D07294900127DB3 /* GoPandaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D154618D1D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaTests" */;
+			buildPhases = (
+				D15461721D07294900127DB3 /* Sources */,
+				D15461731D07294900127DB3 /* Frameworks */,
+				D15461741D07294900127DB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D15461781D07294900127DB3 /* PBXTargetDependency */,
+			);
+			name = GoPandaTests;
+			productName = GoPandaTests;
+			productReference = D15461761D07294900127DB3 /* GoPandaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D15461801D07294900127DB3 /* GoPandaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D15461901D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaUITests" */;
+			buildPhases = (
+				D154617D1D07294900127DB3 /* Sources */,
+				D154617E1D07294900127DB3 /* Frameworks */,
+				D154617F1D07294900127DB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D15461831D07294900127DB3 /* PBXTargetDependency */,
+			);
+			name = GoPandaUITests;
+			productName = GoPandaUITests;
+			productReference = D15461811D07294900127DB3 /* GoPandaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D15461501D07294800127DB3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Ekaterina Krasnova";
+				TargetAttributes = {
+					D15461571D07294800127DB3 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = VFT96SPKF7;
+					};
+					D15461751D07294900127DB3 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = VFT96SPKF7;
+						TestTargetID = D15461571D07294800127DB3;
+					};
+					D15461801D07294900127DB3 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = VFT96SPKF7;
+						TestTargetID = D15461571D07294800127DB3;
+					};
+				};
+			};
+			buildConfigurationList = D15461531D07294800127DB3 /* Build configuration list for PBXProject "GoPanda" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D154614F1D07294800127DB3;
+			productRefGroup = D15461591D07294800127DB3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D15461571D07294800127DB3 /* GoPanda */,
+				D15461751D07294900127DB3 /* GoPandaTests */,
+				D15461801D07294900127DB3 /* GoPandaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D15461561D07294800127DB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D15461651D07294800127DB3 /* GameScene.sks in Resources */,
+				D15461701D07294800127DB3 /* LaunchScreen.storyboard in Resources */,
+				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
+				D154616B1D07294800127DB3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D15461741D07294900127DB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D154617F1D07294900127DB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D15461541D07294800127DB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D15461681D07294800127DB3 /* GameViewController.m in Sources */,
+				D15461601D07294800127DB3 /* AppDelegate.m in Sources */,
+				D15461631D07294800127DB3 /* GameScene.m in Sources */,
+				D154615D1D07294800127DB3 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D15461721D07294900127DB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D154617B1D07294900127DB3 /* GoPandaTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D154617D1D07294900127DB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D15461861D07294900127DB3 /* GoPandaUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D15461781D07294900127DB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D15461571D07294800127DB3 /* GoPanda */;
+			targetProxy = D15461771D07294900127DB3 /* PBXContainerItemProxy */;
+		};
+		D15461831D07294900127DB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D15461571D07294800127DB3 /* GoPanda */;
+			targetProxy = D15461821D07294900127DB3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D15461691D07294800127DB3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D154616A1D07294800127DB3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D154616E1D07294800127DB3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D154616F1D07294800127DB3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D15461881D07294900127DB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D15461891D07294900127DB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D154618B1D07294900127DB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GoPanda/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPanda;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D154618C1D07294900127DB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GoPanda/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPanda;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D154618E1D07294900127DB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = GoPandaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPandaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoPanda.app/GoPanda";
+			};
+			name = Debug;
+		};
+		D154618F1D07294900127DB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = GoPandaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPandaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoPanda.app/GoPanda";
+			};
+			name = Release;
+		};
+		D15461911D07294900127DB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = GoPandaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPandaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GoPanda;
+			};
+			name = Debug;
+		};
+		D15461921D07294900127DB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = GoPandaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPandaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GoPanda;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D15461531D07294800127DB3 /* Build configuration list for PBXProject "GoPanda" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D15461881D07294900127DB3 /* Debug */,
+				D15461891D07294900127DB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D154618A1D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPanda" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D154618B1D07294900127DB3 /* Debug */,
+				D154618C1D07294900127DB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D154618D1D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D154618E1D07294900127DB3 /* Debug */,
+				D154618F1D07294900127DB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		D15461901D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D15461911D07294900127DB3 /* Debug */,
+				D15461921D07294900127DB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D15461501D07294800127DB3 /* Project object */;
+}
