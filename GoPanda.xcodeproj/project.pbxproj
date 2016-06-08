@@ -19,6 +19,8 @@
 		D15461861D07294900127DB3 /* GoPandaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461851D07294900127DB3 /* GoPandaUITests.m */; };
 		D15461941D072E4600127DB3 /* GameStart.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15461931D072E4600127DB3 /* GameStart.sks */; };
 		D15461971D072E7C00127DB3 /* GameStart.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461961D072E7C00127DB3 /* GameStart.m */; };
+		D156F3481D07FDEF00C3282B /* GameSettings.sks in Resources */ = {isa = PBXBuildFile; fileRef = D156F3471D07FDEF00C3282B /* GameSettings.sks */; };
+		D156F34B1D07FE1E00C3282B /* GameSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D156F34A1D07FE1E00C3282B /* GameSettings.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,9 @@
 		D15461931D072E4600127DB3 /* GameStart.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameStart.sks; sourceTree = "<group>"; };
 		D15461951D072E7C00127DB3 /* GameStart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStart.h; sourceTree = "<group>"; };
 		D15461961D072E7C00127DB3 /* GameStart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStart.m; sourceTree = "<group>"; };
+		D156F3471D07FDEF00C3282B /* GameSettings.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSettings.sks; sourceTree = "<group>"; };
+		D156F3491D07FE1E00C3282B /* GameSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSettings.h; sourceTree = "<group>"; };
+		D156F34A1D07FE1E00C3282B /* GameSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSettings.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +121,9 @@
 				D15461931D072E4600127DB3 /* GameStart.sks */,
 				D15461951D072E7C00127DB3 /* GameStart.h */,
 				D15461961D072E7C00127DB3 /* GameStart.m */,
+				D156F3471D07FDEF00C3282B /* GameSettings.sks */,
+				D156F3491D07FE1E00C3282B /* GameSettings.h */,
+				D156F34A1D07FE1E00C3282B /* GameSettings.m */,
 				D15461641D07294800127DB3 /* GameScene.sks */,
 				D15461611D07294800127DB3 /* GameScene.h */,
 				D15461621D07294800127DB3 /* GameScene.m */,
@@ -267,6 +275,7 @@
 				D15461941D072E4600127DB3 /* GameStart.sks in Resources */,
 				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
 				D154616B1D07294800127DB3 /* Main.storyboard in Resources */,
+				D156F3481D07FDEF00C3282B /* GameSettings.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D156F34B1D07FE1E00C3282B /* GameSettings.m in Sources */,
 				D15461971D072E7C00127DB3 /* GameStart.m in Sources */,
 				D15461681D07294800127DB3 /* GameViewController.m in Sources */,
 				D15461601D07294800127DB3 /* AppDelegate.m in Sources */,
@@ -523,6 +533,7 @@
 				D154618C1D07294900127DB3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D154618D1D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaTests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +542,7 @@
 				D154618F1D07294900127DB3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D15461901D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaUITests" */ = {
 			isa = XCConfigurationList;
@@ -539,6 +551,7 @@
 				D15461921D07294900127DB3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

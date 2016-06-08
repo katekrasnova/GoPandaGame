@@ -11,19 +11,11 @@
 @implementation GameScene
 
 -(void)didMoveToView:(SKView *)view {
-    /* Setup your scene here */
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
     
-    myLabel.text = @"Hello, World!";
-    myLabel.fontSize = 45;
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                   CGRectGetMidY(self.frame));
-    
-    [self addChild:myLabel];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /* Called when a touch begins */
+    /* Called when a touch begins
     
     for (UITouch *touch in touches) {
         CGPoint location = [touch locationInNode:self];
@@ -39,7 +31,7 @@
         [sprite runAction:[SKAction repeatActionForever:action]];
         
         [self addChild:sprite];
-    }
+    } */
 }
 
 -(void)update:(CFTimeInterval)currentTime {
