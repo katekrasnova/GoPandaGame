@@ -7,35 +7,28 @@
 //
 
 #import "GameScene.h"
+#import "GameWin.h"
+#import "GameLose.h"
 
 @implementation GameScene
 
 -(void)didMoveToView:(SKView *)view {
     
+    SKNode *background = [self childNodeWithName:@"background"];
+    SKPhysicsBody *borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:background.frame];
+    self.physicsBody = borderBody;
+    self.physicsBody.friction = 1.0f;
+    
+    //self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0.0, -845.0, 1024.0, 768.0)];
+    
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    /* Called when a touch begins
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
-    for (UITouch *touch in touches) {
-        CGPoint location = [touch locationInNode:self];
-        
-        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-        
-        sprite.xScale = 0.5;
-        sprite.yScale = 0.5;
-        sprite.position = location;
-        
-        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-        
-        [sprite runAction:[SKAction repeatActionForever:action]];
-        
-        [self addChild:sprite];
-    } */
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    /* Called before each frame is rendered */
+    [super update:currentTime]; //Calls the Visualiser
 }
 
 @end

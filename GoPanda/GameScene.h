@@ -7,7 +7,8 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "MotionHUD/MHMotionHUDScene.h"
 
-@interface GameScene : SKScene
+@interface GameScene : MHMotionHUDScene
 
 @end

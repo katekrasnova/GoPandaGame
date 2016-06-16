@@ -1,0 +1,10 @@
+PODS:
+  - MotionHUD (0.1.3)
+
+DEPENDENCIES:
+  - MotionHUD
+
+SPEC CHECKSUMS:
+  MotionHUD: 608c7dd5c0d69ce72bf032a46eb39320aaca7039
+
+COCOAPODS: 0.39.0
