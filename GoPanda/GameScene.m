@@ -14,12 +14,12 @@
 
 -(void)didMoveToView:(SKView *)view {
     
-    SKNode *background = [self childNodeWithName:@"background"];
-    SKPhysicsBody *borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:background.frame];
-    self.physicsBody = borderBody;
-    self.physicsBody.friction = 1.0f;
+//    SKNode *background = [self childNodeWithName:@"background"];
+//    SKPhysicsBody *borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:background.frame];
+//    self.physicsBody = borderBody;
+//    self.physicsBody.friction = 1.0f;
     
-    //self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0.0, -845.0, 1024.0, 768.0)];
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     
 }
 
