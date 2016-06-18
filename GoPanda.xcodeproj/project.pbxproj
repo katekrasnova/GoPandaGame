@@ -1,1578 +1,680 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<plist version="1.0">
-<dict>
-	<key>archiveVersion</key>
-	<string>1</string>
-	<key>classes</key>
-	<dict/>
-	<key>objectVersion</key>
-	<string>46</string>
-	<key>objects</key>
-	<dict>
-		<key>0C4A62C9A4FF6560C133AE0D</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Check Pods Manifest.lock</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>diff "${PODS_ROOT}/../Podfile.lock" "${PODS_ROOT}/Manifest.lock" &gt; /dev/null
-if [[ $? != 0 ]] ; then
-    cat &lt;&lt; EOM
-error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.
-EOM
-    exit 1
-fi
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>21679484A824287AEDD1E60F</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>archive.ar</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>libPods-GoPanda.a</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>319FDD38B5854E9CC4C88D87</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-GoPanda.release.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda.release.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4844836AC47221B8BEE1A5FD</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>E5ABCA5B741C4C5A308EB770</string>
-				<string>319FDD38B5854E9CC4C88D87</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Pods</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>4A22C56F8DD0739109240AC8</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Embed Pods Frameworks</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda-frameworks.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>5FB6F37878D169D80DB69A19</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>21679484A824287AEDD1E60F</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Frameworks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF8121D0D5B8800AE8128</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.sks</string>
-			<key>path</key>
-			<string>GameInfo.sks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF8131D0D5B8800AE8128</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D12FF8121D0D5B8800AE8128</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D12FF8141D0D5B9C00AE8128</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>GameInfo.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF8151D0D5B9C00AE8128</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GameInfo.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF8161D0D5B9C00AE8128</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D12FF8151D0D5B9C00AE8128</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D12FF8171D0D610900AE8128</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.sks</string>
-			<key>path</key>
-			<string>GameWin.sks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF8181D0D610900AE8128</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D12FF8171D0D610900AE8128</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D12FF8191D0D612300AE8128</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>GameWin.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF81A1D0D612300AE8128</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GameWin.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF81B1D0D612300AE8128</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D12FF81A1D0D612300AE8128</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D12FF81C1D0D613300AE8128</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.sks</string>
-			<key>path</key>
-			<string>GameLose.sks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF81D1D0D613300AE8128</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D12FF81C1D0D613300AE8128</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D12FF81E1D0D614900AE8128</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>GameLose.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF81F1D0D614900AE8128</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GameLose.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D12FF8201D0D614900AE8128</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D12FF81F1D0D614900AE8128</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D15286EF1D089A7400C948CB</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.sks</string>
-			<key>path</key>
-			<string>GameAchievement.sks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15286F01D089A7400C948CB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D15286EF1D089A7400C948CB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D15286F11D089A9500C948CB</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>GameAchievement.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15286F21D089A9500C948CB</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GameAchievement.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15286F31D089A9500C948CB</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D15286F21D089A9500C948CB</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D154614F1D07294800127DB3</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D154615A1D07294800127DB3</string>
-				<string>D15461791D07294900127DB3</string>
-				<string>D15461841D07294900127DB3</string>
-				<string>D15461591D07294800127DB3</string>
-				<string>4844836AC47221B8BEE1A5FD</string>
-				<string>5FB6F37878D169D80DB69A19</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461501D07294800127DB3</key>
-		<dict>
-			<key>attributes</key>
-			<dict>
-				<key>LastUpgradeCheck</key>
-				<string>0730</string>
-				<key>ORGANIZATIONNAME</key>
-				<string>Ekaterina Krasnova</string>
-				<key>TargetAttributes</key>
-				<dict>
-					<key>D15461571D07294800127DB3</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3.1</string>
-						<key>DevelopmentTeam</key>
-						<string>VFT96SPKF7</string>
-					</dict>
-					<key>D15461751D07294900127DB3</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3.1</string>
-						<key>DevelopmentTeam</key>
-						<string>VFT96SPKF7</string>
-						<key>TestTargetID</key>
-						<string>D15461571D07294800127DB3</string>
-					</dict>
-					<key>D15461801D07294900127DB3</key>
-					<dict>
-						<key>CreatedOnToolsVersion</key>
-						<string>7.3.1</string>
-						<key>DevelopmentTeam</key>
-						<string>VFT96SPKF7</string>
-						<key>TestTargetID</key>
-						<string>D15461571D07294800127DB3</string>
-					</dict>
-				</dict>
-			</dict>
-			<key>buildConfigurationList</key>
-			<string>D15461531D07294800127DB3</string>
-			<key>compatibilityVersion</key>
-			<string>Xcode 3.2</string>
-			<key>developmentRegion</key>
-			<string>English</string>
-			<key>hasScannedForEncodings</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXProject</string>
-			<key>knownRegions</key>
-			<array>
-				<string>en</string>
-				<string>Base</string>
-			</array>
-			<key>mainGroup</key>
-			<string>D154614F1D07294800127DB3</string>
-			<key>productRefGroup</key>
-			<string>D15461591D07294800127DB3</string>
-			<key>projectDirPath</key>
-			<string></string>
-			<key>projectReferences</key>
-			<array/>
-			<key>projectRoot</key>
-			<string></string>
-			<key>targets</key>
-			<array>
-				<string>D15461571D07294800127DB3</string>
-				<string>D15461751D07294900127DB3</string>
-				<string>D15461801D07294900127DB3</string>
-			</array>
-		</dict>
-		<key>D15461531D07294800127DB3</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>D15461881D07294900127DB3</string>
-				<string>D15461891D07294900127DB3</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>D15461541D07294800127DB3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>D156F34B1D07FE1E00C3282B</string>
-				<string>D15461971D072E7C00127DB3</string>
-				<string>D15461681D07294800127DB3</string>
-				<string>D12FF8161D0D5B9C00AE8128</string>
-				<string>D15461601D07294800127DB3</string>
-				<string>D15286F31D089A9500C948CB</string>
-				<string>D12FF8201D0D614900AE8128</string>
-				<string>D15461631D07294800127DB3</string>
-				<string>D154615D1D07294800127DB3</string>
-				<string>D12FF81B1D0D612300AE8128</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D15461551D07294800127DB3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>E0A7195331CE0CC3E053B56B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D15461561D07294800127DB3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>D15461651D07294800127DB3</string>
-				<string>D12FF8181D0D610900AE8128</string>
-				<string>D12FF8131D0D5B8800AE8128</string>
-				<string>D15461701D07294800127DB3</string>
-				<string>D15461941D072E4600127DB3</string>
-				<string>D15286F01D089A7400C948CB</string>
-				<string>D12FF81D1D0D613300AE8128</string>
-				<string>D154616D1D07294800127DB3</string>
-				<string>D154616B1D07294800127DB3</string>
-				<string>D156F3481D07FDEF00C3282B</string>
-			</array>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D15461571D07294800127DB3</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>D154618A1D07294900127DB3</string>
-			<key>buildPhases</key>
-			<array>
-				<string>0C4A62C9A4FF6560C133AE0D</string>
-				<string>D15461541D07294800127DB3</string>
-				<string>D15461551D07294800127DB3</string>
-				<string>D15461561D07294800127DB3</string>
-				<string>4A22C56F8DD0739109240AC8</string>
-				<string>E4BD291F931820FBE43689F5</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>GoPanda</string>
-			<key>productName</key>
-			<string>GoPanda</string>
-			<key>productReference</key>
-			<string>D15461581D07294800127DB3</string>
-			<key>productType</key>
-			<string>com.apple.product-type.application</string>
-		</dict>
-		<key>D15461581D07294800127DB3</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.application</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>GoPanda.app</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>D15461591D07294800127DB3</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D15461581D07294800127DB3</string>
-				<string>D15461761D07294900127DB3</string>
-				<string>D15461811D07294900127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Products</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154615A1D07294800127DB3</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D154615E1D07294800127DB3</string>
-				<string>D154615F1D07294800127DB3</string>
-				<string>D15461931D072E4600127DB3</string>
-				<string>D15461951D072E7C00127DB3</string>
-				<string>D15461961D072E7C00127DB3</string>
-				<string>D156F3471D07FDEF00C3282B</string>
-				<string>D156F3491D07FE1E00C3282B</string>
-				<string>D156F34A1D07FE1E00C3282B</string>
-				<string>D15286EF1D089A7400C948CB</string>
-				<string>D15286F11D089A9500C948CB</string>
-				<string>D15286F21D089A9500C948CB</string>
-				<string>D12FF8121D0D5B8800AE8128</string>
-				<string>D12FF8141D0D5B9C00AE8128</string>
-				<string>D12FF8151D0D5B9C00AE8128</string>
-				<string>D15461641D07294800127DB3</string>
-				<string>D15461611D07294800127DB3</string>
-				<string>D15461621D07294800127DB3</string>
-				<string>D12FF8171D0D610900AE8128</string>
-				<string>D12FF8191D0D612300AE8128</string>
-				<string>D12FF81A1D0D612300AE8128</string>
-				<string>D12FF81C1D0D613300AE8128</string>
-				<string>D12FF81E1D0D614900AE8128</string>
-				<string>D12FF81F1D0D614900AE8128</string>
-				<string>D15461661D07294800127DB3</string>
-				<string>D15461671D07294800127DB3</string>
-				<string>D15461691D07294800127DB3</string>
-				<string>D154616C1D07294800127DB3</string>
-				<string>D154616E1D07294800127DB3</string>
-				<string>D15461711D07294800127DB3</string>
-				<string>D154615B1D07294800127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>GoPanda</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154615B1D07294800127DB3</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D154615C1D07294800127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Supporting Files</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154615C1D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>main.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154615D1D07294800127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D154615C1D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D154615E1D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>AppDelegate.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154615F1D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>AppDelegate.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461601D07294800127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D154615F1D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D15461611D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>GameScene.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461621D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GameScene.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461631D07294800127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D15461621D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D15461641D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.sks</string>
-			<key>path</key>
-			<string>GameScene.sks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461651D07294800127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D15461641D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D15461661D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>GameViewController.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461671D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GameViewController.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461681D07294800127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D15461671D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D15461691D07294800127DB3</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D154616A1D07294800127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154616A1D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/Main.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154616B1D07294800127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D15461691D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D154616C1D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>folder.assetcatalog</string>
-			<key>path</key>
-			<string>Assets.xcassets</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154616D1D07294800127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D154616C1D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D154616E1D07294800127DB3</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D154616F1D07294800127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXVariantGroup</string>
-			<key>name</key>
-			<string>LaunchScreen.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154616F1D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.storyboard</string>
-			<key>name</key>
-			<string>Base</string>
-			<key>path</key>
-			<string>Base.lproj/LaunchScreen.storyboard</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461701D07294800127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D154616E1D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D15461711D07294800127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461721D07294900127DB3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>D154617B1D07294900127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D15461731D07294900127DB3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D15461741D07294900127DB3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D15461751D07294900127DB3</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>D154618D1D07294900127DB3</string>
-			<key>buildPhases</key>
-			<array>
-				<string>D15461721D07294900127DB3</string>
-				<string>D15461731D07294900127DB3</string>
-				<string>D15461741D07294900127DB3</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>D15461781D07294900127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>GoPandaTests</string>
-			<key>productName</key>
-			<string>GoPandaTests</string>
-			<key>productReference</key>
-			<string>D15461761D07294900127DB3</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.unit-test</string>
-		</dict>
-		<key>D15461761D07294900127DB3</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>GoPandaTests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>D15461771D07294900127DB3</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>D15461501D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>D15461571D07294800127DB3</string>
-			<key>remoteInfo</key>
-			<string>GoPanda</string>
-		</dict>
-		<key>D15461781D07294900127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>D15461571D07294800127DB3</string>
-			<key>targetProxy</key>
-			<string>D15461771D07294900127DB3</string>
-		</dict>
-		<key>D15461791D07294900127DB3</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D154617A1D07294900127DB3</string>
-				<string>D154617C1D07294900127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>GoPandaTests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154617A1D07294900127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GoPandaTests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154617B1D07294900127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D154617A1D07294900127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D154617C1D07294900127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D154617D1D07294900127DB3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array>
-				<string>D15461861D07294900127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXSourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D154617E1D07294900127DB3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXFrameworksBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D154617F1D07294900127DB3</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXResourcesBuildPhase</string>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-		</dict>
-		<key>D15461801D07294900127DB3</key>
-		<dict>
-			<key>buildConfigurationList</key>
-			<string>D15461901D07294900127DB3</string>
-			<key>buildPhases</key>
-			<array>
-				<string>D154617D1D07294900127DB3</string>
-				<string>D154617E1D07294900127DB3</string>
-				<string>D154617F1D07294900127DB3</string>
-			</array>
-			<key>buildRules</key>
-			<array/>
-			<key>dependencies</key>
-			<array>
-				<string>D15461831D07294900127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXNativeTarget</string>
-			<key>name</key>
-			<string>GoPandaUITests</string>
-			<key>productName</key>
-			<string>GoPandaUITests</string>
-			<key>productReference</key>
-			<string>D15461811D07294900127DB3</string>
-			<key>productType</key>
-			<string>com.apple.product-type.bundle.ui-testing</string>
-		</dict>
-		<key>D15461811D07294900127DB3</key>
-		<dict>
-			<key>explicitFileType</key>
-			<string>wrapper.cfbundle</string>
-			<key>includeInIndex</key>
-			<string>0</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>path</key>
-			<string>GoPandaUITests.xctest</string>
-			<key>sourceTree</key>
-			<string>BUILT_PRODUCTS_DIR</string>
-		</dict>
-		<key>D15461821D07294900127DB3</key>
-		<dict>
-			<key>containerPortal</key>
-			<string>D15461501D07294800127DB3</string>
-			<key>isa</key>
-			<string>PBXContainerItemProxy</string>
-			<key>proxyType</key>
-			<string>1</string>
-			<key>remoteGlobalIDString</key>
-			<string>D15461571D07294800127DB3</string>
-			<key>remoteInfo</key>
-			<string>GoPanda</string>
-		</dict>
-		<key>D15461831D07294900127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXTargetDependency</string>
-			<key>target</key>
-			<string>D15461571D07294800127DB3</string>
-			<key>targetProxy</key>
-			<string>D15461821D07294900127DB3</string>
-		</dict>
-		<key>D15461841D07294900127DB3</key>
-		<dict>
-			<key>children</key>
-			<array>
-				<string>D15461851D07294900127DB3</string>
-				<string>D15461871D07294900127DB3</string>
-			</array>
-			<key>isa</key>
-			<string>PBXGroup</string>
-			<key>path</key>
-			<string>GoPandaUITests</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461851D07294900127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GoPandaUITests.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461861D07294900127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D15461851D07294900127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D15461871D07294900127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.plist.xml</string>
-			<key>path</key>
-			<string>Info.plist</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461881D07294900127DB3</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_ANALYZER_NONNULL</key>
-				<string>YES</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>ENABLE_TESTABILITY</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_DYNAMIC_NO_PIC</key>
-				<string>NO</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_OPTIMIZATION_LEVEL</key>
-				<string>0</string>
-				<key>GCC_PREPROCESSOR_DEFINITIONS</key>
-				<array>
-					<string>DEBUG=1</string>
-					<string>$(inherited)</string>
-				</array>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.3</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>YES</string>
-				<key>ONLY_ACTIVE_ARCH</key>
-				<string>YES</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>D15461891D07294900127DB3</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>ALWAYS_SEARCH_USER_PATHS</key>
-				<string>NO</string>
-				<key>CLANG_ANALYZER_NONNULL</key>
-				<string>YES</string>
-				<key>CLANG_CXX_LANGUAGE_STANDARD</key>
-				<string>gnu++0x</string>
-				<key>CLANG_CXX_LIBRARY</key>
-				<string>libc++</string>
-				<key>CLANG_ENABLE_MODULES</key>
-				<string>YES</string>
-				<key>CLANG_ENABLE_OBJC_ARC</key>
-				<string>YES</string>
-				<key>CLANG_WARN_BOOL_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_CONSTANT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_DIRECT_OBJC_ISA_USAGE</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_EMPTY_BODY</key>
-				<string>YES</string>
-				<key>CLANG_WARN_ENUM_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_INT_CONVERSION</key>
-				<string>YES</string>
-				<key>CLANG_WARN_OBJC_ROOT_CLASS</key>
-				<string>YES_ERROR</string>
-				<key>CLANG_WARN_UNREACHABLE_CODE</key>
-				<string>YES</string>
-				<key>CLANG_WARN__DUPLICATE_METHOD_MATCH</key>
-				<string>YES</string>
-				<key>CODE_SIGN_IDENTITY[sdk=iphoneos*]</key>
-				<string>iPhone Developer</string>
-				<key>COPY_PHASE_STRIP</key>
-				<string>NO</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf-with-dsym</string>
-				<key>ENABLE_NS_ASSERTIONS</key>
-				<string>NO</string>
-				<key>ENABLE_STRICT_OBJC_MSGSEND</key>
-				<string>YES</string>
-				<key>GCC_C_LANGUAGE_STANDARD</key>
-				<string>gnu99</string>
-				<key>GCC_NO_COMMON_BLOCKS</key>
-				<string>YES</string>
-				<key>GCC_WARN_64_TO_32_BIT_CONVERSION</key>
-				<string>YES</string>
-				<key>GCC_WARN_ABOUT_RETURN_TYPE</key>
-				<string>YES_ERROR</string>
-				<key>GCC_WARN_UNDECLARED_SELECTOR</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNINITIALIZED_AUTOS</key>
-				<string>YES_AGGRESSIVE</string>
-				<key>GCC_WARN_UNUSED_FUNCTION</key>
-				<string>YES</string>
-				<key>GCC_WARN_UNUSED_VARIABLE</key>
-				<string>YES</string>
-				<key>IPHONEOS_DEPLOYMENT_TARGET</key>
-				<string>9.3</string>
-				<key>MTL_ENABLE_DEBUG_INFO</key>
-				<string>NO</string>
-				<key>SDKROOT</key>
-				<string>iphoneos</string>
-				<key>TARGETED_DEVICE_FAMILY</key>
-				<string>1,2</string>
-				<key>VALIDATE_PRODUCT</key>
-				<string>YES</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>D154618A1D07294900127DB3</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>D154618B1D07294900127DB3</string>
-				<string>D154618C1D07294900127DB3</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>D154618B1D07294900127DB3</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>E5ABCA5B741C4C5A308EB770</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>INFOPLIST_FILE</key>
-				<string>GoPanda/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>novaK.GoPanda</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>D154618C1D07294900127DB3</key>
-		<dict>
-			<key>baseConfigurationReference</key>
-			<string>319FDD38B5854E9CC4C88D87</string>
-			<key>buildSettings</key>
-			<dict>
-				<key>ASSETCATALOG_COMPILER_APPICON_NAME</key>
-				<string>AppIcon</string>
-				<key>INFOPLIST_FILE</key>
-				<string>GoPanda/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>novaK.GoPanda</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>D154618D1D07294900127DB3</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>D154618E1D07294900127DB3</string>
-				<string>D154618F1D07294900127DB3</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>D154618E1D07294900127DB3</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>INFOPLIST_FILE</key>
-				<string>GoPandaTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>novaK.GoPandaTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/GoPanda.app/GoPanda</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>D154618F1D07294900127DB3</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>BUNDLE_LOADER</key>
-				<string>$(TEST_HOST)</string>
-				<key>INFOPLIST_FILE</key>
-				<string>GoPandaTests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>novaK.GoPandaTests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_HOST</key>
-				<string>$(BUILT_PRODUCTS_DIR)/GoPanda.app/GoPanda</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>D15461901D07294900127DB3</key>
-		<dict>
-			<key>buildConfigurations</key>
-			<array>
-				<string>D15461911D07294900127DB3</string>
-				<string>D15461921D07294900127DB3</string>
-			</array>
-			<key>defaultConfigurationIsVisible</key>
-			<string>0</string>
-			<key>defaultConfigurationName</key>
-			<string>Release</string>
-			<key>isa</key>
-			<string>XCConfigurationList</string>
-		</dict>
-		<key>D15461911D07294900127DB3</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>DEBUG_INFORMATION_FORMAT</key>
-				<string>dwarf</string>
-				<key>INFOPLIST_FILE</key>
-				<string>GoPandaUITests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>novaK.GoPandaUITests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>GoPanda</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Debug</string>
-		</dict>
-		<key>D15461921D07294900127DB3</key>
-		<dict>
-			<key>buildSettings</key>
-			<dict>
-				<key>INFOPLIST_FILE</key>
-				<string>GoPandaUITests/Info.plist</string>
-				<key>LD_RUNPATH_SEARCH_PATHS</key>
-				<string>$(inherited) @executable_path/Frameworks @loader_path/Frameworks</string>
-				<key>PRODUCT_BUNDLE_IDENTIFIER</key>
-				<string>novaK.GoPandaUITests</string>
-				<key>PRODUCT_NAME</key>
-				<string>$(TARGET_NAME)</string>
-				<key>TEST_TARGET_NAME</key>
-				<string>GoPanda</string>
-			</dict>
-			<key>isa</key>
-			<string>XCBuildConfiguration</string>
-			<key>name</key>
-			<string>Release</string>
-		</dict>
-		<key>D15461931D072E4600127DB3</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.sks</string>
-			<key>path</key>
-			<string>GameStart.sks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461941D072E4600127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D15461931D072E4600127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D15461951D072E7C00127DB3</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>GameStart.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461961D072E7C00127DB3</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GameStart.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D15461971D072E7C00127DB3</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D15461961D072E7C00127DB3</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D156F3471D07FDEF00C3282B</key>
-		<dict>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>file.sks</string>
-			<key>path</key>
-			<string>GameSettings.sks</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D156F3481D07FDEF00C3282B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D156F3471D07FDEF00C3282B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>D156F3491D07FE1E00C3282B</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>path</key>
-			<string>GameSettings.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D156F34A1D07FE1E00C3282B</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>path</key>
-			<string>GameSettings.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>D156F34B1D07FE1E00C3282B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>D156F34A1D07FE1E00C3282B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E0A7195331CE0CC3E053B56B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>21679484A824287AEDD1E60F</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>E4BD291F931820FBE43689F5</key>
-		<dict>
-			<key>buildActionMask</key>
-			<string>2147483647</string>
-			<key>files</key>
-			<array/>
-			<key>inputPaths</key>
-			<array/>
-			<key>isa</key>
-			<string>PBXShellScriptBuildPhase</string>
-			<key>name</key>
-			<string>Copy Pods Resources</string>
-			<key>outputPaths</key>
-			<array/>
-			<key>runOnlyForDeploymentPostprocessing</key>
-			<string>0</string>
-			<key>shellPath</key>
-			<string>/bin/sh</string>
-			<key>shellScript</key>
-			<string>"${SRCROOT}/Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda-resources.sh"
-</string>
-			<key>showEnvVarsInLog</key>
-			<string>0</string>
-		</dict>
-		<key>E5ABCA5B741C4C5A308EB770</key>
-		<dict>
-			<key>includeInIndex</key>
-			<string>1</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>text.xcconfig</string>
-			<key>name</key>
-			<string>Pods-GoPanda.debug.xcconfig</string>
-			<key>path</key>
-			<string>Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda.debug.xcconfig</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-	</dict>
-	<key>rootObject</key>
-	<string>D15461501D07294800127DB3</string>
-</dict>
-</plist>
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D12FF8131D0D5B8800AE8128 /* GameInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF8121D0D5B8800AE8128 /* GameInfo.sks */; };
+		D12FF8161D0D5B9C00AE8128 /* GameInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF8151D0D5B9C00AE8128 /* GameInfo.m */; };
+		D12FF8181D0D610900AE8128 /* GameWin.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF8171D0D610900AE8128 /* GameWin.sks */; };
+		D12FF81B1D0D612300AE8128 /* GameWin.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF81A1D0D612300AE8128 /* GameWin.m */; };
+		D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF81C1D0D613300AE8128 /* GameLose.sks */; };
+		D12FF8201D0D614900AE8128 /* GameLose.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF81F1D0D614900AE8128 /* GameLose.m */; };
+		D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15286EF1D089A7400C948CB /* GameAchievement.sks */; };
+		D15286F31D089A9500C948CB /* GameAchievement.m in Sources */ = {isa = PBXBuildFile; fileRef = D15286F21D089A9500C948CB /* GameAchievement.m */; };
+		D154615D1D07294800127DB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615C1D07294800127DB3 /* main.m */; };
+		D15461601D07294800127DB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615F1D07294800127DB3 /* AppDelegate.m */; };
+		D15461631D07294800127DB3 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461621D07294800127DB3 /* GameScene.m */; };
+		D15461651D07294800127DB3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15461641D07294800127DB3 /* GameScene.sks */; };
+		D15461681D07294800127DB3 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461671D07294800127DB3 /* GameViewController.m */; };
+		D154616B1D07294800127DB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D15461691D07294800127DB3 /* Main.storyboard */; };
+		D154616D1D07294800127DB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D154616C1D07294800127DB3 /* Assets.xcassets */; };
+		D15461701D07294800127DB3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D154616E1D07294800127DB3 /* LaunchScreen.storyboard */; };
+		D154617B1D07294900127DB3 /* GoPandaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D154617A1D07294900127DB3 /* GoPandaTests.m */; };
+		D15461861D07294900127DB3 /* GoPandaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461851D07294900127DB3 /* GoPandaUITests.m */; };
+		D15461941D072E4600127DB3 /* GameStart.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15461931D072E4600127DB3 /* GameStart.sks */; };
+		D15461971D072E7C00127DB3 /* GameStart.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461961D072E7C00127DB3 /* GameStart.m */; };
+		D156F3481D07FDEF00C3282B /* GameSettings.sks in Resources */ = {isa = PBXBuildFile; fileRef = D156F3471D07FDEF00C3282B /* GameSettings.sks */; };
+		D156F34B1D07FE1E00C3282B /* GameSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D156F34A1D07FE1E00C3282B /* GameSettings.m */; };
+		D1EBD1371D149D4E00C82F48 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */; };
+		E0A7195331CE0CC3E053B56B /* libPods-GoPanda.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21679484A824287AEDD1E60F /* libPods-GoPanda.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D15461771D07294900127DB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D15461501D07294800127DB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D15461571D07294800127DB3;
+			remoteInfo = GoPanda;
+		};
+		D15461821D07294900127DB3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D15461501D07294800127DB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D15461571D07294800127DB3;
+			remoteInfo = GoPanda;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		21679484A824287AEDD1E60F /* libPods-GoPanda.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoPanda.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		319FDD38B5854E9CC4C88D87 /* Pods-GoPanda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoPanda.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda.release.xcconfig"; sourceTree = "<group>"; };
+		D12FF8121D0D5B8800AE8128 /* GameInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameInfo.sks; sourceTree = "<group>"; };
+		D12FF8141D0D5B9C00AE8128 /* GameInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameInfo.h; sourceTree = "<group>"; };
+		D12FF8151D0D5B9C00AE8128 /* GameInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameInfo.m; sourceTree = "<group>"; };
+		D12FF8171D0D610900AE8128 /* GameWin.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameWin.sks; sourceTree = "<group>"; };
+		D12FF8191D0D612300AE8128 /* GameWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameWin.h; sourceTree = "<group>"; };
+		D12FF81A1D0D612300AE8128 /* GameWin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameWin.m; sourceTree = "<group>"; };
+		D12FF81C1D0D613300AE8128 /* GameLose.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameLose.sks; sourceTree = "<group>"; };
+		D12FF81E1D0D614900AE8128 /* GameLose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLose.h; sourceTree = "<group>"; };
+		D12FF81F1D0D614900AE8128 /* GameLose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLose.m; sourceTree = "<group>"; };
+		D15286EF1D089A7400C948CB /* GameAchievement.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameAchievement.sks; sourceTree = "<group>"; };
+		D15286F11D089A9500C948CB /* GameAchievement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAchievement.h; sourceTree = "<group>"; };
+		D15286F21D089A9500C948CB /* GameAchievement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAchievement.m; sourceTree = "<group>"; };
+		D15461581D07294800127DB3 /* GoPanda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoPanda.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D154615C1D07294800127DB3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D154615E1D07294800127DB3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		D154615F1D07294800127DB3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		D15461611D07294800127DB3 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		D15461621D07294800127DB3 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		D15461641D07294800127DB3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		D15461661D07294800127DB3 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		D15461671D07294800127DB3 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		D154616A1D07294800127DB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D154616C1D07294800127DB3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D154616F1D07294800127DB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D15461711D07294800127DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D15461761D07294900127DB3 /* GoPandaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoPandaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D154617A1D07294900127DB3 /* GoPandaTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPandaTests.m; sourceTree = "<group>"; };
+		D154617C1D07294900127DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D15461811D07294900127DB3 /* GoPandaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoPandaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D15461851D07294900127DB3 /* GoPandaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPandaUITests.m; sourceTree = "<group>"; };
+		D15461871D07294900127DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D15461931D072E4600127DB3 /* GameStart.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameStart.sks; sourceTree = "<group>"; };
+		D15461951D072E7C00127DB3 /* GameStart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStart.h; sourceTree = "<group>"; };
+		D15461961D072E7C00127DB3 /* GameStart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStart.m; sourceTree = "<group>"; };
+		D156F3471D07FDEF00C3282B /* GameSettings.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSettings.sks; sourceTree = "<group>"; };
+		D156F3491D07FE1E00C3282B /* GameSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSettings.h; sourceTree = "<group>"; };
+		D156F34A1D07FE1E00C3282B /* GameSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSettings.m; sourceTree = "<group>"; };
+		D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		E5ABCA5B741C4C5A308EB770 /* Pods-GoPanda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoPanda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D15461551D07294800127DB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D1EBD1371D149D4E00C82F48 /* CoreMotion.framework in Frameworks */,
+				E0A7195331CE0CC3E053B56B /* libPods-GoPanda.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D15461731D07294900127DB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D154617E1D07294900127DB3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4844836AC47221B8BEE1A5FD /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E5ABCA5B741C4C5A308EB770 /* Pods-GoPanda.debug.xcconfig */,
+				319FDD38B5854E9CC4C88D87 /* Pods-GoPanda.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		5FB6F37878D169D80DB69A19 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */,
+				21679484A824287AEDD1E60F /* libPods-GoPanda.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D154614F1D07294800127DB3 = {
+			isa = PBXGroup;
+			children = (
+				D154615A1D07294800127DB3 /* GoPanda */,
+				D15461791D07294900127DB3 /* GoPandaTests */,
+				D15461841D07294900127DB3 /* GoPandaUITests */,
+				D15461591D07294800127DB3 /* Products */,
+				4844836AC47221B8BEE1A5FD /* Pods */,
+				5FB6F37878D169D80DB69A19 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D15461591D07294800127DB3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D15461581D07294800127DB3 /* GoPanda.app */,
+				D15461761D07294900127DB3 /* GoPandaTests.xctest */,
+				D15461811D07294900127DB3 /* GoPandaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D154615A1D07294800127DB3 /* GoPanda */ = {
+			isa = PBXGroup;
+			children = (
+				D154615E1D07294800127DB3 /* AppDelegate.h */,
+				D154615F1D07294800127DB3 /* AppDelegate.m */,
+				D15461931D072E4600127DB3 /* GameStart.sks */,
+				D15461951D072E7C00127DB3 /* GameStart.h */,
+				D15461961D072E7C00127DB3 /* GameStart.m */,
+				D156F3471D07FDEF00C3282B /* GameSettings.sks */,
+				D156F3491D07FE1E00C3282B /* GameSettings.h */,
+				D156F34A1D07FE1E00C3282B /* GameSettings.m */,
+				D15286EF1D089A7400C948CB /* GameAchievement.sks */,
+				D15286F11D089A9500C948CB /* GameAchievement.h */,
+				D15286F21D089A9500C948CB /* GameAchievement.m */,
+				D12FF8121D0D5B8800AE8128 /* GameInfo.sks */,
+				D12FF8141D0D5B9C00AE8128 /* GameInfo.h */,
+				D12FF8151D0D5B9C00AE8128 /* GameInfo.m */,
+				D15461641D07294800127DB3 /* GameScene.sks */,
+				D15461611D07294800127DB3 /* GameScene.h */,
+				D15461621D07294800127DB3 /* GameScene.m */,
+				D12FF8171D0D610900AE8128 /* GameWin.sks */,
+				D12FF8191D0D612300AE8128 /* GameWin.h */,
+				D12FF81A1D0D612300AE8128 /* GameWin.m */,
+				D12FF81C1D0D613300AE8128 /* GameLose.sks */,
+				D12FF81E1D0D614900AE8128 /* GameLose.h */,
+				D12FF81F1D0D614900AE8128 /* GameLose.m */,
+				D15461661D07294800127DB3 /* GameViewController.h */,
+				D15461671D07294800127DB3 /* GameViewController.m */,
+				D15461691D07294800127DB3 /* Main.storyboard */,
+				D154616C1D07294800127DB3 /* Assets.xcassets */,
+				D154616E1D07294800127DB3 /* LaunchScreen.storyboard */,
+				D15461711D07294800127DB3 /* Info.plist */,
+				D154615B1D07294800127DB3 /* Supporting Files */,
+			);
+			path = GoPanda;
+			sourceTree = "<group>";
+		};
+		D154615B1D07294800127DB3 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D154615C1D07294800127DB3 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D15461791D07294900127DB3 /* GoPandaTests */ = {
+			isa = PBXGroup;
+			children = (
+				D154617A1D07294900127DB3 /* GoPandaTests.m */,
+				D154617C1D07294900127DB3 /* Info.plist */,
+			);
+			path = GoPandaTests;
+			sourceTree = "<group>";
+		};
+		D15461841D07294900127DB3 /* GoPandaUITests */ = {
+			isa = PBXGroup;
+			children = (
+				D15461851D07294900127DB3 /* GoPandaUITests.m */,
+				D15461871D07294900127DB3 /* Info.plist */,
+			);
+			path = GoPandaUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D15461571D07294800127DB3 /* GoPanda */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D154618A1D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPanda" */;
+			buildPhases = (
+				0C4A62C9A4FF6560C133AE0D /* Check Pods Manifest.lock */,
+				D15461541D07294800127DB3 /* Sources */,
+				D15461551D07294800127DB3 /* Frameworks */,
+				D15461561D07294800127DB3 /* Resources */,
+				4A22C56F8DD0739109240AC8 /* Embed Pods Frameworks */,
+				E4BD291F931820FBE43689F5 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GoPanda;
+			productName = GoPanda;
+			productReference = D15461581D07294800127DB3 /* GoPanda.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D15461751D07294900127DB3 /* GoPandaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D154618D1D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaTests" */;
+			buildPhases = (
+				D15461721D07294900127DB3 /* Sources */,
+				D15461731D07294900127DB3 /* Frameworks */,
+				D15461741D07294900127DB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D15461781D07294900127DB3 /* PBXTargetDependency */,
+			);
+			name = GoPandaTests;
+			productName = GoPandaTests;
+			productReference = D15461761D07294900127DB3 /* GoPandaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D15461801D07294900127DB3 /* GoPandaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D15461901D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaUITests" */;
+			buildPhases = (
+				D154617D1D07294900127DB3 /* Sources */,
+				D154617E1D07294900127DB3 /* Frameworks */,
+				D154617F1D07294900127DB3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D15461831D07294900127DB3 /* PBXTargetDependency */,
+			);
+			name = GoPandaUITests;
+			productName = GoPandaUITests;
+			productReference = D15461811D07294900127DB3 /* GoPandaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D15461501D07294800127DB3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Ekaterina Krasnova";
+				TargetAttributes = {
+					D15461571D07294800127DB3 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = VFT96SPKF7;
+					};
+					D15461751D07294900127DB3 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = VFT96SPKF7;
+						TestTargetID = D15461571D07294800127DB3;
+					};
+					D15461801D07294900127DB3 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = VFT96SPKF7;
+						TestTargetID = D15461571D07294800127DB3;
+					};
+				};
+			};
+			buildConfigurationList = D15461531D07294800127DB3 /* Build configuration list for PBXProject "GoPanda" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D154614F1D07294800127DB3;
+			productRefGroup = D15461591D07294800127DB3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D15461571D07294800127DB3 /* GoPanda */,
+				D15461751D07294900127DB3 /* GoPandaTests */,
+				D15461801D07294900127DB3 /* GoPandaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D15461561D07294800127DB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D15461651D07294800127DB3 /* GameScene.sks in Resources */,
+				D12FF8181D0D610900AE8128 /* GameWin.sks in Resources */,
+				D12FF8131D0D5B8800AE8128 /* GameInfo.sks in Resources */,
+				D15461701D07294800127DB3 /* LaunchScreen.storyboard in Resources */,
+				D15461941D072E4600127DB3 /* GameStart.sks in Resources */,
+				D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */,
+				D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */,
+				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
+				D154616B1D07294800127DB3 /* Main.storyboard in Resources */,
+				D156F3481D07FDEF00C3282B /* GameSettings.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D15461741D07294900127DB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D154617F1D07294900127DB3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0C4A62C9A4FF6560C133AE0D /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4A22C56F8DD0739109240AC8 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E4BD291F931820FBE43689F5 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D15461541D07294800127DB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D156F34B1D07FE1E00C3282B /* GameSettings.m in Sources */,
+				D15461971D072E7C00127DB3 /* GameStart.m in Sources */,
+				D15461681D07294800127DB3 /* GameViewController.m in Sources */,
+				D12FF8161D0D5B9C00AE8128 /* GameInfo.m in Sources */,
+				D15461601D07294800127DB3 /* AppDelegate.m in Sources */,
+				D15286F31D089A9500C948CB /* GameAchievement.m in Sources */,
+				D12FF8201D0D614900AE8128 /* GameLose.m in Sources */,
+				D15461631D07294800127DB3 /* GameScene.m in Sources */,
+				D154615D1D07294800127DB3 /* main.m in Sources */,
+				D12FF81B1D0D612300AE8128 /* GameWin.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D15461721D07294900127DB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D154617B1D07294900127DB3 /* GoPandaTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D154617D1D07294900127DB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D15461861D07294900127DB3 /* GoPandaUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D15461781D07294900127DB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D15461571D07294800127DB3 /* GoPanda */;
+			targetProxy = D15461771D07294900127DB3 /* PBXContainerItemProxy */;
+		};
+		D15461831D07294900127DB3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D15461571D07294800127DB3 /* GoPanda */;
+			targetProxy = D15461821D07294900127DB3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D15461691D07294800127DB3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D154616A1D07294800127DB3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D154616E1D07294800127DB3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D154616F1D07294800127DB3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D15461881D07294900127DB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D15461891D07294900127DB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D154618B1D07294900127DB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5ABCA5B741C4C5A308EB770 /* Pods-GoPanda.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GoPanda/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPanda;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D154618C1D07294900127DB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 319FDD38B5854E9CC4C88D87 /* Pods-GoPanda.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GoPanda/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPanda;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D154618E1D07294900127DB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = GoPandaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPandaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoPanda.app/GoPanda";
+			};
+			name = Debug;
+		};
+		D154618F1D07294900127DB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = GoPandaTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPandaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GoPanda.app/GoPanda";
+			};
+			name = Release;
+		};
+		D15461911D07294900127DB3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				INFOPLIST_FILE = GoPandaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPandaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GoPanda;
+			};
+			name = Debug;
+		};
+		D15461921D07294900127DB3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = GoPandaUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPandaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = GoPanda;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D15461531D07294800127DB3 /* Build configuration list for PBXProject "GoPanda" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D15461881D07294900127DB3 /* Debug */,
+				D15461891D07294900127DB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D154618A1D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPanda" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D154618B1D07294900127DB3 /* Debug */,
+				D154618C1D07294900127DB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D154618D1D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D154618E1D07294900127DB3 /* Debug */,
+				D154618F1D07294900127DB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D15461901D07294900127DB3 /* Build configuration list for PBXNativeTarget "GoPandaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D15461911D07294900127DB3 /* Debug */,
+				D15461921D07294900127DB3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D15461501D07294800127DB3 /* Project object */;
+}

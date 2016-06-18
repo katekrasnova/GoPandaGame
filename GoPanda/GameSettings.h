@@ -10,4 +10,6 @@
 
 @interface GameSettings : SKScene
 
+@property (nonatomic) BOOL isAccelerometerON;
+
 @end

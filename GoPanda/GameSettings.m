@@ -12,6 +12,7 @@
 @implementation GameSettings
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKNode *node = [self nodeAtPoint:touchLocation];
     
@@ -21,6 +22,10 @@
         GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
+    }
+    
+    if ([node.name isEqualToString:@"checkbutton"]) {
+        //[node.name.imag]
     }
 }
 
