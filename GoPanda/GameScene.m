@@ -15,21 +15,6 @@
 
 -(void)didMoveToView:(SKView *)view {
     
-    // Set off accelerometer
-    GameSettings *settings = [[GameSettings alloc]init];
-    settings.isAccelerometerON = YES;
-    
-    // Set motion manager for accelerometer
-    if (settings.isAccelerometerON == YES) {
-        self.motionManager = [[CMMotionManager alloc]init];
-        if (self.motionManager.accelerometerAvailable) {
-            [self.motionManager startAccelerometerUpdates];
-        }
-    }
-    else {
-        [self.motionManager stopAccelerometerUpdates];
-    }
-    
     // Set boundaries
     SKNode *background = [self childNodeWithName:@"background"];
     SKPhysicsBody *borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:background.frame];
@@ -74,20 +59,18 @@
     id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(background.frame.size.width - camera.position.x)]];
     id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(background.frame.size.height - 150 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
-
-
+    
 }
-
-
 
 int leftTouches;
 int rightTouches;
 const int kMoveSpeed = 200;
+static const NSTimeInterval kHugeTime = 9999.0;
+
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     
-    static const NSTimeInterval kHugeTime = 9999.0;
     SKNode *panda = [self childNodeWithName:@"Panda"];
     [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
     
@@ -167,8 +150,55 @@ const int kMoveSpeed = 200;
     [self reduceTouches:touches withEvent:event];
 }
 
+- (void)willMoveFromView:(SKView *)view {
+    [super willMoveFromView:view];
+    [self.motionManager stopDeviceMotionUpdates];
+    self.motionManager = nil;
+}
+
 -(void)update:(CFTimeInterval)currentTime {
     [super update:currentTime]; //Calls the Visualiser
+    
+    [self accelerometerUpdate];
+}
+
+- (void)accelerometerUpdate {
+    SKNode *panda = [self childNodeWithName:@"Panda"];
+    
+    /* Set up the motion manager if necessary */
+    if (!self.motionManager) {
+        self.motionManager = [CMMotionManager new];
+        self.motionManager.deviceMotionUpdateInterval = 0.1;
+        [self.motionManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
+    }
+    
+    CMDeviceMotion *motion = self.motionManager.deviceMotion;
+    if (motion) {
+        CMAttitude *attitude = motion.attitude;
+        NSLog(@"%f", attitude.pitch);
+        if ((attitude.pitch > -0.2) && (attitude.pitch < 0.0)) {
+            panda.xScale = 1.0*ABS(panda.xScale);
+            SKAction *rightAccelMove = [SKAction moveBy:CGVectorMake(1.0*kMoveSpeed*kHugeTime, 0) duration:kHugeTime];
+            [panda removeActionForKey:@"StayAccelAnimation"];
+            [panda runAction:rightAccelMove withKey:@"MoveAccelAction"];
+            [panda runAction:self.runAnimation withKey:@"MoveAccelAnimation"];
+        }
+        else if ((attitude.pitch < 0.2) && (attitude.pitch > 0.0)) {
+            panda.xScale = -1.0*ABS(panda.xScale);
+            SKAction *leftAccelMove = [SKAction moveBy:CGVectorMake(-1.0*kMoveSpeed*kHugeTime, 0) duration:kHugeTime];
+            [panda removeActionForKey:@"StayAccelAnimation"];
+            [panda runAction:leftAccelMove withKey:@"MoveAccelAction"];
+            [panda runAction:self.runAnimation withKey:@"MoveAccelAnimation"];
+        }
+        else if ((attitude.pitch < 0.005) && (attitude.pitch > -0.005)) {
+            [panda removeActionForKey:@"MoveAccelAnimation"];
+            [panda removeActionForKey:@"MoveAccelAction"];
+            [panda runAction:self.idleAnimation withKey:@"StayAccelAnimation"];
+        }
+    }
+    else {
+        [panda runAction:self.idleAnimation withKey:@"StayAccelAnimation"];
+    }
 }
 
 @end
