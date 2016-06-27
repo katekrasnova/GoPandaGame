@@ -60,8 +60,13 @@
     id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(background.frame.size.height - 150 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
     
+    //Accelerometer
+    self.isAccelerometerOn = NO;
+    
+    
 }
 
+int k;
 int leftTouches;
 int rightTouches;
 const int kMoveSpeed = 200;
@@ -107,6 +112,25 @@ static const NSTimeInterval kHugeTime = 9999.0;
         [panda removeActionForKey:@"StayAnimation"];
         [panda runAction:jumpMove withKey:@"JumpAction"];
         [panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
+    }
+    
+    CGPoint touchLocation = [[touches anyObject] locationInNode:self];
+    SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
+    
+    if ([node.name isEqualToString:@"accel"]) {
+        
+        if (self.isAccelerometerOn == YES) {
+            node.texture = [SKTexture textureWithImageNamed:@"acceloff"];
+            self.isAccelerometerOn = NO;
+            k = 0;
+        }
+        else {
+            if (k == 0) {
+                node.texture = [SKTexture textureWithImageNamed:@"accelon"];
+                self.isAccelerometerOn = YES;
+                k = 1;
+            }
+        }
     }
 }
 
@@ -159,7 +183,9 @@ static const NSTimeInterval kHugeTime = 9999.0;
 -(void)update:(CFTimeInterval)currentTime {
     [super update:currentTime]; //Calls the Visualiser
     
-    [self accelerometerUpdate];
+    if (self.isAccelerometerOn == YES) {
+        [self accelerometerUpdate];
+    }
 }
 
 - (void)accelerometerUpdate {
@@ -179,26 +205,28 @@ static const NSTimeInterval kHugeTime = 9999.0;
         if ((attitude.pitch > -0.2) && (attitude.pitch < 0.0)) {
             panda.xScale = 1.0*ABS(panda.xScale);
             SKAction *rightAccelMove = [SKAction moveBy:CGVectorMake(1.0*kMoveSpeed*kHugeTime, 0) duration:kHugeTime];
-            [panda removeActionForKey:@"StayAccelAnimation"];
-            [panda runAction:rightAccelMove withKey:@"MoveAccelAction"];
-            [panda runAction:self.runAnimation withKey:@"MoveAccelAnimation"];
+            [panda removeActionForKey:@"StayAnimation"];
+            [panda runAction:rightAccelMove withKey:@"MoveAction"];
+            [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
         }
         else if ((attitude.pitch < 0.2) && (attitude.pitch > 0.0)) {
             panda.xScale = -1.0*ABS(panda.xScale);
             SKAction *leftAccelMove = [SKAction moveBy:CGVectorMake(-1.0*kMoveSpeed*kHugeTime, 0) duration:kHugeTime];
-            [panda removeActionForKey:@"StayAccelAnimation"];
-            [panda runAction:leftAccelMove withKey:@"MoveAccelAction"];
-            [panda runAction:self.runAnimation withKey:@"MoveAccelAnimation"];
+            [panda removeActionForKey:@"StayAnimation"];
+            [panda runAction:leftAccelMove withKey:@"MoveAction"];
+            [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
         }
         else if ((attitude.pitch < 0.005) && (attitude.pitch > -0.005)) {
-            [panda removeActionForKey:@"MoveAccelAnimation"];
-            [panda removeActionForKey:@"MoveAccelAction"];
-            [panda runAction:self.idleAnimation withKey:@"StayAccelAnimation"];
+            [panda removeActionForKey:@"MoveAnimation"];
+            [panda removeActionForKey:@"MoveAction"];
+            [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
         }
     }
     else {
-        [panda runAction:self.idleAnimation withKey:@"StayAccelAnimation"];
+        [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
     }
+    
+
 }
 
 @end

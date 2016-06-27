@@ -11,10 +11,14 @@
 
 @implementation GameSettings
 
+- (void)didMoveToView:(SKView *)view {
+    self.isAccelerometerON = NO;
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
-    SKNode *node = [self nodeAtPoint:touchLocation];
+    SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
     SKView * skView = (SKView *)self.view;
 
@@ -25,7 +29,16 @@
     }
     
     if ([node.name isEqualToString:@"checkbutton"]) {
-        //[node.name.imag]
+
+        if (self.isAccelerometerON == YES) {
+            node.texture =  [SKTexture textureWithImageNamed:@"checkbuttonoff"];
+            self.isAccelerometerON = NO;
+        }
+        else {
+            node.texture = [SKTexture textureWithImageNamed:@"checkbuttonon"];
+            self.isAccelerometerON = YES;
+
+        }
     }
 }
 
