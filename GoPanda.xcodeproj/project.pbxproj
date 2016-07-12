@@ -15,6 +15,7 @@
 		D12FF8201D0D614900AE8128 /* GameLose.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF81F1D0D614900AE8128 /* GameLose.m */; };
 		D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15286EF1D089A7400C948CB /* GameAchievement.sks */; };
 		D15286F31D089A9500C948CB /* GameAchievement.m in Sources */ = {isa = PBXBuildFile; fileRef = D15286F21D089A9500C948CB /* GameAchievement.m */; };
+		D15379741D2BACB7004411E7 /* KKGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D15379731D2BACB7004411E7 /* KKGameData.m */; };
 		D154615D1D07294800127DB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615C1D07294800127DB3 /* main.m */; };
 		D15461601D07294800127DB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615F1D07294800127DB3 /* AppDelegate.m */; };
 		D15461631D07294800127DB3 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461621D07294800127DB3 /* GameScene.m */; };
@@ -65,6 +66,8 @@
 		D15286EF1D089A7400C948CB /* GameAchievement.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameAchievement.sks; sourceTree = "<group>"; };
 		D15286F11D089A9500C948CB /* GameAchievement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAchievement.h; sourceTree = "<group>"; };
 		D15286F21D089A9500C948CB /* GameAchievement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAchievement.m; sourceTree = "<group>"; };
+		D15379721D2BACB7004411E7 /* KKGameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKGameData.h; sourceTree = "<group>"; };
+		D15379731D2BACB7004411E7 /* KKGameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKGameData.m; sourceTree = "<group>"; };
 		D15461581D07294800127DB3 /* GoPanda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoPanda.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D154615C1D07294800127DB3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D154615E1D07294800127DB3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -164,6 +167,8 @@
 		D154615A1D07294800127DB3 /* GoPanda */ = {
 			isa = PBXGroup;
 			children = (
+				D15379721D2BACB7004411E7 /* KKGameData.h */,
+				D15379731D2BACB7004411E7 /* KKGameData.m */,
 				D154615E1D07294800127DB3 /* AppDelegate.h */,
 				D154615F1D07294800127DB3 /* AppDelegate.m */,
 				D15461931D072E4600127DB3 /* GameStart.sks */,
@@ -418,6 +423,7 @@
 				D156F34B1D07FE1E00C3282B /* GameSettings.m in Sources */,
 				D15461971D072E7C00127DB3 /* GameStart.m in Sources */,
 				D15461681D07294800127DB3 /* GameViewController.m in Sources */,
+				D15379741D2BACB7004411E7 /* KKGameData.m in Sources */,
 				D12FF8161D0D5B9C00AE8128 /* GameInfo.m in Sources */,
 				D15461601D07294800127DB3 /* AppDelegate.m in Sources */,
 				D15286F31D089A9500C948CB /* GameAchievement.m in Sources */,

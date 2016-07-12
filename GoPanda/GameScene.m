@@ -10,6 +10,8 @@
 #import "GameWin.h"
 #import "GameLose.h"
 #import "GameSettings.h"
+#import "KKGameData.h"
+#import "GameStart.h"
 
 @implementation GameScene
 
@@ -62,8 +64,38 @@
     
     //Accelerometer
     self.isAccelerometerOn = NO;
+
+    //Score
+    [self setupHUD];
+    _highScore.text = [NSString stringWithFormat:@"High: %li pt", [KKGameData sharedGameData].highScore];
+    _score.text = @"0 pt";
+    _distance.text = @"";
+}
+
+//Score
+SKLabelNode* _score;
+SKLabelNode* _highScore;
+SKLabelNode* _distance;
+
+-(void)setupHUD
+{
+    _score = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    _score.fontSize = 30.0;
+    _score.position = CGPointMake(350, 130);
+    _score.fontColor = [SKColor greenColor];
+    [self addChild:_score];
     
+    _distance = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    _distance.fontSize = 30.0;
+    _distance.position = CGPointMake(430, 130);
+    _distance.fontColor = [SKColor blueColor];
+    [self addChild:_distance];
     
+    _highScore = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    _highScore.fontSize = 30.0;
+    _highScore.position = CGPointMake(530, 130);
+    _highScore.fontColor = [SKColor redColor];
+    [self addChild:_highScore];
 }
 
 int k;
@@ -132,6 +164,24 @@ static const NSTimeInterval kHugeTime = 9999.0;
             }
         }
     }
+    
+    //Touch end button DELETE
+    SKView * skView = (SKView *)self.view;
+
+    if ([node.name isEqualToString:@"endgame"]) {
+        GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [skView presentScene:scene];
+        [KKGameData sharedGameData].highScore = MAX([KKGameData sharedGameData].score,
+                                                    [KKGameData sharedGameData].highScore);
+        [[KKGameData sharedGameData] save];
+        [[KKGameData sharedGameData] reset];
+
+        leftTouches = 0;
+        rightTouches = 0;
+    }
+    
+
 }
 
 - (void)reduceTouches:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -186,6 +236,25 @@ static const NSTimeInterval kHugeTime = 9999.0;
     if (self.isAccelerometerOn == YES) {
         [self accelerometerUpdate];
     }
+    
+    // Add box for score - DELETE
+    SKNode *panda = [self childNodeWithName:@"Panda"];
+    SKNode *box = [self childNodeWithName:@"box"];
+    if ([panda intersectsNode:box]) {
+        [KKGameData sharedGameData].score += 10;
+        _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score];
+        [self removeChildrenInArray:[NSArray arrayWithObjects:box, nil]];
+    }
+    
+    //Score DELETE
+    static NSTimeInterval _lastCurrentTime = 0;
+    if (currentTime-_lastCurrentTime>1) {
+        [KKGameData sharedGameData].distance++;
+        [KKGameData sharedGameData].totalDistance++;
+        _distance.text = [NSString stringWithFormat:@"%li miles", [KKGameData sharedGameData].totalDistance];
+        _lastCurrentTime = currentTime;
+    }
+    
 }
 
 - (void)accelerometerUpdate {
