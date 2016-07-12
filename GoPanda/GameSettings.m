@@ -8,11 +8,20 @@
 
 #import "GameSettings.h"
 #import "GameStart.h"
+#import "KKGameData.h"
 
 @implementation GameSettings
 
 - (void)didMoveToView:(SKView *)view {
-    self.isAccelerometerON = NO;
+    
+    SKSpriteNode *accelButton = (SKSpriteNode *)[self childNodeWithName:@"checkbutton"];
+    if ([KKGameData sharedGameData].isAccelerometerON == YES) {
+        accelButton.texture = [SKTexture textureWithImageNamed:@"checkbuttonon"];
+    }
+    else {
+        accelButton.texture = [SKTexture textureWithImageNamed:@"checkbuttonoff"];
+    }
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -29,16 +38,16 @@
     }
     
     if ([node.name isEqualToString:@"checkbutton"]) {
-
-        if (self.isAccelerometerON == YES) {
+                
+        if ([KKGameData sharedGameData].isAccelerometerON == YES) {
             node.texture =  [SKTexture textureWithImageNamed:@"checkbuttonoff"];
-            self.isAccelerometerON = NO;
+            [KKGameData sharedGameData].isAccelerometerON = NO;
         }
         else {
             node.texture = [SKTexture textureWithImageNamed:@"checkbuttonon"];
-            self.isAccelerometerON = YES;
-
+            [KKGameData sharedGameData].isAccelerometerON = YES;
         }
+        [[KKGameData sharedGameData] save];
     }
 }
 

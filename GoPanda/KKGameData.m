@@ -12,11 +12,13 @@
 
 static NSString* const SSGameDataHighScoreKey = @"highScore";
 static NSString* const SSGameDataTotalDistanceKey = @"totalDistance";
+static NSString* const SSGameDataAccelerometerKey = @"isAccelerometerON";
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeDouble:self.highScore forKey: SSGameDataHighScoreKey];
     [encoder encodeDouble:self.totalDistance forKey: SSGameDataTotalDistanceKey];
+    [encoder encodeBool:self.isAccelerometerON forKey:SSGameDataAccelerometerKey];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder
@@ -25,6 +27,7 @@ static NSString* const SSGameDataTotalDistanceKey = @"totalDistance";
     if (self) {
         _highScore = [decoder decodeDoubleForKey: SSGameDataHighScoreKey];
         _totalDistance = [decoder decodeDoubleForKey: SSGameDataTotalDistanceKey];
+        _isAccelerometerON = [decoder decodeBoolForKey:SSGameDataAccelerometerKey];
     }
     return self;
 }

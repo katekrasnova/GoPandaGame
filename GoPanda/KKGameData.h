@@ -16,6 +16,8 @@
 @property (assign, nonatomic) long highScore;
 @property (assign, nonatomic) long totalDistance;
 
+@property (assign, nonatomic) BOOL isAccelerometerON;
+
 +(instancetype)sharedGameData;
 -(void)reset;
 -(void)save;

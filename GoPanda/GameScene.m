@@ -62,9 +62,6 @@
     id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(background.frame.size.height - 150 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
     
-    //Accelerometer
-    self.isAccelerometerOn = NO;
-
     //Score
     [self setupHUD];
     _highScore.text = [NSString stringWithFormat:@"High: %li pt", [KKGameData sharedGameData].highScore];
@@ -98,7 +95,6 @@ SKLabelNode* _distance;
     [self addChild:_highScore];
 }
 
-int k;
 int leftTouches;
 int rightTouches;
 const int kMoveSpeed = 200;
@@ -146,28 +142,10 @@ static const NSTimeInterval kHugeTime = 9999.0;
         [panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
     }
     
-    CGPoint touchLocation = [[touches anyObject] locationInNode:self];
-    SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
-    
-    if ([node.name isEqualToString:@"accel"]) {
-        
-        if (self.isAccelerometerOn == YES) {
-            node.texture = [SKTexture textureWithImageNamed:@"acceloff"];
-            self.isAccelerometerOn = NO;
-            k = 0;
-        }
-        else {
-            if (k == 0) {
-                node.texture = [SKTexture textureWithImageNamed:@"accelon"];
-                self.isAccelerometerOn = YES;
-                k = 1;
-            }
-        }
-    }
-    
     //Touch end button DELETE
     SKView * skView = (SKView *)self.view;
-
+    CGPoint touchLocation = [[touches anyObject] locationInNode:self];
+    SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     if ([node.name isEqualToString:@"endgame"]) {
         GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -233,7 +211,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
 -(void)update:(CFTimeInterval)currentTime {
     [super update:currentTime]; //Calls the Visualiser
     
-    if (self.isAccelerometerOn == YES) {
+    if ([KKGameData sharedGameData].isAccelerometerON == YES) {
         [self accelerometerUpdate];
     }
     
