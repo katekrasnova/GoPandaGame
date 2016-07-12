@@ -10,9 +10,17 @@
 #import "GameStart.h"
 #import "KKGameData.h"
 
+@interface GameSettings ()
+
+@property (nonatomic) BOOL accelerometerSetting;
+
+@end
+
 @implementation GameSettings
 
 - (void)didMoveToView:(SKView *)view {
+    
+    NSLog(@"%i", [KKGameData sharedGameData].isAccelerometerON);
     
     SKSpriteNode *accelButton = (SKSpriteNode *)[self childNodeWithName:@"checkbutton"];
     if ([KKGameData sharedGameData].isAccelerometerON == YES) {
@@ -28,27 +36,35 @@
     
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
-    
-    SKView * skView = (SKView *)self.view;
 
     if ([node.name isEqualToString:@"cancelsettingsbutton"]) {
-        GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        [skView presentScene:scene];
+        [self presentStartScene];
+    }
+    
+    if ([node.name isEqualToString:@"oksettingsbutton"]) {
+        [KKGameData sharedGameData].isAccelerometerON = _accelerometerSetting;
+        [[KKGameData sharedGameData]save];
+        [self presentStartScene];
     }
     
     if ([node.name isEqualToString:@"checkbutton"]) {
                 
         if ([KKGameData sharedGameData].isAccelerometerON == YES) {
             node.texture =  [SKTexture textureWithImageNamed:@"checkbuttonoff"];
-            [KKGameData sharedGameData].isAccelerometerON = NO;
+            _accelerometerSetting = NO;
         }
         else {
             node.texture = [SKTexture textureWithImageNamed:@"checkbuttonon"];
-            [KKGameData sharedGameData].isAccelerometerON = YES;
+            _accelerometerSetting = YES;
         }
-        [[KKGameData sharedGameData] save];
     }
+}
+
+- (void)presentStartScene {
+    SKView * skView = (SKView *)self.view;
+    GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    [skView presentScene:scene];
 }
 
 @end
