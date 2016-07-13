@@ -17,10 +17,10 @@
 
 @property (strong, nonatomic) SKSpriteNode *background;
 
-
 @end
 
 @implementation GameScene
+
 
 -(void)didMoveToView:(SKView *)view {
     
@@ -32,14 +32,23 @@
     
     // Set boundaries and background   //NEW
     NSLog(@"SKScene:initWithSize %f x %f",self.size.width,self.size.height);
-    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-    _background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-    _background.xScale = 1.03;
-    _background.yScale = 1.03;
-    _background.zPosition = -99;
-    _background.anchorPoint = CGPointZero;
-    _background.position = CGPointMake(self.frame.origin.x, self.frame.origin.y);
-    [self addChild:_background];
+    SKNode *exitSign = [self childNodeWithName:@"exitSign"];
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, exitSign.position.x + 200, 680)];
+    
+    int k = exitSign.position.x / 1024;
+    
+    for (int i = 0; i <= k; i++) {
+        _background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+        _background.xScale = 1.03;
+        _background.yScale = 1.03;
+        _background.zPosition = -99;
+        _background.anchorPoint = CGPointZero;
+        _background.position = CGPointMake(i * _background.size.width, 0);
+        [self addChild:_background];
+    }
+    
+    
+    
     
     //Add Panda Character
     /*SKSpriteNode *panda = [SKSpriteNode spriteNodeWithImageNamed:@"Idle_001"];
@@ -75,14 +84,15 @@
     
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
+    
     [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
     SKCameraNode *camera = (SKCameraNode *)[self childNodeWithName:@"MainCamera"];
-    id horizConstraint = [SKConstraint distance:[SKRange rangeWithUpperLimit:100] toNode:panda];
-    id vertConstraint = [SKConstraint distance:[SKRange rangeWithUpperLimit:50] toNode:panda];
+    id horizConstraint = [SKConstraint distance:[SKRange rangeWithUpperLimit:0] toNode:panda];
+    id vertConstraint = [SKConstraint distance:[SKRange rangeWithUpperLimit:0] toNode:panda];
     id leftConstraint = [SKConstraint positionX:[SKRange rangeWithLowerLimit:camera.position.x]];
     id bottomConstraint = [SKConstraint positionY:[SKRange rangeWithLowerLimit:camera.position.y]];
-    id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(_background.frame.size.width - camera.position.x)]];
-    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 150 - camera.position.y)]];
+    id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(exitSign.position.x + 200 - camera.position.x)]];
+    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 100 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
     
     //Score
@@ -256,6 +266,18 @@ static const NSTimeInterval kHugeTime = 9999.0;
         _lastCurrentTime = currentTime;
     }
     
+/*    //background
+    _background1.position = CGPointMake(_background1.position.x-4, _background1.position.y);
+    _background2.position = CGPointMake(_background2.position.x-4, _background2.position.y);
+    
+    if (_background1.position.x < -_background1.size.width){
+        _background1.position = CGPointMake(_background2.position.x + _background2.size.width, _background1.position.y);
+    }
+    
+    if (_background2.position.x < -_background2.size.width) {
+        _background2.position = CGPointMake(_background1.position.x + _background1.size.width, _background2.position.y);
+    }
+    */
 }
 
 - (void)accelerometerUpdate {

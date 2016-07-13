@@ -159,6 +159,7 @@
 				D1516FB21D3647BF002DE76C /* Level1Scene.sks */,
 				D1516FB41D36481E002DE76C /* Level2Scene.sks */,
 				D1516FB61D36482E002DE76C /* Level3Scene.sks */,
+				D15461641D07294800127DB3 /* GameScene.sks */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -210,7 +211,6 @@
 				D12FF8121D0D5B8800AE8128 /* GameInfo.sks */,
 				D12FF8141D0D5B9C00AE8128 /* GameInfo.h */,
 				D12FF8151D0D5B9C00AE8128 /* GameInfo.m */,
-				D15461641D07294800127DB3 /* GameScene.sks */,
 				D12FF8171D0D610900AE8128 /* GameWin.sks */,
 				D12FF8191D0D612300AE8128 /* GameWin.h */,
 				D12FF81A1D0D612300AE8128 /* GameWin.m */,
