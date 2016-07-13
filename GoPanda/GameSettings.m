@@ -20,7 +20,7 @@
 
 - (void)didMoveToView:(SKView *)view {
     
-    NSLog(@"%i", [KKGameData sharedGameData].isAccelerometerON);
+    //NSLog(@"%i", [KKGameData sharedGameData].isAccelerometerON);
     
     SKSpriteNode *accelButton = (SKSpriteNode *)[self childNodeWithName:@"checkbutton"];
     if ([KKGameData sharedGameData].isAccelerometerON == YES) {

@@ -18,6 +18,9 @@
 
 @property (assign, nonatomic) BOOL isAccelerometerON;
 
+@property (assign, nonatomic) int completeLevels;
+@property (assign, readonly) int numberOfLevels;
+
 +(instancetype)sharedGameData;
 -(void)reset;
 -(void)save;

@@ -11,6 +11,7 @@
 #import "GameSettings.h"
 #import "GameAchievement.h"
 #import "GameInfo.h"
+#import "GameLevels.h"
 
 @implementation GameStart
 
@@ -22,7 +23,7 @@
     SKView * skView = (SKView *)self.view;
     
     if ([node.name isEqualToString:@"playbutton"]) {
-        GameScene *scene = [GameScene nodeWithFileNamed:@"GameScene"];
+        GameLevels *scene = [GameLevels nodeWithFileNamed:@"GameLevels"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
