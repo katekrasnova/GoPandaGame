@@ -13,18 +13,41 @@
 #import "KKGameData.h"
 #import "GameStart.h"
 
+@interface GameScene ()
+
+@property (strong, nonatomic) SKSpriteNode *background;
+
+
+@end
+
 @implementation GameScene
 
 -(void)didMoveToView:(SKView *)view {
     
     // Set boundaries
-    SKNode *background = [self childNodeWithName:@"background"];
+    /*SKNode *background = [self childNodeWithName:@"background"];
     SKPhysicsBody *borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:background.frame];
     self.physicsBody = borderBody;
-    self.physicsBody.friction = 1.0f;
+    self.physicsBody.friction = 1.0f; */
     
-    // Set boundaries
-//    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    // Set boundaries and background   //NEW
+    NSLog(@"SKScene:initWithSize %f x %f",self.size.width,self.size.height);
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    _background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
+    _background.xScale = 1.03;
+    _background.yScale = 1.03;
+    _background.zPosition = -99;
+    _background.anchorPoint = CGPointZero;
+    _background.position = CGPointMake(self.frame.origin.x, self.frame.origin.y);
+    [self addChild:_background];
+    
+    //Add Panda Character
+    /*SKSpriteNode *panda = [SKSpriteNode spriteNodeWithImageNamed:@"Idle_001"];
+    panda.xScale = 0.5;
+    panda.yScale = 0.5;
+    panda.anchorPoint = CGPointZero;
+    panda.position = CGPointMake(0, 0);
+    [self addChild:panda]; */
     
     //Create Panda run animation
     NSMutableArray<SKTexture *> *textures = [NSMutableArray new];
@@ -58,8 +81,8 @@
     id vertConstraint = [SKConstraint distance:[SKRange rangeWithUpperLimit:50] toNode:panda];
     id leftConstraint = [SKConstraint positionX:[SKRange rangeWithLowerLimit:camera.position.x]];
     id bottomConstraint = [SKConstraint positionY:[SKRange rangeWithLowerLimit:camera.position.y]];
-    id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(background.frame.size.width - camera.position.x)]];
-    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(background.frame.size.height - 150 - camera.position.y)]];
+    id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(_background.frame.size.width - camera.position.x)]];
+    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 150 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
     
     //Score
