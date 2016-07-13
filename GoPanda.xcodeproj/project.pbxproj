@@ -14,6 +14,8 @@
 		D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF81C1D0D613300AE8128 /* GameLose.sks */; };
 		D12FF8201D0D614900AE8128 /* GameLose.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF81F1D0D614900AE8128 /* GameLose.m */; };
 		D1516FB31D3647BF002DE76C /* Level1Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1516FB21D3647BF002DE76C /* Level1Scene.sks */; };
+		D1516FB51D36481E002DE76C /* Level2Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1516FB41D36481E002DE76C /* Level2Scene.sks */; };
+		D1516FB71D36482E002DE76C /* Level3Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1516FB61D36482E002DE76C /* Level3Scene.sks */; };
 		D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15286EF1D089A7400C948CB /* GameAchievement.sks */; };
 		D15286F31D089A9500C948CB /* GameAchievement.m in Sources */ = {isa = PBXBuildFile; fileRef = D15286F21D089A9500C948CB /* GameAchievement.m */; };
 		D15379741D2BACB7004411E7 /* KKGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D15379731D2BACB7004411E7 /* KKGameData.m */; };
@@ -67,6 +69,8 @@
 		D12FF81E1D0D614900AE8128 /* GameLose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLose.h; sourceTree = "<group>"; };
 		D12FF81F1D0D614900AE8128 /* GameLose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLose.m; sourceTree = "<group>"; };
 		D1516FB21D3647BF002DE76C /* Level1Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1Scene.sks; sourceTree = "<group>"; };
+		D1516FB41D36481E002DE76C /* Level2Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2Scene.sks; sourceTree = "<group>"; };
+		D1516FB61D36482E002DE76C /* Level3Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3Scene.sks; sourceTree = "<group>"; };
 		D15286EF1D089A7400C948CB /* GameAchievement.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameAchievement.sks; sourceTree = "<group>"; };
 		D15286F11D089A9500C948CB /* GameAchievement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAchievement.h; sourceTree = "<group>"; };
 		D15286F21D089A9500C948CB /* GameAchievement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAchievement.m; sourceTree = "<group>"; };
@@ -153,6 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				D1516FB21D3647BF002DE76C /* Level1Scene.sks */,
+				D1516FB41D36481E002DE76C /* Level2Scene.sks */,
+				D1516FB61D36482E002DE76C /* Level3Scene.sks */,
 			);
 			name = Levels;
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1516FB51D36481E002DE76C /* Level2Scene.sks in Resources */,
 				D15461651D07294800127DB3 /* GameScene.sks in Resources */,
 				D12FF8181D0D610900AE8128 /* GameWin.sks in Resources */,
 				D12FF8131D0D5B8800AE8128 /* GameInfo.sks in Resources */,
@@ -365,6 +372,7 @@
 				D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */,
 				D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */,
 				D1566F721D362BA800A79A4A /* GameLevels.sks in Resources */,
+				D1516FB71D36482E002DE76C /* Level3Scene.sks in Resources */,
 				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
 				D1516FB31D3647BF002DE76C /* Level1Scene.sks in Resources */,
 				D154616B1D07294800127DB3 /* Main.storyboard in Resources */,

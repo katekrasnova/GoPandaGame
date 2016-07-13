@@ -10,10 +10,13 @@
 #import "KKGameData.h"
 #import "GameStart.h"
 #import "GameSettings.h"
+#import "GameScene.h"
 
 @implementation GameLevels
 
 - (void)didMoveToView:(SKView *)view {
+    
+    [KKGameData sharedGameData].completeLevels = 1;
     
     for (int i = 1; i <= [KKGameData sharedGameData].numberOfLevels; i++) {
         SKSpriteNode *level = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"level%i", i]];
@@ -42,6 +45,20 @@
         GameSettings *scene = [GameSettings nodeWithFileNamed:@"GameSettings"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
+    }
+    
+    if ([node.name isEqualToString:@"levelPlayButton"]) {
+        GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].completeLevels + 1]];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [skView presentScene:scene];
+    }
+    
+    for (int i = 1; i <= [KKGameData sharedGameData].completeLevels + 1; i++) {
+        if ([node.name isEqualToString:[NSString stringWithFormat:@"level%i", i]]) {
+            GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", i]];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            [skView presentScene:scene];
+        }
     }
     
 }
