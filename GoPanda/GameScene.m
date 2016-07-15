@@ -19,6 +19,11 @@
 
 @end
 
+typedef enum {
+    kEndReasonWin,
+    kEndReasonLose
+} EndReason;
+
 @implementation GameScene
 
 float lastCameraPosition;
@@ -39,7 +44,6 @@ NSMutableArray<SKSpriteNode *> *coins;
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, exitSign.position.x + 200, 680)];
     
     int k = exitSign.position.x / 1024;
-    
     for (int i = 0; i <= k; i++) {
         _background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
         _background.xScale = 1.03;
@@ -108,9 +112,8 @@ NSMutableArray<SKSpriteNode *> *coins;
     
     //Score
     [self setupHUD];
-    _highScore.text = [NSString stringWithFormat:@"High: %li pt", [KKGameData sharedGameData].highScore];
-    _score.text = @"0 pt";
-    _distance.text = @"";
+    _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].totalScore];
+    _time.text = @"";
     
     //Setup array of coins
     coins = [NSMutableArray new];
@@ -124,8 +127,7 @@ NSMutableArray<SKSpriteNode *> *coins;
 
 //Score
 SKLabelNode* _score;
-SKLabelNode* _highScore;
-SKLabelNode* _distance;
+SKLabelNode* _time;
 
 -(void)setupHUD
 {
@@ -135,17 +137,11 @@ SKLabelNode* _distance;
     _score.fontColor = [SKColor blackColor];
     [self addChild:_score];
     
-    _distance = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
-    _distance.fontSize = 30.0;
-    _distance.position = CGPointMake(430, 130);
-    _distance.fontColor = [SKColor blueColor];
-    //[self addChild:_distance];
-    
-    _highScore = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
-    _highScore.fontSize = 30.0;
-    _highScore.position = CGPointMake(530, 130);
-    _highScore.fontColor = [SKColor redColor];
-    //[self addChild:_highScore];
+    _time = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    _time.fontSize = 30.0;
+    _time.position = CGPointMake(430, 130);
+    _time.fontColor = [SKColor blueColor];
+    [self addChild:_time];
 }
 
 int leftTouches;
@@ -196,7 +192,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     }
     
     //Touch end button DELETE
-    SKView * skView = (SKView *)self.view;
+   /* SKView * skView = (SKView *)self.view;
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     if ([node.name isEqualToString:@"endgame"]) {
@@ -210,8 +206,14 @@ static const NSTimeInterval kHugeTime = 9999.0;
 
         leftTouches = 0;
         rightTouches = 0;
-    }
+    } */
     
+    //Touch end button DELETE
+    CGPoint touchLocation = [[touches anyObject] locationInNode:self];
+    SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
+    if ([node.name isEqualToString:@"endgame"]) {
+        [self endLevel:kEndReasonWin];
+    }
 
 }
 
@@ -268,25 +270,24 @@ static const NSTimeInterval kHugeTime = 9999.0;
         [self accelerometerUpdate];
     }
     
-    // Add box for score - DELETE
+    // Score for coins
     SKNode *panda = [self childNodeWithName:@"Panda"];
     //SKSpriteNode *coin = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"coin"]];
     for (int i = 0; i < [coins count]; i++) {
         if ([panda intersectsNode:coins[i]]) {
             [KKGameData sharedGameData].score += 100;
-            _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score];
+            _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score + [KKGameData sharedGameData].totalScore];
             [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
             [coins removeObject:coins[i]];
         }
     }
     
     
-    //Score DELETE
+    //Score for times
     static NSTimeInterval _lastCurrentTime = 0;
     if (currentTime-_lastCurrentTime>1) {
-        [KKGameData sharedGameData].distance++;
-        [KKGameData sharedGameData].totalDistance++;
-        _distance.text = [NSString stringWithFormat:@"%li miles", [KKGameData sharedGameData].totalDistance];
+        [KKGameData sharedGameData].time++;
+        _time.text = [NSString stringWithFormat:@"%i sec", [KKGameData sharedGameData].time];
         _lastCurrentTime = currentTime;
     }
     
@@ -294,17 +295,38 @@ static const NSTimeInterval kHugeTime = 9999.0;
     //Move score label when camera moves
     SKSpriteNode *endGame = (SKSpriteNode *)[self childNodeWithName:@"endgame"];
     if (lastCameraPosition < camera.position.x) {
-        _score.position = CGPointMake(_score.position.x + (camera.position.x - lastCameraPosition), 130);
-        endGame.position = CGPointMake(endGame.position.x + (camera.position.x - lastCameraPosition), 569);
+        _score.position = CGPointMake(_score.position.x + (camera.position.x - lastCameraPosition), _score.position.y);
+        _time.position = CGPointMake(_time.position.x + (camera.position.x - lastCameraPosition), _time.position.y);
+        endGame.position = CGPointMake(endGame.position.x + (camera.position.x - lastCameraPosition), endGame.position.y);
         lastCameraPosition = camera.position.x;
     }
     else if ((lastCameraPosition > camera.position.x) && (lastCameraPosition >= 150)) {
         if (lastCameraPosition >= 500) {
-            endGame.position = CGPointMake(endGame.position.x - (lastCameraPosition - camera.position.x), 569);
+            endGame.position = CGPointMake(endGame.position.x - (lastCameraPosition - camera.position.x), endGame.position.y);
         }
-        _score.position = CGPointMake(_score.position.x - (lastCameraPosition - camera.position.x), 130);
+        _score.position = CGPointMake(_score.position.x - (lastCameraPosition - camera.position.x), _score.position.y);
+        _time.position = CGPointMake(_time.position.x - (lastCameraPosition - camera.position.x), _time.position.y);
         lastCameraPosition = camera.position.x;
     }
+    
+}
+
+- (void)endLevel:(EndReason)endReason {
+    
+    if (endReason == kEndReasonWin) {
+        [KKGameData sharedGameData].totalScore += [KKGameData sharedGameData].score;
+    }
+    
+    SKView * skView = (SKView *)self.view;
+    GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    [skView presentScene:scene];
+    
+    [[KKGameData sharedGameData] save];
+    [[KKGameData sharedGameData] reset];
+        
+    leftTouches = 0;
+    rightTouches = 0;
     
 }
 
@@ -345,8 +367,6 @@ static const NSTimeInterval kHugeTime = 9999.0;
     else {
         [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
     }
-    
-
 }
 
 @end

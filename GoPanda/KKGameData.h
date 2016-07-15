@@ -11,10 +11,9 @@
 @interface KKGameData : NSObject <NSCoding>
 
 @property (assign, nonatomic) long score;
-@property (assign, nonatomic) int distance;
+@property (assign, nonatomic) int time;
 
-@property (assign, nonatomic) long highScore;
-@property (assign, nonatomic) long totalDistance;
+@property (assign, nonatomic) long totalScore;
 
 @property (assign, nonatomic) BOOL isAccelerometerON;
 
