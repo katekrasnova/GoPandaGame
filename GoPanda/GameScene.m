@@ -267,9 +267,10 @@ static const NSTimeInterval kHugeTime = 9999.0;
     //SKSpriteNode *coin = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"coin"]];
     for (int i = 0; i < [coins count]; i++) {
         if ([panda intersectsNode:coins[i]]) {
-            [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
             [KKGameData sharedGameData].score += 100;
             _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score];
+            [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
+            [coins removeObject:coins[i]];
         }
     }
     
