@@ -23,6 +23,7 @@
 
 float lastCameraPosition;
 SKCameraNode *camera;
+NSMutableArray *coins;
 
 -(void)didMoveToView:(SKView *)view {
     
@@ -103,6 +104,16 @@ SKCameraNode *camera;
     _highScore.text = [NSString stringWithFormat:@"High: %li pt", [KKGameData sharedGameData].highScore];
     _score.text = @"0 pt";
     _distance.text = @"";
+    
+    //Setup array of coins
+    coins = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"coin"]) {
+            [coins addObject:child];
+        }
+    }
+    NSLog(@"%lu", (unsigned long)[coins count]);
+    NSLog(@"%@", coins[1]);
 }
 
 //Score
@@ -253,12 +264,15 @@ static const NSTimeInterval kHugeTime = 9999.0;
     
     // Add box for score - DELETE
     SKNode *panda = [self childNodeWithName:@"Panda"];
-    SKNode *box = [self childNodeWithName:@"box"];
-    if ([panda intersectsNode:box]) {
-        [KKGameData sharedGameData].score += 10;
-        _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score];
-        [self removeChildrenInArray:[NSArray arrayWithObjects:box, nil]];
+    //SKSpriteNode *coin = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"coin"]];
+    for (int i = 0; i < [coins count]; i++) {
+        if ([panda intersectsNode:coins[i]]) {
+            [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
+            [KKGameData sharedGameData].score += 100;
+            _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score];
+        }
     }
+    
     
     //Score DELETE
     static NSTimeInterval _lastCurrentTime = 0;
