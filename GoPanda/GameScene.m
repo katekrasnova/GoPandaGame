@@ -21,6 +21,8 @@
 
 @implementation GameScene
 
+float lastCameraPosition;
+SKCameraNode *camera;
 
 -(void)didMoveToView:(SKView *)view {
     
@@ -84,16 +86,17 @@
     
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
-    
     [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
-    SKCameraNode *camera = (SKCameraNode *)[self childNodeWithName:@"MainCamera"];
+    
+    camera = (SKCameraNode *)[self childNodeWithName:@"MainCamera"];
     id horizConstraint = [SKConstraint distance:[SKRange rangeWithUpperLimit:0] toNode:panda];
     id vertConstraint = [SKConstraint distance:[SKRange rangeWithUpperLimit:0] toNode:panda];
     id leftConstraint = [SKConstraint positionX:[SKRange rangeWithLowerLimit:camera.position.x]];
     id bottomConstraint = [SKConstraint positionY:[SKRange rangeWithLowerLimit:camera.position.y]];
     id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(exitSign.position.x + 200 - camera.position.x)]];
-    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 100 - camera.position.y)]];
+    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 150 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
+    lastCameraPosition = camera.position.x;
     
     //Score
     [self setupHUD];
@@ -111,21 +114,21 @@ SKLabelNode* _distance;
 {
     _score = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     _score.fontSize = 30.0;
-    _score.position = CGPointMake(350, 130);
-    _score.fontColor = [SKColor greenColor];
+    _score.position = CGPointMake(150, 130);
+    _score.fontColor = [SKColor blackColor];
     [self addChild:_score];
     
     _distance = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     _distance.fontSize = 30.0;
     _distance.position = CGPointMake(430, 130);
     _distance.fontColor = [SKColor blueColor];
-    [self addChild:_distance];
+    //[self addChild:_distance];
     
     _highScore = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     _highScore.fontSize = 30.0;
     _highScore.position = CGPointMake(530, 130);
     _highScore.fontColor = [SKColor redColor];
-    [self addChild:_highScore];
+    //[self addChild:_highScore];
 }
 
 int leftTouches;
@@ -168,7 +171,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     }
     else if ((leftTouches + rightTouches) > 1) {
         //Jump
-        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.05];
+        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
         [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
         [panda removeActionForKey:@"StayAnimation"];
         [panda runAction:jumpMove withKey:@"JumpAction"];
@@ -266,18 +269,22 @@ static const NSTimeInterval kHugeTime = 9999.0;
         _lastCurrentTime = currentTime;
     }
     
-/*    //background
-    _background1.position = CGPointMake(_background1.position.x-4, _background1.position.y);
-    _background2.position = CGPointMake(_background2.position.x-4, _background2.position.y);
     
-    if (_background1.position.x < -_background1.size.width){
-        _background1.position = CGPointMake(_background2.position.x + _background2.size.width, _background1.position.y);
+    //Move score label when camera moves
+    SKSpriteNode *endGame = (SKSpriteNode *)[self childNodeWithName:@"endgame"];
+    if (lastCameraPosition < camera.position.x) {
+        _score.position = CGPointMake(_score.position.x + (camera.position.x - lastCameraPosition), 130);
+        endGame.position = CGPointMake(endGame.position.x + (camera.position.x - lastCameraPosition), 569);
+        lastCameraPosition = camera.position.x;
+    }
+    else if ((lastCameraPosition > camera.position.x) && (lastCameraPosition >= 150)) {
+        if (lastCameraPosition >= 500) {
+            endGame.position = CGPointMake(endGame.position.x - (lastCameraPosition - camera.position.x), 569);
+        }
+        _score.position = CGPointMake(_score.position.x - (lastCameraPosition - camera.position.x), 130);
+        lastCameraPosition = camera.position.x;
     }
     
-    if (_background2.position.x < -_background2.size.width) {
-        _background2.position = CGPointMake(_background1.position.x + _background1.size.width, _background2.position.y);
-    }
-    */
 }
 
 - (void)accelerometerUpdate {
