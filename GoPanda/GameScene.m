@@ -23,7 +23,7 @@
 
 float lastCameraPosition;
 SKCameraNode *camera;
-NSMutableArray *coins;
+NSMutableArray<SKSpriteNode *> *coins;
 
 -(void)didMoveToView:(SKView *)view {
     
@@ -85,6 +85,13 @@ NSMutableArray *coins;
     }
     self.idleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
     
+    //Create Coin animation
+    textures = [NSMutableArray new];
+    for (int i = 1; i <= 6; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Coin0%i", i]]];
+    }
+    self.coinAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
+    
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
     [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
@@ -109,11 +116,10 @@ NSMutableArray *coins;
     coins = [NSMutableArray new];
     for (SKSpriteNode *child in [self children]) {
         if ([child.name isEqualToString:@"coin"]) {
+            [child runAction:self.coinAnimation withKey:@"CoinAnimation"];
             [coins addObject:child];
         }
     }
-    NSLog(@"%lu", (unsigned long)[coins count]);
-    NSLog(@"%@", coins[1]);
 }
 
 //Score
