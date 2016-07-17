@@ -309,6 +309,23 @@ static const NSTimeInterval kHugeTime = 9999.0;
         lastCameraPosition = camera.position.x;
     }
     
+    [self exit];
+
+}
+
+- (void)exit {
+    static NSTimeInterval lastCurrentTime = 0;
+    SKNode *panda = [self childNodeWithName:@"Panda"];
+    SKEmitterNode *particleExit = (SKEmitterNode *)[self childNodeWithName:@"particleExit"];
+    if (panda.position.x > (particleExit.position.x - 10) && panda.position.x < (particleExit.position.x + 10)) {
+        if ([panda actionForKey:@"JumpAnimation"] == nil && [panda actionForKey:@"MoveAnimation"] == nil) {
+            lastCurrentTime += 1;
+            if (lastCurrentTime >= 60) {
+                lastCurrentTime = 0;
+                [self endLevel:kEndReasonWin];
+            }
+        }
+    }
 }
 
 - (void)endLevel:(EndReason)endReason {
