@@ -29,6 +29,9 @@ typedef enum {
 float lastCameraPosition;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
+NSMutableArray<SKSpriteNode *> *bluesnails;
+NSMutableArray<SKSpriteNode *> *borders;
+
 
 -(void)didMoveToView:(SKView *)view {
     
@@ -96,6 +99,13 @@ NSMutableArray<SKSpriteNode *> *coins;
     }
     self.coinAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
     
+    //Create blue snails idle animation
+    textures = [NSMutableArray new];
+    for (int i = 2; i <= 5; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"bluesnail_0%i", i]]];
+    }
+    self.blueSnailIdleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
+    
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
     [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
@@ -121,6 +131,23 @@ NSMutableArray<SKSpriteNode *> *coins;
         if ([child.name isEqualToString:@"coin"]) {
             [child runAction:self.coinAnimation withKey:@"CoinAnimation"];
             [coins addObject:child];
+        }
+    }
+    
+    //Setup array of bluesnails
+    bluesnails = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"bluesnail"]) {
+            [child runAction:self.blueSnailIdleAnimation withKey:@"BlueSnailIdleAnimation"];
+            [bluesnails addObject:child];
+        }
+    }
+    
+    //Setup array of borders
+    borders = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"border"]) {
+            [borders addObject:child];
         }
     }
 }
@@ -310,7 +337,36 @@ static const NSTimeInterval kHugeTime = 9999.0;
     }
     
     [self exit];
+    
+    [self blueSnailMove];
 
+}
+
+- (void)blueSnailMove {
+    for (int i = 0; i < [bluesnails count]; i++) {
+        for (int k = 0; k < [borders count]; k++) {
+            NSLog(@"1  %f", bluesnails[i].xScale);
+            if ([bluesnails[i] intersectsNode:borders[k]]) {
+                if (bluesnails[i].xScale < 0) {
+                    bluesnails[i].xScale = 1.0*ABS(bluesnails[i].xScale);
+                    NSLog(@"2  %f", bluesnails[i].xScale);
+                }
+                else {
+                    bluesnails[i].xScale = -1.0*ABS(bluesnails[i].xScale);
+                    NSLog(@"3  %f", bluesnails[i].xScale);
+                }
+            }
+            if (bluesnails[i].xScale < 0) {
+                bluesnails[i].position = CGPointMake(bluesnails[i].position.x + 0.25, bluesnails[i].position.y);
+                NSLog(@"4  %f", bluesnails[i].xScale);
+            }
+            else {
+                bluesnails[i].position = CGPointMake(bluesnails[i].position.x - 0.25, bluesnails[i].position.y);
+                NSLog(@"5  %f", bluesnails[i].xScale);
+            }
+        }
+        
+    }
 }
 
 - (void)exit {
