@@ -15,6 +15,7 @@
 @property (nonatomic) SKAction *runAnimation;
 @property (nonatomic) SKAction *jumpAnimation;
 @property (nonatomic) SKAction *idleAnimation;
+@property (nonatomic) SKAction *hurtAnimation;
 @property (nonatomic) SKAction *coinAnimation;
 @property (nonatomic) SKAction *blueSnailIdleAnimation;
 @property (nonatomic) SKAction *blueSnailHurtAnimation;

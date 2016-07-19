@@ -92,6 +92,14 @@ NSMutableArray<SKSpriteNode *> *borders;
     }
     self.idleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
     
+    // Create Panda hurt animation
+    textures = [NSMutableArray new];
+    for (int i = 0; i <= 1; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Hurt_00%i", i]]];
+    }
+    self.hurtAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1], [SKAction repeatAction:[SKAction sequence:@[[SKAction fadeAlphaTo:0.6 duration:0.15], [SKAction fadeAlphaTo:1.0 duration:0.15]]] count:4]]];
+    
+    
     //Create Coin animation
     textures = [NSMutableArray new];
     for (int i = 1; i <= 6; i++) {
@@ -384,6 +392,17 @@ static const NSTimeInterval kHugeTime = 9999.0;
 
 }
 
+- (void)pandaHurts {
+    SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
+    
+    [panda removeAllActions];
+    //[panda runAction:self.hurtAnimation withKey:@"HurtAnimation"];
+    [panda runAction:self.hurtAnimation completion:^{
+        [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+    }];
+    
+}
+
 int lastStateOfIntersectWithEnemy = 2;
 
 - (void)enemies:(NSMutableArray<SKSpriteNode *> *)enemiesArray withIdleAnimationKey:(NSString *)idleAnimationKey withHurtAnimation:(SKAction *)hurtAnimation {
@@ -401,18 +420,23 @@ int lastStateOfIntersectWithEnemy = 2;
                 }
             }
             
-            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(enemiesArray[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(enemiesArray[i].frame)) {
+            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(enemiesArray[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(enemiesArray[i].frame) && (CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame) >= -3)) {
+                
+                NSLog(@"%f", CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame));
+                
                 if (enemiesArray[i].xScale < 0 && lastStateOfIntersectWithEnemy != 0) {
                     enemiesArray[i].xScale = 1.0*ABS(enemiesArray[i].xScale);
                     lastStateOfIntersectWithEnemy = 1;
+                    [self pandaHurts];
                 }
                 else if (enemiesArray[i].xScale > 0 && lastStateOfIntersectWithEnemy != 1) {
                     enemiesArray[i].xScale = -1.0*ABS(enemiesArray[i].xScale);
                     lastStateOfIntersectWithEnemy = 0;
+                    [self pandaHurts];
                 }
             }
 
-            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(enemiesArray[i].frame) - 4) {
+            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(enemiesArray[i].frame) - 4 ) {
                 
                 SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
                 [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
