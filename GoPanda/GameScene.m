@@ -81,7 +81,6 @@ NSMutableArray<SKSpriteNode *> *borders;
     for (int i = 0; i <= 9; i++) {
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Jump2_00%i",i]]];
     }
-//    [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Idle_000"]]];
 //    self.jumpAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
     self.jumpAnimation = [SKAction animateWithTextures:textures timePerFrame:0.1];
     
@@ -105,6 +104,17 @@ NSMutableArray<SKSpriteNode *> *borders;
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"bluesnail_0%i", i]]];
     }
     self.blueSnailIdleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
+    
+    //Create blue Snail Hurt Animation
+    textures = [NSMutableArray new];
+    for (int i = 6; i <= 9; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"bluesnail_0%i",i]]];
+    }
+    
+    self.blueSnailHurtAnimation = [SKAction sequence:@[
+                        [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.15] count:1],
+                        [SKAction fadeOutWithDuration:1.5]]];
+    //[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.15] count:1];
     
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
@@ -169,6 +179,10 @@ SKLabelNode* _time;
     _time.position = CGPointMake(430, 130);
     _time.fontColor = [SKColor blueColor];
     [self addChild:_time];
+}
+
+- (void)updateScore {
+    _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score + [KKGameData sharedGameData].totalScore];
 }
 
 int leftTouches;
@@ -303,7 +317,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     for (int i = 0; i < [coins count]; i++) {
         if ([panda intersectsNode:coins[i]]) {
             [KKGameData sharedGameData].score += 100;
-            _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score + [KKGameData sharedGameData].totalScore];
+            [self updateScore];
             [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
             [coins removeObject:coins[i]];
         }
@@ -343,29 +357,48 @@ static const NSTimeInterval kHugeTime = 9999.0;
 }
 
 - (void)blueSnailMove {
+    SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
     for (int i = 0; i < [bluesnails count]; i++) {
         for (int k = 0; k < [borders count]; k++) {
-            NSLog(@"1  %f", bluesnails[i].xScale);
-            if ([bluesnails[i] intersectsNode:borders[k]]) {
+            if ([bluesnails[i] intersectsNode:borders[k]] || ([bluesnails[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(bluesnails[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(bluesnails[i].frame))) {
                 if (bluesnails[i].xScale < 0) {
                     bluesnails[i].xScale = 1.0*ABS(bluesnails[i].xScale);
-                    NSLog(@"2  %f", bluesnails[i].xScale);
                 }
                 else {
                     bluesnails[i].xScale = -1.0*ABS(bluesnails[i].xScale);
-                    NSLog(@"3  %f", bluesnails[i].xScale);
                 }
             }
+
+            if ([bluesnails[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(bluesnails[i].frame) - 3) {
+                
+                SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
+                [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
+                [panda removeActionForKey:@"StayAnimation"];
+                [panda runAction:jumpMove withKey:@"JumpAction"];
+                [panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
+                
+                [bluesnails[i] removeActionForKey:@"BlueSnailIdleAnimation"];
+                
+                SKSpriteNode *tempSnail = [SKSpriteNode new];
+                tempSnail = bluesnails[i];
+                [bluesnails removeObject:bluesnails[i]];
+                [KKGameData sharedGameData].score += 1000;
+                [self updateScore];
+                [tempSnail setPhysicsBody:NULL];
+                [tempSnail runAction:self.blueSnailHurtAnimation completion:^{
+                    [tempSnail removeFromParent];
+                }];
+                break;
+            }
             if (bluesnails[i].xScale < 0) {
+                //Right move
                 bluesnails[i].position = CGPointMake(bluesnails[i].position.x + 0.25, bluesnails[i].position.y);
-                NSLog(@"4  %f", bluesnails[i].xScale);
             }
             else {
+                //Left move
                 bluesnails[i].position = CGPointMake(bluesnails[i].position.x - 0.25, bluesnails[i].position.y);
-                NSLog(@"5  %f", bluesnails[i].xScale);
             }
         }
-        
     }
 }
 
