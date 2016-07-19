@@ -355,21 +355,34 @@ static const NSTimeInterval kHugeTime = 9999.0;
     [self blueSnailMove];
 
 }
-
+int lastState = 2;
 - (void)blueSnailMove {
     SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
     for (int i = 0; i < [bluesnails count]; i++) {
         for (int k = 0; k < [borders count]; k++) {
-            if ([bluesnails[i] intersectsNode:borders[k]] || ([bluesnails[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(bluesnails[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(bluesnails[i].frame))) {
+            
+            if ([bluesnails[i] intersectsNode:borders[k]]) {
+
                 if (bluesnails[i].xScale < 0) {
                     bluesnails[i].xScale = 1.0*ABS(bluesnails[i].xScale);
                 }
-                else {
+                else if (bluesnails[i].xScale > 0) {
                     bluesnails[i].xScale = -1.0*ABS(bluesnails[i].xScale);
                 }
             }
+            
+            if ([bluesnails[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(bluesnails[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(bluesnails[i].frame)) {
+                if (bluesnails[i].xScale < 0 && lastState != 0) {
+                    bluesnails[i].xScale = 1.0*ABS(bluesnails[i].xScale);
+                    lastState = 1;
+                }
+                else if (bluesnails[i].xScale > 0 && lastState != 1) {
+                    bluesnails[i].xScale = -1.0*ABS(bluesnails[i].xScale);
+                    lastState = 0;
+                }
+            }
 
-            if ([bluesnails[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(bluesnails[i].frame) - 3) {
+            if ([bluesnails[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(bluesnails[i].frame) - 4) {
                 
                 SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
                 [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
