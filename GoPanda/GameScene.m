@@ -30,6 +30,7 @@ float lastCameraPosition;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
 NSMutableArray<SKSpriteNode *> *bluesnails;
+NSMutableArray<SKSpriteNode *> *redsnails;
 NSMutableArray<SKSpriteNode *> *borders;
 
 
@@ -114,7 +115,23 @@ NSMutableArray<SKSpriteNode *> *borders;
     self.blueSnailHurtAnimation = [SKAction sequence:@[
                         [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.15] count:1],
                         [SKAction fadeOutWithDuration:1.5]]];
-    //[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.15] count:1];
+
+    //Create red snails idle animation
+    textures = [NSMutableArray new];
+    for (int i = 2; i <= 5; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"redsnail_0%i", i]]];
+    }
+    self.redSnailIdleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
+    
+    //Create red Snail Hurt Animation
+    textures = [NSMutableArray new];
+    for (int i = 6; i <= 9; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"redsnail_0%i",i]]];
+    }
+    self.redSnailHurtAnimation = [SKAction sequence:@[
+                        [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.15] count:1],
+                        [SKAction fadeOutWithDuration:1.5]]];
+
     
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
@@ -144,12 +161,21 @@ NSMutableArray<SKSpriteNode *> *borders;
         }
     }
     
-    //Setup array of bluesnails
+    //Setup array of blue snails
     bluesnails = [NSMutableArray new];
     for (SKSpriteNode *child in [self children]) {
         if ([child.name isEqualToString:@"bluesnail"]) {
             [child runAction:self.blueSnailIdleAnimation withKey:@"BlueSnailIdleAnimation"];
             [bluesnails addObject:child];
+        }
+    }
+    
+    //Setup array of red snails
+    redsnails = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"redsnail"]) {
+            [child runAction:self.redSnailIdleAnimation withKey:@"RedSnailIdleAnimation"];
+            [redsnails addObject:child];
         }
     }
     
@@ -352,37 +378,41 @@ static const NSTimeInterval kHugeTime = 9999.0;
     
     [self exit];
     
-    [self blueSnailMove];
+    [self enemies:bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:self.blueSnailHurtAnimation];
+    [self enemies:redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:self.redSnailHurtAnimation];
+
 
 }
-int lastState = 2;
-- (void)blueSnailMove {
+
+int lastStateOfIntersectWithEnemy = 2;
+
+- (void)enemies:(NSMutableArray<SKSpriteNode *> *)enemiesArray withIdleAnimationKey:(NSString *)idleAnimationKey withHurtAnimation:(SKAction *)hurtAnimation {
     SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
-    for (int i = 0; i < [bluesnails count]; i++) {
+    for (int i = 0; i < [enemiesArray count]; i++) {
         for (int k = 0; k < [borders count]; k++) {
             
-            if ([bluesnails[i] intersectsNode:borders[k]]) {
+            if ([enemiesArray[i] intersectsNode:borders[k]]) {
 
-                if (bluesnails[i].xScale < 0) {
-                    bluesnails[i].xScale = 1.0*ABS(bluesnails[i].xScale);
+                if (enemiesArray[i].xScale < 0) {
+                    enemiesArray[i].xScale = 1.0*ABS(enemiesArray[i].xScale);
                 }
-                else if (bluesnails[i].xScale > 0) {
-                    bluesnails[i].xScale = -1.0*ABS(bluesnails[i].xScale);
+                else if (enemiesArray[i].xScale > 0) {
+                    enemiesArray[i].xScale = -1.0*ABS(enemiesArray[i].xScale);
                 }
             }
             
-            if ([bluesnails[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(bluesnails[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(bluesnails[i].frame)) {
-                if (bluesnails[i].xScale < 0 && lastState != 0) {
-                    bluesnails[i].xScale = 1.0*ABS(bluesnails[i].xScale);
-                    lastState = 1;
+            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(enemiesArray[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(enemiesArray[i].frame)) {
+                if (enemiesArray[i].xScale < 0 && lastStateOfIntersectWithEnemy != 0) {
+                    enemiesArray[i].xScale = 1.0*ABS(enemiesArray[i].xScale);
+                    lastStateOfIntersectWithEnemy = 1;
                 }
-                else if (bluesnails[i].xScale > 0 && lastState != 1) {
-                    bluesnails[i].xScale = -1.0*ABS(bluesnails[i].xScale);
-                    lastState = 0;
+                else if (enemiesArray[i].xScale > 0 && lastStateOfIntersectWithEnemy != 1) {
+                    enemiesArray[i].xScale = -1.0*ABS(enemiesArray[i].xScale);
+                    lastStateOfIntersectWithEnemy = 0;
                 }
             }
 
-            if ([bluesnails[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(bluesnails[i].frame) - 4) {
+            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(enemiesArray[i].frame) - 4) {
                 
                 SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
                 [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
@@ -390,26 +420,26 @@ int lastState = 2;
                 [panda runAction:jumpMove withKey:@"JumpAction"];
                 [panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
                 
-                [bluesnails[i] removeActionForKey:@"BlueSnailIdleAnimation"];
+                [enemiesArray[i] removeActionForKey:idleAnimationKey];
                 
                 SKSpriteNode *tempSnail = [SKSpriteNode new];
-                tempSnail = bluesnails[i];
-                [bluesnails removeObject:bluesnails[i]];
+                tempSnail = enemiesArray[i];
+                [enemiesArray removeObject:enemiesArray[i]];
                 [KKGameData sharedGameData].score += 1000;
                 [self updateScore];
                 [tempSnail setPhysicsBody:NULL];
-                [tempSnail runAction:self.blueSnailHurtAnimation completion:^{
+                [tempSnail runAction:hurtAnimation completion:^{
                     [tempSnail removeFromParent];
                 }];
                 break;
             }
-            if (bluesnails[i].xScale < 0) {
+            if (enemiesArray[i].xScale < 0) {
                 //Right move
-                bluesnails[i].position = CGPointMake(bluesnails[i].position.x + 0.25, bluesnails[i].position.y);
+                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.15, enemiesArray[i].position.y);
             }
             else {
                 //Left move
-                bluesnails[i].position = CGPointMake(bluesnails[i].position.x - 0.25, bluesnails[i].position.y);
+                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.15, enemiesArray[i].position.y);
             }
         }
     }

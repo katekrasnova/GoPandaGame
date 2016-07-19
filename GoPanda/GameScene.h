@@ -18,6 +18,8 @@
 @property (nonatomic) SKAction *coinAnimation;
 @property (nonatomic) SKAction *blueSnailIdleAnimation;
 @property (nonatomic) SKAction *blueSnailHurtAnimation;
+@property (nonatomic) SKAction *redSnailIdleAnimation;
+@property (nonatomic) SKAction *redSnailHurtAnimation;
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
