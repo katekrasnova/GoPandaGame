@@ -403,8 +403,6 @@ static const NSTimeInterval kHugeTime = 9999.0;
     
 }
 
-int lastStateOfIntersectWithEnemy = 2;
-
 - (void)enemies:(NSMutableArray<SKSpriteNode *> *)enemiesArray withIdleAnimationKey:(NSString *)idleAnimationKey withHurtAnimation:(SKAction *)hurtAnimation {
     SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
     for (int i = 0; i < [enemiesArray count]; i++) {
@@ -422,18 +420,21 @@ int lastStateOfIntersectWithEnemy = 2;
             
             if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(enemiesArray[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(enemiesArray[i].frame) && (CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame) >= -3)) {
                 
-                NSLog(@"%f", CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame));
+               // NSLog(@"%f", CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame));
                 
-                if (enemiesArray[i].xScale < 0 && lastStateOfIntersectWithEnemy != 0) {
+                if ((enemiesArray[i].xScale < 0 && (panda.xScale < 0)) || (panda.xScale > 0 && panda.position.x > enemiesArray[i].position.x)) {
+                    
+                    NSLog(@"%f %f", CGRectGetMinX(panda.frame), CGRectGetMaxX(enemiesArray[i].frame));
+                    
                     enemiesArray[i].xScale = 1.0*ABS(enemiesArray[i].xScale);
-                    lastStateOfIntersectWithEnemy = 1;
-                    [self pandaHurts];
                 }
-                else if (enemiesArray[i].xScale > 0 && lastStateOfIntersectWithEnemy != 1) {
+                else if ((enemiesArray[i].xScale > 0 && panda.xScale > 0) || (panda.xScale < 0 && panda.position.x < enemiesArray[i].position.x)) {
+                    
+                    NSLog(@"%f %f", CGRectGetMaxX(panda.frame), CGRectGetMinX(enemiesArray[i].frame));
+                    
                     enemiesArray[i].xScale = -1.0*ABS(enemiesArray[i].xScale);
-                    lastStateOfIntersectWithEnemy = 0;
-                    [self pandaHurts];
                 }
+                [self pandaHurts];
             }
 
             if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(enemiesArray[i].frame) - 4 ) {
