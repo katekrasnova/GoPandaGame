@@ -26,6 +26,7 @@ typedef enum {
 
 @implementation GameScene
 
+BOOL isHurtAnimationRunning;
 float lastCameraPosition;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
@@ -99,7 +100,6 @@ NSMutableArray<SKSpriteNode *> *borders;
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Hurt_00%i", i]]];
     }
     self.hurtAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1], [SKAction repeatAction:[SKAction sequence:@[[SKAction fadeAlphaTo:0.6 duration:0.15], [SKAction fadeAlphaTo:1.0 duration:0.15]]] count:4]]];
-    
     
     //Create Coin animation
     textures = [NSMutableArray new];
@@ -421,13 +421,16 @@ static const NSTimeInterval kHugeTime = 9999.0;
 
 }
 
+
 - (void)pandaHurts {
     SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
     
     [panda removeAllActions];
     //[panda runAction:self.hurtAnimation withKey:@"HurtAnimation"];
+    isHurtAnimationRunning = YES;
     [panda runAction:self.hurtAnimation completion:^{
         [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+        isHurtAnimationRunning = NO;
     }];
     
 }
@@ -449,21 +452,20 @@ static const NSTimeInterval kHugeTime = 9999.0;
             
             if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(enemiesArray[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(enemiesArray[i].frame) && (CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame) >= -3)) {
                 
-               // NSLog(@"%f", CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame));
                 
                 if ((enemiesArray[i].xScale < 0 && (panda.xScale < 0)) || (panda.xScale > 0 && panda.position.x > enemiesArray[i].position.x)) {
-                    
-                    NSLog(@"%f %f", CGRectGetMinX(panda.frame), CGRectGetMaxX(enemiesArray[i].frame));
                     
                     enemiesArray[i].xScale = 1.0*ABS(enemiesArray[i].xScale);
                 }
                 else if ((enemiesArray[i].xScale > 0 && panda.xScale > 0) || (panda.xScale < 0 && panda.position.x < enemiesArray[i].position.x)) {
                     
-                    NSLog(@"%f %f", CGRectGetMaxX(panda.frame), CGRectGetMinX(enemiesArray[i].frame));
-                    
                     enemiesArray[i].xScale = -1.0*ABS(enemiesArray[i].xScale);
                 }
-                [self pandaHurts];
+                
+                if (!isHurtAnimationRunning) {
+                    [self pandaHurts];
+                }
+                
             }
 
             if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(enemiesArray[i].frame) - 4 ) {
