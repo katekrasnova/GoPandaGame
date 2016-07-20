@@ -23,6 +23,8 @@
 @property (nonatomic) SKAction *redSnailHurtAnimation;
 @property (nonatomic) SKAction *mushroomIdleAnimation;
 @property (nonatomic) SKAction *mushroomHurtAnimation;
+@property (nonatomic) SKAction *flowerIdleAnimation;
+@property (nonatomic) SKAction *flowerHurtAnimation;
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
 

@@ -33,6 +33,7 @@ NSMutableArray<SKSpriteNode *> *coins;
 NSMutableArray<SKSpriteNode *> *bluesnails;
 NSMutableArray<SKSpriteNode *> *redsnails;
 NSMutableArray<SKSpriteNode *> *mushrooms;
+NSMutableArray<SKSpriteNode *> *flowers;
 NSMutableArray<SKSpriteNode *> *borders;
 
 
@@ -45,7 +46,6 @@ NSMutableArray<SKSpriteNode *> *borders;
     self.physicsBody.friction = 1.0f; */
     
     // Set boundaries and background   //NEW
-    NSLog(@"SKScene:initWithSize %f x %f",self.size.width,self.size.height);
     SKNode *exitSign = [self childNodeWithName:@"exitSign"];
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, exitSign.position.x + 200, 680)];
     
@@ -153,10 +153,25 @@ NSMutableArray<SKSpriteNode *> *borders;
     for (int i = 1; i <= 8; i++) {
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"mushroomhurt_0%i", i]]];
     }
-    //self.mushroomHurtAnimation = [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1];
     self.mushroomHurtAnimation = [SKAction sequence:@[
                         [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1],
                         [SKAction fadeOutWithDuration:1.5]]];
+    
+    //Create flower idle animation
+    textures = [NSMutableArray new];
+    for (int i = 1; i <= 6; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"floweridle_0%i", i]]];
+    }
+    self.flowerIdleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
+    
+    //Create flower hurt animation
+    textures = [NSMutableArray new];
+    for (int i = 1; i <= 7; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"flowerhurt_0%i", i]]];
+    }
+    self.flowerHurtAnimation = [SKAction sequence:@[
+                                                      [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1],
+                                                      [SKAction fadeOutWithDuration:1.5]]];
 
     
     //Create camera
@@ -211,6 +226,15 @@ NSMutableArray<SKSpriteNode *> *borders;
         if ([child.name isEqualToString:@"mushroom"]) {
             [child runAction:self.mushroomIdleAnimation withKey:@"MushroomIdleAnimation"];
             [mushrooms addObject:child];
+        }
+    }
+    
+    //Setup array of flowers
+    flowers = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"flower"]) {
+            [child runAction:self.flowerIdleAnimation withKey:@"FlowerIdleAnimation"];
+            [flowers addObject:child];
         }
     }
     
@@ -417,6 +441,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     [self enemies:bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:self.blueSnailHurtAnimation];
     [self enemies:redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:self.redSnailHurtAnimation];
     [self enemies:mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:self.mushroomHurtAnimation];
+    [self enemies:flowers withIdleAnimationKey:@"FlowerIdleAnimation" withHurtAnimation:self.flowerHurtAnimation];
 
 
 }
@@ -489,14 +514,17 @@ static const NSTimeInterval kHugeTime = 9999.0;
                 }];
                 break;
             }
-            if (enemiesArray[i].xScale < 0) {
-                //Right move
-                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.15, enemiesArray[i].position.y);
+            if (enemiesArray != flowers) {
+                if (enemiesArray[i].xScale < 0) {
+                    //Right move
+                    enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.15, enemiesArray[i].position.y);
+                }
+                else {
+                    //Left move
+                    enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.15, enemiesArray[i].position.y);
+                }
             }
-            else {
-                //Left move
-                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.15, enemiesArray[i].position.y);
-            }
+            
         }
     }
 }
