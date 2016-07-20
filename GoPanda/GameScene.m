@@ -31,6 +31,7 @@ SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
 NSMutableArray<SKSpriteNode *> *bluesnails;
 NSMutableArray<SKSpriteNode *> *redsnails;
+NSMutableArray<SKSpriteNode *> *mushrooms;
 NSMutableArray<SKSpriteNode *> *borders;
 
 
@@ -139,6 +140,23 @@ NSMutableArray<SKSpriteNode *> *borders;
     self.redSnailHurtAnimation = [SKAction sequence:@[
                         [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.15] count:1],
                         [SKAction fadeOutWithDuration:1.5]]];
+    
+    //Create mushroom idle animation
+    textures = [NSMutableArray new];
+    for (int i = 1; i <= 6; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"mushroom_0%i", i]]];
+    }
+    self.mushroomIdleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
+    
+    //Create mushroom hurt animation
+    textures = [NSMutableArray new];
+    for (int i = 1; i <= 8; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"mushroomhurt_0%i", i]]];
+    }
+    //self.mushroomHurtAnimation = [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1];
+    self.mushroomHurtAnimation = [SKAction sequence:@[
+                        [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1],
+                        [SKAction fadeOutWithDuration:1.5]]];
 
     
     //Create camera
@@ -187,6 +205,15 @@ NSMutableArray<SKSpriteNode *> *borders;
         }
     }
     
+    //Setup array of mushrooms
+    mushrooms = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"mushroom"]) {
+            [child runAction:self.mushroomIdleAnimation withKey:@"MushroomIdleAnimation"];
+            [mushrooms addObject:child];
+        }
+    }
+    
     //Setup array of borders
     borders = [NSMutableArray new];
     for (SKSpriteNode *child in [self children]) {
@@ -194,6 +221,7 @@ NSMutableArray<SKSpriteNode *> *borders;
             [borders addObject:child];
         }
     }
+    
 }
 
 //Score
@@ -388,6 +416,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     
     [self enemies:bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:self.blueSnailHurtAnimation];
     [self enemies:redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:self.redSnailHurtAnimation];
+    [self enemies:mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:self.mushroomHurtAnimation];
 
 
 }

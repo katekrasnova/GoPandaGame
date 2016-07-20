@@ -21,6 +21,8 @@
 @property (nonatomic) SKAction *blueSnailHurtAnimation;
 @property (nonatomic) SKAction *redSnailIdleAnimation;
 @property (nonatomic) SKAction *redSnailHurtAnimation;
+@property (nonatomic) SKAction *mushroomIdleAnimation;
+@property (nonatomic) SKAction *mushroomHurtAnimation;
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
