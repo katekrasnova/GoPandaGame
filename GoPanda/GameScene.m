@@ -39,6 +39,8 @@ NSMutableArray<SKSpriteNode *> *borders;
 
 -(void)didMoveToView:(SKView *)view {
     
+    isFlowerAttackAnimation = NO;
+    
     // Set boundaries
     /*SKNode *background = [self childNodeWithName:@"background"];
     SKPhysicsBody *borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:background.frame];
@@ -170,13 +172,19 @@ NSMutableArray<SKSpriteNode *> *borders;
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"flowerhurt_0%i", i]]];
     }
     self.flowerHurtAnimation = [SKAction sequence:@[
-                                                      [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1],
-                                                      [SKAction fadeOutWithDuration:1.5]]];
-
+                                            [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1],
+                                            [SKAction fadeOutWithDuration:1.5]]];
+    //Create flower attack animation
+    textures = [NSMutableArray new];
+    for (int i = 1; i <= 9; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"flowerattack_0%i", i]]];
+    }
+    self.flowerAttackAnimation = [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1];
     
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
     [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+    
     
     camera = (SKCameraNode *)[self childNodeWithName:@"MainCamera"];
     id horizConstraint = [SKConstraint distance:[SKRange rangeWithUpperLimit:0] toNode:panda];
@@ -233,6 +241,7 @@ NSMutableArray<SKSpriteNode *> *borders;
     flowers = [NSMutableArray new];
     for (SKSpriteNode *child in [self children]) {
         if ([child.name isEqualToString:@"flower"]) {
+            
             [child runAction:self.flowerIdleAnimation withKey:@"FlowerIdleAnimation"];
             [flowers addObject:child];
         }
@@ -441,7 +450,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     [self enemies:bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:self.blueSnailHurtAnimation];
     [self enemies:redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:self.redSnailHurtAnimation];
     [self enemies:mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:self.mushroomHurtAnimation];
-    [self enemies:flowers withIdleAnimationKey:@"FlowerIdleAnimation" withHurtAnimation:self.flowerHurtAnimation];
+    [self flowersEnemies];
 
 
 }
@@ -477,7 +486,6 @@ static const NSTimeInterval kHugeTime = 9999.0;
             
             if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(enemiesArray[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(enemiesArray[i].frame) && (CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(enemiesArray[i].frame) - CGRectGetMinY(panda.frame) >= -3)) {
                 
-                
                 if ((enemiesArray[i].xScale < 0 && (panda.xScale < 0)) || (panda.xScale > 0 && panda.position.x > enemiesArray[i].position.x)) {
                     
                     enemiesArray[i].xScale = 1.0*ABS(enemiesArray[i].xScale);
@@ -492,8 +500,8 @@ static const NSTimeInterval kHugeTime = 9999.0;
                 }
                 
             }
-
-            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(enemiesArray[i].frame) - 4 ) {
+            
+            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(enemiesArray[i].frame) - 10 ) {
                 
                 SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
                 [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
@@ -514,17 +522,72 @@ static const NSTimeInterval kHugeTime = 9999.0;
                 }];
                 break;
             }
-            if (enemiesArray != flowers) {
-                if (enemiesArray[i].xScale < 0) {
-                    //Right move
-                    enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.15, enemiesArray[i].position.y);
-                }
-                else {
-                    //Left move
-                    enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.15, enemiesArray[i].position.y);
-                }
+            if (enemiesArray[i].xScale < 0) {
+                //Right move
+                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.15, enemiesArray[i].position.y);
             }
+            else {
+                //Left move
+                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.15, enemiesArray[i].position.y);
+            }
+        }
+    }
+}
+
+BOOL isFlowerAttackAnimation;
+
+- (void)flowersEnemies {
+    SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
+    for (int i = 0; i < [flowers count]; i++) {
+        
+        if (flowers[i].position.x - panda.position.x <= 500 && !isFlowerAttackAnimation) {
+            isFlowerAttackAnimation = YES;
+            [flowers[i] runAction:[SKAction sequence:@[self.flowerAttackAnimation, [SKAction waitForDuration:2.0f]]] completion:^{
+                [flowers[i] runAction:self.flowerIdleAnimation withKey:@"FlowerIdleAnimation"];
+                isFlowerAttackAnimation = NO;
+            }];
+        }
+        
+        if (panda.position.x < flowers[i].position.x) {
+            flowers[i].xScale = 1.0*ABS(flowers[i].xScale);
+        }
+        else {
+            flowers[i].xScale = -1.0*ABS(flowers[i].xScale);
+        }
+        
+        //NSLog(@"panda: %f flower: %f", CGRectGetMaxX(panda.frame), CGRectGetMinX(enemiesArray[i].frame));
+        //NSLog(@"%i", [flowers[i] intersectsNode:panda]);
+        //NSLog(@"%f , %f", CGRectGetMinX(panda.frame), CGRectGetMaxX(flowers[i].frame));
+        //NSLog(@"%f", CGRectGetMaxX(panda.frame) - CGRectGetMinX(flowers[i].frame));
+        //NSLog(@"%f", CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame));
+        //NSLog(@"%f", CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame));
+        
+        if ([flowers[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(flowers[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(flowers[i].frame) && CGRectGetMaxX(panda.frame) - CGRectGetMinX(flowers[i].frame) >= 20 && (CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) >= -6) && !isHurtAnimationRunning) {
             
+            [self pandaHurts];
+        }
+        
+        if ([flowers[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(flowers[i].frame) - 10 ) {
+            
+            SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
+            [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
+            [panda removeActionForKey:@"StayAnimation"];
+            [panda runAction:jumpMove withKey:@"JumpAction"];
+            [panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
+            
+            //[flowers[i] removeActionForKey:@"FlowerIdleAnimation"];
+            [flowers[i] removeAllActions];
+            
+            SKSpriteNode *tempSnail = [SKSpriteNode new];
+            tempSnail = flowers[i];
+            [flowers removeObject:flowers[i]];
+            [KKGameData sharedGameData].score += 1000;
+            [self updateScore];
+            [tempSnail setPhysicsBody:NULL];
+            [tempSnail runAction:self.flowerHurtAnimation completion:^{
+                [tempSnail removeFromParent];
+            }];
+            break;
         }
     }
 }
