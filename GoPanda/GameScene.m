@@ -561,6 +561,7 @@ BOOL isFlowerAttackAnimation;
         //NSLog(@"%f", CGRectGetMaxX(panda.frame) - CGRectGetMinX(flowers[i].frame));
         //NSLog(@"%f", CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame));
         //NSLog(@"%f", CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame));
+        NSLog(@"min camera X = %f, max camera X = %f", camera.position.x - self.frame.size.width/2, camera.position.x + self.frame.size.width/2);
         
         if ([flowers[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(flowers[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(flowers[i].frame) && CGRectGetMaxX(panda.frame) - CGRectGetMinX(flowers[i].frame) >= 20 && (CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) >= -6) && !isHurtAnimationRunning) {
             
