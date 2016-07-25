@@ -569,7 +569,7 @@ BOOL isFlowerAttackAnimation;
     SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
 
     for (int i = 0; i < [flowersSpit count]; i++) {
-        NSLog(@"%f", flowersSpit[i].position.x);
+        //NSLog(@"%f", flowersSpit[i].position.x);
         //Moving spits
         if (flowersSpit[i].xScale > 0) {
             flowersSpit[i].position = CGPointMake(flowersSpit[i].position.x - 5, flowersSpit[i].position.y);
