@@ -29,6 +29,7 @@ typedef enum {
 BOOL isHurtAnimationRunning;
 float lastCameraPosition;
 SKNode *exitSign;
+SKSpriteNode *endGame;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
 NSMutableArray<SKSpriteNode *> *bluesnails;
@@ -44,6 +45,7 @@ SKSpriteNode *jumpButton;
 -(void)didMoveToView:(SKView *)view {
     
     isFlowerAttackAnimation = NO;
+    
     
     // Set boundaries
     /*SKNode *background = [self childNodeWithName:@"background"];
@@ -66,31 +68,6 @@ SKSpriteNode *jumpButton;
         [self addChild:_background];
     }
     
-    //Add moving buttons to screen
-    //left move button
-    leftMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"leftbutton"];
-    leftMoveButton.alpha = 0.5;
-    leftMoveButton.scale = 0.6;
-    leftMoveButton.position = CGPointMake(70, 100);
-    leftMoveButton.zPosition = 5;
-    leftMoveButton.name = @"leftMoveButton";
-    [self addChild:leftMoveButton];
-    //right move button
-    rightMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"rightbutton"];
-    rightMoveButton.alpha = 0.5;
-    rightMoveButton.scale = 0.6;
-    rightMoveButton.position = CGPointMake(230, 100);
-    rightMoveButton.zPosition = 5;
-    rightMoveButton.name = @"rightMoveButton";
-    [self addChild:rightMoveButton];
-    //jump button
-    jumpButton = [SKSpriteNode spriteNodeWithImageNamed:@"jumpbutton"];
-    jumpButton.alpha = 0.5;
-    jumpButton.scale = 0.6;
-    jumpButton.position = CGPointMake(955, 100);
-    jumpButton.zPosition = 5;
-    jumpButton.name = @"jumpButton";
-    [self addChild:jumpButton];
     
     
     //Add Panda Character
@@ -224,7 +201,41 @@ SKSpriteNode *jumpButton;
     id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(exitSign.position.x + 200 - camera.position.x)]];
     id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 150 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
-    lastCameraPosition = camera.position.x;
+    //lastCameraPosition = camera.position.x;
+    
+    //Add moving buttons to screen
+    //left move button
+    leftMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"leftbutton"];
+    leftMoveButton.alpha = 0.5;
+    leftMoveButton.scale = 0.6;
+    leftMoveButton.position = CGPointMake(-440, -140);
+    leftMoveButton.zPosition = 5;
+    leftMoveButton.name = @"leftMoveButton";
+    [camera addChild:leftMoveButton];
+    //right move button
+    rightMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"rightbutton"];
+    rightMoveButton.alpha = 0.5;
+    rightMoveButton.scale = 0.6;
+    rightMoveButton.position = CGPointMake(-280, -140);
+    rightMoveButton.zPosition = 5;
+    rightMoveButton.name = @"rightMoveButton";
+    [camera addChild:rightMoveButton];
+    //jump button
+    jumpButton = [SKSpriteNode spriteNodeWithImageNamed:@"jumpbutton"];
+    jumpButton.alpha = 0.5;
+    jumpButton.scale = 0.6;
+    jumpButton.position = CGPointMake(440, -140);
+    jumpButton.zPosition = 5;
+    jumpButton.name = @"jumpButton";
+    [camera addChild:jumpButton];
+    
+    //End game button
+    endGame = [SKSpriteNode spriteNodeWithImageNamed:@"okbutton"];
+    endGame.size = CGSizeMake(91, 95);
+    endGame.position = CGPointMake(440, 300);
+    endGame.name = @"endGame";
+    [camera addChild:endGame];
+
     
     //Score
     [self setupHUD];
@@ -297,15 +308,15 @@ SKLabelNode* _time;
 {
     _score = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     _score.fontSize = 30.0;
-    _score.position = CGPointMake(150, 130);
+    _score.position = CGPointMake(362, 130);
     _score.fontColor = [SKColor blackColor];
-    [self addChild:_score];
+    [camera addChild:_score];
     
     _time = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     _time.fontSize = 30.0;
-    _time.position = CGPointMake(430, 130);
+    _time.position = CGPointMake(82, 130);
     _time.fontColor = [SKColor blueColor];
-    [self addChild:_time];
+    [camera addChild:_time];
 }
 
 - (void)updateScore {
@@ -397,7 +408,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     //Touch end button DELETE
     //CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     //SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
-    if ([node.name isEqualToString:@"endgame"]) {
+    if ([node.name isEqualToString:@"endGame"]) {
         [self endLevel:kEndReasonWin];
     }
 
@@ -485,15 +496,26 @@ static const NSTimeInterval kHugeTime = 9999.0;
     
     
     //Move score label when camera moves
-    SKSpriteNode *endGame = (SKSpriteNode *)[self childNodeWithName:@"endgame"];
-    if (lastCameraPosition < camera.position.x) {
-        _score.position = CGPointMake(_score.position.x + (camera.position.x - lastCameraPosition), _score.position.y);
+    
+    NSLog(@"%f", camera.position.x);
+    NSLog(@"%f\n\n", lastCameraPosition);
+
+  /*  if (lastCameraPosition < camera.position.x) {
+        //_score.position = CGPointMake(_score.position.x + (camera.position.x - lastCameraPosition), _score.position.y);
+        
+        
+//        [_score runAction:[SKAction moveTo:CGPointMake(camera.position.x - 362, 130) duration:0.1] completion:^{
+//            [_score removeAllActions];
+//        }];
+        //[_score runAction:[SKAction moveTo:CGPointMake(camera.position.x - 362, 130) duration:0.5] withKey:@"ScoreMove"];
+        
+
+        
         _time.position = CGPointMake(_time.position.x + (camera.position.x - lastCameraPosition), _time.position.y);
         endGame.position = CGPointMake(endGame.position.x + (camera.position.x - lastCameraPosition), endGame.position.y);
         leftMoveButton.position = CGPointMake(leftMoveButton.position.x + (camera.position.x - lastCameraPosition), leftMoveButton.position.y);
         rightMoveButton.position = CGPointMake(rightMoveButton.position.x + (camera.position.x - lastCameraPosition), rightMoveButton.position.y);
         jumpButton.position = CGPointMake(jumpButton.position.x + (camera.position.x - lastCameraPosition), jumpButton.position.y);
-        lastCameraPosition = camera.position.x;
     }
     else if ((lastCameraPosition > camera.position.x) && (lastCameraPosition >= 150)) {
         if (lastCameraPosition >= 500) {
@@ -505,8 +527,8 @@ static const NSTimeInterval kHugeTime = 9999.0;
         _time.position = CGPointMake(_time.position.x - (lastCameraPosition - camera.position.x), _time.position.y);
         leftMoveButton.position = CGPointMake(leftMoveButton.position.x + (camera.position.x - lastCameraPosition), leftMoveButton.position.y);
         rightMoveButton.position = CGPointMake(rightMoveButton.position.x + (camera.position.x - lastCameraPosition), rightMoveButton.position.y);
-        lastCameraPosition = camera.position.x;
-    }
+    } */
+    
     
     [self exit];
     
@@ -516,6 +538,8 @@ static const NSTimeInterval kHugeTime = 9999.0;
     [self flowersEnemies];
 
     [self spitMovingUpdate];
+    
+    //lastCameraPosition = camera.position.x;
 }
 
 
