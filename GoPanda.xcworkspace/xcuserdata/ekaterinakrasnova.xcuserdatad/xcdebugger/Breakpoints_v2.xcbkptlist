@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "487"
-            endingLineNumber = "487"
+            startingLineNumber = "493"
+            endingLineNumber = "493"
             landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "800"
-            endingLineNumber = "800"
+            startingLineNumber = "806"
+            endingLineNumber = "806"
             landmarkName = "-accelerometerUpdate"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "794"
-            endingLineNumber = "794"
+            startingLineNumber = "800"
+            endingLineNumber = "800"
             landmarkName = "-accelerometerUpdate"
             landmarkType = "5">
          </BreakpointContent>
@@ -400,11 +400,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "532"
-            endingLineNumber = "532"
+            startingLineNumber = "538"
+            endingLineNumber = "538"
             landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
@@ -416,11 +416,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "527"
-            endingLineNumber = "527"
+            startingLineNumber = "533"
+            endingLineNumber = "533"
             landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
@@ -432,11 +432,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "497"
-            endingLineNumber = "497"
+            startingLineNumber = "503"
+            endingLineNumber = "503"
             landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
@@ -448,11 +448,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "494"
-            endingLineNumber = "494"
+            startingLineNumber = "500"
+            endingLineNumber = "500"
             landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
@@ -464,11 +464,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "495"
-            endingLineNumber = "495"
+            startingLineNumber = "501"
+            endingLineNumber = "501"
             landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
@@ -480,11 +480,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "522"
-            endingLineNumber = "522"
+            startingLineNumber = "528"
+            endingLineNumber = "528"
             landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
@@ -512,11 +512,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "766"
-            endingLineNumber = "766"
+            startingLineNumber = "772"
+            endingLineNumber = "772"
             landmarkName = "-accelerometerUpdate"
             landmarkType = "5">
          </BreakpointContent>
@@ -528,11 +528,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "768"
-            endingLineNumber = "768"
+            startingLineNumber = "774"
+            endingLineNumber = "774"
             landmarkName = "-accelerometerUpdate"
             landmarkType = "5">
          </BreakpointContent>
@@ -544,11 +544,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "769"
-            endingLineNumber = "769"
+            startingLineNumber = "775"
+            endingLineNumber = "775"
             landmarkName = "-accelerometerUpdate"
             landmarkType = "5">
          </BreakpointContent>
@@ -560,11 +560,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "759"
-            endingLineNumber = "759"
+            startingLineNumber = "765"
+            endingLineNumber = "765"
             landmarkName = "-endLevel:"
             landmarkType = "5">
          </BreakpointContent>
@@ -592,11 +592,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "672"
-            endingLineNumber = "672"
+            startingLineNumber = "678"
+            endingLineNumber = "678"
             landmarkName = "-spitMovingUpdate"
             landmarkType = "5">
          </BreakpointContent>
@@ -608,11 +608,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "647"
-            endingLineNumber = "647"
+            startingLineNumber = "653"
+            endingLineNumber = "653"
             landmarkName = "-attackAnimationForFlower:"
             landmarkType = "5">
          </BreakpointContent>
@@ -624,11 +624,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "697"
-            endingLineNumber = "697"
+            startingLineNumber = "703"
+            endingLineNumber = "703"
             landmarkName = "-flowersEnemies"
             landmarkType = "5">
          </BreakpointContent>
@@ -640,11 +640,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "569"
-            endingLineNumber = "569"
+            startingLineNumber = "575"
+            endingLineNumber = "575"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
             landmarkType = "5">
          </BreakpointContent>
@@ -656,11 +656,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "562"
-            endingLineNumber = "562"
+            startingLineNumber = "568"
+            endingLineNumber = "568"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
             landmarkType = "5">
          </BreakpointContent>
@@ -672,11 +672,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "564"
-            endingLineNumber = "564"
+            startingLineNumber = "570"
+            endingLineNumber = "570"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
             landmarkType = "5">
          </BreakpointContent>
@@ -702,11 +702,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "573"
-            endingLineNumber = "573"
+            startingLineNumber = "579"
+            endingLineNumber = "579"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
             landmarkType = "5">
          </BreakpointContent>
@@ -718,11 +718,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "668"
-            endingLineNumber = "668"
+            startingLineNumber = "674"
+            endingLineNumber = "674"
             landmarkName = "-spitMovingUpdate"
             landmarkType = "5">
          </BreakpointContent>
@@ -734,11 +734,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "730"
-            endingLineNumber = "730"
+            startingLineNumber = "736"
+            endingLineNumber = "736"
             landmarkName = "-flowersEnemies"
             landmarkType = "5">
          </BreakpointContent>
@@ -750,11 +750,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "674"
-            endingLineNumber = "674"
+            startingLineNumber = "680"
+            endingLineNumber = "680"
             landmarkName = "-flowersEnemies"
             landmarkType = "5">
          </BreakpointContent>
@@ -766,11 +766,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "677"
-            endingLineNumber = "677"
+            startingLineNumber = "683"
+            endingLineNumber = "683"
             landmarkName = "-flowersEnemies"
             landmarkType = "5">
          </BreakpointContent>
@@ -782,11 +782,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "690"
-            endingLineNumber = "690"
+            startingLineNumber = "696"
+            endingLineNumber = "696"
             landmarkName = "-flowersEnemies"
             landmarkType = "5">
          </BreakpointContent>
@@ -798,55 +798,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "593"
-            endingLineNumber = "593"
-            landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "604"
-            endingLineNumber = "604"
-            landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "595"
-            endingLineNumber = "595"
-            landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "599"
@@ -862,11 +814,59 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "503"
-            endingLineNumber = "503"
+            startingLineNumber = "610"
+            endingLineNumber = "610"
+            landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoPanda/GameScene.m"
+            timestampString = "491214390.087298"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "601"
+            endingLineNumber = "601"
+            landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoPanda/GameScene.m"
+            timestampString = "491214390.087298"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "605"
+            endingLineNumber = "605"
+            landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoPanda/GameScene.m"
+            timestampString = "491214390.087298"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "509"
+            endingLineNumber = "509"
             landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
@@ -878,11 +878,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "511"
-            endingLineNumber = "511"
+            startingLineNumber = "517"
+            endingLineNumber = "517"
             landmarkName = "-update:"
             landmarkType = "5">
          </BreakpointContent>
@@ -894,12 +894,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GoPanda/GameScene.m"
-            timestampString = "491212114.055681"
+            timestampString = "491214390.087298"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "501"
-            endingLineNumber = "501"
+            startingLineNumber = "507"
+            endingLineNumber = "507"
             landmarkName = "-update:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GoPanda/GameScene.m"
+            timestampString = "491213462.120804"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "339"
+            endingLineNumber = "339"
+            landmarkName = "-touchesBegan:withEvent:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

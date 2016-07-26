@@ -336,7 +336,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
     
     /*for (UITouch *touch in touches) {
-        if ([touch locationInNode:panda.parent].x < panda.position.x) {
+        if ([touch locationInNode:leftMoveButton].x < panda.position.x) {
             leftTouches++;
         }
         else {
@@ -431,13 +431,17 @@ static const NSTimeInterval kHugeTime = 9999.0;
             rightTouches--;
         }
     //}
-    while ((leftTouches < 0) || (rightTouches < 0)) {
-        if (leftTouches < 0) {
-            rightTouches += leftTouches;
+    while ((leftTouches < 0) || (rightTouches < 0) || (leftTouches > 1) || (rightTouches > 1)) {
+        if ((leftTouches < 0) || (leftTouches > 1)) {
+            if (leftTouches < 0) {
+                rightTouches += leftTouches;
+            }
             leftTouches = 0;
         }
-        if (rightTouches < 0) {
-            leftTouches += rightTouches;
+        if ((rightTouches < 0) || (rightTouches > 1)) {
+            if (rightTouches < 0) {
+                leftTouches += rightTouches;
+            }
             rightTouches = 0;
         }
     }
@@ -446,6 +450,8 @@ static const NSTimeInterval kHugeTime = 9999.0;
         [panda removeActionForKey:@"MoveAnimation"];
         [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
     }
+    
+    NSLog(@"%d, %d", leftTouches, rightTouches);
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -497,8 +503,8 @@ static const NSTimeInterval kHugeTime = 9999.0;
     
     //Move score label when camera moves
     
-    NSLog(@"%f", camera.position.x);
-    NSLog(@"%f\n\n", lastCameraPosition);
+    //NSLog(@"%f", camera.position.x);
+    //NSLog(@"%f\n\n", lastCameraPosition);
 
   /*  if (lastCameraPosition < camera.position.x) {
         //_score.position = CGPointMake(_score.position.x + (camera.position.x - lastCameraPosition), _score.position.y);
