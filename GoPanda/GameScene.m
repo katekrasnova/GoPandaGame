@@ -256,6 +256,7 @@ SKSpriteNode *jumpButton;
     for (SKSpriteNode *child in [self children]) {
         if ([child.name isEqualToString:@"bluesnail"]) {
             [child runAction:self.blueSnailIdleAnimation withKey:@"BlueSnailIdleAnimation"];
+            [child setPhysicsBody:nil];
             [bluesnails addObject:child];
         }
     }
@@ -265,6 +266,7 @@ SKSpriteNode *jumpButton;
     for (SKSpriteNode *child in [self children]) {
         if ([child.name isEqualToString:@"redsnail"]) {
             [child runAction:self.redSnailIdleAnimation withKey:@"RedSnailIdleAnimation"];
+            [child setPhysicsBody:nil];
             [redsnails addObject:child];
         }
     }
@@ -274,6 +276,7 @@ SKSpriteNode *jumpButton;
     for (SKSpriteNode *child in [self children]) {
         if ([child.name isEqualToString:@"mushroom"]) {
             [child runAction:self.mushroomIdleAnimation withKey:@"MushroomIdleAnimation"];
+            [child setPhysicsBody:nil];
             [mushrooms addObject:child];
         }
     }
@@ -284,9 +287,11 @@ SKSpriteNode *jumpButton;
         if ([child.name isEqualToString:@"flower"]) {
             
             [child runAction:self.flowerIdleAnimation withKey:@"FlowerIdleAnimation"];
+            [child setPhysicsBody:nil];
             [flowers addObject:child];
         }
     }
+    flowersSpit = [NSMutableArray new];
     
     //Setup array of borders
     borders = [NSMutableArray new];
@@ -296,7 +301,6 @@ SKSpriteNode *jumpButton;
         }
     }
     
-    flowersSpit = [NSMutableArray new];
     
 }
 
@@ -354,7 +358,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     }
     if ([node.name isEqualToString:@"jumpButton"]) {
         //Jump
-        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
+        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.05];
         [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
         [panda removeActionForKey:@"StayAnimation"];
         [panda runAction:jumpMove withKey:@"JumpAction"];
@@ -557,6 +561,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
     [panda runAction:self.hurtAnimation completion:^{
         isHurtAnimationRunning = NO;
     }];
+
     
 }
 
@@ -592,13 +597,11 @@ static const NSTimeInterval kHugeTime = 9999.0;
                 
             }
             
-            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(enemiesArray[i].frame) - 10 ) {
+            //NSLog(@"%f - %f, %f - %f", CGRectGetMinY(panda.frame), CGRectGetMinY(enemiesArray[i].frame), CGRectGetMinY(panda.frame), CGRectGetMaxY(enemiesArray[i].frame));
+            
+            if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMinY(enemiesArray[i].frame) + 20 && CGRectGetMinY(panda.frame) <= CGRectGetMaxY(enemiesArray[i].frame)) {
                 
-                SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
-                [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-                [panda removeActionForKey:@"StayAnimation"];
-                [panda runAction:jumpMove withKey:@"JumpAction"];
-                [panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
+                
                 
                 [enemiesArray[i] removeActionForKey:idleAnimationKey];
                 
@@ -612,6 +615,15 @@ static const NSTimeInterval kHugeTime = 9999.0;
                     [tempSnail removeFromParent];
                     [tempSnail removeAllActions];
                 }];
+                
+                SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.05];
+                [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
+                [panda removeActionForKey:@"StayAnimation"];
+                [panda runAction:jumpMove withKey:@"JumpAction"];
+                [panda runAction:self.jumpAnimation completion:^{
+                    [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+                }];
+                
                 break;
             }
             if (enemiesArray[i].xScale < 0) {
@@ -713,7 +725,7 @@ BOOL isFlowerAttackAnimation;
         }
         
         //Killing enemy
-        if ([flowers[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(flowers[i].frame) - 10 ) {
+        if ([flowers[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(flowers[i].frame) - 20 ) {
             
             SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
             [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
