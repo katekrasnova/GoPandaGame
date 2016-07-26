@@ -347,10 +347,10 @@ static const NSTimeInterval kHugeTime = 9999.0;
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     if ([node.name isEqualToString:@"leftMoveButton"]) {
-        leftTouches++;
+        leftTouches = 1;
     }
     if ([node.name isEqualToString:@"rightMoveButton"]) {
-        rightTouches++;
+        rightTouches = 1;
     }
     if ([node.name isEqualToString:@"jumpButton"]) {
         //Jump
@@ -425,10 +425,10 @@ static const NSTimeInterval kHugeTime = 9999.0;
     //for (UITouch *touch in touches) {
         //if ([touch locationInNode:panda.parent].x < panda.position.x) {
         if ([node.name isEqualToString:@"leftMoveButton"]) {
-            leftTouches--;
+            leftTouches = 0;
         }
         if ([node.name isEqualToString:@"rightMoveButton"]) {
-            rightTouches--;
+            rightTouches = 0;
         }
     //}
     while ((leftTouches < 0) || (rightTouches < 0) || (leftTouches > 1) || (rightTouches > 1)) {
@@ -487,6 +487,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
             [KKGameData sharedGameData].score += 100;
             [self updateScore];
             [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
+            [coins[i] removeAllActions];
             [coins removeObject:coins[i]];
         }
     }
@@ -609,6 +610,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
                 [tempSnail setPhysicsBody:NULL];
                 [tempSnail runAction:hurtAnimation completion:^{
                     [tempSnail removeFromParent];
+                    [tempSnail removeAllActions];
                 }];
                 break;
             }
@@ -730,6 +732,7 @@ BOOL isFlowerAttackAnimation;
             [tempSnail setPhysicsBody:NULL];
             [tempSnail runAction:self.flowerHurtAnimation completion:^{
                 [tempSnail removeFromParent];
+                [tempSnail removeAllActions];
             }];
             break;
         }
