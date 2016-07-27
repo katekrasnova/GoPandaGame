@@ -190,6 +190,13 @@ SKSpriteNode *jumpButton;
     }
     self.littlePandaEat = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.2]];
     
+    //Creat little panda sleep animation
+    textures = [NSMutableArray new];
+    for (int i = 1; i <= 12; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"littlePandaSleep_%i", i]]];
+    }
+    self.littlePandaSleep = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.2]];
+    
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
     [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
@@ -298,8 +305,13 @@ SKSpriteNode *jumpButton;
     //Setup array of little pandas
     littlePandas = [NSMutableArray new];
     for (SKSpriteNode *child in [self children]) {
-        if ([child.name isEqualToString:@"littlePandaEat"]) {
-            [child runAction:self.littlePandaEat withKey:@"LittlePandaEatAnimation"];
+        if ([child.name isEqualToString:@"littlePandaEat"] || [child.name isEqualToString:@"littlePandaSleep"]) {
+            if ([child.name isEqualToString:@"littlePandaEat"]) {
+                [child runAction:self.littlePandaEat withKey:@"LittlePandaEatAnimation"];
+            }
+            else if ([child.name isEqualToString:@"littlePandaSleep"]) {
+                [child runAction:self.littlePandaSleep withKey:@"LittlePandaSleepAnimation"];
+            }
             [child setPhysicsBody:nil];
             [littlePandas addObject:child];
         }
