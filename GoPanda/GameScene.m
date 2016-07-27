@@ -403,10 +403,13 @@ BOOL isJumpButton;
     if ([node.name isEqualToString:@"jumpButton"]) {
         //Jump
         isJumpButton = YES;
-        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.05];
-        [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-        [panda removeActionForKey:@"StayAnimation"];
+        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.1];
+        //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
+        //[panda removeActionForKey:@"StayAnimation"];
         [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
+            if (isLeftMoveButton == YES || isRightMoveButton == YES) {
+                [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
+            }
             //[panda removeAllActions];
             //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
         }];
@@ -418,7 +421,7 @@ BOOL isJumpButton;
         panda.xScale = -1.0*ABS(panda.xScale);
         //SKAction *leftMove = [SKAction applyForce:CGVectorMake(-150, 0) duration:kHugeTime];
         //[panda runAction:leftMove withKey:@"MoveAction"];
-        panda.position = CGPointMake(panda.position.x - 3, panda.position.y);
+        panda.position = CGPointMake(panda.position.x - 7, panda.position.y);
         [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
         
     }
@@ -428,7 +431,7 @@ BOOL isJumpButton;
         panda.xScale = 1.0*ABS(panda.xScale);
         //SKAction *rightMove = [SKAction applyForce:CGVectorMake(150, 0) duration:kHugeTime];
         //[panda runAction:rightMove withKey:@"MoveAction"];
-        panda.position = CGPointMake(panda.position.x + 3, panda.position.y);
+        panda.position = CGPointMake(panda.position.x + 7, panda.position.y);
         [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
     }
     
@@ -522,10 +525,10 @@ BOOL isJumpButton;
     SKNode *panda = [self childNodeWithName:@"Panda"];
     
     if (isLeftMoveButton == YES) {
-        panda.position = CGPointMake(panda.position.x - 3, panda.position.y);
+        panda.position = CGPointMake(panda.position.x - 7, panda.position.y);
     }
     if (isRightMoveButton == YES) {
-        panda.position = CGPointMake(panda.position.x + 3, panda.position.y);
+        panda.position = CGPointMake(panda.position.x + 7, panda.position.y);
     }
     
     if ([KKGameData sharedGameData].isAccelerometerON == YES) {
