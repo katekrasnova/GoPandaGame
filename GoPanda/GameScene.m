@@ -38,6 +38,7 @@ NSMutableArray<SKSpriteNode *> *mushrooms;
 NSMutableArray<SKSpriteNode *> *flowers;
 NSMutableArray<SKSpriteNode *> *flowersSpit;
 NSMutableArray<SKSpriteNode *> *borders;
+NSMutableArray<SKSpriteNode *> *littlePandas;
 SKSpriteNode *leftMoveButton;
 SKSpriteNode *rightMoveButton;
 SKSpriteNode *jumpButton;
@@ -182,14 +183,12 @@ SKSpriteNode *jumpButton;
     self.flowerHurtAnimation = [SKAction sequence:@[
                                             [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1],
                                             [SKAction fadeOutWithDuration:1.5]]];
-    /*//Create flower attack animation
+    //Creat little panda eat animation
     textures = [NSMutableArray new];
-    for (int i = 1; i <= 9; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"flowerattack_0%i", i]]];
-        //flowersSpit[k] = [SKSpriteNode nodeWithFileNamed:@"flowersspit"];
+    for (int i = 2; i <= 9; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"littlePandaEat_0%i", i]]];
     }
-    //self.flowerAttackAnimation = [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1];
-    self.flowerAttackAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1], [SKAction waitForDuration:2.0f]]]; */
+    self.littlePandaEat = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.2]];
     
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
@@ -295,6 +294,16 @@ SKSpriteNode *jumpButton;
         }
     }
     flowersSpit = [NSMutableArray new];
+    
+    //Setup array of little pandas
+    littlePandas = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"littlePandaEat"]) {
+            [child runAction:self.littlePandaEat withKey:@"LittlePandaEatAnimation"];
+            [child setPhysicsBody:nil];
+            [littlePandas addObject:child];
+        }
+    }
     
     //Setup array of borders
     borders = [NSMutableArray new];

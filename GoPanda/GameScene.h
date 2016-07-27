@@ -26,6 +26,7 @@
 @property (nonatomic) SKAction *flowerIdleAnimation;
 @property (nonatomic) SKAction *flowerHurtAnimation;
 @property (nonatomic) SKAction *flowerAttackAnimation;
+@property (nonatomic) SKAction *littlePandaEat;
 
 @property (strong, nonatomic) CMMotionManager *motionManager;
 
