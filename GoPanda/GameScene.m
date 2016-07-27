@@ -46,6 +46,9 @@ SKSpriteNode *jumpButton;
     
     isFlowerAttackAnimation = NO;
     
+    isLeftMoveButton = NO;
+    isRightMoveButton = NO;
+    isJumpButton = NO;
     
     // Set boundaries
     /*SKNode *background = [self childNodeWithName:@"background"];
