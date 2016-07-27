@@ -39,6 +39,8 @@ NSMutableArray<SKSpriteNode *> *flowers;
 NSMutableArray<SKSpriteNode *> *flowersSpit;
 NSMutableArray<SKSpriteNode *> *borders;
 NSMutableArray<SKSpriteNode *> *littlePandas;
+NSMutableArray<SKSpriteNode *> *littlePandasMoving;
+NSMutableArray<NSNumber *> *littlePandasMoveStartPosition;
 SKSpriteNode *leftMoveButton;
 SKSpriteNode *rightMoveButton;
 SKSpriteNode *jumpButton;
@@ -195,7 +197,14 @@ SKSpriteNode *jumpButton;
     for (int i = 1; i <= 12; i++) {
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"littlePandaSleep_%i", i]]];
     }
-    self.littlePandaSleep = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.2]];
+    self.littlePandaSleep = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
+    
+    //Creat little panda move animation
+    textures = [NSMutableArray new];
+    for (int i = 1; i <= 3; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"littlePandaMove_0%i", i]]];
+    }
+    self.littlePandaMove = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.2]];
     
     //Create camera
     SKNode *panda = [self childNodeWithName:@"Panda"];
@@ -305,15 +314,35 @@ SKSpriteNode *jumpButton;
     //Setup array of little pandas
     littlePandas = [NSMutableArray new];
     for (SKSpriteNode *child in [self children]) {
-        if ([child.name isEqualToString:@"littlePandaEat"] || [child.name isEqualToString:@"littlePandaSleep"]) {
+        if ([child.name isEqualToString:@"littlePandaEat"] || [child.name isEqualToString:@"littlePandaSleep"] || [child.name isEqualToString:@"littlePandaMove"]) {
+            
+            [child setPhysicsBody:nil];
+            [littlePandas addObject:child];
+            
             if ([child.name isEqualToString:@"littlePandaEat"]) {
                 [child runAction:self.littlePandaEat withKey:@"LittlePandaEatAnimation"];
             }
             else if ([child.name isEqualToString:@"littlePandaSleep"]) {
                 [child runAction:self.littlePandaSleep withKey:@"LittlePandaSleepAnimation"];
             }
-            [child setPhysicsBody:nil];
-            [littlePandas addObject:child];
+            else {
+                [child runAction:self.littlePandaMove withKey:@"LittlePandaMoveAnimation"];
+                //NSNumber *k = [NSNumber numberWithFloat:child.position.x];
+                //[littlePandasMoveStartPosition addObject:k];
+            }
+        }
+    }
+    
+    littlePandasMoveStartPosition = [NSMutableArray new];
+    littlePandasMoving = [NSMutableArray new];
+    int i = 0;
+    for (SKSpriteNode *panda in littlePandas) {
+        if ([panda.name isEqualToString:@"littlePandaMove"]) {
+            [littlePandasMoving insertObject:panda atIndex:i];
+            
+            NSNumber *k = [NSNumber numberWithFloat:panda.position.x];
+            [littlePandasMoveStartPosition insertObject:k atIndex:i];
+            i++;
         }
     }
     
@@ -464,8 +493,31 @@ BOOL isJumpButton;
     self.motionManager = nil;
 }
 
+- (void)littlePandasMove {
+    for (int i = 0; i < [littlePandasMoving count]; i++) {
+        if (littlePandasMoving[i].xScale > 0) {
+            if (littlePandasMoving[i].position.x >= [[littlePandasMoveStartPosition objectAtIndex:i] floatValue] - 40) {
+                littlePandasMoving[i].position = CGPointMake(littlePandasMoving[i].position.x - 1, littlePandasMoving[i].position.y);
+            }
+            else {
+                littlePandasMoving[i].xScale = -1.0*ABS(littlePandasMoving[i].xScale);
+            }
+        }
+        else {
+            if (littlePandasMoving[i].position.x <= [[littlePandasMoveStartPosition objectAtIndex:i] floatValue] + 40) {
+                littlePandasMoving[i].position = CGPointMake(littlePandasMoving[i].position.x + 1, littlePandasMoving[i].position.y);
+            }
+            else {
+                littlePandasMoving[i].xScale = 1.0*ABS(littlePandasMoving[i].xScale);
+            }
+        }
+    }
+}
+
 -(void)update:(CFTimeInterval)currentTime {
     [super update:currentTime]; //Calls the Visualiser
+    
+    [self littlePandasMove];
     
     SKNode *panda = [self childNodeWithName:@"Panda"];
     
