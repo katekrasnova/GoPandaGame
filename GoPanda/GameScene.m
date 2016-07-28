@@ -384,13 +384,13 @@ SKLabelNode* _time;
 {
     _score = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     _score.fontSize = 30.0;
-    _score.position = CGPointMake(362, 130);
+    _score.position = CGPointMake(-400, 300);
     _score.fontColor = [SKColor blackColor];
     [camera addChild:_score];
     
     _time = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
     _time.fontSize = 30.0;
-    _time.position = CGPointMake(82, 130);
+    _time.position = CGPointMake(-400, 250);
     _time.fontColor = [SKColor blueColor];
     [camera addChild:_time];
     
