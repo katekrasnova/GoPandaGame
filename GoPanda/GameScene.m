@@ -33,6 +33,9 @@ SKNode *exitSign;
 SKSpriteNode *endGame;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
+
+NSMutableArray<SKSpriteNode *> *hearts;
+
 NSMutableArray<SKSpriteNode *> *bluesnails;
 NSMutableArray<SKSpriteNode *> *redsnails;
 NSMutableArray<SKSpriteNode *> *mushrooms;
@@ -249,6 +252,18 @@ SKSpriteNode *jumpButton;
     jumpButton.zPosition = 5;
     jumpButton.name = @"jumpButton";
     [camera addChild:jumpButton];
+    
+    //heart's nodes
+    hearts = [NSMutableArray new];
+    for (int i = 0; i < 3; i++) {
+        SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartFull"];
+        heart.position = CGPointMake(-480 + i*50, 350);
+        heart.zPosition = 5;
+        heart.name = [NSString stringWithFormat:@"heart%i",i];
+        heart.Scale = 0.8;
+        [camera addChild:heart];
+        [hearts insertObject:heart atIndex:i];
+    }
     
     //End game button
     endGame = [SKSpriteNode spriteNodeWithImageNamed:@"okbutton"];
