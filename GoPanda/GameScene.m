@@ -27,6 +27,7 @@ typedef enum {
 @implementation GameScene
 
 BOOL isHurtAnimationRunning;
+BOOL isPandaFall;
 float lastCameraPosition;
 SKNode *exitSign;
 SKSpriteNode *endGame;
@@ -52,6 +53,8 @@ SKSpriteNode *jumpButton;
     isLeftMoveButton = NO;
     isRightMoveButton = NO;
     isJumpButton = NO;
+    
+    isPandaFall = NO;
     
     // Set boundaries
     /*SKNode *background = [self childNodeWithName:@"background"];
@@ -400,40 +403,43 @@ BOOL isJumpButton;
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
-    if ([node.name isEqualToString:@"jumpButton"]) {
-        //Jump
-        isJumpButton = YES;
-        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.1];
-        //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-        //[panda removeActionForKey:@"StayAnimation"];
-        [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
-            if (isLeftMoveButton == YES || isRightMoveButton == YES) {
-                [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
-            }
-            //[panda removeAllActions];
-            //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
-        }];
+    if (!isPandaFall) {
+        if ([node.name isEqualToString:@"jumpButton"]) {
+            //Jump
+            isJumpButton = YES;
+            SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.1];
+            //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
+            //[panda removeActionForKey:@"StayAnimation"];
+            [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
+                if (isLeftMoveButton == YES || isRightMoveButton == YES) {
+                    [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
+                }
+                //[panda removeAllActions];
+                //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+            }];
+        }
+        
+        if ([node.name isEqualToString:@"leftMoveButton"]) {
+            //left move
+            isLeftMoveButton = YES;
+            panda.xScale = -1.0*ABS(panda.xScale);
+            //SKAction *leftMove = [SKAction applyForce:CGVectorMake(-150, 0) duration:kHugeTime];
+            //[panda runAction:leftMove withKey:@"MoveAction"];
+            panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
+            [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
+            
+        }
+        if ([node.name isEqualToString:@"rightMoveButton"]) {
+            //right move
+            isRightMoveButton = YES;
+            panda.xScale = 1.0*ABS(panda.xScale);
+            //SKAction *rightMove = [SKAction applyForce:CGVectorMake(150, 0) duration:kHugeTime];
+            //[panda runAction:rightMove withKey:@"MoveAction"];
+            panda.position = CGPointMake(panda.position.x + 5, panda.position.y);
+            [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
+        }
     }
     
-    if ([node.name isEqualToString:@"leftMoveButton"]) {
-        //left move
-        isLeftMoveButton = YES;
-        panda.xScale = -1.0*ABS(panda.xScale);
-        //SKAction *leftMove = [SKAction applyForce:CGVectorMake(-150, 0) duration:kHugeTime];
-        //[panda runAction:leftMove withKey:@"MoveAction"];
-        panda.position = CGPointMake(panda.position.x - 7, panda.position.y);
-        [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
-        
-    }
-    if ([node.name isEqualToString:@"rightMoveButton"]) {
-        //right move
-        isRightMoveButton = YES;
-        panda.xScale = 1.0*ABS(panda.xScale);
-        //SKAction *rightMove = [SKAction applyForce:CGVectorMake(150, 0) duration:kHugeTime];
-        //[panda runAction:rightMove withKey:@"MoveAction"];
-        panda.position = CGPointMake(panda.position.x + 7, panda.position.y);
-        [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
-    }
     
     //Touch end button DELETE
     //CGPoint touchLocation = [[touches anyObject] locationInNode:self];
@@ -517,19 +523,40 @@ BOOL isJumpButton;
     }
 }
 
+
+
+- (void)pandaFallinWater {
+    SKNode *panda = [self childNodeWithName:@"Panda"];
+    if ([panda intersectsNode:[self childNodeWithName:@"water"]] && panda.position.y <= 150) {
+        
+        isPandaFall = YES;
+        
+        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 50) duration:0.05];
+        //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
+        [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
+            [self endLevel:kEndReasonLose];
+        }];
+    }
+}
+
 -(void)update:(CFTimeInterval)currentTime {
     [super update:currentTime]; //Calls the Visualiser
+    
+    [self pandaFallinWater];
     
     [self littlePandasMove];
     
     SKNode *panda = [self childNodeWithName:@"Panda"];
     
-    if (isLeftMoveButton == YES) {
-        panda.position = CGPointMake(panda.position.x - 7, panda.position.y);
+    if (!isPandaFall) {
+        if (isLeftMoveButton == YES) {
+            panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
+        }
+        if (isRightMoveButton == YES) {
+            panda.position = CGPointMake(panda.position.x + 5, panda.position.y);
+        }
     }
-    if (isRightMoveButton == YES) {
-        panda.position = CGPointMake(panda.position.x + 7, panda.position.y);
-    }
+    
     
     if ([KKGameData sharedGameData].isAccelerometerON == YES) {
         [self accelerometerUpdate];
