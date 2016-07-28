@@ -228,24 +228,24 @@ SKSpriteNode *jumpButton;
     //left move button
     leftMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"leftbutton"];
     leftMoveButton.alpha = 0.5;
-    leftMoveButton.scale = 0.6;
-    leftMoveButton.position = CGPointMake(-440, -140);
+    leftMoveButton.scale = 0.7;
+    leftMoveButton.position = CGPointMake(-440, -135);
     leftMoveButton.zPosition = 5;
     leftMoveButton.name = @"leftMoveButton";
     [camera addChild:leftMoveButton];
     //right move button
     rightMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"rightbutton"];
     rightMoveButton.alpha = 0.5;
-    rightMoveButton.scale = 0.6;
-    rightMoveButton.position = CGPointMake(-280, -140);
+    rightMoveButton.scale = 0.7;
+    rightMoveButton.position = CGPointMake(-280, -135);
     rightMoveButton.zPosition = 5;
     rightMoveButton.name = @"rightMoveButton";
     [camera addChild:rightMoveButton];
     //jump button
     jumpButton = [SKSpriteNode spriteNodeWithImageNamed:@"jumpbutton"];
     jumpButton.alpha = 0.5;
-    jumpButton.scale = 0.6;
-    jumpButton.position = CGPointMake(440, -140);
+    jumpButton.scale = 0.7;
+    jumpButton.position = CGPointMake(440, -135);
     jumpButton.zPosition = 5;
     jumpButton.name = @"jumpButton";
     [camera addChild:jumpButton];
@@ -406,6 +406,9 @@ BOOL isJumpButton;
     if (!isPandaFall) {
         if ([node.name isEqualToString:@"jumpButton"]) {
             //Jump
+            
+            [jumpButton setTexture:[SKTexture textureWithImageNamed:@"greenjumpbutton"]];
+            
             isJumpButton = YES;
             SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.1];
             //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
@@ -420,6 +423,9 @@ BOOL isJumpButton;
         }
         
         if ([node.name isEqualToString:@"leftMoveButton"]) {
+            
+            [leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"greenleftbutton"]];
+            
             //left move
             isLeftMoveButton = YES;
             panda.xScale = -1.0*ABS(panda.xScale);
@@ -430,6 +436,9 @@ BOOL isJumpButton;
             
         }
         if ([node.name isEqualToString:@"rightMoveButton"]) {
+            
+            [rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"greenrightbutton"]];
+            
             //right move
             isRightMoveButton = YES;
             panda.xScale = 1.0*ABS(panda.xScale);
@@ -476,9 +485,14 @@ BOOL isJumpButton;
         
         isLeftMoveButton = NO;
         isRightMoveButton = NO;
+        
+        [leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"leftbutton"]];
+        [rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"rightbutton"]];
     }
     
     if (isJumpButton == YES) {
+        
+        [jumpButton setTexture:[SKTexture textureWithImageNamed:@"jumpbutton"]];
         
         isJumpButton = NO;
         if (isRightMoveButton != YES && isLeftMoveButton != YES) {
