@@ -16,6 +16,7 @@
 @property (nonatomic) SKAction *jumpAnimation;
 @property (nonatomic) SKAction *idleAnimation;
 @property (nonatomic) SKAction *hurtAnimation;
+@property (nonatomic) SKAction *dieAnimation;
 @property (nonatomic) SKAction *coinAnimation;
 @property (nonatomic) SKAction *blueSnailIdleAnimation;
 @property (nonatomic) SKAction *blueSnailHurtAnimation;

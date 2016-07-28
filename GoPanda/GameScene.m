@@ -120,6 +120,17 @@ SKSpriteNode *jumpButton;
     }
     self.hurtAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1], [SKAction repeatAction:[SKAction sequence:@[[SKAction fadeAlphaTo:0.6 duration:0.15], [SKAction fadeAlphaTo:1.0 duration:0.15]]] count:4]]];
     
+    // Create Panda die animation
+    textures = [NSMutableArray new];
+    for (int i = 1; i <= 9; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Die_00%i", i]]];
+    }
+    for (int i = 0; i <= 4; i++) {
+        [textures addObject:[SKTexture textureWithImageNamed:@"Die_009"]];
+    }
+    self.dieAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.2] count:1]]];
+    //[SKAction waitForDuration:3.0]
+    
     //Create Coin animation
     textures = [NSMutableArray new];
     for (int i = 1; i <= 6; i++) {
@@ -253,17 +264,7 @@ SKSpriteNode *jumpButton;
     jumpButton.name = @"jumpButton";
     [camera addChild:jumpButton];
     
-    //heart's nodes
-    hearts = [NSMutableArray new];
-    for (int i = 0; i < 3; i++) {
-        SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartFull"];
-        heart.position = CGPointMake(-480 + i*50, 350);
-        heart.zPosition = 5;
-        heart.name = [NSString stringWithFormat:@"heart%i",i];
-        heart.Scale = 0.8;
-        [camera addChild:heart];
-        [hearts insertObject:heart atIndex:i];
-    }
+    
     
     //End game button
     endGame = [SKSpriteNode spriteNodeWithImageNamed:@"okbutton"];
@@ -392,10 +393,33 @@ SKLabelNode* _time;
     _time.position = CGPointMake(82, 130);
     _time.fontColor = [SKColor blueColor];
     [camera addChild:_time];
+    
+    //heart's nodes
+    hearts = [NSMutableArray new];
+    for (int i = 0; i < [KKGameData sharedGameData].numberOfLives; i++) {
+        SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartFull"];
+        heart.position = CGPointMake(-480 + i*50, 350);
+        heart.zPosition = 5;
+        heart.name = [NSString stringWithFormat:@"heart%i",i];
+        heart.scale = 0.8;
+        [camera addChild:heart];
+        [hearts insertObject:heart atIndex:i];
+    }
 }
 
-- (void)updateScore {
+- (void)updateHUD {
+    
     _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score + [KKGameData sharedGameData].totalScore];
+    
+    //update hearts
+    if ([KKGameData sharedGameData].numberOfLives < [hearts count]) {
+        SKSpriteNode *emptyHeart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartEmpty"];
+        emptyHeart.position = hearts[[hearts count] - 1].position;
+        emptyHeart.scale = 0.8;
+        [camera addChild:emptyHeart];
+        [hearts[[hearts count] - 1] removeFromParent];
+        [hearts removeObject:hearts[[hearts count] - 1]];
+    }
 }
 
 
@@ -576,7 +600,7 @@ BOOL isJumpButton;
     for (int i = 0; i < [littlePandas count]; i++) {
         if ([panda intersectsNode:littlePandas[i]]) {
             [KKGameData sharedGameData].score += 10000;
-            [self updateScore];
+            [self updateHUD];
             [littlePandas[i] removeFromParent];
             [littlePandas[i] removeAllActions];
             [littlePandas removeObject:littlePandas[i]];
@@ -592,6 +616,8 @@ BOOL isJumpButton;
     [self pandaFallinWater];
     
     [self littlePandasMove];
+    
+    //[self updateHUD];
     
     SKNode *panda = [self childNodeWithName:@"Panda"];
     
@@ -614,7 +640,7 @@ BOOL isJumpButton;
     for (int i = 0; i < [coins count]; i++) {
         if ([panda intersectsNode:coins[i]]) {
             [KKGameData sharedGameData].score += 100;
-            [self updateScore];
+            [self updateHUD];
             [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
             [coins[i] removeAllActions];
             [coins removeObject:coins[i]];
@@ -680,17 +706,38 @@ BOOL isJumpButton;
 
 
 - (void)pandaHurts {
-    SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
-    
-    isHurtAnimationRunning = YES;
-    [panda runAction:self.hurtAnimation completion:^{
-        isHurtAnimationRunning = NO;
-    }];
-    
-    if (isLeftMoveButton == YES || isRightMoveButton == YES || isJumpButton == YES) {
-        [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
+    if ([KKGameData sharedGameData].numberOfLives > 0) {
+        SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
+        BOOL isDieAnimation = NO;
+        
+        [KKGameData sharedGameData].numberOfLives--;
+        [self updateHUD];
+        
+        NSLog(@"%i",[KKGameData sharedGameData].numberOfLives);
+        if ([KKGameData sharedGameData].numberOfLives == 0) {
+            //[panda removeAllActions];
+            //panda.scale = 1.4;
+            //panda.position = CGPointMake(panda.position.x, panda.position.y - 70);
+            isDieAnimation = YES;
+            [panda runAction:self.dieAnimation completion:^{
+                [panda removeFromParent];
+                [self endLevel:kEndReasonLose];
+            }];
+            
+        }
+        
+        if (!isDieAnimation) {
+            isHurtAnimationRunning = YES;
+            [panda runAction:self.hurtAnimation completion:^{
+                isHurtAnimationRunning = NO;
+            }];
+            
+            if (isLeftMoveButton == YES || isRightMoveButton == YES || isJumpButton == YES) {
+                [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
+            }
+        }
+        
     }
-    
 }
 
 - (void)enemies:(NSMutableArray<SKSpriteNode *> *)enemiesArray withIdleAnimationKey:(NSString *)idleAnimationKey withHurtAnimation:(SKAction *)hurtAnimation {
@@ -737,7 +784,7 @@ BOOL isJumpButton;
                 tempSnail = enemiesArray[i];
                 [enemiesArray removeObject:enemiesArray[i]];
                 [KKGameData sharedGameData].score += 1000;
-                [self updateScore];
+                [self updateHUD];
                 [tempSnail setPhysicsBody:NULL];
                 [tempSnail runAction:hurtAnimation completion:^{
                     [tempSnail removeFromParent];
@@ -870,7 +917,7 @@ BOOL isFlowerAttackAnimation;
             tempSnail = flowers[i];
             [flowers removeObject:flowers[i]];
             [KKGameData sharedGameData].score += 1000;
-            [self updateScore];
+            [self updateHUD];
             [tempSnail setPhysicsBody:NULL];
             [tempSnail runAction:self.flowerHurtAnimation completion:^{
                 [tempSnail removeFromParent];

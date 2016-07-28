@@ -13,6 +13,8 @@
 @property (assign, nonatomic) long score;
 @property (assign, nonatomic) int time;
 
+@property (assign, nonatomic) int numberOfLives;
+
 @property (assign, nonatomic) long totalScore;
 
 @property (assign, nonatomic) BOOL isAccelerometerON;

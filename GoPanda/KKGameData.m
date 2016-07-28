@@ -14,8 +14,11 @@ static NSString* const SSGameDataTotalScoreKey = @"totalScore";
 static NSString* const SSGameDataAccelerometerKey = @"isAccelerometerON";
 static NSString* const SSGameDataCompleteLevelsKey = @"completeLevels";
 static NSString* const SSGameDataNumberOfLevelsKey = @"numberOfLevels";
+static NSString* const SSGameDataNumberOfLivesKey = @"numberOfLives";
 
 static const int KKNumberOfLevels = 5;
+static const int KKNumberOfLives = 3;
+
 
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
@@ -23,6 +26,7 @@ static const int KKNumberOfLevels = 5;
     [encoder encodeBool:self.isAccelerometerON forKey:SSGameDataAccelerometerKey];
     [encoder encodeInt:self.completeLevels forKey:SSGameDataCompleteLevelsKey];
     [encoder encodeInt:self.numberOfLevels forKey:SSGameDataNumberOfLevelsKey];
+    [encoder encodeInt:self.numberOfLives forKey:SSGameDataNumberOfLivesKey];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder
@@ -33,6 +37,7 @@ static const int KKNumberOfLevels = 5;
         _isAccelerometerON = [decoder decodeBoolForKey:SSGameDataAccelerometerKey];
         _completeLevels = [decoder decodeIntForKey:SSGameDataCompleteLevelsKey];
         _numberOfLevels = KKNumberOfLevels;
+        _numberOfLives = KKNumberOfLives;
     }
     return self;
 }
@@ -80,6 +85,7 @@ static const int KKNumberOfLevels = 5;
 {
     self.score = 0;
     self.time = 0;
+    self.numberOfLives = 3;
 }
 
 @end
