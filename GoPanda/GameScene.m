@@ -471,6 +471,8 @@ BOOL isJumpButton;
     //moveTouches = 0;
 }
 
+
+
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     SKNode *panda = [self childNodeWithName:@"Panda"];
@@ -553,8 +555,24 @@ BOOL isJumpButton;
     }
 }
 
+- (void)saveLittlePandas {
+    SKNode *panda = [self childNodeWithName:@"Panda"];
+    
+    for (int i = 0; i < [littlePandas count]; i++) {
+        if ([panda intersectsNode:littlePandas[i]]) {
+            [KKGameData sharedGameData].score += 10000;
+            [self updateScore];
+            [littlePandas[i] removeFromParent];
+            [littlePandas[i] removeAllActions];
+            [littlePandas removeObject:littlePandas[i]];
+        }
+    }
+}
+
 -(void)update:(CFTimeInterval)currentTime {
     [super update:currentTime]; //Calls the Visualiser
+    
+    [self saveLittlePandas];
     
     [self pandaFallinWater];
     
