@@ -10,6 +10,7 @@
 #import "GameStart.h"
 #import "KKGameData.h"
 
+
 @interface GameSettings ()
 
 @property (nonatomic) BOOL accelerometerSetting;
