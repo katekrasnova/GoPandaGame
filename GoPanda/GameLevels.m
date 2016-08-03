@@ -11,10 +11,15 @@
 #import "GameStart.h"
 #import "GameSettings.h"
 #import "GameScene.h"
+#import "KKSoundEffects.h"
 
 @implementation GameLevels
 
+KKSoundEffects *soundsLevelsScene;
+
 - (void)didMoveToView:(SKView *)view {
+    
+    soundsLevelsScene = [[KKSoundEffects alloc]init];
     
     [KKGameData sharedGameData].completeLevels = 1;
     
@@ -36,18 +41,24 @@
     SKView * skView = (SKView *)self.view;
     
     if ([node.name isEqualToString:@"levelHomeButton"]) {
+        [soundsLevelsScene playClickSound];
+        
         GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     
     if ([node.name isEqualToString:@"levelSettingsButton"]) {
+        [soundsLevelsScene playClickSound];
+
         GameSettings *scene = [GameSettings nodeWithFileNamed:@"GameSettings"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     
     if ([node.name isEqualToString:@"levelPlayButton"]) {
+        [soundsLevelsScene playClickSound];
+
         GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].completeLevels + 1]];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
@@ -55,6 +66,8 @@
     
     for (int i = 1; i <= [KKGameData sharedGameData].completeLevels + 1; i++) {
         if ([node.name isEqualToString:[NSString stringWithFormat:@"level%i", i]]) {
+            [soundsLevelsScene playClickSound];
+
             GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", i]];
             scene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:scene];

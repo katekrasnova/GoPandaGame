@@ -9,6 +9,7 @@
 #import "GameSettings.h"
 #import "GameStart.h"
 #import "KKGameData.h"
+#import "KKSoundEffects.h"
 
 
 @interface GameSettings ()
@@ -19,7 +20,11 @@
 
 @implementation GameSettings
 
+KKSoundEffects *soundsSettingsScene;
+
 - (void)didMoveToView:(SKView *)view {
+    
+    soundsSettingsScene = [[KKSoundEffects alloc]init];
     
     //NSLog(@"%i", [KKGameData sharedGameData].isAccelerometerON);
     
@@ -62,6 +67,9 @@
 }
 
 - (void)presentStartScene {
+    
+    [soundsSettingsScene playClickSound];
+    
     SKView * skView = (SKView *)self.view;
     GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
