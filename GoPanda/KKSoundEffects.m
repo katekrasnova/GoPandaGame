@@ -22,6 +22,7 @@
         NSURL *url1 = [NSURL fileURLWithPath:[[NSBundle mainBundle]pathForResource:@"click" ofType:@"wav"]];
         _clickSound = [[AVAudioPlayer alloc]initWithContentsOfURL:url1 error:nil];
         _clickSound.numberOfLoops = 0;
+        _clickSound.volume = 0.1;
     }
     return self;
 }
