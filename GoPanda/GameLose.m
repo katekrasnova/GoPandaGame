@@ -7,7 +7,7 @@
 //
 
 #import "GameLose.h"
-#import "GameStart.h"
+#import "MenuScenesController.h"
 #import "GameScene.h"
 
 @implementation GameLose
@@ -19,7 +19,7 @@
     SKView * skView = (SKView *)self.view;
     
     if ([node.name isEqualToString:@"homebuttonlose"]) {
-        GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
+        MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }

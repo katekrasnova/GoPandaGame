@@ -7,11 +7,9 @@
 //
 
 #import "GameScene.h"
-#import "GameWin.h"
-#import "GameLose.h"
-#import "GameSettings.h"
+#import "MenuScenesController.h"
 #import "KKGameData.h"
-#import "GameStart.h"
+
 
 @interface GameScene ()
 
@@ -959,7 +957,7 @@ BOOL isFlowerAttackAnimation;
     //[soundGameScene stopBackgroundSound];
     
     SKView * skView = (SKView *)self.view;
-    GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
+    MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     [skView presentScene:scene];
     

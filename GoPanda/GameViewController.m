@@ -7,7 +7,7 @@
 //
 
 #import "GameViewController.h"
-#import "GameStart.h"
+#import "MenuScenesController.h"
 
 @implementation GameViewController
 
@@ -23,7 +23,7 @@
     skView.ignoresSiblingOrder = NO;
     
     // Create and configure the scene.
-    GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
+    MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.

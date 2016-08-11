@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D12FF8131D0D5B8800AE8128 /* GameInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF8121D0D5B8800AE8128 /* GameInfo.sks */; };
-		D12FF8161D0D5B9C00AE8128 /* GameInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF8151D0D5B9C00AE8128 /* GameInfo.m */; };
 		D12FF8181D0D610900AE8128 /* GameWin.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF8171D0D610900AE8128 /* GameWin.sks */; };
 		D12FF81B1D0D612300AE8128 /* GameWin.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF81A1D0D612300AE8128 /* GameWin.m */; };
 		D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF81C1D0D613300AE8128 /* GameLose.sks */; };
@@ -17,7 +16,6 @@
 		D1516FB51D36481E002DE76C /* Level2Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1516FB41D36481E002DE76C /* Level2Scene.sks */; };
 		D1516FB71D36482E002DE76C /* Level3Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1516FB61D36482E002DE76C /* Level3Scene.sks */; };
 		D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15286EF1D089A7400C948CB /* GameAchievement.sks */; };
-		D15286F31D089A9500C948CB /* GameAchievement.m in Sources */ = {isa = PBXBuildFile; fileRef = D15286F21D089A9500C948CB /* GameAchievement.m */; };
 		D15379741D2BACB7004411E7 /* KKGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D15379731D2BACB7004411E7 /* KKGameData.m */; };
 		D154615D1D07294800127DB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615C1D07294800127DB3 /* main.m */; };
 		D15461601D07294800127DB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615F1D07294800127DB3 /* AppDelegate.m */; };
@@ -30,16 +28,14 @@
 		D154617B1D07294900127DB3 /* GoPandaTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D154617A1D07294900127DB3 /* GoPandaTests.m */; };
 		D15461861D07294900127DB3 /* GoPandaUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461851D07294900127DB3 /* GoPandaUITests.m */; };
 		D15461941D072E4600127DB3 /* GameStart.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15461931D072E4600127DB3 /* GameStart.sks */; };
-		D15461971D072E7C00127DB3 /* GameStart.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461961D072E7C00127DB3 /* GameStart.m */; };
 		D1566F721D362BA800A79A4A /* GameLevels.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1566F711D362BA800A79A4A /* GameLevels.sks */; };
-		D1566F751D362BF400A79A4A /* GameLevels.m in Sources */ = {isa = PBXBuildFile; fileRef = D1566F741D362BF400A79A4A /* GameLevels.m */; };
 		D156F3481D07FDEF00C3282B /* GameSettings.sks in Resources */ = {isa = PBXBuildFile; fileRef = D156F3471D07FDEF00C3282B /* GameSettings.sks */; };
-		D156F34B1D07FE1E00C3282B /* GameSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = D156F34A1D07FE1E00C3282B /* GameSettings.m */; };
 		D157518C1D37DAA30075A4B0 /* ParticleExit.sks in Resources */ = {isa = PBXBuildFile; fileRef = D157518A1D37DAA30075A4B0 /* ParticleExit.sks */; };
 		D157518D1D37DAA30075A4B0 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D157518B1D37DAA30075A4B0 /* spark.png */; };
 		D17EA8671D4B9CBC003DB8C2 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8661D4B9CBC003DB8C2 /* click.wav */; };
 		D17EA8691D4B9CC8003DB8C2 /* mainTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */; };
 		D19866001D5377B70015C937 /* menuTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D19865FF1D5377B70015C937 /* menuTheme.mp3 */; };
+		D19866091D5C91390015C937 /* MenuScenesController.m in Sources */ = {isa = PBXBuildFile; fileRef = D19866081D5C91390015C937 /* MenuScenesController.m */; };
 		D1EBD1371D149D4E00C82F48 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */; };
 		E0A7195331CE0CC3E053B56B /* libPods-GoPanda.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21679484A824287AEDD1E60F /* libPods-GoPanda.a */; };
 /* End PBXBuildFile section */
@@ -65,8 +61,6 @@
 		21679484A824287AEDD1E60F /* libPods-GoPanda.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GoPanda.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		319FDD38B5854E9CC4C88D87 /* Pods-GoPanda.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoPanda.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda.release.xcconfig"; sourceTree = "<group>"; };
 		D12FF8121D0D5B8800AE8128 /* GameInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameInfo.sks; sourceTree = "<group>"; };
-		D12FF8141D0D5B9C00AE8128 /* GameInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameInfo.h; sourceTree = "<group>"; };
-		D12FF8151D0D5B9C00AE8128 /* GameInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameInfo.m; sourceTree = "<group>"; };
 		D12FF8171D0D610900AE8128 /* GameWin.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameWin.sks; sourceTree = "<group>"; };
 		D12FF8191D0D612300AE8128 /* GameWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameWin.h; sourceTree = "<group>"; };
 		D12FF81A1D0D612300AE8128 /* GameWin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameWin.m; sourceTree = "<group>"; };
@@ -77,8 +71,6 @@
 		D1516FB41D36481E002DE76C /* Level2Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2Scene.sks; sourceTree = "<group>"; };
 		D1516FB61D36482E002DE76C /* Level3Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3Scene.sks; sourceTree = "<group>"; };
 		D15286EF1D089A7400C948CB /* GameAchievement.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameAchievement.sks; sourceTree = "<group>"; };
-		D15286F11D089A9500C948CB /* GameAchievement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameAchievement.h; sourceTree = "<group>"; };
-		D15286F21D089A9500C948CB /* GameAchievement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameAchievement.m; sourceTree = "<group>"; };
 		D15379721D2BACB7004411E7 /* KKGameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKGameData.h; sourceTree = "<group>"; };
 		D15379731D2BACB7004411E7 /* KKGameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKGameData.m; sourceTree = "<group>"; };
 		D15461581D07294800127DB3 /* GoPanda.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GoPanda.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,19 +93,15 @@
 		D15461851D07294900127DB3 /* GoPandaUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GoPandaUITests.m; sourceTree = "<group>"; };
 		D15461871D07294900127DB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D15461931D072E4600127DB3 /* GameStart.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameStart.sks; sourceTree = "<group>"; };
-		D15461951D072E7C00127DB3 /* GameStart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameStart.h; sourceTree = "<group>"; };
-		D15461961D072E7C00127DB3 /* GameStart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameStart.m; sourceTree = "<group>"; };
 		D1566F711D362BA800A79A4A /* GameLevels.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameLevels.sks; sourceTree = "<group>"; };
-		D1566F731D362BF400A79A4A /* GameLevels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLevels.h; sourceTree = "<group>"; };
-		D1566F741D362BF400A79A4A /* GameLevels.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLevels.m; sourceTree = "<group>"; };
 		D156F3471D07FDEF00C3282B /* GameSettings.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSettings.sks; sourceTree = "<group>"; };
-		D156F3491D07FE1E00C3282B /* GameSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSettings.h; sourceTree = "<group>"; };
-		D156F34A1D07FE1E00C3282B /* GameSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSettings.m; sourceTree = "<group>"; };
 		D157518A1D37DAA30075A4B0 /* ParticleExit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ParticleExit.sks; sourceTree = "<group>"; };
 		D157518B1D37DAA30075A4B0 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		D17EA8661D4B9CBC003DB8C2 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainTheme.mp3; sourceTree = "<group>"; };
 		D19865FF1D5377B70015C937 /* menuTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menuTheme.mp3; sourceTree = "<group>"; };
+		D19866071D5C91390015C937 /* MenuScenesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScenesController.h; sourceTree = "<group>"; };
+		D19866081D5C91390015C937 /* MenuScenesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScenesController.m; sourceTree = "<group>"; };
 		D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		E5ABCA5B741C4C5A308EB770 /* Pods-GoPanda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoPanda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -163,7 +151,7 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		D1516FB11D36478F002DE76C /* Levels */ = {
+		D1516FB11D36478F002DE76C /* Level scenes */ = {
 			isa = PBXGroup;
 			children = (
 				D1516FB21D3647BF002DE76C /* Level1Scene.sks */,
@@ -173,7 +161,7 @@
 				D157518A1D37DAA30075A4B0 /* ParticleExit.sks */,
 				D157518B1D37DAA30075A4B0 /* spark.png */,
 			);
-			name = Levels;
+			name = "Level scenes";
 			sourceTree = "<group>";
 		};
 		D154614F1D07294800127DB3 = {
@@ -201,36 +189,22 @@
 		D154615A1D07294800127DB3 /* GoPanda */ = {
 			isa = PBXGroup;
 			children = (
-				D1516FB11D36478F002DE76C /* Levels */,
+				D198660A1D5C95660015C937 /* Scenes */,
+				D1516FB11D36478F002DE76C /* Level scenes */,
 				D15461611D07294800127DB3 /* GameScene.h */,
 				D15461621D07294800127DB3 /* GameScene.m */,
 				D15379721D2BACB7004411E7 /* KKGameData.h */,
 				D15379731D2BACB7004411E7 /* KKGameData.m */,
-				D154615E1D07294800127DB3 /* AppDelegate.h */,
-				D154615F1D07294800127DB3 /* AppDelegate.m */,
-				D15461931D072E4600127DB3 /* GameStart.sks */,
-				D15461951D072E7C00127DB3 /* GameStart.h */,
-				D15461961D072E7C00127DB3 /* GameStart.m */,
-				D156F3471D07FDEF00C3282B /* GameSettings.sks */,
-				D156F3491D07FE1E00C3282B /* GameSettings.h */,
-				D156F34A1D07FE1E00C3282B /* GameSettings.m */,
-				D15286EF1D089A7400C948CB /* GameAchievement.sks */,
-				D15286F11D089A9500C948CB /* GameAchievement.h */,
-				D15286F21D089A9500C948CB /* GameAchievement.m */,
-				D1566F711D362BA800A79A4A /* GameLevels.sks */,
-				D1566F731D362BF400A79A4A /* GameLevels.h */,
-				D1566F741D362BF400A79A4A /* GameLevels.m */,
-				D12FF8121D0D5B8800AE8128 /* GameInfo.sks */,
-				D12FF8141D0D5B9C00AE8128 /* GameInfo.h */,
-				D12FF8151D0D5B9C00AE8128 /* GameInfo.m */,
-				D12FF8171D0D610900AE8128 /* GameWin.sks */,
-				D12FF8191D0D612300AE8128 /* GameWin.h */,
-				D12FF81A1D0D612300AE8128 /* GameWin.m */,
-				D12FF81C1D0D613300AE8128 /* GameLose.sks */,
-				D12FF81E1D0D614900AE8128 /* GameLose.h */,
-				D12FF81F1D0D614900AE8128 /* GameLose.m */,
+				D19866071D5C91390015C937 /* MenuScenesController.h */,
+				D19866081D5C91390015C937 /* MenuScenesController.m */,
 				D15461661D07294800127DB3 /* GameViewController.h */,
 				D15461671D07294800127DB3 /* GameViewController.m */,
+				D12FF8191D0D612300AE8128 /* GameWin.h */,
+				D12FF81A1D0D612300AE8128 /* GameWin.m */,
+				D12FF81E1D0D614900AE8128 /* GameLose.h */,
+				D12FF81F1D0D614900AE8128 /* GameLose.m */,
+				D154615E1D07294800127DB3 /* AppDelegate.h */,
+				D154615F1D07294800127DB3 /* AppDelegate.m */,
 				D15461691D07294800127DB3 /* Main.storyboard */,
 				D154616C1D07294800127DB3 /* Assets.xcassets */,
 				D154616E1D07294800127DB3 /* LaunchScreen.storyboard */,
@@ -267,6 +241,20 @@
 				D15461871D07294900127DB3 /* Info.plist */,
 			);
 			path = GoPandaUITests;
+			sourceTree = "<group>";
+		};
+		D198660A1D5C95660015C937 /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				D15461931D072E4600127DB3 /* GameStart.sks */,
+				D156F3471D07FDEF00C3282B /* GameSettings.sks */,
+				D15286EF1D089A7400C948CB /* GameAchievement.sks */,
+				D1566F711D362BA800A79A4A /* GameLevels.sks */,
+				D12FF8121D0D5B8800AE8128 /* GameInfo.sks */,
+				D12FF8171D0D610900AE8128 /* GameWin.sks */,
+				D12FF81C1D0D613300AE8128 /* GameLose.sks */,
+			);
+			name = Scenes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -469,14 +457,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D1566F751D362BF400A79A4A /* GameLevels.m in Sources */,
-				D156F34B1D07FE1E00C3282B /* GameSettings.m in Sources */,
-				D15461971D072E7C00127DB3 /* GameStart.m in Sources */,
 				D15461681D07294800127DB3 /* GameViewController.m in Sources */,
+				D19866091D5C91390015C937 /* MenuScenesController.m in Sources */,
 				D15379741D2BACB7004411E7 /* KKGameData.m in Sources */,
-				D12FF8161D0D5B9C00AE8128 /* GameInfo.m in Sources */,
 				D15461601D07294800127DB3 /* AppDelegate.m in Sources */,
-				D15286F31D089A9500C948CB /* GameAchievement.m in Sources */,
 				D12FF8201D0D614900AE8128 /* GameLose.m in Sources */,
 				D15461631D07294800127DB3 /* GameScene.m in Sources */,
 				D154615D1D07294800127DB3 /* main.m in Sources */,
