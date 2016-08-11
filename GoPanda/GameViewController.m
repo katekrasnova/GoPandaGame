@@ -11,8 +11,13 @@
 
 @implementation GameViewController
 
+AVAudioPlayer *menuBackgroundSound;
+
 - (void)viewDidLoad
 {
+    [self configureMenuBackgroundSound];
+    [menuBackgroundSound play];
+    
     [super viewDidLoad];
 
     // Configure the view.
@@ -28,6 +33,26 @@
     
     // Present the scene.
     [skView presentScene:scene];
+}
+
+- (void) configureMenuBackgroundSound {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"menuTheme" ofType:@"mp3"];
+    menuBackgroundSound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
+    menuBackgroundSound.delegate = self;
+    menuBackgroundSound.numberOfLoops = -1;
+}
+
+- (void)viewWillDisappear {
+    
+}
+
+- (void) playMenuBackgroundMusic {
+    [self configureMenuBackgroundSound];
+    [menuBackgroundSound play];
+}
+
+- (void) stopMenuBackgroundMusic {
+    [menuBackgroundSound stop];
 }
 
 - (BOOL)shouldAutorotate

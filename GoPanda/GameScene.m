@@ -9,7 +9,7 @@
 #import "GameScene.h"
 #import "MenuScenesController.h"
 #import "KKGameData.h"
-
+#import "GameViewController.h"
 
 @interface GameScene ()
 
@@ -47,6 +47,8 @@ SKSpriteNode *leftMoveButton;
 SKSpriteNode *rightMoveButton;
 SKSpriteNode *jumpButton;
 
+AVAudioPlayer *backgroundGameMusic;
+
 -(void)didMoveToView:(SKView *)view {
     
     isFlowerAttackAnimation = NO;
@@ -58,11 +60,13 @@ SKSpriteNode *jumpButton;
     isPandaFall = NO;
     
     //Set background music
-    //soundGameScene = [[KKSoundEffects alloc]init];
-    //[soundGameScene stopMenuSound];
-    //[soundGameScene playBackgroundSound];
     
-    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"mainTheme" ofType:@"mp3"];
+    backgroundGameMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
+    backgroundGameMusic.delegate = self;
+    backgroundGameMusic.numberOfLoops = -1;
+    [backgroundGameMusic play];
+
     
     // Set boundaries
     /*SKNode *background = [self childNodeWithName:@"background"];
@@ -959,11 +963,14 @@ BOOL isFlowerAttackAnimation;
     SKView * skView = (SKView *)self.view;
     MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
-    [skView presentScene:scene];
     
     [[KKGameData sharedGameData] save];
     [[KKGameData sharedGameData] reset];
 
+    [backgroundGameMusic stop];
+    [[[GameViewController alloc]init]playMenuBackgroundMusic];
+    
+    [skView presentScene:scene];
     
 }
 

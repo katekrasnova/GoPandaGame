@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import <SpriteKit/SpriteKit.h>
+@import AVFoundation;
 
-@interface GameViewController : UIViewController
+@interface GameViewController : UIViewController <AVAudioPlayerDelegate>
 
+//@property (nonatomic, retain) AVAudioPlayer *theAudio;
+
+- (void) playMenuBackgroundMusic;
+- (void) stopMenuBackgroundMusic;
 @end
