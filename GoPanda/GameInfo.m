@@ -8,15 +8,12 @@
 
 #import "GameInfo.h"
 #import "GameStart.h"
-#import "KKSoundEffects.h"
 
 @implementation GameInfo
 
-KKSoundEffects *soundsInfoScene;
 
 - (void)didMoveToView:(SKView *)view {
     
-    soundsInfoScene = [[KKSoundEffects alloc]init];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
@@ -26,7 +23,6 @@ KKSoundEffects *soundsInfoScene;
     SKView * skView = (SKView *)self.view;
     
     if ([node.name isEqualToString:@"okinfobutton"]) {
-        [soundsInfoScene playClickSound];
         
         GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
         scene.scaleMode = SKSceneScaleModeAspectFill;

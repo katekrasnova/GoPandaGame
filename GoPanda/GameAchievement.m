@@ -8,15 +8,12 @@
 
 #import "GameAchievement.h"
 #import "GameStart.h"
-#import "KKSoundEffects.h"
 
 @implementation GameAchievement
 
-KKSoundEffects *soundsAchievementScene;
 
 - (void)didMoveToView:(SKView *)view {
     
-    soundsAchievementScene = [[KKSoundEffects alloc]init];
     
 }
 
@@ -27,7 +24,6 @@ KKSoundEffects *soundsAchievementScene;
     SKView * skView = (SKView *)self.view;
     
     if ([node.name isEqualToString:@"okachievementsbutton"]) {
-        [soundsAchievementScene playClickSound];
         
         GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];
         scene.scaleMode = SKSceneScaleModeAspectFill;

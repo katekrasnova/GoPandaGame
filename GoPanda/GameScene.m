@@ -12,7 +12,6 @@
 #import "GameSettings.h"
 #import "KKGameData.h"
 #import "GameStart.h"
-#import "KKSoundEffects.h"
 
 @interface GameScene ()
 
@@ -50,8 +49,6 @@ SKSpriteNode *leftMoveButton;
 SKSpriteNode *rightMoveButton;
 SKSpriteNode *jumpButton;
 
-KKSoundEffects *soundGameScene;
-
 -(void)didMoveToView:(SKView *)view {
     
     isFlowerAttackAnimation = NO;
@@ -63,8 +60,9 @@ KKSoundEffects *soundGameScene;
     isPandaFall = NO;
     
     //Set background music
-    soundGameScene = [[KKSoundEffects alloc]init];
-    [soundGameScene playBackgroundSound];
+    //soundGameScene = [[KKSoundEffects alloc]init];
+    //[soundGameScene stopMenuSound];
+    //[soundGameScene playBackgroundSound];
     
     
     
@@ -958,7 +956,7 @@ BOOL isFlowerAttackAnimation;
         [KKGameData sharedGameData].totalScore += [KKGameData sharedGameData].score;
     }
     
-    [soundGameScene stopBackgroundSound];
+    //[soundGameScene stopBackgroundSound];
     
     SKView * skView = (SKView *)self.view;
     GameStart *scene = [GameStart nodeWithFileNamed:@"GameStart"];

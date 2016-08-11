@@ -39,7 +39,7 @@
 		D157518D1D37DAA30075A4B0 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D157518B1D37DAA30075A4B0 /* spark.png */; };
 		D17EA8671D4B9CBC003DB8C2 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8661D4B9CBC003DB8C2 /* click.wav */; };
 		D17EA8691D4B9CC8003DB8C2 /* mainTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */; };
-		D17EA86C1D509E65003DB8C2 /* KKSoundEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = D17EA86B1D509E65003DB8C2 /* KKSoundEffects.m */; };
+		D19866001D5377B70015C937 /* menuTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D19865FF1D5377B70015C937 /* menuTheme.mp3 */; };
 		D1EBD1371D149D4E00C82F48 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */; };
 		E0A7195331CE0CC3E053B56B /* libPods-GoPanda.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21679484A824287AEDD1E60F /* libPods-GoPanda.a */; };
 /* End PBXBuildFile section */
@@ -113,8 +113,7 @@
 		D157518B1D37DAA30075A4B0 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		D17EA8661D4B9CBC003DB8C2 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
 		D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainTheme.mp3; sourceTree = "<group>"; };
-		D17EA86A1D509E65003DB8C2 /* KKSoundEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKSoundEffects.h; sourceTree = "<group>"; };
-		D17EA86B1D509E65003DB8C2 /* KKSoundEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKSoundEffects.m; sourceTree = "<group>"; };
+		D19865FF1D5377B70015C937 /* menuTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menuTheme.mp3; sourceTree = "<group>"; };
 		D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		E5ABCA5B741C4C5A308EB770 /* Pods-GoPanda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoPanda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -205,8 +204,6 @@
 				D1516FB11D36478F002DE76C /* Levels */,
 				D15461611D07294800127DB3 /* GameScene.h */,
 				D15461621D07294800127DB3 /* GameScene.m */,
-				D17EA86A1D509E65003DB8C2 /* KKSoundEffects.h */,
-				D17EA86B1D509E65003DB8C2 /* KKSoundEffects.m */,
 				D15379721D2BACB7004411E7 /* KKGameData.h */,
 				D15379731D2BACB7004411E7 /* KKGameData.m */,
 				D154615E1D07294800127DB3 /* AppDelegate.h */,
@@ -239,6 +236,7 @@
 				D154616E1D07294800127DB3 /* LaunchScreen.storyboard */,
 				D15461711D07294800127DB3 /* Info.plist */,
 				D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */,
+				D19865FF1D5377B70015C937 /* menuTheme.mp3 */,
 				D17EA8661D4B9CBC003DB8C2 /* click.wav */,
 				D154615B1D07294800127DB3 /* Supporting Files */,
 			);
@@ -396,6 +394,7 @@
 				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
 				D1516FB31D3647BF002DE76C /* Level1Scene.sks in Resources */,
 				D157518D1D37DAA30075A4B0 /* spark.png in Resources */,
+				D19866001D5377B70015C937 /* menuTheme.mp3 in Resources */,
 				D154616B1D07294800127DB3 /* Main.storyboard in Resources */,
 				D156F3481D07FDEF00C3282B /* GameSettings.sks in Resources */,
 			);
@@ -470,7 +469,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D17EA86C1D509E65003DB8C2 /* KKSoundEffects.m in Sources */,
 				D1566F751D362BF400A79A4A /* GameLevels.m in Sources */,
 				D156F34B1D07FE1E00C3282B /* GameSettings.m in Sources */,
 				D15461971D072E7C00127DB3 /* GameStart.m in Sources */,

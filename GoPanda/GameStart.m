@@ -12,15 +12,13 @@
 #import "GameAchievement.h"
 #import "GameInfo.h"
 #import "GameLevels.h"
-#import "KKSoundEffects.h"
 
 @implementation GameStart
 
-KKSoundEffects *soundStartScene;
+
 
 - (void) didMoveToView:(SKView *)view {
-    
-    soundStartScene = [[KKSoundEffects alloc]init];
+
     
 }
 
@@ -32,25 +30,25 @@ KKSoundEffects *soundStartScene;
     SKView * skView = (SKView *)self.view;
     
     if ([node.name isEqualToString:@"playbutton"]) {
-        [soundStartScene playClickSound];
+
         GameLevels *scene = [GameLevels nodeWithFileNamed:@"GameLevels"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     else if ([node.name isEqualToString:@"settingsbutton"]) {
-        [soundStartScene playClickSound];
+
         GameSettings *scene = [GameSettings nodeWithFileNamed:@"GameSettings"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     else if ([node.name isEqualToString:@"achievementsbutton"]) {
-        [soundStartScene playClickSound];
+
         GameAchievement *scene = [GameAchievement nodeWithFileNamed:@"GameAchievement"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     else if ([node.name isEqualToString:@"infobutton"]) {
-        [soundStartScene playClickSound];
+
         GameInfo *scene = [GameInfo nodeWithFileNamed:@"GameInfo"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
