@@ -28,11 +28,15 @@
     
     //For Game Start Scene
     SKSpriteNode *musicbutton = (SKSpriteNode *)[self childNodeWithName:@"musicbutton"];
-    if ([KKGameData sharedGameData].isMusicON == NO) {
-        musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_off"];
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numOfLCalls"] == 1 || [KKGameData sharedGameData].isMusicON == YES) {
+        musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
     }
     else {
-        musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
+        musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_off"];
+    }
+    
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numOfLCalls"] == 1) {
+        [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:1.0];
     }
     
     //For game settings scene - accelerometer /////////////////////////////////////////////////////////////////////////////
@@ -47,7 +51,7 @@
     }
     
     //For game levels scene - number open levels //////////////////////////////////////////////////////////////////////////
-    [KKGameData sharedGameData].completeLevels = 1;
+    //[KKGameData sharedGameData].completeLevels = 1;
     
     for (int i = 1; i <= [KKGameData sharedGameData].numberOfLevels; i++) {
         SKSpriteNode *level = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"level%i", i]];

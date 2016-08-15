@@ -16,7 +16,11 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    // Override point for customization after application launch.
+    
+    //Count app's calls
+    NSInteger i = [[NSUserDefaults standardUserDefaults] integerForKey:@"numOfLCalls"];
+    [[NSUserDefaults standardUserDefaults] setInteger:i+1 forKey:@"numOfLCalls"];
+    
     return YES;
 }
 
