@@ -65,6 +65,7 @@ AVAudioPlayer *backgroundGameMusic;
     backgroundGameMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
     backgroundGameMusic.delegate = self;
     backgroundGameMusic.numberOfLoops = -1;
+    backgroundGameMusic.volume = [KKGameData sharedGameData].musicVolume;
     [backgroundGameMusic play];
 
     
