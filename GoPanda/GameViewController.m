@@ -8,6 +8,7 @@
 
 #import "GameViewController.h"
 #import "MenuScenesController.h"
+#import "KKGameData.h"
 
 @implementation GameViewController
 
@@ -39,7 +40,12 @@ AVAudioPlayer *menuBackgroundSound;
     NSString *path = [[NSBundle mainBundle] pathForResource:@"menuTheme" ofType:@"mp3"];
     menuBackgroundSound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
     menuBackgroundSound.delegate = self;
+    menuBackgroundSound.volume = [KKGameData sharedGameData].musicVolume;
     menuBackgroundSound.numberOfLoops = -1;
+}
+
+- (void) setVolumeOfMenuBackgroundSound:(float)volume {
+    menuBackgroundSound.volume = volume;
 }
 
 - (void)viewWillDisappear {

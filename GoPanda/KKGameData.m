@@ -15,6 +15,10 @@ static NSString* const SSGameDataAccelerometerKey = @"isAccelerometerON";
 static NSString* const SSGameDataCompleteLevelsKey = @"completeLevels";
 static NSString* const SSGameDataNumberOfLevelsKey = @"numberOfLevels";
 static NSString* const SSGameDataNumberOfLivesKey = @"numberOfLives";
+static NSString* const SSGameDataMusicVolumeKey = @"musicVolume";
+static NSString* const SSGameDataSoundVolumeKey = @"soundVolume";
+static NSString* const SSGameDataIsMusicONKey = @"isMusicON";
+static NSString* const SSGameDataIsSoundONKey = @"isSoundON";
 
 static const int KKNumberOfLevels = 5;
 static const int KKNumberOfLives = 3;
@@ -27,6 +31,12 @@ static const int KKNumberOfLives = 3;
     [encoder encodeInt:self.completeLevels forKey:SSGameDataCompleteLevelsKey];
     [encoder encodeInt:self.numberOfLevels forKey:SSGameDataNumberOfLevelsKey];
     [encoder encodeInt:self.numberOfLives forKey:SSGameDataNumberOfLivesKey];
+    [encoder encodeFloat:self.musicVolume forKey:SSGameDataMusicVolumeKey];
+    [encoder encodeFloat:self.soundVolume forKey:SSGameDataSoundVolumeKey];
+    [encoder encodeBool:self.isMusicON forKey:SSGameDataIsMusicONKey];
+    [encoder encodeBool:self.isSoundON forKey:SSGameDataIsSoundONKey];
+
+    
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder
@@ -36,6 +46,10 @@ static const int KKNumberOfLives = 3;
         _totalScore = [decoder decodeDoubleForKey: SSGameDataTotalScoreKey];
         _isAccelerometerON = [decoder decodeBoolForKey:SSGameDataAccelerometerKey];
         _completeLevels = [decoder decodeIntForKey:SSGameDataCompleteLevelsKey];
+        _musicVolume = [decoder decodeFloatForKey:SSGameDataMusicVolumeKey];
+        _soundVolume = [decoder decodeFloatForKey:SSGameDataSoundVolumeKey];
+        _isMusicON = [decoder decodeBoolForKey:SSGameDataIsMusicONKey];
+        _isSoundON = [decoder decodeBoolForKey:SSGameDataIsSoundONKey];
         _numberOfLevels = KKNumberOfLevels;
         _numberOfLives = KKNumberOfLives;
     }
@@ -71,7 +85,6 @@ static const int KKNumberOfLives = 3;
     dispatch_once(&onceToken, ^{
         sharedInstance = [self loadInstance];
     });
-    
     return sharedInstance;
 }
 

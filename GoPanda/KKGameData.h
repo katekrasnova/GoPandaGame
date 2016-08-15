@@ -17,6 +17,11 @@
 
 @property (assign, nonatomic) long totalScore;
 
+@property (assign, nonatomic) float musicVolume;
+@property (assign, nonatomic) float soundVolume;
+@property (assign, nonatomic) BOOL isMusicON;
+@property (assign, nonatomic) BOOL isSoundON;
+
 @property (assign, nonatomic) BOOL isAccelerometerON;
 
 @property (assign, nonatomic) int completeLevels;

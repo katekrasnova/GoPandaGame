@@ -26,6 +26,15 @@
     
     [self configureClickSound];
     
+    //For Game Start Scene
+    SKSpriteNode *musicbutton = (SKSpriteNode *)[self childNodeWithName:@"musicbutton"];
+    if ([KKGameData sharedGameData].isMusicON == NO) {
+        musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_off"];
+    }
+    else {
+        musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
+    }
+    
     //For game settings scene - accelerometer /////////////////////////////////////////////////////////////////////////////
     //NSLog(@"%i", [KKGameData sharedGameData].isAccelerometerON);
     
@@ -62,6 +71,14 @@
     AudioServicesPlaySystemSound(self.clickSound);
 }
 
+- (BOOL)image:(UIImage *)image1 isEqualTo:(UIImage *)image2
+{
+    NSData *data1 = UIImagePNGRepresentation(image1);
+    NSData *data2 = UIImagePNGRepresentation(image2);
+    
+    return [data1 isEqual:data2];
+}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
@@ -96,6 +113,26 @@
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
+    
+    else if ([node.name isEqualToString:@"musicbutton"]) {
+//        NSLog(@"%@", node.texture.description);
+//        NSLog(@"%@", [SKTexture textureWithImageNamed:@"musicbutton_on"]);
+        
+        if ([self image:[UIImage imageWithCGImage:node.texture.CGImage] isEqualTo:[UIImage imageNamed:@"musicbutton_on"]]) {
+            [KKGameData sharedGameData].musicVolume = 0;
+            [KKGameData sharedGameData].isMusicON = NO;
+            node.texture = [SKTexture textureWithImageNamed:@"musicbutton_off"];
+        }
+
+        else {
+            [KKGameData sharedGameData].musicVolume = 1;
+            [KKGameData sharedGameData].isMusicON = YES;
+            node.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
+        }
+        [[KKGameData sharedGameData]save];
+        [[[GameViewController alloc]init] setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
+    }
+    
     
     //for GameSettings scene //////////////////////////////////////////////////////////////////////////////////////////////
     else if ([node.name isEqualToString:@"cancelsettingsbutton"]) {
