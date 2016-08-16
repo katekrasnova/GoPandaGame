@@ -88,14 +88,6 @@ BOOL isFirstCall;
     }
 }
 
-//- (void)updateVolumeLabels {
-//    SKSpriteNode *musiclabel = (SKSpriteNode *)[self childNodeWithName:@"musiclabel"];
-//    musiclabel.texture = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"loudlabel%f",[KKGameData sharedGameData].musicVolume*1000]];
-//    
-//    SKSpriteNode *soundslabel = (SKSpriteNode *)[self childNodeWithName:@"soundslabel"];
-//    soundslabel.texture = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"loudlabel%f",[KKGameData sharedGameData].soundVolume*1000]];
-//}
-
 - (void)updateMusicVolumeLabelWithVolume:(float)volume {
     SKSpriteNode *musiclabel = (SKSpriteNode *)[self childNodeWithName:@"musiclabel"];
     musiclabel.texture = [SKTexture textureWithImageNamed:[NSString stringWithFormat:@"loudlabel%f",volume]];
@@ -203,22 +195,7 @@ float tempVolumeSounds;
         }
     }
     //Volume
-    //NSArray<NSNumber *> *volumes = @[@0, @12, @25, @37, @50, @62, @75, @87, @100];
-//    for (int i = 0; i < [volumes count]; i++) {
-//        NSLog(@"%i = %@", i, volumes[i]);
-//    }
-    
-//    BOOL isMusicVolumeChange = NO;
-//    BOOL isSoundsVolumeChange = NO;
-//    float tempVolumeMusic = 0.0;
-//    float tempVolumeSounds = 0.0;
-    
     if ([node.name isEqualToString:@"musicminus"] || [node.name isEqualToString:@"musicplus"] || [node.name isEqualToString:@"soundsminus"] || [node.name isEqualToString:@"soundsplus"]) {
-
-//        isMusicVolumeChange = NO;
-//        isSoundsVolumeChange = NO;
-//        tempVolumeMusic = 0.0;
-//        tempVolumeSounds = 0.0;
 
         if ([node.name isEqualToString:@"musicminus"]) {
             if (isMusicVolumeChange == YES) {
@@ -262,11 +239,6 @@ float tempVolumeSounds;
             isSoundsVolumeChange = YES;
         }
         
-        //[[KKGameData sharedGameData]save];
-        //[self updateVolumeLabels];
-//        [self updateMusicVolumeLabelWithVolume:[KKGameData sharedGameData].musicVolume*1000];
-//        [self updateSoundsVolumeLabelWithVolume:[KKGameData sharedGameData].soundVolume*1000];
-        //[[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
         if (isMusicVolumeChange == YES || isSoundsVolumeChange == YES) {
             if (isMusicVolumeChange == YES) {
                 [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:tempVolumeMusic];
@@ -296,18 +268,9 @@ float tempVolumeSounds;
             [KKGameData sharedGameData].isMusicON = YES;
             [KKGameData sharedGameData].isSoundON = YES;
             [KKGameData sharedGameData].isAccelerometerON = _accelerometerSetting;
-            if (isMusicVolumeChange == YES) {
-                [KKGameData sharedGameData].musicVolume = tempVolumeMusic;
-//                if (tempVolumeMusic == 0.0) {
-//                    [KKGameData sharedGameData].isMusicON = NO;
-//                }
-            }
-            if (isSoundsVolumeChange == YES) {
-                [KKGameData sharedGameData].soundVolume = tempVolumeSounds;
-//                if (tempVolumeSounds == 0.0) {
-//                    [KKGameData sharedGameData].isSoundON = NO;
-//                }
-            }
+            
+            if (isMusicVolumeChange == YES) { [KKGameData sharedGameData].musicVolume = tempVolumeMusic; }
+            if (isSoundsVolumeChange == YES) { [KKGameData sharedGameData].soundVolume = tempVolumeSounds; }
             
             if ([KKGameData sharedGameData].musicVolume == 0.0) { [KKGameData sharedGameData].isMusicON = NO; }
             else { [KKGameData sharedGameData].isMusicON = YES; }
