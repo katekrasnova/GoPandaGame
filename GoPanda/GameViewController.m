@@ -20,7 +20,7 @@ AVAudioPlayer *clickSound;
     [self configureMenuBackgroundSound];
     [menuBackgroundSound play];
     
-    [self configureClickSound];
+    //[self configureClickSound];
     
     [super viewDidLoad];
 
@@ -47,16 +47,22 @@ AVAudioPlayer *clickSound;
     menuBackgroundSound.numberOfLoops = -1;
 }
 
-- (void) configureClickSound {
+//- (void) configureClickSoundWithVolume:(float)volume {
+//    NSString *path = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
+//    clickSound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
+//    //clickSound.delegate = self;
+//    clickSound.volume = volume;
+//    clickSound.numberOfLoops = 0;
+//}
+
+- (void)playClickSoundWithVolume:(float)volume {
+//    [self configureClickSound];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
     clickSound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
     //clickSound.delegate = self;
-    clickSound.volume = [KKGameData sharedGameData].soundVolume;
+    clickSound.volume = volume;
     clickSound.numberOfLoops = 0;
-}
-
-- (void)playClickSound {
-    [self configureClickSound];
+    
     [clickSound prepareToPlay];
     [clickSound play];
 }

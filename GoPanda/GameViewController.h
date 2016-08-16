@@ -16,7 +16,7 @@
 
 - (void) playMenuBackgroundMusic;
 - (void) stopMenuBackgroundMusic;
-- (void) playClickSound;
+- (void) playClickSoundWithVolume:(float)volume;
 - (void) setVolumeOfMenuBackgroundSound:(float)volume;
 - (void) setVolumeOfSounds:(float)volume;
 
