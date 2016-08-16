@@ -21,23 +21,41 @@
 
 @implementation MenuScenesController
 
+BOOL isFirstCall;
 
 - (void) didMoveToView:(SKView *)view {
     
-    [self configureClickSound];
+    //[self configureClickSound];
     
     //For Game Start Scene
     SKSpriteNode *musicbutton = (SKSpriteNode *)[self childNodeWithName:@"musicbutton"];
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numOfLCalls"] == 1 || [KKGameData sharedGameData].isMusicON == YES) {
+    SKSpriteNode *soundbutton = (SKSpriteNode *)[self childNodeWithName:@"soundbutton"];
+
+    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numOfLCalls"] == 1 && isFirstCall != YES) {
+        [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:1.0];
+        [[[GameViewController alloc]init]setVolumeOfSounds:1.0];
         musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
+        soundbutton.texture = [SKTexture textureWithImageNamed:@"soundbutton_on"];
+        isFirstCall = YES;
     }
     else {
-        musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_off"];
+        if ([KKGameData sharedGameData].isMusicON == YES) {
+            musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
+        }
+        else {
+            musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_off"];
+        }
+        
+        if ([KKGameData sharedGameData].isSoundON == YES) {
+            soundbutton.texture = [SKTexture textureWithImageNamed:@"soundbutton_on"];
+        }
+        else {
+            soundbutton.texture = [SKTexture textureWithImageNamed:@"soundbutton_off"];
+        }
     }
     
-    if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numOfLCalls"] == 1) {
-        [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:1.0];
-    }
+    
+    
     
     //For game settings scene - accelerometer /////////////////////////////////////////////////////////////////////////////
     //NSLog(@"%i", [KKGameData sharedGameData].isAccelerometerON);
@@ -64,16 +82,16 @@
     }
 }
 
-- (void)configureClickSound {
-    NSString *clickPath = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
-    NSURL *clickURL = [NSURL fileURLWithPath:clickPath];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)clickURL, &_clickSound);
-    
-}
+//- (void)configureClickSound {
+//    NSString *clickPath = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
+//    NSURL *clickURL = [NSURL fileURLWithPath:clickPath];
+//    AudioServicesCreateSystemSoundID((__bridge CFURLRef)clickURL, &_clickSound);
+//    
+//}
 
-- (void)playClickSound {
-    AudioServicesPlaySystemSound(self.clickSound);
-}
+//- (void)playClickSound {
+//    AudioServicesPlaySystemSound(self.clickSound);
+//}
 
 - (BOOL)image:(UIImage *)image1 isEqualTo:(UIImage *)image2
 {
@@ -89,29 +107,29 @@
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     SKView * skView = (SKView *)self.view;
     
-    //for GameStart scene /////////////////////////////////////////////////////////////////////////////////////////////////
+    //for Game Start scene /////////////////////////////////////////////////////////////////////////////////////////////////
     if ([node.name isEqualToString:@"playbutton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameLevels"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     else if ([node.name isEqualToString:@"settingsbutton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameSettings"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     else if ([node.name isEqualToString:@"achievementsbutton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameAchievement"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     else if ([node.name isEqualToString:@"infobutton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameInfo"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -119,8 +137,8 @@
     }
     
     else if ([node.name isEqualToString:@"musicbutton"]) {
-//        NSLog(@"%@", node.texture.description);
-//        NSLog(@"%@", [SKTexture textureWithImageNamed:@"musicbutton_on"]);
+        
+        [[[GameViewController alloc]init]playClickSound];
         
         if ([self image:[UIImage imageWithCGImage:node.texture.CGImage] isEqualTo:[UIImage imageNamed:@"musicbutton_on"]]) {
             [KKGameData sharedGameData].musicVolume = 0;
@@ -137,16 +155,32 @@
         [[[GameViewController alloc]init] setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
     }
     
+    else if ([node.name isEqualToString:@"soundbutton"]) {
+        [[[GameViewController alloc]init]playClickSound];
+        if ([self image:[UIImage imageWithCGImage:node.texture.CGImage] isEqualTo:[UIImage imageNamed:@"soundbutton_on"]]) {
+            [KKGameData sharedGameData].soundVolume = 0;
+            [KKGameData sharedGameData].isSoundON = NO;
+            node.texture = [SKTexture textureWithImageNamed:@"soundbutton_off"];
+        }
+        
+        else {
+            [KKGameData sharedGameData].soundVolume = 1;
+            [KKGameData sharedGameData].isSoundON = YES;
+            node.texture = [SKTexture textureWithImageNamed:@"soundbutton_on"];
+        }
+        [[KKGameData sharedGameData]save];
+    }
+    
     
     //for GameSettings scene //////////////////////////////////////////////////////////////////////////////////////////////
     else if ([node.name isEqualToString:@"cancelsettingsbutton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         [self presentStartScene];
     }
     
     else if ([node.name isEqualToString:@"oksettingsbutton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         [KKGameData sharedGameData].isAccelerometerON = _accelerometerSetting;
         [[KKGameData sharedGameData]save];
@@ -167,7 +201,7 @@
     
     //for GameAchievement scene ///////////////////////////////////////////////////////////////////////////////////////////
     else if ([node.name isEqualToString:@"okachievementsbutton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         [self presentStartScene];
 
@@ -175,13 +209,13 @@
     
     //for GameLevels scene ////////////////////////////////////////////////////////////////////////////////////////////////
     else if ([node.name isEqualToString:@"levelHomeButton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         [self presentStartScene];
     }
     
     else if ([node.name isEqualToString:@"levelSettingsButton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameSettings"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -189,7 +223,7 @@
     }
     
     else if ([node.name isEqualToString:@"levelPlayButton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].completeLevels + 1]];
         scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -201,7 +235,7 @@
     
     for (int i = 1; i <= [KKGameData sharedGameData].completeLevels + 1; i++) {
         if ([node.name isEqualToString:[NSString stringWithFormat:@"level%i", i]]) {
-            [self playClickSound];
+            [[[GameViewController alloc]init]playClickSound];
 
             GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", i]];
             scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -215,7 +249,7 @@
     
     //for Game Info scene ////////////////////////////////////////////////////////////////////////////////////////////////
     if ([node.name isEqualToString:@"okinfobutton"]) {
-        [self playClickSound];
+        [[[GameViewController alloc]init]playClickSound];
 
         [self presentStartScene];
     }

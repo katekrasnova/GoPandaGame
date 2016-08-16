@@ -13,11 +13,14 @@
 @implementation GameViewController
 
 AVAudioPlayer *menuBackgroundSound;
+AVAudioPlayer *clickSound;
 
 - (void)viewDidLoad
 {
     [self configureMenuBackgroundSound];
     [menuBackgroundSound play];
+    
+    [self configureClickSound];
     
     [super viewDidLoad];
 
@@ -44,8 +47,26 @@ AVAudioPlayer *menuBackgroundSound;
     menuBackgroundSound.numberOfLoops = -1;
 }
 
+- (void) configureClickSound {
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
+    clickSound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
+    //clickSound.delegate = self;
+    clickSound.volume = [KKGameData sharedGameData].soundVolume;
+    clickSound.numberOfLoops = 0;
+}
+
+- (void)playClickSound {
+    [self configureClickSound];
+    [clickSound prepareToPlay];
+    [clickSound play];
+}
+
 - (void) setVolumeOfMenuBackgroundSound:(float)volume {
     menuBackgroundSound.volume = volume;
+}
+
+- (void) setVolumeOfSounds:(float)volume {
+    clickSound.volume = volume;
 }
 
 - (void)viewWillDisappear {
@@ -54,6 +75,7 @@ AVAudioPlayer *menuBackgroundSound;
 
 - (void) playMenuBackgroundMusic {
     [self configureMenuBackgroundSound];
+    [menuBackgroundSound prepareToPlay];
     [menuBackgroundSound play];
 }
 
