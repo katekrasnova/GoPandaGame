@@ -30,8 +30,13 @@ BOOL isFirstCall;
     SKSpriteNode *soundbutton = (SKSpriteNode *)[self childNodeWithName:@"soundbutton"];
 
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numOfLCalls"] == 1 && isFirstCall != YES) {
-        [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:1.0];
-        [[[GameViewController alloc]init]setVolumeOfSounds:1.0];
+        [KKGameData sharedGameData].musicVolume = 0.5;
+        [KKGameData sharedGameData].soundVolume = 0.75;
+        [KKGameData sharedGameData].isMusicON = YES;
+        [KKGameData sharedGameData].isSoundON = YES;
+
+        [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
+        //[[[GameViewController alloc]init]setVolumeOfSounds:1.0];
         musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
         soundbutton.texture = [SKTexture textureWithImageNamed:@"soundbutton_on"];
         isFirstCall = YES;
@@ -159,7 +164,7 @@ float tempVolumeSounds;
         }
 
         else {
-            [KKGameData sharedGameData].musicVolume = 1;
+            [KKGameData sharedGameData].musicVolume = 0.5;
             [KKGameData sharedGameData].isMusicON = YES;
             node.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
         }
@@ -176,7 +181,7 @@ float tempVolumeSounds;
         }
         
         else {
-            [KKGameData sharedGameData].soundVolume = 1;
+            [KKGameData sharedGameData].soundVolume = 0.75;
             [KKGameData sharedGameData].isSoundON = YES;
             node.texture = [SKTexture textureWithImageNamed:@"soundbutton_on"];
         }
@@ -262,22 +267,57 @@ float tempVolumeSounds;
 //        [self updateMusicVolumeLabelWithVolume:[KKGameData sharedGameData].musicVolume*1000];
 //        [self updateSoundsVolumeLabelWithVolume:[KKGameData sharedGameData].soundVolume*1000];
         //[[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
-        if (isMusicVolumeChange == YES) {
-            [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:tempVolumeMusic];
-            [self updateMusicVolumeLabelWithVolume:tempVolumeMusic*1000];
-        }
-        else if (isSoundsVolumeChange == YES) {
-            [self updateSoundsVolumeLabelWithVolume:tempVolumeSounds*1000];
-            [[[GameViewController alloc]init]playClickSoundWithVolume:tempVolumeSounds];
+        if (isMusicVolumeChange == YES || isSoundsVolumeChange == YES) {
+            if (isMusicVolumeChange == YES) {
+                [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:tempVolumeMusic];
+                [self updateMusicVolumeLabelWithVolume:tempVolumeMusic*1000];
+                [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
+            }
+            if (isSoundsVolumeChange == YES) {
+                [self updateSoundsVolumeLabelWithVolume:tempVolumeSounds*1000];
+                [[[GameViewController alloc]init]playClickSoundWithVolume:tempVolumeSounds];
+                [[[GameViewController alloc]init]playClickSoundWithVolume:tempVolumeSounds];
+            }
         }
         else { [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume]; }
     }
     
     //Ok and cancel buttons
-    if ([node.name isEqualToString:@"cancelsettingsbutton"]) {
-        [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
-        [self updateMusicVolumeLabelWithVolume:[KKGameData sharedGameData].musicVolume*1000];
-        [self updateSoundsVolumeLabelWithVolume:[KKGameData sharedGameData].soundVolume*1000];
+    if ([node.name isEqualToString:@"cancelsettingsbutton"] || [node.name isEqualToString:@"oksettingsbutton"]) {
+        //Cancel button - settings not saving
+        if ([node.name isEqualToString:@"cancelsettingsbutton"]) {
+            [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
+            [self updateMusicVolumeLabelWithVolume:[KKGameData sharedGameData].musicVolume*1000];
+            [self updateSoundsVolumeLabelWithVolume:[KKGameData sharedGameData].soundVolume*1000];
+        }
+        
+        //OK button - settings saving
+        else if ([node.name isEqualToString:@"oksettingsbutton"]) {
+            [KKGameData sharedGameData].isMusicON = YES;
+            [KKGameData sharedGameData].isSoundON = YES;
+            [KKGameData sharedGameData].isAccelerometerON = _accelerometerSetting;
+            if (isMusicVolumeChange == YES) {
+                [KKGameData sharedGameData].musicVolume = tempVolumeMusic;
+//                if (tempVolumeMusic == 0.0) {
+//                    [KKGameData sharedGameData].isMusicON = NO;
+//                }
+            }
+            if (isSoundsVolumeChange == YES) {
+                [KKGameData sharedGameData].soundVolume = tempVolumeSounds;
+//                if (tempVolumeSounds == 0.0) {
+//                    [KKGameData sharedGameData].isSoundON = NO;
+//                }
+            }
+            
+            if ([KKGameData sharedGameData].musicVolume == 0.0) { [KKGameData sharedGameData].isMusicON = NO; }
+            else { [KKGameData sharedGameData].isMusicON = YES; }
+            
+            if ([KKGameData sharedGameData].soundVolume == 0.0) { [KKGameData sharedGameData].isSoundON = NO; }
+            else { [KKGameData sharedGameData].isSoundON = YES; }
+            
+            [[KKGameData sharedGameData]save];
+        }
+        
         isMusicVolumeChange = NO;
         isSoundsVolumeChange = NO;
         tempVolumeMusic = 0.0;
@@ -286,22 +326,7 @@ float tempVolumeSounds;
         [self presentStartScene];
     }
     
-    else if ([node.name isEqualToString:@"oksettingsbutton"]) {
-        [KKGameData sharedGameData].isAccelerometerON = _accelerometerSetting;
-        
-        if (isMusicVolumeChange == YES) {
-            [KKGameData sharedGameData].musicVolume = tempVolumeMusic;
-            isMusicVolumeChange = NO;
-        }
-        if (isSoundsVolumeChange == YES) {
-            [KKGameData sharedGameData].soundVolume = tempVolumeSounds;
-            isSoundsVolumeChange = NO;
-        }
-        
-        [[KKGameData sharedGameData]save];
-        [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-        [self presentStartScene];
-    }
+    
     
     
     
