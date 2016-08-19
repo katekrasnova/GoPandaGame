@@ -48,8 +48,12 @@ SKSpriteNode *rightMoveButton;
 SKSpriteNode *jumpButton;
 
 AVAudioPlayer *backgroundGameMusic;
+AVAudioPlayer *sound;
+NSMutableArray *soundsArray;
 
 -(void)didMoveToView:(SKView *)view {
+    
+    soundsArray = [NSMutableArray new];
     
     isFlowerAttackAnimation = NO;
     
@@ -432,6 +436,23 @@ SKLabelNode* _time;
     }
 }
 
+- (void)playSoundNamed:(NSString *)soundName ofType:(NSString *)soundType {
+    for (int i = 0; i < [soundsArray count]; i++) {
+        if (![soundsArray[i] isPlaying]) {
+            [soundsArray removeObject:soundsArray[i]];
+        }
+    }
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:soundName ofType:soundType];
+    sound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
+    sound.volume = [KKGameData sharedGameData].soundVolume;
+    sound.numberOfLoops = 0;
+    [sound prepareToPlay];
+    [sound play];
+    [soundsArray addObject:sound];
+    
+}
+
 
 const int kMoveSpeed = 200;
 static const NSTimeInterval kHugeTime = 9999.0;
@@ -649,6 +670,8 @@ BOOL isJumpButton;
     //SKSpriteNode *coin = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"coin"]];
     for (int i = 0; i < [coins count]; i++) {
         if ([panda intersectsNode:coins[i]]) {
+            [self playSoundNamed:@"coin" ofType:@"wav"];
+            //[panda runAction:[SKAction playSoundFileNamed:@"coin" waitForCompletion:NO]];
             [KKGameData sharedGameData].score += 100;
             [self updateHUD];
             [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
@@ -719,6 +742,9 @@ BOOL isJumpButton;
     if ([KKGameData sharedGameData].numberOfLives > 0) {
         SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
         BOOL isDieAnimation = NO;
+        
+        //play "oops" sound
+        [self playSoundNamed:@"oops" ofType:@"wav"];
         
         [KKGameData sharedGameData].numberOfLives--;
         [self updateHUD];
@@ -844,6 +870,7 @@ BOOL isFlowerAttackAnimation;
     spit.alpha = 0;
     spit.xScale = flower.xScale;
     [self addChild:spit];
+    [self playSoundNamed:@"spitting" ofType:@"wav"];
     [spit runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5f], [SKAction fadeAlphaTo:1 duration:0.0f]]]];
     
     self.flowerAttackAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1], [SKAction waitForDuration:2.0f]]];

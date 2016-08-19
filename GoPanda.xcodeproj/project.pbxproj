@@ -32,7 +32,11 @@
 		D156F3481D07FDEF00C3282B /* GameSettings.sks in Resources */ = {isa = PBXBuildFile; fileRef = D156F3471D07FDEF00C3282B /* GameSettings.sks */; };
 		D157518C1D37DAA30075A4B0 /* ParticleExit.sks in Resources */ = {isa = PBXBuildFile; fileRef = D157518A1D37DAA30075A4B0 /* ParticleExit.sks */; };
 		D157518D1D37DAA30075A4B0 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D157518B1D37DAA30075A4B0 /* spark.png */; };
-		D17EA8671D4B9CBC003DB8C2 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8661D4B9CBC003DB8C2 /* click.wav */; };
+		D16097931D63AE9500607FA5 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = D16097921D63AE9400607FA5 /* click.wav */; };
+		D16097951D66EAB900607FA5 /* oops.wav in Resources */ = {isa = PBXBuildFile; fileRef = D16097941D66EAB900607FA5 /* oops.wav */; };
+		D16097991D66F24900607FA5 /* coin.wav in Resources */ = {isa = PBXBuildFile; fileRef = D16097981D66F24900607FA5 /* coin.wav */; };
+		D160979B1D6702B900607FA5 /* spitting.wav in Resources */ = {isa = PBXBuildFile; fileRef = D160979A1D6702B900607FA5 /* spitting.wav */; };
+		D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8661D4B9CBC003DB8C2 /* click1.wav */; };
 		D17EA8691D4B9CC8003DB8C2 /* mainTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */; };
 		D19866001D5377B70015C937 /* menuTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D19865FF1D5377B70015C937 /* menuTheme.mp3 */; };
 		D19866091D5C91390015C937 /* MenuScenesController.m in Sources */ = {isa = PBXBuildFile; fileRef = D19866081D5C91390015C937 /* MenuScenesController.m */; };
@@ -97,7 +101,11 @@
 		D156F3471D07FDEF00C3282B /* GameSettings.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSettings.sks; sourceTree = "<group>"; };
 		D157518A1D37DAA30075A4B0 /* ParticleExit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ParticleExit.sks; sourceTree = "<group>"; };
 		D157518B1D37DAA30075A4B0 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
-		D17EA8661D4B9CBC003DB8C2 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
+		D16097921D63AE9400607FA5 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
+		D16097941D66EAB900607FA5 /* oops.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = oops.wav; sourceTree = "<group>"; };
+		D16097981D66F24900607FA5 /* coin.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = coin.wav; sourceTree = "<group>"; };
+		D160979A1D6702B900607FA5 /* spitting.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = spitting.wav; sourceTree = "<group>"; };
+		D17EA8661D4B9CBC003DB8C2 /* click1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click1.wav; sourceTree = "<group>"; };
 		D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainTheme.mp3; sourceTree = "<group>"; };
 		D19865FF1D5377B70015C937 /* menuTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menuTheme.mp3; sourceTree = "<group>"; };
 		D19866071D5C91390015C937 /* MenuScenesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScenesController.h; sourceTree = "<group>"; };
@@ -211,7 +219,11 @@
 				D15461711D07294800127DB3 /* Info.plist */,
 				D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */,
 				D19865FF1D5377B70015C937 /* menuTheme.mp3 */,
-				D17EA8661D4B9CBC003DB8C2 /* click.wav */,
+				D16097941D66EAB900607FA5 /* oops.wav */,
+				D16097981D66F24900607FA5 /* coin.wav */,
+				D160979A1D6702B900607FA5 /* spitting.wav */,
+				D16097921D63AE9400607FA5 /* click.wav */,
+				D17EA8661D4B9CBC003DB8C2 /* click1.wav */,
 				D154615B1D07294800127DB3 /* Supporting Files */,
 			);
 			path = GoPanda;
@@ -369,15 +381,19 @@
 				D157518C1D37DAA30075A4B0 /* ParticleExit.sks in Resources */,
 				D1516FB51D36481E002DE76C /* Level2Scene.sks in Resources */,
 				D15461651D07294800127DB3 /* GameScene.sks in Resources */,
+				D16097991D66F24900607FA5 /* coin.wav in Resources */,
 				D12FF8181D0D610900AE8128 /* GameWin.sks in Resources */,
 				D12FF8131D0D5B8800AE8128 /* GameInfo.sks in Resources */,
+				D16097931D63AE9500607FA5 /* click.wav in Resources */,
+				D16097951D66EAB900607FA5 /* oops.wav in Resources */,
+				D160979B1D6702B900607FA5 /* spitting.wav in Resources */,
 				D17EA8691D4B9CC8003DB8C2 /* mainTheme.mp3 in Resources */,
 				D15461701D07294800127DB3 /* LaunchScreen.storyboard in Resources */,
 				D15461941D072E4600127DB3 /* GameStart.sks in Resources */,
 				D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */,
 				D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */,
 				D1566F721D362BA800A79A4A /* GameLevels.sks in Resources */,
-				D17EA8671D4B9CBC003DB8C2 /* click.wav in Resources */,
+				D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */,
 				D1516FB71D36482E002DE76C /* Level3Scene.sks in Resources */,
 				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
 				D1516FB31D3647BF002DE76C /* Level1Scene.sks in Resources */,
