@@ -810,9 +810,21 @@ BOOL isJumpButton;
             
             //NSLog(@"%f - %f, %f - %f", CGRectGetMinY(panda.frame), CGRectGetMinY(enemiesArray[i].frame), CGRectGetMinY(panda.frame), CGRectGetMaxY(enemiesArray[i].frame));
             
+            //Killing enemy
             if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMinY(enemiesArray[i].frame) + 20 && CGRectGetMinY(panda.frame) <= CGRectGetMaxY(enemiesArray[i].frame)) {
                 
+                [self playSoundNamed:@"jumpland" ofType:@"wav"];
                 
+                SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 100) duration:0.05];
+                [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 72, 85)];
+                
+                [panda removeActionForKey:@"StayAnimation"];
+                [panda runAction:jumpMove withKey:@"JumpAction"];
+                [panda runAction:self.jumpAnimation completion:^{
+                    if (isLeftMoveButton != YES && isRightMoveButton != YES) {
+                        [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+                    }
+                }];
                 
                 [enemiesArray[i] removeActionForKey:idleAnimationKey];
                 
@@ -827,15 +839,7 @@ BOOL isJumpButton;
                     [tempSnail removeAllActions];
                 }];
                 
-                SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.05];
-                [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-                [panda removeActionForKey:@"StayAnimation"];
-                [panda runAction:jumpMove withKey:@"JumpAction"];
-                [panda runAction:self.jumpAnimation completion:^{
-                    if (isLeftMoveButton != YES && isRightMoveButton != YES) {
-                        [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
-                    }
-                }];
+                
                 
                 break;
             }
@@ -941,8 +945,10 @@ BOOL isFlowerAttackAnimation;
         //Killing enemy
         if ([flowers[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(flowers[i].frame) - 20 ) {
             
-            SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 130) duration:0.05];
-            [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
+            [self playSoundNamed:@"jumpland" ofType:@"wav"];
+            
+            SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 100) duration:0.05];
+            //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
             [panda removeActionForKey:@"StayAnimation"];
             [panda runAction:jumpMove withKey:@"JumpAction"];
             [panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
