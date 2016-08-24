@@ -293,8 +293,9 @@ NSMutableArray *soundsArray;
     
     //Score
     [self setupHUD];
-    _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].totalScore];
+    _score.text = [NSString stringWithFormat:@"%li", [KKGameData sharedGameData].totalScore];
     _time.text = @"";
+    
     
     //Setup array of coins
     coins = [NSMutableArray new];
@@ -399,16 +400,26 @@ SKLabelNode* _time;
 
 -(void)setupHUD
 {
-    _score = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    _score = [[SKLabelNode alloc] initWithFontNamed:@"MarkerFelt-Wide"];
     _score.fontSize = 30.0;
-    _score.position = CGPointMake(-400, 300);
+    _score.position = CGPointMake(-497, 240);
     _score.fontColor = [SKColor blackColor];
+    _score.zPosition = 1000;
+    _score.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
     [camera addChild:_score];
     
-    _time = [[SKLabelNode alloc] initWithFontNamed:@"Futura-CondensedMedium"];
+    SKSpriteNode *clock = [SKSpriteNode spriteNodeWithImageNamed:@"clock"];
+    clock.position = CGPointMake(-480, 300);
+    clock.zPosition = 1000;
+    clock.name = [NSString stringWithFormat:@"clock"];
+    clock.scale = 0.5;
+    [camera addChild:clock];
+    _time = [[SKLabelNode alloc] initWithFontNamed:@"MarkerFelt-Wide"];
     _time.fontSize = 30.0;
-    _time.position = CGPointMake(-400, 250);
+    _time.position = CGPointMake(-445, 288);
+    _time.zPosition = 1000;
     _time.fontColor = [SKColor blueColor];
+    _time.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
     [camera addChild:_time];
     
     //heart's nodes
@@ -416,7 +427,7 @@ SKLabelNode* _time;
     for (int i = 0; i < [KKGameData sharedGameData].numberOfLives; i++) {
         SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartFull"];
         heart.position = CGPointMake(-480 + i*50, 350);
-        heart.zPosition = 5;
+        heart.zPosition = 1000;
         heart.name = [NSString stringWithFormat:@"heart%i",i];
         heart.scale = 0.8;
         [camera addChild:heart];
@@ -426,7 +437,7 @@ SKLabelNode* _time;
 
 - (void)updateHUD {
     
-    _score.text = [NSString stringWithFormat:@"%li pt", [KKGameData sharedGameData].score + [KKGameData sharedGameData].totalScore];
+    _score.text = [NSString stringWithFormat:@"%li", [KKGameData sharedGameData].score + [KKGameData sharedGameData].totalScore];
     
     //update hearts
     if ([KKGameData sharedGameData].numberOfLives < [hearts count]) {
@@ -690,7 +701,7 @@ BOOL isJumpButton;
     static NSTimeInterval _lastCurrentTime = 0;
     if (currentTime-_lastCurrentTime>1) {
         [KKGameData sharedGameData].time++;
-        _time.text = [NSString stringWithFormat:@"%i sec", [KKGameData sharedGameData].time];
+        _time.text = [NSString stringWithFormat:@"%i", [KKGameData sharedGameData].time];
         _lastCurrentTime = currentTime;
     }
     
