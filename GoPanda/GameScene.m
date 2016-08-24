@@ -26,6 +26,7 @@ typedef enum {
 
 BOOL isHurtAnimationRunning;
 BOOL isPandaFall;
+BOOL isPandaJump;
 float lastCameraPosition;
 SKNode *exitSign;
 SKSpriteNode *endGame;
@@ -62,6 +63,8 @@ NSMutableArray *soundsArray;
     isJumpButton = NO;
     
     isPandaFall = NO;
+    isPandaJump = NO;
+    isHurtAnimationRunning = NO;
     
     //Set background music
     
@@ -480,6 +483,7 @@ BOOL isJumpButton;
             [jumpButton setTexture:[SKTexture textureWithImageNamed:@"greenjumpbutton"]];
             
             isJumpButton = YES;
+            isPandaJump = YES;
             SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.1];
             //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
             //[panda removeActionForKey:@"StayAnimation"];
@@ -487,6 +491,7 @@ BOOL isJumpButton;
                 if (isLeftMoveButton == YES || isRightMoveButton == YES) {
                     [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
                 }
+                isPandaJump = NO;
                 //[panda removeAllActions];
                 //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
             }];
@@ -815,16 +820,19 @@ BOOL isJumpButton;
                 
                 [self playSoundNamed:@"jumpland" ofType:@"wav"];
                 
-                SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 100) duration:0.05];
-                [panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 72, 85)];
+                if (isPandaJump == NO) {
+                    //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 72, 85)];
+                    SKAction *up = [SKAction moveByX:0 y:panda.frame.origin.y + 300 duration:0.4];
+                    SKAction *down = [SKAction moveByX:0 y:panda.frame.origin.y - 300 duration:0.4];
+                    SKAction *jumpMove = [SKAction sequence:@[up, down, self.jumpAnimation]];
+                    [panda removeActionForKey:@"StayAnimation"];
+                    [panda runAction:jumpMove completion:^{
+                        if (isLeftMoveButton != YES && isRightMoveButton != YES) {
+                            [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+                        }
+                    }];
+                }
                 
-                [panda removeActionForKey:@"StayAnimation"];
-                [panda runAction:jumpMove withKey:@"JumpAction"];
-                [panda runAction:self.jumpAnimation completion:^{
-                    if (isLeftMoveButton != YES && isRightMoveButton != YES) {
-                        [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
-                    }
-                }];
                 
                 [enemiesArray[i] removeActionForKey:idleAnimationKey];
                 
