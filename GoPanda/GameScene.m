@@ -435,10 +435,14 @@ SKLabelNode* _time;
     }
 }
 
-- (void)updateHUD {
-    
+- (void)updateScoreHUD {
     _score.text = [NSString stringWithFormat:@"%li", [KKGameData sharedGameData].score + [KKGameData sharedGameData].totalScore];
-    
+    SKAction *labelMoveIn = [SKAction scaleTo:1.2 duration:0.2];
+    SKAction *labelMoveOut = [SKAction scaleTo:1.0 duration:0.2];
+    [_score runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
+}
+
+- (void)updateHeartsHUD {
     //update hearts
     if ([KKGameData sharedGameData].numberOfLives < [hearts count]) {
         SKSpriteNode *emptyHeart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartEmpty"];
@@ -647,7 +651,7 @@ BOOL isJumpButton;
     for (int i = 0; i < [littlePandas count]; i++) {
         if ([panda intersectsNode:littlePandas[i]]) {
             [KKGameData sharedGameData].score += 10000;
-            [self updateHUD];
+            [self updateScoreHUD];
             [littlePandas[i] removeFromParent];
             [littlePandas[i] removeAllActions];
             [littlePandas removeObject:littlePandas[i]];
@@ -689,7 +693,7 @@ BOOL isJumpButton;
             [self playSoundNamed:@"coin" ofType:@"wav"];
             //[panda runAction:[SKAction playSoundFileNamed:@"coin" waitForCompletion:NO]];
             [KKGameData sharedGameData].score += 100;
-            [self updateHUD];
+            [self updateScoreHUD];
             [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
             [coins[i] removeAllActions];
             [coins removeObject:coins[i]];
@@ -763,7 +767,7 @@ BOOL isJumpButton;
         [self playSoundNamed:@"oops" ofType:@"wav"];
         
         [KKGameData sharedGameData].numberOfLives--;
-        [self updateHUD];
+        [self updateHeartsHUD];
         
         NSLog(@"%i",[KKGameData sharedGameData].numberOfLives);
         if ([KKGameData sharedGameData].numberOfLives == 0) {
@@ -851,7 +855,7 @@ BOOL isJumpButton;
                 tempSnail = enemiesArray[i];
                 [enemiesArray removeObject:enemiesArray[i]];
                 [KKGameData sharedGameData].score += 1000;
-                [self updateHUD];
+                [self updateScoreHUD];
                 [tempSnail setPhysicsBody:NULL];
                 [tempSnail runAction:hurtAnimation completion:^{
                     [tempSnail removeFromParent];
@@ -979,7 +983,7 @@ BOOL isFlowerAttackAnimation;
             tempSnail = flowers[i];
             [flowers removeObject:flowers[i]];
             [KKGameData sharedGameData].score += 1000;
-            [self updateHUD];
+            [self updateScoreHUD];
             [tempSnail setPhysicsBody:NULL];
             [tempSnail runAction:self.flowerHurtAnimation completion:^{
                 [tempSnail removeFromParent];
