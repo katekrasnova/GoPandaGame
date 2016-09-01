@@ -32,6 +32,7 @@ SKNode *exitSign;
 SKSpriteNode *endGame;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
+NSMutableArray<SKSpriteNode *> *pickUpHearts;
 
 NSMutableArray<SKSpriteNode *> *hearts;
 
@@ -306,6 +307,14 @@ NSMutableArray *soundsArray;
         }
     }
     
+    //Setup array of pickUpHearts
+    pickUpHearts = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"heart"]) {
+            [pickUpHearts addObject:child];
+        }
+    }
+    
     //Setup array of blue snails
     bluesnails = [NSMutableArray new];
     for (SKSpriteNode *child in [self children]) {
@@ -445,12 +454,13 @@ SKLabelNode* _time;
 - (void)updateHeartsHUD {
     //update hearts
     if ([KKGameData sharedGameData].numberOfLives < [hearts count]) {
-        SKSpriteNode *emptyHeart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartEmpty"];
-        emptyHeart.position = hearts[[hearts count] - 1].position;
-        emptyHeart.scale = 0.8;
-        [camera addChild:emptyHeart];
-        [hearts[[hearts count] - 1] removeFromParent];
-        [hearts removeObject:hearts[[hearts count] - 1]];
+//        SKSpriteNode *emptyHeart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartEmpty"];
+//        emptyHeart.position = hearts[[hearts count] - 1].position;
+//        emptyHeart.scale = 0.8;
+//        [camera addChild:emptyHeart];
+//        [hearts[[hearts count] - 1] removeFromParent];
+//        [hearts removeObject:hearts[[hearts count] - 1]];
+        [hearts[[KKGameData sharedGameData].numberOfLives] setTexture:[SKTexture textureWithImageNamed:@"hud_heartEmpty"]];
     }
 }
 
@@ -691,12 +701,38 @@ BOOL isJumpButton;
     for (int i = 0; i < [coins count]; i++) {
         if ([panda intersectsNode:coins[i]]) {
             [self playSoundNamed:@"coin" ofType:@"wav"];
-            //[panda runAction:[SKAction playSoundFileNamed:@"coin" waitForCompletion:NO]];
             [KKGameData sharedGameData].score += 100;
             [self updateScoreHUD];
             [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
             [coins[i] removeAllActions];
             [coins removeObject:coins[i]];
+        }
+    }
+    
+    //Pick Up Hearts
+    for (int i = 0; i < [pickUpHearts count]; i++) {
+        if ([panda intersectsNode:pickUpHearts[i]]) {
+            [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+            [KKGameData sharedGameData].score += 1000;
+            [self updateScoreHUD];
+            
+            if ([KKGameData sharedGameData].numberOfLives < 3) {
+                [KKGameData sharedGameData].numberOfLives++;
+//                SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartFull"];
+//                heart.position = CGPointMake(-480 + ([KKGameData sharedGameData].numberOfLives - 1)*50, 350);
+//                heart.zPosition = 1000;
+//                heart.name = [NSString stringWithFormat:@"heart%i",[KKGameData sharedGameData].numberOfLives - 1];
+//                heart.scale = 0.8;
+//                [camera addChild:heart];
+//                [hearts insertObject:heart atIndex:[KKGameData sharedGameData].numberOfLives - 1];
+                [hearts[[KKGameData sharedGameData].numberOfLives - 1] setTexture:
+                                                                    [SKTexture textureWithImageNamed:@"hud_heartFull"]];
+
+            }
+
+            
+            [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpHearts[i], nil]];
+            [pickUpHearts removeObject:pickUpHearts[i]];
         }
     }
     
