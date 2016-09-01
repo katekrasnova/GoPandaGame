@@ -664,13 +664,28 @@ BOOL isJumpButton;
     SKNode *panda = [self childNodeWithName:@"Panda"];
     if ([panda intersectsNode:[self childNodeWithName:@"water"]] && panda.position.y <= 150) {
         
+        if (!isPandaFall) {
+            [backgroundGameMusic stop];
+            [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
+            panda.physicsBody = nil;
+            SKAction *jumpFallUp = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y + 200) duration:0.3];
+            SKAction *jumpFallDown = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y - 200) duration:0.3];
+            //SKAction *fadeOutUp = [SKAction fadeAlphaTo:0.7 duration:0.35];
+            //SKAction *fadeOutDown = [SKAction fadeAlphaTo:0.2 duration:0.35];
+            [panda runAction:[SKAction sequence:@[jumpFallUp, self.jumpAnimation]] completion:^{
+                [panda runAction:[SKAction sequence:@[jumpFallDown, self.jumpAnimation]] completion:^{
+                    [self endLevel:kEndReasonLose];
+                }];
+            }];
+        }
+        
         isPandaFall = YES;
         
-        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 50) duration:0.05];
-        //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-        [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
-            [self endLevel:kEndReasonLose];
-        }];
+        
+//        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 30) duration:0.15];
+//        [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
+//            [self endLevel:kEndReasonLose];
+//        }];
     }
 }
 
@@ -872,12 +887,27 @@ BOOL isDieAnimation;
         [KKGameData sharedGameData].numberOfLives--;
         [self updateHeartsHUD];
         
-        NSLog(@"%i",[KKGameData sharedGameData].numberOfLives);
+        //NSLog(@"%i",[KKGameData sharedGameData].numberOfLives);
         if ([KKGameData sharedGameData].numberOfLives == 0) {
-            //[panda removeAllActions];
-            //panda.scale = 1.4;
-            //panda.position = CGPointMake(panda.position.x, panda.position.y - 70);
+            
             isDieAnimation = YES;
+            
+            if (isLeftMoveButton) {
+                isLeftMoveButton = NO;
+                [leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"leftbutton"]];
+            }
+            if (isRightMoveButton) {
+                isRightMoveButton = NO;
+                [rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"rightbutton"]];
+            }
+            if (isJumpButton) {
+                isJumpButton = NO;
+                [jumpButton setTexture:[SKTexture textureWithImageNamed:@"jumpbutton"]];
+            }
+            
+            [backgroundGameMusic stop];
+            [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
+
             [panda runAction:self.dieAnimation completion:^{
                 [panda removeFromParent];
                 [self endLevel:kEndReasonLose];
@@ -946,7 +976,7 @@ BOOL isDieAnimation;
                     [panda removeActionForKey:@"StayAnimation"];
                     [panda runAction:jumpMove completion:^{
                         if (isLeftMoveButton != YES && isRightMoveButton != YES) {
-                            [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+                            //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
                         }
                     }];
                 }
