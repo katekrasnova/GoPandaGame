@@ -33,6 +33,7 @@ SKSpriteNode *endGame;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
 NSMutableArray<SKSpriteNode *> *pickUpHearts;
+NSMutableArray<SKSpriteNode *> *pickUpClocks;
 
 NSMutableArray<SKSpriteNode *> *hearts;
 
@@ -312,6 +313,14 @@ NSMutableArray *soundsArray;
     for (SKSpriteNode *child in [self children]) {
         if ([child.name isEqualToString:@"heart"]) {
             [pickUpHearts addObject:child];
+        }
+    }
+    
+    //Setup array of pickUpClocks
+    pickUpClocks = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"clock"]) {
+            [pickUpClocks addObject:child];
         }
     }
     
@@ -733,6 +742,24 @@ BOOL isJumpButton;
             
             [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpHearts[i], nil]];
             [pickUpHearts removeObject:pickUpHearts[i]];
+        }
+    }
+    
+    //Pick Up Clocks
+    for (int i = 0; i < [pickUpClocks count]; i++) {
+        if ([panda intersectsNode:pickUpClocks[i]]) {
+            [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+            [KKGameData sharedGameData].score += 500;
+            [self updateScoreHUD];
+            
+            [KKGameData sharedGameData].time -= 5;
+            _time.text = [NSString stringWithFormat:@"%i", [KKGameData sharedGameData].time];
+            SKAction *labelMoveIn = [SKAction scaleTo:1.2 duration:0.2];
+            SKAction *labelMoveOut = [SKAction scaleTo:1.0 duration:0.2];
+            [_time runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
+            
+            [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpClocks[i], nil]];
+            [pickUpClocks removeObject:pickUpClocks[i]];
         }
     }
     
