@@ -66,6 +66,7 @@ NSMutableArray *soundsArray;
     isJumpButton = NO;
     
     isPandaFall = NO;
+    isDieAnimation = NO;
     isPandaJump = NO;
     isHurtAnimationRunning = NO;
     
@@ -512,14 +513,14 @@ BOOL isJumpButton;
     [super touchesBegan:touches withEvent:event];
     
     SKNode *panda = [self childNodeWithName:@"Panda"];
-    [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+    //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
     
 
     
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
-    if (!isPandaFall) {
+    if (!isPandaFall && !isDieAnimation) {
         if ([node.name isEqualToString:@"jumpButton"]) {
             //Jump
             
@@ -702,7 +703,7 @@ BOOL isJumpButton;
     
     SKNode *panda = [self childNodeWithName:@"Panda"];
     
-    if (!isPandaFall) {
+    if (!isPandaFall && !isDieAnimation) {
         if (isLeftMoveButton == YES) {
             panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
         }
@@ -858,11 +859,12 @@ BOOL isJumpButton;
     //lastCameraPosition = camera.position.x;
 }
 
+BOOL isDieAnimation;
 
 - (void)pandaHurts {
     if ([KKGameData sharedGameData].numberOfLives > 0) {
         SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
-        BOOL isDieAnimation = NO;
+        isDieAnimation = NO;
         
         //play "oops" sound
         [self playSoundNamed:@"oops" ofType:@"wav"];
