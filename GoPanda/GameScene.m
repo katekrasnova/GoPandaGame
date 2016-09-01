@@ -34,6 +34,7 @@ SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
 NSMutableArray<SKSpriteNode *> *pickUpHearts;
 NSMutableArray<SKSpriteNode *> *pickUpClocks;
+NSMutableArray<SKSpriteNode *> *pickUpStars;
 
 NSMutableArray<SKSpriteNode *> *hearts;
 
@@ -321,6 +322,14 @@ NSMutableArray *soundsArray;
     for (SKSpriteNode *child in [self children]) {
         if ([child.name isEqualToString:@"clock"]) {
             [pickUpClocks addObject:child];
+        }
+    }
+    
+    //Setup array of pickUpStars
+    pickUpStars = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"star"]) {
+            [pickUpStars addObject:child];
         }
     }
     
@@ -669,6 +678,8 @@ BOOL isJumpButton;
     
     for (int i = 0; i < [littlePandas count]; i++) {
         if ([panda intersectsNode:littlePandas[i]]) {
+            [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+
             [KKGameData sharedGameData].score += 10000;
             [self updateScoreHUD];
             [littlePandas[i] removeFromParent];
@@ -760,6 +771,33 @@ BOOL isJumpButton;
             
             [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpClocks[i], nil]];
             [pickUpClocks removeObject:pickUpClocks[i]];
+        }
+    }
+    
+    //Pick Up Stars
+    for (int i = 0; i < [pickUpStars count]; i++) {
+        if ([panda intersectsNode:pickUpStars[i]]) {
+            [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+            [KKGameData sharedGameData].score += 2000;
+            [self updateScoreHUD];
+            
+            //Animation for picked star
+            NSMutableArray *textures = [NSMutableArray new];
+            for (int i = 1; i <= 6; i++) {
+                [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"star0%i",i]]];
+            }
+            SKAction *starAnimation = [SKAction animateWithTextures:textures timePerFrame:0.1];
+            
+            SKSpriteNode *pickedStar = [SKSpriteNode spriteNodeWithImageNamed:@"star01"];
+            pickedStar.position = pickUpStars[i].position;
+            pickedStar.zPosition = 5;
+            [self addChild:pickedStar];
+            [pickedStar runAction:starAnimation completion:^{
+                [pickedStar removeFromParent];
+            }];
+            
+            [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpStars[i], nil]];
+            [pickUpStars removeObject:pickUpStars[i]];
         }
     }
     
