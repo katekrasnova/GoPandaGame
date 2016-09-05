@@ -419,6 +419,7 @@ NSMutableArray *soundsArray;
         }
     }
     
+
     
 }
 
@@ -574,6 +575,26 @@ BOOL isJumpButton;
     //SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     if ([node.name isEqualToString:@"endGame"]) {
         [self endLevel:kEndReasonWin];
+    }
+    
+    if ((isPandaFall || isDieAnimation) && ([node.name isEqualToString:@"homebutton"] || [node.name isEqualToString:@"levelsbutton"] || [node.name isEqualToString:@"restartbutton"])) {
+        SKView * skView = (SKView *)self.view;
+        MenuScenesController *scene = [MenuScenesController new];
+        if ([node.name isEqualToString:@"homebutton"]) {
+            scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            [skView presentScene:scene];
+        }
+        else if ([node.name isEqualToString:@"levelsbutton"]) {
+            scene = [MenuScenesController nodeWithFileNamed:@"GameLevels"];
+            scene.scaleMode = SKSceneScaleModeAspectFill;
+            [skView presentScene:scene];
+        }
+        else if ([node.name isEqualToString:@"restartbutton"]) {
+            GameScene *gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].completeLevels + 1]];
+            gameScene.scaleMode = SKSceneScaleModeAspectFill;
+            [skView presentScene:gameScene];
+        }
     }
 
 }
@@ -820,7 +841,7 @@ BOOL isJumpButton;
     
     //Score for times
     static NSTimeInterval _lastCurrentTime = 0;
-    if (currentTime-_lastCurrentTime>1) {
+    if (currentTime-_lastCurrentTime>1 && !isDieAnimation &&!isPandaFall) {
         [KKGameData sharedGameData].time++;
         _time.text = [NSString stringWithFormat:@"%i", [KKGameData sharedGameData].time];
         _lastCurrentTime = currentTime;
@@ -909,7 +930,8 @@ BOOL isDieAnimation;
             [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
 
             [panda runAction:self.dieAnimation completion:^{
-                [panda removeFromParent];
+                //[panda removeFromParent];
+                panda.alpha = 0.0;
                 [self endLevel:kEndReasonLose];
             }];
             
@@ -955,7 +977,7 @@ BOOL isDieAnimation;
                     enemiesArray[i].xScale = -1.0*ABS(enemiesArray[i].xScale);
                 }
                 
-                if (!isHurtAnimationRunning) {
+                if (!isHurtAnimationRunning && !isDieAnimation) {
                     [self pandaHurts];
                 }
                 
@@ -1054,7 +1076,7 @@ BOOL isFlowerAttackAnimation;
         }
         
         //Intersecting spit with panda
-        if ([panda intersectsNode:flowersSpit[i]] && !isHurtAnimationRunning) {
+        if ([panda intersectsNode:flowersSpit[i]] && !isHurtAnimationRunning &&!isDieAnimation) {
             [self pandaHurts];
         }
         
@@ -1093,7 +1115,7 @@ BOOL isFlowerAttackAnimation;
         //NSLog(@"min camera X = %f, max camera X = %f", camera.position.x - self.frame.size.width/2, camera.position.x + self.frame.size.width/2);
         
         //Intersecting panda and enemy
-        if ([flowers[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(flowers[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(flowers[i].frame) && CGRectGetMaxX(panda.frame) - CGRectGetMinX(flowers[i].frame) >= 20 && (CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) >= -6) && !isHurtAnimationRunning) {
+        if ([flowers[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(flowers[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(flowers[i].frame) && CGRectGetMaxX(panda.frame) - CGRectGetMinX(flowers[i].frame) >= 20 && (CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) >= -6) && !isHurtAnimationRunning && !isDieAnimation) {
             
             [self pandaHurts];
         }
@@ -1148,19 +1170,79 @@ BOOL isFlowerAttackAnimation;
         [KKGameData sharedGameData].totalScore += [KKGameData sharedGameData].score;
     }
     
-    //[soundGameScene stopBackgroundSound];
-    
-    SKView * skView = (SKView *)self.view;
-    MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
     [[KKGameData sharedGameData] save];
     [[KKGameData sharedGameData] reset];
-
+    
     [backgroundGameMusic stop];
     [[[GameViewController alloc]init]playMenuBackgroundMusic];
     
-    [skView presentScene:scene];
+    SKView * skView = (SKView *)self.view;
+
+    if (endReason == kEndReasonWin) {
+        MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameWin"];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [skView presentScene:scene];
+    }
+    
+    else if (endReason == kEndReasonLose) {
+        
+        SKSpriteNode *windowLose = [SKSpriteNode spriteNodeWithImageNamed:@"windowlose"];
+        windowLose.zPosition = 1000;
+        windowLose.position = CGPointMake(camera.position.x, 340);
+        windowLose.scale = 0.8;
+        
+        SKSpriteNode *tapeLose = [SKSpriteNode spriteNodeWithImageNamed:@"tapelose"];
+        tapeLose.zPosition = 1001;
+        tapeLose.position = CGPointMake(camera.position.x, 546);
+        tapeLose.scale = 0.8;
+        
+        SKLabelNode *failedLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        failedLabel.fontSize = 39.0;
+        failedLabel.position = CGPointMake(camera.position.x, 548);
+        failedLabel.zPosition = 1002;
+        failedLabel.fontColor = [SKColor whiteColor];
+        failedLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        failedLabel.text = @"Level Failed";
+        
+        SKLabelNode *loseLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        loseLabel.fontSize = 53.0;
+        loseLabel.position = CGPointMake(camera.position.x, 349);
+        loseLabel.zPosition = 1001;
+        loseLabel.fontColor = [SKColor blackColor];
+        loseLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        loseLabel.text = @"You Lose";
+        
+        SKSpriteNode *homeButton = [SKSpriteNode spriteNodeWithImageNamed:@"homebutton"];
+        homeButton.zPosition = 1001;
+        homeButton.position = CGPointMake(camera.position.x - 112, 138);
+        homeButton.scale = 0.6;
+        homeButton.name = @"homebutton";
+        
+        SKSpriteNode *levelsButton = [SKSpriteNode spriteNodeWithImageNamed:@"levelsbutton"];
+        levelsButton.zPosition = 1001;
+        levelsButton.position = CGPointMake(camera.position.x - 2, 138);
+        levelsButton.scale = 0.6;
+        levelsButton.name = @"levelsbutton";
+        
+        SKSpriteNode *restartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restartbutton"];
+        restartButton.zPosition = 1001;
+        restartButton.position = CGPointMake(camera.position.x + 108, 138);
+        restartButton.scale = 0.6;
+        restartButton.name = @"restartbutton";
+        
+        [self addChild:windowLose];
+        [self addChild:tapeLose];
+        [self addChild:failedLabel];
+        [self addChild:loseLabel];
+        [self addChild:homeButton];
+        [self addChild:levelsButton];
+        [self addChild:restartButton];
+
+        
+        /* MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameLose"];
+        scene.scaleMode = SKSceneScaleModeAspectFill;
+        [skView presentScene:scene]; */
+    }
     
 }
 
