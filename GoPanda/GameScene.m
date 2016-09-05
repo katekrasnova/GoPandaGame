@@ -146,9 +146,6 @@ NSMutableArray *soundsArray;
     for (int i = 1; i <= 9; i++) {
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Die_00%i", i]]];
     }
-    for (int i = 0; i <= 4; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:@"Die_009"]];
-    }
     self.dieAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.2] count:1]]];
     //[SKAction waitForDuration:3.0]
     
@@ -578,14 +575,17 @@ BOOL isJumpButton;
     }
     
     if ((isPandaFall || isDieAnimation) && ([node.name isEqualToString:@"homebutton"] || [node.name isEqualToString:@"levelsbutton"] || [node.name isEqualToString:@"restartbutton"])) {
+        
         SKView * skView = (SKView *)self.view;
         MenuScenesController *scene = [MenuScenesController new];
         if ([node.name isEqualToString:@"homebutton"]) {
+            [[[GameViewController alloc]init]playMenuBackgroundMusic];
             scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
             scene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:scene];
         }
         else if ([node.name isEqualToString:@"levelsbutton"]) {
+            [[[GameViewController alloc]init]playMenuBackgroundMusic];
             scene = [MenuScenesController nodeWithFileNamed:@"GameLevels"];
             scene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:scene];
@@ -690,11 +690,11 @@ BOOL isJumpButton;
             [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
             panda.physicsBody = nil;
             SKAction *jumpFallUp = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y + 200) duration:0.3];
-            SKAction *jumpFallDown = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y - 200) duration:0.3];
+            SKAction *jumpFallDown = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y - 150) duration:0.3];
             //SKAction *fadeOutUp = [SKAction fadeAlphaTo:0.7 duration:0.35];
             //SKAction *fadeOutDown = [SKAction fadeAlphaTo:0.2 duration:0.35];
-            [panda runAction:[SKAction sequence:@[jumpFallUp, self.jumpAnimation]] completion:^{
-                [panda runAction:[SKAction sequence:@[jumpFallDown, self.jumpAnimation]] completion:^{
+            [panda runAction:[SKAction sequence:@[jumpFallUp,[SKAction waitForDuration:1]]] completion:^{
+                [panda runAction:[SKAction sequence:@[jumpFallDown]] completion:^{
                     [self endLevel:kEndReasonLose];
                 }];
             }];
@@ -1174,7 +1174,7 @@ BOOL isFlowerAttackAnimation;
     [[KKGameData sharedGameData] reset];
     
     [backgroundGameMusic stop];
-    [[[GameViewController alloc]init]playMenuBackgroundMusic];
+    //[[[GameViewController alloc]init]playMenuBackgroundMusic];
     
     SKView * skView = (SKView *)self.view;
 
