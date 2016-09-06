@@ -27,6 +27,7 @@ typedef enum {
 BOOL isHurtAnimationRunning;
 BOOL isPandaFall;
 BOOL isPandaJump;
+BOOL isExit;
 float lastCameraPosition;
 SKNode *exitSign;
 SKSpriteNode *endGame;
@@ -64,6 +65,8 @@ NSMutableArray *soundsArray;
     isLeftMoveButton = NO;
     isRightMoveButton = NO;
     isJumpButton = NO;
+    
+    isExit = NO;
     
     isPandaFall = NO;
     isDieAnimation = NO;
@@ -295,7 +298,7 @@ NSMutableArray *soundsArray;
     //Score
     [self setupHUD];
     _score.text = [NSString stringWithFormat:@"%li", [KKGameData sharedGameData].totalScore];
-    _time.text = @"";
+    _time.text = @"00:00";
     
     
     //Setup array of coins
@@ -518,7 +521,7 @@ BOOL isJumpButton;
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
-    if (!isPandaFall && !isDieAnimation) {
+    if (!isPandaFall && !isDieAnimation && !isExit) {
         if ([node.name isEqualToString:@"jumpButton"]) {
             //Jump
             
@@ -571,10 +574,11 @@ BOOL isJumpButton;
     //CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     //SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     if ([node.name isEqualToString:@"endGame"]) {
+        isExit = YES;
         [self endLevel:kEndReasonWin];
     }
     
-    if ((isPandaFall || isDieAnimation) && ([node.name isEqualToString:@"homebutton"] || [node.name isEqualToString:@"levelsbutton"] || [node.name isEqualToString:@"restartbutton"])) {
+    if ([node.name isEqualToString:@"homebutton"] || [node.name isEqualToString:@"levelsbutton"] || [node.name isEqualToString:@"restartbutton"] || [node.name isEqualToString:@"playbutton"]) {
         
         SKView * skView = (SKView *)self.view;
         MenuScenesController *scene = [MenuScenesController new];
@@ -590,7 +594,7 @@ BOOL isJumpButton;
             scene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:scene];
         }
-        else if ([node.name isEqualToString:@"restartbutton"]) {
+        else if ([node.name isEqualToString:@"restartbutton"] || [node.name isEqualToString:@"playbutton"]) {
             GameScene *gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].completeLevels + 1]];
             gameScene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:gameScene];
@@ -686,6 +690,11 @@ BOOL isJumpButton;
     if ([panda intersectsNode:[self childNodeWithName:@"water"]] && panda.position.y <= 150) {
         
         if (!isPandaFall) {
+            
+            for (int i = 0; i < [hearts count];i++) {
+                [hearts[i] setTexture:[SKTexture textureWithImageNamed:@"hud_heartEmpty"]];
+            }
+            
             [backgroundGameMusic stop];
             [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
             panda.physicsBody = nil;
@@ -801,7 +810,12 @@ BOOL isJumpButton;
             [self updateScoreHUD];
             
             [KKGameData sharedGameData].time -= 5;
-            _time.text = [NSString stringWithFormat:@"%i", [KKGameData sharedGameData].time];
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"mm:ss"];
+            NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[KKGameData sharedGameData].time];
+            
+            _time.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:date]];
             SKAction *labelMoveIn = [SKAction scaleTo:1.2 duration:0.2];
             SKAction *labelMoveOut = [SKAction scaleTo:1.0 duration:0.2];
             [_time runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
@@ -841,9 +855,14 @@ BOOL isJumpButton;
     
     //Score for times
     static NSTimeInterval _lastCurrentTime = 0;
-    if (currentTime-_lastCurrentTime>1 && !isDieAnimation &&!isPandaFall) {
+    if (currentTime-_lastCurrentTime>1 && !isDieAnimation &&!isPandaFall && !isExit) {
         [KKGameData sharedGameData].time++;
-        _time.text = [NSString stringWithFormat:@"%i", [KKGameData sharedGameData].time];
+        
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"mm:ss"];
+        NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[KKGameData sharedGameData].time];
+        
+        _time.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:date]];
         _lastCurrentTime = currentTime;
     }
     
@@ -890,7 +909,9 @@ BOOL isJumpButton;
     [self enemies:mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:self.mushroomHurtAnimation];
     [self flowersEnemies];
 
-    [self spitMovingUpdate];
+    if (!isExit) {
+        [self spitMovingUpdate];
+    }
     
     //lastCameraPosition = camera.position.x;
 }
@@ -1091,7 +1112,8 @@ BOOL isFlowerAttackAnimation;
     SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
     for (int i = 0; i < [flowers count]; i++) {
         
-        if (flowers[i].position.x >= camera.position.x - self.frame.size.width/2 && flowers[i].position.x <= camera.position.x + self.frame.size.width/2 && !isFlowerAttackAnimation) {
+        
+        if (flowers[i].position.x >= camera.position.x - self.frame.size.width/2 && flowers[i].position.x <= camera.position.x + self.frame.size.width/2 && !isFlowerAttackAnimation && !isExit) {
             
             isFlowerAttackAnimation = YES;
             [flowers[i] runAction:[self attackAnimationForFlower:flowers[i]] completion:^{
@@ -1156,8 +1178,9 @@ BOOL isFlowerAttackAnimation;
     if (panda.position.x > (particleExit.position.x - 10) && panda.position.x < (particleExit.position.x + 10)) {
         if ([panda actionForKey:@"JumpAnimation"] == nil && [panda actionForKey:@"MoveAnimation"] == nil) {
             lastCurrentTime += 1;
-            if (lastCurrentTime >= 60) {
+            if (lastCurrentTime >= 60 && !isExit) {
                 lastCurrentTime = 0;
+                isExit = YES;
                 [self endLevel:kEndReasonWin];
             }
         }
@@ -1171,17 +1194,132 @@ BOOL isFlowerAttackAnimation;
     }
     
     [[KKGameData sharedGameData] save];
+    long k = [KKGameData sharedGameData].score;
+    long t = [KKGameData sharedGameData].time;
     [[KKGameData sharedGameData] reset];
     
     [backgroundGameMusic stop];
     //[[[GameViewController alloc]init]playMenuBackgroundMusic];
     
-    SKView * skView = (SKView *)self.view;
+    //SKView * skView = (SKView *)self.view;
 
     if (endReason == kEndReasonWin) {
-        MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameWin"];
+        
+        SKSpriteNode *windowWin = [SKSpriteNode spriteNodeWithImageNamed:@"windowwin"];
+        windowWin.zPosition = 1000;
+        windowWin.position = CGPointMake(camera.position.x, 360);
+        windowWin.scale = 0.8;
+        
+        SKLabelNode *completeLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        completeLabel.fontSize = 30.0;
+        completeLabel.position = CGPointMake(camera.position.x, 548);
+        completeLabel.zPosition = 1001;
+        completeLabel.fontColor = [SKColor whiteColor];
+        completeLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        completeLabel.text = @"Level Complete";
+        
+        SKLabelNode *scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        scoreLabel.fontSize = 32.0;
+        scoreLabel.position = CGPointMake(camera.position.x - 108, 310);
+        scoreLabel.zPosition = 1001;
+        scoreLabel.fontColor = [SKColor blueColor];
+        scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        scoreLabel.text = @"Score";
+        
+        SKLabelNode *totalScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        totalScoreLabel.fontSize = 32.0;
+        totalScoreLabel.position = CGPointMake(camera.position.x + 20, 310);
+        totalScoreLabel.zPosition = 1001;
+        totalScoreLabel.fontColor = [SKColor whiteColor];
+        totalScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+        totalScoreLabel.text = [NSString stringWithFormat:@"%ld",k];
+        
+        SKLabelNode *timeLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        timeLabel.fontSize = 32.0;
+        timeLabel.position = CGPointMake(camera.position.x - 108, 230);
+        timeLabel.zPosition = 1001;
+        timeLabel.fontColor = [SKColor blueColor];
+        timeLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        timeLabel.text = @"Time";
+        
+        SKSpriteNode *clock = [SKSpriteNode spriteNodeWithImageNamed:@"clock"];
+        clock.zPosition = 1000;
+        clock.position = CGPointMake(camera.position.x - 14, 240);
+        clock.scale = 0.8;
+        
+        SKLabelNode *timeScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        timeScoreLabel.fontSize = 32.0;
+        timeScoreLabel.position = CGPointMake(camera.position.x + 25, 230);
+        timeScoreLabel.zPosition = 1001;
+        timeScoreLabel.fontColor = [SKColor whiteColor];
+        timeScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"mm:ss"];
+        NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:t];
+        timeScoreLabel.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:date]];
+        
+        SKSpriteNode *homeButton = [SKSpriteNode spriteNodeWithImageNamed:@"homebutton"];
+        homeButton.zPosition = 1001;
+        homeButton.position = CGPointMake(camera.position.x - 112, 129);
+        homeButton.scale = 0.6;
+        homeButton.name = @"homebutton";
+        
+        SKSpriteNode *levelsButton = [SKSpriteNode spriteNodeWithImageNamed:@"levelsbutton"];
+        levelsButton.zPosition = 1001;
+        levelsButton.position = CGPointMake(camera.position.x - 2, 129);
+        levelsButton.scale = 0.6;
+        levelsButton.name = @"levelsbutton";
+        
+        SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithImageNamed:@"playbuttonsmall"];
+        playButton.zPosition = 1001;
+        playButton.position = CGPointMake(camera.position.x + 108, 129);
+        playButton.scale = 0.6;
+        playButton.name = @"playbutton";
+        
+        [self addChild:windowWin];
+        [self addChild:completeLabel];
+        [self addChild:scoreLabel];
+        [self addChild:totalScoreLabel];
+        [self addChild:timeLabel];
+        [self addChild:timeScoreLabel];
+        [self addChild:clock];
+        [self addChild:homeButton];
+        [self addChild:levelsButton];
+        [self addChild:playButton];
+
+        if ([pickUpStars count] < 3) {
+            SKSpriteNode *star1 = [SKSpriteNode spriteNodeWithImageNamed:@"starsmall"];
+            star1.zPosition = 1001;
+            star1.position = CGPointMake(camera.position.x - 104.5, 422);
+            [self addChild:star1];
+            
+            if ([pickUpStars count] < 2) {
+                SKSpriteNode *star2 = [SKSpriteNode spriteNodeWithImageNamed:@"starbig"];
+                star2.zPosition = 1001;
+                star2.position = CGPointMake(camera.position.x - 10, 455);
+                [self addChild:star2];
+                
+                if ([pickUpStars count] < 1) {
+                    SKSpriteNode *star3 = [SKSpriteNode spriteNodeWithImageNamed:@"starsmall"];
+                    star3.zPosition = 1001;
+                    star3.position = CGPointMake(camera.position.x + 89, 422);
+                    [self addChild:star3];
+                }
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /* MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameWin"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
-        [skView presentScene:scene];
+        [skView presentScene:scene]; */
     }
     
     else if (endReason == kEndReasonLose) {
@@ -1237,11 +1375,6 @@ BOOL isFlowerAttackAnimation;
         [self addChild:homeButton];
         [self addChild:levelsButton];
         [self addChild:restartButton];
-
-        
-        /* MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameLose"];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        [skView presentScene:scene]; */
     }
     
 }
