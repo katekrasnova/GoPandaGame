@@ -39,6 +39,7 @@
 		D160979D1D67039C00607FA5 /* jumpland.wav in Resources */ = {isa = PBXBuildFile; fileRef = D160979C1D67039C00607FA5 /* jumpland.wav */; };
 		D160979F1D78069100607FA5 /* pickupheart.wav in Resources */ = {isa = PBXBuildFile; fileRef = D160979E1D78069100607FA5 /* pickupheart.wav */; };
 		D16097A11D78454300607FA5 /* lose_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D16097A01D78454300607FA5 /* lose_sound.mp3 */; };
+		D168BEF61D7F633F00361BEB /* win_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = D168BEF51D7F633F00361BEB /* win_sound.wav */; };
 		D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8661D4B9CBC003DB8C2 /* click1.wav */; };
 		D17EA8691D4B9CC8003DB8C2 /* mainTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */; };
 		D19866001D5377B70015C937 /* menuTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D19865FF1D5377B70015C937 /* menuTheme.mp3 */; };
@@ -111,6 +112,7 @@
 		D160979C1D67039C00607FA5 /* jumpland.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jumpland.wav; sourceTree = "<group>"; };
 		D160979E1D78069100607FA5 /* pickupheart.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickupheart.wav; sourceTree = "<group>"; };
 		D16097A01D78454300607FA5 /* lose_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose_sound.mp3; sourceTree = "<group>"; };
+		D168BEF51D7F633F00361BEB /* win_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win_sound.wav; sourceTree = "<group>"; };
 		D17EA8661D4B9CBC003DB8C2 /* click1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click1.wav; sourceTree = "<group>"; };
 		D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainTheme.mp3; sourceTree = "<group>"; };
 		D19865FF1D5377B70015C937 /* menuTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menuTheme.mp3; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				D19865FF1D5377B70015C937 /* menuTheme.mp3 */,
 				D16097941D66EAB900607FA5 /* oops.wav */,
 				D16097A01D78454300607FA5 /* lose_sound.mp3 */,
+				D168BEF51D7F633F00361BEB /* win_sound.wav */,
 				D16097981D66F24900607FA5 /* coin.wav */,
 				D160979E1D78069100607FA5 /* pickupheart.wav */,
 				D160979C1D67039C00607FA5 /* jumpland.wav */,
@@ -398,6 +401,7 @@
 				D16097931D63AE9500607FA5 /* click.wav in Resources */,
 				D16097951D66EAB900607FA5 /* oops.wav in Resources */,
 				D160979B1D6702B900607FA5 /* spitting.wav in Resources */,
+				D168BEF61D7F633F00361BEB /* win_sound.wav in Resources */,
 				D17EA8691D4B9CC8003DB8C2 /* mainTheme.mp3 in Resources */,
 				D15461701D07294800127DB3 /* LaunchScreen.storyboard in Resources */,
 				D15461941D072E4600127DB3 /* GameStart.sks in Resources */,

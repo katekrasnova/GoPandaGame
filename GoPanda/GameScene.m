@@ -1186,7 +1186,10 @@ BOOL isFlowerAttackAnimation;
             if (lastCurrentTime >= 60 && !isExit) {
                 lastCurrentTime = 0;
                 isExit = YES;
-                [self endLevel:kEndReasonWin];
+                [self playSoundNamed:@"win_sound" ofType:@"wav"];
+                [panda runAction:[SKAction waitForDuration:0.8] completion:^{
+                    [self endLevel:kEndReasonWin];
+                }];
             }
         }
     }
