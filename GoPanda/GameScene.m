@@ -1180,10 +1180,16 @@ BOOL isFlowerAttackAnimation;
     static NSTimeInterval lastCurrentTime = 0;
     SKNode *panda = [self childNodeWithName:@"Panda"];
     SKEmitterNode *particleExit = (SKEmitterNode *)[self childNodeWithName:@"particleExit"];
-    if (panda.position.x > (particleExit.position.x - 10) && panda.position.x < (particleExit.position.x + 10)) {
+    if ([littlePandas count] == 0) {
+        particleExit.alpha = 1.0;
+    }
+    else {
+        particleExit.alpha = 0.0;
+    }
+    if (panda.position.x > (particleExit.position.x - 25) && panda.position.x < (particleExit.position.x + 25)) {
         if ([panda actionForKey:@"JumpAnimation"] == nil && [panda actionForKey:@"MoveAnimation"] == nil) {
             lastCurrentTime += 1;
-            if (lastCurrentTime >= 60 && !isExit) {
+            if (lastCurrentTime >= 30 && !isExit && [littlePandas count] == 0) {
                 lastCurrentTime = 0;
                 isExit = YES;
                 [self playSoundNamed:@"win_sound" ofType:@"wav"];
