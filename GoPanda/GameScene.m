@@ -912,6 +912,11 @@ BOOL isJumpButton;
     if (!isExit) {
         [self spitMovingUpdate];
     }
+    else {
+        for (int i = 0; i < [flowersSpit count]; i++) {
+            [flowersSpit[i] removeFromParent];
+        }
+    }
     
     //lastCameraPosition = camera.position.x;
 }
