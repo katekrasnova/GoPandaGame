@@ -294,7 +294,9 @@ NSMutableArray *soundsArray;
     endGame.name = @"endGame";
     [camera addChild:endGame];
 
-    
+    if ([KKGameData sharedGameData].numberOfLives == 0) {
+        [KKGameData sharedGameData].numberOfLives = 3;
+    }
     //Score
     [self setupHUD];
     _score.text = [NSString stringWithFormat:@"%li", [KKGameData sharedGameData].totalScore];
@@ -419,7 +421,7 @@ NSMutableArray *soundsArray;
         }
     }
     
-
+    
     
 }
 
@@ -1205,6 +1207,7 @@ BOOL isFlowerAttackAnimation;
     
     if (endReason == kEndReasonWin) {
         [KKGameData sharedGameData].totalScore += [KKGameData sharedGameData].score;
+        [KKGameData sharedGameData].completeLevels += 1;
     }
     
     [[KKGameData sharedGameData] save];

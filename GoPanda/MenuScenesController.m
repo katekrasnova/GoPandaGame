@@ -75,8 +75,10 @@ BOOL isFirstCall;
     [self updateSoundsVolumeLabelWithVolume:[KKGameData sharedGameData].soundVolume*1000];
 
     //For game levels scene - number open levels //////////////////////////////////////////////////////////////////////////
-    //[KKGameData sharedGameData].completeLevels = 1;
-    
+
+    NSLog(@"%i", [KKGameData sharedGameData].numberOfLevels);
+    NSLog(@"%i", [KKGameData sharedGameData].completeLevels);
+
     for (int i = 1; i <= [KKGameData sharedGameData].numberOfLevels; i++) {
         SKSpriteNode *level = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"level%i", i]];
         if (i <= [KKGameData sharedGameData].completeLevels + 1) {

@@ -23,13 +23,13 @@ static NSString* const SSGameDataIsSoundONKey = @"isSoundON";
 static const int KKNumberOfLevels = 5;
 static const int KKNumberOfLives = 3;
 
-
 - (void)encodeWithCoder:(NSCoder *)encoder
 {
     [encoder encodeDouble:self.totalScore forKey: SSGameDataTotalScoreKey];
     [encoder encodeBool:self.isAccelerometerON forKey:SSGameDataAccelerometerKey];
     [encoder encodeInt:self.completeLevels forKey:SSGameDataCompleteLevelsKey];
-    [encoder encodeInt:self.numberOfLevels forKey:SSGameDataNumberOfLevelsKey];
+    //[encoder encodeInt:self.numberOfLevels forKey:SSGameDataNumberOfLevelsKey];
+    _numberOfLevels = KKNumberOfLevels;
     [encoder encodeInt:self.numberOfLives forKey:SSGameDataNumberOfLivesKey];
     [encoder encodeFloat:self.musicVolume forKey:SSGameDataMusicVolumeKey];
     [encoder encodeFloat:self.soundVolume forKey:SSGameDataSoundVolumeKey];
@@ -98,7 +98,7 @@ static const int KKNumberOfLives = 3;
 {
     self.score = 0;
     self.time = 0;
-    self.numberOfLives = 3;
+    self.numberOfLives = KKNumberOfLives;
 }
 
 @end
