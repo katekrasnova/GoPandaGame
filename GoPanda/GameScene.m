@@ -255,7 +255,7 @@ NSMutableArray *soundsArray;
     id leftConstraint = [SKConstraint positionX:[SKRange rangeWithLowerLimit:camera.position.x]];
     id bottomConstraint = [SKConstraint positionY:[SKRange rangeWithLowerLimit:camera.position.y]];
     id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(exitSign.position.x + 200 - camera.position.x)]];
-    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 150 - camera.position.y)]];
+    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 10 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
     //lastCameraPosition = camera.position.x;
     
@@ -264,24 +264,24 @@ NSMutableArray *soundsArray;
     leftMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"leftbutton"];
     leftMoveButton.alpha = 0.5;
     leftMoveButton.scale = 0.7;
-    leftMoveButton.position = CGPointMake(-440, -135);
-    leftMoveButton.zPosition = 5;
+    leftMoveButton.position = CGPointMake(-440, -228);
+    leftMoveButton.zPosition = 20;
     leftMoveButton.name = @"leftMoveButton";
     [camera addChild:leftMoveButton];
     //right move button
     rightMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"rightbutton"];
     rightMoveButton.alpha = 0.5;
     rightMoveButton.scale = 0.7;
-    rightMoveButton.position = CGPointMake(-280, -135);
-    rightMoveButton.zPosition = 5;
+    rightMoveButton.position = CGPointMake(-280, -228);
+    rightMoveButton.zPosition = 20;
     rightMoveButton.name = @"rightMoveButton";
     [camera addChild:rightMoveButton];
     //jump button
     jumpButton = [SKSpriteNode spriteNodeWithImageNamed:@"jumpbutton"];
     jumpButton.alpha = 0.5;
     jumpButton.scale = 0.7;
-    jumpButton.position = CGPointMake(440, -135);
-    jumpButton.zPosition = 5;
+    jumpButton.position = CGPointMake(440, -228);
+    jumpButton.zPosition = 20;
     jumpButton.name = @"jumpButton";
     [camera addChild:jumpButton];
     
@@ -290,7 +290,7 @@ NSMutableArray *soundsArray;
     //End game button
     endGame = [SKSpriteNode spriteNodeWithImageNamed:@"okbutton"];
     endGame.size = CGSizeMake(91, 95);
-    endGame.position = CGPointMake(440, 300);
+    endGame.position = CGPointMake(440, 230);
     endGame.name = @"endGame";
     [camera addChild:endGame];
 
@@ -431,21 +431,21 @@ SKLabelNode* _time;
 {
     _score = [[SKLabelNode alloc] initWithFontNamed:@"MarkerFelt-Wide"];
     _score.fontSize = 30.0;
-    _score.position = CGPointMake(-497, 240);
+    _score.position = CGPointMake(-497, 155);
     _score.fontColor = [SKColor blackColor];
     _score.zPosition = 1000;
     _score.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
     [camera addChild:_score];
     
     SKSpriteNode *clock = [SKSpriteNode spriteNodeWithImageNamed:@"clock"];
-    clock.position = CGPointMake(-480, 300);
+    clock.position = CGPointMake(-480, 215);
     clock.zPosition = 1000;
     clock.name = [NSString stringWithFormat:@"clock"];
     clock.scale = 0.5;
     [camera addChild:clock];
     _time = [[SKLabelNode alloc] initWithFontNamed:@"MarkerFelt-Wide"];
     _time.fontSize = 30.0;
-    _time.position = CGPointMake(-445, 288);
+    _time.position = CGPointMake(-445, 203);
     _time.zPosition = 1000;
     _time.fontColor = [SKColor blueColor];
     _time.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
@@ -455,7 +455,7 @@ SKLabelNode* _time;
     hearts = [NSMutableArray new];
     for (int i = 0; i < [KKGameData sharedGameData].numberOfLives; i++) {
         SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartFull"];
-        heart.position = CGPointMake(-480 + i*50, 350);
+        heart.position = CGPointMake(-480 + i*50, 265);
         heart.zPosition = 1000;
         heart.name = [NSString stringWithFormat:@"heart%i",i];
         heart.scale = 0.8;
@@ -1221,12 +1221,12 @@ BOOL isFlowerAttackAnimation;
         
         SKSpriteNode *windowWin = [SKSpriteNode spriteNodeWithImageNamed:@"windowwin"];
         windowWin.zPosition = 1000;
-        windowWin.position = CGPointMake(camera.position.x, 360);
+        windowWin.position = CGPointMake(camera.position.x, 410);
         windowWin.scale = 0.8;
         
         SKLabelNode *completeLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
         completeLabel.fontSize = 30.0;
-        completeLabel.position = CGPointMake(camera.position.x, 548);
+        completeLabel.position = CGPointMake(camera.position.x, 598);
         completeLabel.zPosition = 1001;
         completeLabel.fontColor = [SKColor whiteColor];
         completeLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
@@ -1234,7 +1234,7 @@ BOOL isFlowerAttackAnimation;
         
         SKLabelNode *scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
         scoreLabel.fontSize = 32.0;
-        scoreLabel.position = CGPointMake(camera.position.x - 108, 310);
+        scoreLabel.position = CGPointMake(camera.position.x - 108, 360);
         scoreLabel.zPosition = 1001;
         scoreLabel.fontColor = [SKColor blueColor];
         scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
@@ -1242,7 +1242,7 @@ BOOL isFlowerAttackAnimation;
         
         SKLabelNode *totalScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
         totalScoreLabel.fontSize = 32.0;
-        totalScoreLabel.position = CGPointMake(camera.position.x + 20, 310);
+        totalScoreLabel.position = CGPointMake(camera.position.x + 20, 360);
         totalScoreLabel.zPosition = 1001;
         totalScoreLabel.fontColor = [SKColor whiteColor];
         totalScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
@@ -1250,7 +1250,7 @@ BOOL isFlowerAttackAnimation;
         
         SKLabelNode *timeLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
         timeLabel.fontSize = 32.0;
-        timeLabel.position = CGPointMake(camera.position.x - 108, 230);
+        timeLabel.position = CGPointMake(camera.position.x - 108, 280);
         timeLabel.zPosition = 1001;
         timeLabel.fontColor = [SKColor blueColor];
         timeLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
@@ -1258,12 +1258,12 @@ BOOL isFlowerAttackAnimation;
         
         SKSpriteNode *clock = [SKSpriteNode spriteNodeWithImageNamed:@"clock"];
         clock.zPosition = 1000;
-        clock.position = CGPointMake(camera.position.x - 14, 240);
+        clock.position = CGPointMake(camera.position.x - 14, 290);
         clock.scale = 0.8;
         
         SKLabelNode *timeScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
         timeScoreLabel.fontSize = 32.0;
-        timeScoreLabel.position = CGPointMake(camera.position.x + 25, 230);
+        timeScoreLabel.position = CGPointMake(camera.position.x + 25, 280);
         timeScoreLabel.zPosition = 1001;
         timeScoreLabel.fontColor = [SKColor whiteColor];
         timeScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
@@ -1274,19 +1274,19 @@ BOOL isFlowerAttackAnimation;
         
         SKSpriteNode *homeButton = [SKSpriteNode spriteNodeWithImageNamed:@"homebutton"];
         homeButton.zPosition = 1001;
-        homeButton.position = CGPointMake(camera.position.x - 112, 129);
+        homeButton.position = CGPointMake(camera.position.x - 112, 179);
         homeButton.scale = 0.6;
         homeButton.name = @"homebutton";
         
         SKSpriteNode *levelsButton = [SKSpriteNode spriteNodeWithImageNamed:@"levelsbutton"];
         levelsButton.zPosition = 1001;
-        levelsButton.position = CGPointMake(camera.position.x - 2, 129);
+        levelsButton.position = CGPointMake(camera.position.x - 2, 179);
         levelsButton.scale = 0.6;
         levelsButton.name = @"levelsbutton";
         
         SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithImageNamed:@"playbuttonsmall"];
         playButton.zPosition = 1001;
-        playButton.position = CGPointMake(camera.position.x + 108, 129);
+        playButton.position = CGPointMake(camera.position.x + 108, 179);
         playButton.scale = 0.6;
         playButton.name = @"playbutton";
         
@@ -1304,19 +1304,19 @@ BOOL isFlowerAttackAnimation;
         if ([pickUpStars count] < 3) {
             SKSpriteNode *star1 = [SKSpriteNode spriteNodeWithImageNamed:@"starsmall"];
             star1.zPosition = 1001;
-            star1.position = CGPointMake(camera.position.x - 104.5, 422);
+            star1.position = CGPointMake(camera.position.x - 104.5, 472);
             [self addChild:star1];
             
             if ([pickUpStars count] < 2) {
                 SKSpriteNode *star2 = [SKSpriteNode spriteNodeWithImageNamed:@"starbig"];
                 star2.zPosition = 1001;
-                star2.position = CGPointMake(camera.position.x - 10, 455);
+                star2.position = CGPointMake(camera.position.x - 10, 505);
                 [self addChild:star2];
                 
                 if ([pickUpStars count] < 1) {
                     SKSpriteNode *star3 = [SKSpriteNode spriteNodeWithImageNamed:@"starsmall"];
                     star3.zPosition = 1001;
-                    star3.position = CGPointMake(camera.position.x + 89, 422);
+                    star3.position = CGPointMake(camera.position.x + 89, 472);
                     [self addChild:star3];
                 }
             }
@@ -1340,17 +1340,17 @@ BOOL isFlowerAttackAnimation;
         
         SKSpriteNode *windowLose = [SKSpriteNode spriteNodeWithImageNamed:@"windowlose"];
         windowLose.zPosition = 1000;
-        windowLose.position = CGPointMake(camera.position.x, 340);
+        windowLose.position = CGPointMake(camera.position.x, 385);
         windowLose.scale = 0.8;
         
         SKSpriteNode *tapeLose = [SKSpriteNode spriteNodeWithImageNamed:@"tapelose"];
         tapeLose.zPosition = 1001;
-        tapeLose.position = CGPointMake(camera.position.x, 546);
+        tapeLose.position = CGPointMake(camera.position.x, 591);
         tapeLose.scale = 0.8;
         
         SKLabelNode *failedLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
         failedLabel.fontSize = 39.0;
-        failedLabel.position = CGPointMake(camera.position.x, 548);
+        failedLabel.position = CGPointMake(camera.position.x, 593);
         failedLabel.zPosition = 1002;
         failedLabel.fontColor = [SKColor whiteColor];
         failedLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
@@ -1358,7 +1358,7 @@ BOOL isFlowerAttackAnimation;
         
         SKLabelNode *loseLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
         loseLabel.fontSize = 53.0;
-        loseLabel.position = CGPointMake(camera.position.x, 349);
+        loseLabel.position = CGPointMake(camera.position.x, 394);
         loseLabel.zPosition = 1001;
         loseLabel.fontColor = [SKColor blackColor];
         loseLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
@@ -1366,19 +1366,19 @@ BOOL isFlowerAttackAnimation;
         
         SKSpriteNode *homeButton = [SKSpriteNode spriteNodeWithImageNamed:@"homebutton"];
         homeButton.zPosition = 1001;
-        homeButton.position = CGPointMake(camera.position.x - 112, 138);
+        homeButton.position = CGPointMake(camera.position.x - 112, 183);
         homeButton.scale = 0.6;
         homeButton.name = @"homebutton";
         
         SKSpriteNode *levelsButton = [SKSpriteNode spriteNodeWithImageNamed:@"levelsbutton"];
         levelsButton.zPosition = 1001;
-        levelsButton.position = CGPointMake(camera.position.x - 2, 138);
+        levelsButton.position = CGPointMake(camera.position.x - 2, 183);
         levelsButton.scale = 0.6;
         levelsButton.name = @"levelsbutton";
         
         SKSpriteNode *restartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restartbutton"];
         restartButton.zPosition = 1001;
-        restartButton.position = CGPointMake(camera.position.x + 108, 138);
+        restartButton.position = CGPointMake(camera.position.x + 108, 183);
         restartButton.scale = 0.6;
         restartButton.name = @"restartbutton";
         

@@ -322,7 +322,7 @@
             startingLineNumber = "338"
             endingLineNumber = "338"
             landmarkName = "-didMoveToView:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -338,7 +338,7 @@
             startingLineNumber = "1007"
             endingLineNumber = "1007"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -354,7 +354,7 @@
             startingLineNumber = "1002"
             endingLineNumber = "1002"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -370,7 +370,7 @@
             startingLineNumber = "932"
             endingLineNumber = "932"
             landmarkName = "-pandaHurts"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -386,7 +386,7 @@
             startingLineNumber = "926"
             endingLineNumber = "926"
             landmarkName = "-pandaHurts"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -402,7 +402,7 @@
             startingLineNumber = "927"
             endingLineNumber = "927"
             landmarkName = "-pandaHurts"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -418,7 +418,7 @@
             startingLineNumber = "997"
             endingLineNumber = "997"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -490,7 +490,7 @@
             startingLineNumber = "263"
             endingLineNumber = "263"
             landmarkName = "-didMoveToView:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -506,7 +506,7 @@
             startingLineNumber = "1169"
             endingLineNumber = "1169"
             landmarkName = "-flowersEnemies"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -522,7 +522,7 @@
             startingLineNumber = "1142"
             endingLineNumber = "1142"
             landmarkName = "-flowersEnemies"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -538,7 +538,7 @@
             startingLineNumber = "1052"
             endingLineNumber = "1052"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -554,7 +554,7 @@
             startingLineNumber = "1047"
             endingLineNumber = "1047"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -570,7 +570,7 @@
             startingLineNumber = "1056"
             endingLineNumber = "1056"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -586,7 +586,7 @@
             startingLineNumber = "1165"
             endingLineNumber = "1165"
             landmarkName = "-flowersEnemies"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -602,7 +602,7 @@
             startingLineNumber = "1419"
             endingLineNumber = "1419"
             landmarkName = "-accelerometerUpdate"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -618,7 +618,7 @@
             startingLineNumber = "1171"
             endingLineNumber = "1171"
             landmarkName = "-flowersEnemies"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -634,7 +634,7 @@
             startingLineNumber = "1174"
             endingLineNumber = "1174"
             landmarkName = "-flowersEnemies"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -650,7 +650,7 @@
             startingLineNumber = "1201"
             endingLineNumber = "1201"
             landmarkName = "-exit"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -666,7 +666,7 @@
             startingLineNumber = "1088"
             endingLineNumber = "1088"
             landmarkName = "-attackAnimationForFlower:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -682,7 +682,7 @@
             startingLineNumber = "1078"
             endingLineNumber = "1078"
             landmarkName = "-attackAnimationForFlower:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -698,7 +698,7 @@
             startingLineNumber = "1083"
             endingLineNumber = "1083"
             landmarkName = "-attackAnimationForFlower:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -714,7 +714,7 @@
             startingLineNumber = "938"
             endingLineNumber = "938"
             landmarkName = "-pandaHurts"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -730,7 +730,7 @@
             startingLineNumber = "936"
             endingLineNumber = "936"
             landmarkName = "-pandaHurts"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -746,7 +746,7 @@
             startingLineNumber = "865"
             endingLineNumber = "865"
             landmarkName = "-update:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -762,7 +762,7 @@
             startingLineNumber = "1077"
             endingLineNumber = "1077"
             landmarkName = "-attackAnimationForFlower:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -794,7 +794,7 @@
             startingLineNumber = "730"
             endingLineNumber = "730"
             landmarkName = "-saveLittlePandas"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -824,7 +824,7 @@
             startingLineNumber = "1401"
             endingLineNumber = "1401"
             landmarkName = "-accelerometerUpdate"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1336,7 +1336,7 @@
             startingLineNumber = "501"
             endingLineNumber = "501"
             landmarkName = "-playSoundNamed:ofType:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1352,7 +1352,7 @@
             startingLineNumber = "502"
             endingLineNumber = "502"
             landmarkName = "-playSoundNamed:ofType:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1368,7 +1368,7 @@
             startingLineNumber = "488"
             endingLineNumber = "488"
             landmarkName = "-playSoundNamed:ofType:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1384,7 +1384,7 @@
             startingLineNumber = "494"
             endingLineNumber = "494"
             landmarkName = "-playSoundNamed:ofType:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1400,7 +1400,7 @@
             startingLineNumber = "1031"
             endingLineNumber = "1031"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1416,7 +1416,7 @@
             startingLineNumber = "995"
             endingLineNumber = "995"
             landmarkName = "-enemies:withIdleAnimationKey:withHurtAnimation:"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1432,7 +1432,7 @@
             startingLineNumber = "695"
             endingLineNumber = "695"
             landmarkName = "-pandaFallinWater"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -1448,7 +1448,7 @@
             startingLineNumber = "694"
             endingLineNumber = "694"
             landmarkName = "-pandaFallinWater"
-            landmarkType = "5">
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
