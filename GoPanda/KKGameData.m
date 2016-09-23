@@ -20,7 +20,7 @@ static NSString* const SSGameDataSoundVolumeKey = @"soundVolume";
 static NSString* const SSGameDataIsMusicONKey = @"isMusicON";
 static NSString* const SSGameDataIsSoundONKey = @"isSoundON";
 
-static const int KKNumberOfLevels = 5;
+static const int KKNumberOfLevels = 15;
 static const int KKNumberOfLives = 3;
 
 - (void)encodeWithCoder:(NSCoder *)encoder
