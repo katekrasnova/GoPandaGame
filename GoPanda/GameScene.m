@@ -1227,7 +1227,7 @@ BOOL isFlowerAttackAnimation;
         windowWin.position = CGPointMake(camera.position.x, 410);
         windowWin.scale = 0.8;
         
-        SKLabelNode *completeLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        SKLabelNode *completeLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
         completeLabel.fontSize = 30.0;
         completeLabel.position = CGPointMake(camera.position.x, 598);
         completeLabel.zPosition = 1001;
@@ -1235,7 +1235,7 @@ BOOL isFlowerAttackAnimation;
         completeLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
         completeLabel.text = @"Level Complete";
         
-        SKLabelNode *scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        SKLabelNode *scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
         scoreLabel.fontSize = 32.0;
         scoreLabel.position = CGPointMake(camera.position.x - 108, 360);
         scoreLabel.zPosition = 1001;
@@ -1243,7 +1243,7 @@ BOOL isFlowerAttackAnimation;
         scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
         scoreLabel.text = @"Score";
         
-        SKLabelNode *totalScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        SKLabelNode *totalScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
         totalScoreLabel.fontSize = 32.0;
         totalScoreLabel.position = CGPointMake(camera.position.x + 20, 360);
         totalScoreLabel.zPosition = 1001;
@@ -1251,7 +1251,7 @@ BOOL isFlowerAttackAnimation;
         totalScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
         totalScoreLabel.text = [NSString stringWithFormat:@"%ld",k];
         
-        SKLabelNode *timeLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        SKLabelNode *timeLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
         timeLabel.fontSize = 32.0;
         timeLabel.position = CGPointMake(camera.position.x - 108, 280);
         timeLabel.zPosition = 1001;
@@ -1264,7 +1264,7 @@ BOOL isFlowerAttackAnimation;
         clock.position = CGPointMake(camera.position.x - 14, 290);
         clock.scale = 0.8;
         
-        SKLabelNode *timeScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        SKLabelNode *timeScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
         timeScoreLabel.fontSize = 32.0;
         timeScoreLabel.position = CGPointMake(camera.position.x + 25, 280);
         timeScoreLabel.zPosition = 1001;
@@ -1351,7 +1351,7 @@ BOOL isFlowerAttackAnimation;
         tapeLose.position = CGPointMake(camera.position.x, 591);
         tapeLose.scale = 0.8;
         
-        SKLabelNode *failedLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        SKLabelNode *failedLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
         failedLabel.fontSize = 39.0;
         failedLabel.position = CGPointMake(camera.position.x, 593);
         failedLabel.zPosition = 1002;
@@ -1359,7 +1359,7 @@ BOOL isFlowerAttackAnimation;
         failedLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
         failedLabel.text = @"Level Failed";
         
-        SKLabelNode *loseLabel = [[SKLabelNode alloc] initWithFontNamed:@"Helvetica-Bold"];
+        SKLabelNode *loseLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
         loseLabel.fontSize = 53.0;
         loseLabel.position = CGPointMake(camera.position.x, 394);
         loseLabel.zPosition = 1001;
