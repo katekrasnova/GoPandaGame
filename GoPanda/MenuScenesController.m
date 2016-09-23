@@ -322,6 +322,10 @@ float tempVolumeSounds;
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
 
         GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].completeLevels + 1]];
+        
+        [KKGameData sharedGameData].currentLevel = [KKGameData sharedGameData].completeLevels + 1;
+        [[KKGameData sharedGameData] save];
+        
         scene.scaleMode = SKSceneScaleModeAspectFill;
         
         [[[GameViewController alloc]init]stopMenuBackgroundMusic];
@@ -335,6 +339,9 @@ float tempVolumeSounds;
 
             GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", i]];
             scene.scaleMode = SKSceneScaleModeAspectFill;
+            
+            [KKGameData sharedGameData].currentLevel = i;
+            [[KKGameData sharedGameData] save];
             
             [[[GameViewController alloc]init]stopMenuBackgroundMusic];
 

@@ -24,6 +24,7 @@
 
 @property (assign, nonatomic) BOOL isAccelerometerON;
 
+@property (assign, nonatomic) int currentLevel;
 @property (assign, nonatomic) int completeLevels;
 @property (assign, readonly) int numberOfLevels;
 

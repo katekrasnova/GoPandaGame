@@ -29,6 +29,7 @@ BOOL isPandaFall;
 BOOL isPandaJump;
 BOOL isExit;
 float lastCameraPosition;
+int level;
 SKNode *exitSign;
 SKSpriteNode *endGame;
 SKCameraNode *camera;
@@ -72,6 +73,8 @@ NSMutableArray *soundsArray;
     isDieAnimation = NO;
     isPandaJump = NO;
     isHurtAnimationRunning = NO;
+    
+    level = [KKGameData sharedGameData].currentLevel;
     
     //Set background music
     
@@ -582,6 +585,8 @@ BOOL isJumpButton;
     
     if ([node.name isEqualToString:@"homebutton"] || [node.name isEqualToString:@"levelsbutton"] || [node.name isEqualToString:@"restartbutton"] || [node.name isEqualToString:@"playbutton"]) {
         
+        
+        
         SKView * skView = (SKView *)self.view;
         MenuScenesController *scene = [MenuScenesController new];
         if ([node.name isEqualToString:@"homebutton"]) {
@@ -596,8 +601,27 @@ BOOL isJumpButton;
             scene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:scene];
         }
-        else if ([node.name isEqualToString:@"restartbutton"] || [node.name isEqualToString:@"playbutton"]) {
-            GameScene *gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].completeLevels + 1]];
+        else if ([node.name isEqualToString:@"playbutton"]) {
+            GameScene *gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", level + 1]];
+            
+            [KKGameData sharedGameData].currentLevel = level + 1;
+            [[KKGameData sharedGameData] save];
+            
+            NSLog(@"completeLevels %i", [KKGameData sharedGameData].completeLevels);
+            NSLog(@"currentLevel %i", [KKGameData sharedGameData].currentLevel);
+
+            gameScene.scaleMode = SKSceneScaleModeAspectFill;
+            [skView presentScene:gameScene];
+        }
+        else if ([node.name isEqualToString:@"restartbutton"]) {
+            GameScene *gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", level]];
+            
+            [KKGameData sharedGameData].currentLevel = level;
+            [[KKGameData sharedGameData] save];
+            
+            NSLog(@"completeLevels %i", [KKGameData sharedGameData].completeLevels);
+            NSLog(@"currentLevel %i", [KKGameData sharedGameData].currentLevel);
+            
             gameScene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:gameScene];
         }
@@ -1207,7 +1231,9 @@ BOOL isFlowerAttackAnimation;
     
     if (endReason == kEndReasonWin) {
         [KKGameData sharedGameData].totalScore += [KKGameData sharedGameData].score;
-        [KKGameData sharedGameData].completeLevels += 1;
+        if ([KKGameData sharedGameData].completeLevels == [KKGameData sharedGameData].currentLevel - 1) {
+            [KKGameData sharedGameData].completeLevels += 1;
+        }
     }
     
     [[KKGameData sharedGameData] save];

@@ -12,6 +12,7 @@
 
 static NSString* const SSGameDataTotalScoreKey = @"totalScore";
 static NSString* const SSGameDataAccelerometerKey = @"isAccelerometerON";
+static NSString* const SSGameDataCurrentLevelKey = @"currentLevel";
 static NSString* const SSGameDataCompleteLevelsKey = @"completeLevels";
 static NSString* const SSGameDataNumberOfLevelsKey = @"numberOfLevels";
 static NSString* const SSGameDataNumberOfLivesKey = @"numberOfLives";
@@ -28,6 +29,7 @@ static const int KKNumberOfLives = 3;
     [encoder encodeDouble:self.totalScore forKey: SSGameDataTotalScoreKey];
     [encoder encodeBool:self.isAccelerometerON forKey:SSGameDataAccelerometerKey];
     [encoder encodeInt:self.completeLevels forKey:SSGameDataCompleteLevelsKey];
+    [encoder encodeInt:self.currentLevel forKey:SSGameDataCurrentLevelKey];
     //[encoder encodeInt:self.numberOfLevels forKey:SSGameDataNumberOfLevelsKey];
     _numberOfLevels = KKNumberOfLevels;
     [encoder encodeInt:self.numberOfLives forKey:SSGameDataNumberOfLivesKey];
@@ -46,6 +48,7 @@ static const int KKNumberOfLives = 3;
         _totalScore = [decoder decodeDoubleForKey: SSGameDataTotalScoreKey];
         _isAccelerometerON = [decoder decodeBoolForKey:SSGameDataAccelerometerKey];
         _completeLevels = [decoder decodeIntForKey:SSGameDataCompleteLevelsKey];
+        _currentLevel = [decoder decodeIntForKey:SSGameDataCurrentLevelKey];
         _musicVolume = [decoder decodeFloatForKey:SSGameDataMusicVolumeKey];
         _soundVolume = [decoder decodeFloatForKey:SSGameDataSoundVolumeKey];
         _isMusicON = [decoder decodeBoolForKey:SSGameDataIsMusicONKey];
@@ -99,6 +102,7 @@ static const int KKNumberOfLives = 3;
     self.score = 0;
     self.time = 0;
     self.numberOfLives = KKNumberOfLives;
+    self.currentLevel = 0;
 }
 
 @end
