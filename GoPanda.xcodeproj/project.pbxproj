@@ -14,7 +14,7 @@
 		D12FF81B1D0D612300AE8128 /* GameWin.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF81A1D0D612300AE8128 /* GameWin.m */; };
 		D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF81C1D0D613300AE8128 /* GameLose.sks */; };
 		D12FF8201D0D614900AE8128 /* GameLose.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF81F1D0D614900AE8128 /* GameLose.m */; };
-		D1516FB31D3647BF002DE76C /* Level1Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1516FB21D3647BF002DE76C /* Level1Scene.sks */; };
+		D1516FB31D3647BF002DE76C /* LevelScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1516FB21D3647BF002DE76C /* LevelScene.sks */; };
 		D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15286EF1D089A7400C948CB /* GameAchievement.sks */; };
 		D15379741D2BACB7004411E7 /* KKGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D15379731D2BACB7004411E7 /* KKGameData.m */; };
 		D154615D1D07294800127DB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615C1D07294800127DB3 /* main.m */; };
@@ -45,6 +45,19 @@
 		D19866001D5377B70015C937 /* menuTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D19865FF1D5377B70015C937 /* menuTheme.mp3 */; };
 		D19866091D5C91390015C937 /* MenuScenesController.m in Sources */ = {isa = PBXBuildFile; fileRef = D19866081D5C91390015C937 /* MenuScenesController.m */; };
 		D1EBD1371D149D4E00C82F48 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */; };
+		D1F27DFA1D98F89100DF7FD2 /* Level1Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DF91D98F89100DF7FD2 /* Level1Scene.sks */; };
+		D1F27E071D98F89F00DF7FD2 /* Level4Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFB1D98F89F00DF7FD2 /* Level4Scene.sks */; };
+		D1F27E081D98F89F00DF7FD2 /* Level5Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFC1D98F89F00DF7FD2 /* Level5Scene.sks */; };
+		D1F27E091D98F89F00DF7FD2 /* Level6Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFD1D98F89F00DF7FD2 /* Level6Scene.sks */; };
+		D1F27E0A1D98F89F00DF7FD2 /* Level7Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFE1D98F89F00DF7FD2 /* Level7Scene.sks */; };
+		D1F27E0B1D98F89F00DF7FD2 /* Level8Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFF1D98F89F00DF7FD2 /* Level8Scene.sks */; };
+		D1F27E0C1D98F89F00DF7FD2 /* Level9Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E001D98F89F00DF7FD2 /* Level9Scene.sks */; };
+		D1F27E0D1D98F89F00DF7FD2 /* Level10Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E011D98F89F00DF7FD2 /* Level10Scene.sks */; };
+		D1F27E0E1D98F89F00DF7FD2 /* Level11Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E021D98F89F00DF7FD2 /* Level11Scene.sks */; };
+		D1F27E0F1D98F89F00DF7FD2 /* Level12Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E031D98F89F00DF7FD2 /* Level12Scene.sks */; };
+		D1F27E101D98F89F00DF7FD2 /* Level13Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E041D98F89F00DF7FD2 /* Level13Scene.sks */; };
+		D1F27E111D98F89F00DF7FD2 /* Level14Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E051D98F89F00DF7FD2 /* Level14Scene.sks */; };
+		D1F27E121D98F89F00DF7FD2 /* Level15Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E061D98F89F00DF7FD2 /* Level15Scene.sks */; };
 		E0A7195331CE0CC3E053B56B /* libPods-GoPanda.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 21679484A824287AEDD1E60F /* libPods-GoPanda.a */; };
 /* End PBXBuildFile section */
 
@@ -77,7 +90,7 @@
 		D12FF81C1D0D613300AE8128 /* GameLose.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameLose.sks; sourceTree = "<group>"; };
 		D12FF81E1D0D614900AE8128 /* GameLose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLose.h; sourceTree = "<group>"; };
 		D12FF81F1D0D614900AE8128 /* GameLose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLose.m; sourceTree = "<group>"; };
-		D1516FB21D3647BF002DE76C /* Level1Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1Scene.sks; sourceTree = "<group>"; };
+		D1516FB21D3647BF002DE76C /* LevelScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelScene.sks; sourceTree = "<group>"; };
 		D15286EF1D089A7400C948CB /* GameAchievement.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameAchievement.sks; sourceTree = "<group>"; };
 		D15379721D2BACB7004411E7 /* KKGameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKGameData.h; sourceTree = "<group>"; };
 		D15379731D2BACB7004411E7 /* KKGameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKGameData.m; sourceTree = "<group>"; };
@@ -119,6 +132,19 @@
 		D19866071D5C91390015C937 /* MenuScenesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuScenesController.h; sourceTree = "<group>"; };
 		D19866081D5C91390015C937 /* MenuScenesController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuScenesController.m; sourceTree = "<group>"; };
 		D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		D1F27DF91D98F89100DF7FD2 /* Level1Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1Scene.sks; sourceTree = "<group>"; };
+		D1F27DFB1D98F89F00DF7FD2 /* Level4Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4Scene.sks; sourceTree = "<group>"; };
+		D1F27DFC1D98F89F00DF7FD2 /* Level5Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5Scene.sks; sourceTree = "<group>"; };
+		D1F27DFD1D98F89F00DF7FD2 /* Level6Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level6Scene.sks; sourceTree = "<group>"; };
+		D1F27DFE1D98F89F00DF7FD2 /* Level7Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level7Scene.sks; sourceTree = "<group>"; };
+		D1F27DFF1D98F89F00DF7FD2 /* Level8Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level8Scene.sks; sourceTree = "<group>"; };
+		D1F27E001D98F89F00DF7FD2 /* Level9Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level9Scene.sks; sourceTree = "<group>"; };
+		D1F27E011D98F89F00DF7FD2 /* Level10Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level10Scene.sks; sourceTree = "<group>"; };
+		D1F27E021D98F89F00DF7FD2 /* Level11Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level11Scene.sks; sourceTree = "<group>"; };
+		D1F27E031D98F89F00DF7FD2 /* Level12Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level12Scene.sks; sourceTree = "<group>"; };
+		D1F27E041D98F89F00DF7FD2 /* Level13Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level13Scene.sks; sourceTree = "<group>"; };
+		D1F27E051D98F89F00DF7FD2 /* Level14Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level14Scene.sks; sourceTree = "<group>"; };
+		D1F27E061D98F89F00DF7FD2 /* Level15Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level15Scene.sks; sourceTree = "<group>"; };
 		E5ABCA5B741C4C5A308EB770 /* Pods-GoPanda.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoPanda.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoPanda/Pods-GoPanda.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -170,9 +196,22 @@
 		D1516FB11D36478F002DE76C /* Level scenes */ = {
 			isa = PBXGroup;
 			children = (
-				D1516FB21D3647BF002DE76C /* Level1Scene.sks */,
+				D1516FB21D3647BF002DE76C /* LevelScene.sks */,
+				D1F27DF91D98F89100DF7FD2 /* Level1Scene.sks */,
 				D11391B21D93F39A0023F45C /* Level2Scene.sks */,
 				D11391B41D93F3AB0023F45C /* Level3Scene.sks */,
+				D1F27DFB1D98F89F00DF7FD2 /* Level4Scene.sks */,
+				D1F27DFC1D98F89F00DF7FD2 /* Level5Scene.sks */,
+				D1F27DFD1D98F89F00DF7FD2 /* Level6Scene.sks */,
+				D1F27DFE1D98F89F00DF7FD2 /* Level7Scene.sks */,
+				D1F27DFF1D98F89F00DF7FD2 /* Level8Scene.sks */,
+				D1F27E001D98F89F00DF7FD2 /* Level9Scene.sks */,
+				D1F27E011D98F89F00DF7FD2 /* Level10Scene.sks */,
+				D1F27E021D98F89F00DF7FD2 /* Level11Scene.sks */,
+				D1F27E031D98F89F00DF7FD2 /* Level12Scene.sks */,
+				D1F27E041D98F89F00DF7FD2 /* Level13Scene.sks */,
+				D1F27E051D98F89F00DF7FD2 /* Level14Scene.sks */,
+				D1F27E061D98F89F00DF7FD2 /* Level15Scene.sks */,
 				D15461641D07294800127DB3 /* GameScene.sks */,
 				D157518A1D37DAA30075A4B0 /* ParticleExit.sks */,
 				D157518B1D37DAA30075A4B0 /* spark.png */,
@@ -397,22 +436,35 @@
 				D16097991D66F24900607FA5 /* coin.wav in Resources */,
 				D160979F1D78069100607FA5 /* pickupheart.wav in Resources */,
 				D12FF8181D0D610900AE8128 /* GameWin.sks in Resources */,
+				D1F27E0B1D98F89F00DF7FD2 /* Level8Scene.sks in Resources */,
 				D12FF8131D0D5B8800AE8128 /* GameInfo.sks in Resources */,
 				D16097931D63AE9500607FA5 /* click.wav in Resources */,
 				D16097951D66EAB900607FA5 /* oops.wav in Resources */,
 				D160979B1D6702B900607FA5 /* spitting.wav in Resources */,
+				D1F27E0A1D98F89F00DF7FD2 /* Level7Scene.sks in Resources */,
 				D168BEF61D7F633F00361BEB /* win_sound.wav in Resources */,
 				D17EA8691D4B9CC8003DB8C2 /* mainTheme.mp3 in Resources */,
+				D1F27E071D98F89F00DF7FD2 /* Level4Scene.sks in Resources */,
 				D15461701D07294800127DB3 /* LaunchScreen.storyboard in Resources */,
+				D1F27E0C1D98F89F00DF7FD2 /* Level9Scene.sks in Resources */,
 				D15461941D072E4600127DB3 /* GameStart.sks in Resources */,
 				D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */,
 				D16097A11D78454300607FA5 /* lose_sound.mp3 in Resources */,
+				D1F27E0F1D98F89F00DF7FD2 /* Level12Scene.sks in Resources */,
+				D1F27DFA1D98F89100DF7FD2 /* Level1Scene.sks in Resources */,
+				D1F27E091D98F89F00DF7FD2 /* Level6Scene.sks in Resources */,
 				D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */,
 				D1566F721D362BA800A79A4A /* GameLevels.sks in Resources */,
 				D11391B51D93F3AB0023F45C /* Level3Scene.sks in Resources */,
 				D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */,
+				D1F27E0E1D98F89F00DF7FD2 /* Level11Scene.sks in Resources */,
+				D1F27E0D1D98F89F00DF7FD2 /* Level10Scene.sks in Resources */,
+				D1F27E081D98F89F00DF7FD2 /* Level5Scene.sks in Resources */,
+				D1F27E101D98F89F00DF7FD2 /* Level13Scene.sks in Resources */,
 				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
-				D1516FB31D3647BF002DE76C /* Level1Scene.sks in Resources */,
+				D1516FB31D3647BF002DE76C /* LevelScene.sks in Resources */,
+				D1F27E111D98F89F00DF7FD2 /* Level14Scene.sks in Resources */,
+				D1F27E121D98F89F00DF7FD2 /* Level15Scene.sks in Resources */,
 				D157518D1D37DAA30075A4B0 /* spark.png in Resources */,
 				D19866001D5377B70015C937 /* menuTheme.mp3 in Resources */,
 				D154616B1D07294800127DB3 /* Main.storyboard in Resources */,
