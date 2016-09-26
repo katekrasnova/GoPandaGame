@@ -1075,11 +1075,11 @@ BOOL isDieAnimation;
             }
             if (enemiesArray[i].xScale < 0) {
                 //Right move
-                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.15, enemiesArray[i].position.y);
+                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.40, enemiesArray[i].position.y);
             }
             else {
                 //Left move
-                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.15, enemiesArray[i].position.y);
+                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.40, enemiesArray[i].position.y);
             }
         }
     }
