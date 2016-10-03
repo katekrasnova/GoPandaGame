@@ -46,6 +46,7 @@ NSMutableArray<SKSpriteNode *> *mushrooms;
 NSMutableArray<SKSpriteNode *> *flowers;
 NSMutableArray<SKSpriteNode *> *flowersSpit;
 NSMutableArray<SKSpriteNode *> *borders;
+NSMutableArray<SKSpriteNode *> *waters;
 NSMutableArray<SKSpriteNode *> *littlePandas;
 NSMutableArray<SKSpriteNode *> *littlePandasMoving;
 NSMutableArray<NSNumber *> *littlePandasMoveStartPosition;
@@ -424,6 +425,13 @@ NSMutableArray *soundsArray;
         }
     }
     
+    //Setup array of waters
+    waters = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"water"]) {
+            [waters addObject:child];
+        }
+    }
     
     
 }
@@ -713,36 +721,39 @@ BOOL isJumpButton;
 
 - (void)pandaFallinWater {
     SKNode *panda = [self childNodeWithName:@"Panda"];
-    if ([panda intersectsNode:[self childNodeWithName:@"water"]] && panda.position.y <= 150) {
-        
-        if (!isPandaFall) {
+    for (int i = 0; i < [waters count]; i++) {
+        if ([panda intersectsNode:waters[i]] && panda.position.y <= 150) {
             
-            for (int i = 0; i < [hearts count];i++) {
-                [hearts[i] setTexture:[SKTexture textureWithImageNamed:@"hud_heartEmpty"]];
+            if (!isPandaFall) {
+                
+                for (int i = 0; i < [hearts count];i++) {
+                    [hearts[i] setTexture:[SKTexture textureWithImageNamed:@"hud_heartEmpty"]];
+                }
+                
+                [backgroundGameMusic stop];
+                [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
+                panda.physicsBody = nil;
+                SKAction *jumpFallUp = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y + 200) duration:0.3];
+                SKAction *jumpFallDown = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y - 150) duration:0.3];
+                //SKAction *fadeOutUp = [SKAction fadeAlphaTo:0.7 duration:0.35];
+                //SKAction *fadeOutDown = [SKAction fadeAlphaTo:0.2 duration:0.35];
+                [panda runAction:[SKAction sequence:@[jumpFallUp,[SKAction waitForDuration:1]]] completion:^{
+                    [panda runAction:[SKAction sequence:@[jumpFallDown]] completion:^{
+                        [self endLevel:kEndReasonLose];
+                    }];
+                }];
             }
             
-            [backgroundGameMusic stop];
-            [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
-            panda.physicsBody = nil;
-            SKAction *jumpFallUp = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y + 200) duration:0.3];
-            SKAction *jumpFallDown = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y - 150) duration:0.3];
-            //SKAction *fadeOutUp = [SKAction fadeAlphaTo:0.7 duration:0.35];
-            //SKAction *fadeOutDown = [SKAction fadeAlphaTo:0.2 duration:0.35];
-            [panda runAction:[SKAction sequence:@[jumpFallUp,[SKAction waitForDuration:1]]] completion:^{
-                [panda runAction:[SKAction sequence:@[jumpFallDown]] completion:^{
-                    [self endLevel:kEndReasonLose];
-                }];
-            }];
+            isPandaFall = YES;
+            
+            
+            //        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 30) duration:0.15];
+            //        [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
+            //            [self endLevel:kEndReasonLose];
+            //        }];
         }
-        
-        isPandaFall = YES;
-        
-        
-//        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 30) duration:0.15];
-//        [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
-//            [self endLevel:kEndReasonLose];
-//        }];
     }
+    
 }
 
 - (void)saveLittlePandas {
@@ -1075,11 +1086,11 @@ BOOL isDieAnimation;
             }
             if (enemiesArray[i].xScale < 0) {
                 //Right move
-                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.40, enemiesArray[i].position.y);
+                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.15, enemiesArray[i].position.y);
             }
             else {
                 //Left move
-                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.40, enemiesArray[i].position.y);
+                enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.15, enemiesArray[i].position.y);
             }
         }
     }
