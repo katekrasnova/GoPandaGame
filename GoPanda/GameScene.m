@@ -28,10 +28,12 @@ BOOL isHurtAnimationRunning;
 BOOL isPandaFall;
 BOOL isPandaJump;
 BOOL isExit;
+BOOL isPause;
 float lastCameraPosition;
 int level;
 SKNode *exitSign;
-SKSpriteNode *endGame;
+//SKSpriteNode *endGame;
+SKSpriteNode *pauseButton;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
 NSMutableArray<SKSpriteNode *> *pickUpHearts;
@@ -69,6 +71,7 @@ NSMutableArray *soundsArray;
     isJumpButton = NO;
     
     isExit = NO;
+    isPause = NO;
     
     isPandaFall = NO;
     isDieAnimation = NO;
@@ -132,7 +135,7 @@ NSMutableArray *soundsArray;
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Jump2_00%i",i]]];
     }
 //    self.jumpAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
-    self.jumpAnimation = [SKAction animateWithTextures:textures timePerFrame:0.1];
+    self.jumpAnimation = [SKAction animateWithTextures:textures timePerFrame:0.05];
     
     //Create Panda idle animation
     textures = [NSMutableArray new];
@@ -268,7 +271,7 @@ NSMutableArray *soundsArray;
     leftMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"leftbutton"];
     leftMoveButton.alpha = 0.5;
     leftMoveButton.scale = 0.7;
-    leftMoveButton.position = CGPointMake(-440, -228);
+    leftMoveButton.position = CGPointMake(-440, -218);
     leftMoveButton.zPosition = 20;
     leftMoveButton.name = @"leftMoveButton";
     [camera addChild:leftMoveButton];
@@ -276,7 +279,7 @@ NSMutableArray *soundsArray;
     rightMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"rightbutton"];
     rightMoveButton.alpha = 0.5;
     rightMoveButton.scale = 0.7;
-    rightMoveButton.position = CGPointMake(-280, -228);
+    rightMoveButton.position = CGPointMake(-280, -218);
     rightMoveButton.zPosition = 20;
     rightMoveButton.name = @"rightMoveButton";
     [camera addChild:rightMoveButton];
@@ -284,7 +287,7 @@ NSMutableArray *soundsArray;
     jumpButton = [SKSpriteNode spriteNodeWithImageNamed:@"jumpbutton"];
     jumpButton.alpha = 0.5;
     jumpButton.scale = 0.7;
-    jumpButton.position = CGPointMake(440, -228);
+    jumpButton.position = CGPointMake(440, -218);
     jumpButton.zPosition = 20;
     jumpButton.name = @"jumpButton";
     [camera addChild:jumpButton];
@@ -292,12 +295,21 @@ NSMutableArray *soundsArray;
     
     
     //End game button
-    endGame = [SKSpriteNode spriteNodeWithImageNamed:@"okbutton"];
+    /*endGame = [SKSpriteNode spriteNodeWithImageNamed:@"okbutton"];
     endGame.size = CGSizeMake(91, 95);
     endGame.position = CGPointMake(440, 230);
     endGame.name = @"endGame";
-    [camera addChild:endGame];
-
+    [camera addChild:endGame]; */
+    
+    //Pause Button
+    pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"pauseButtonOff"];
+    pauseButton.size = CGSizeMake(91, 95);
+    pauseButton.position = CGPointMake(460, 230);
+    pauseButton.alpha = 0.8;
+    pauseButton.zPosition = 100;
+    pauseButton.name = @"pauseButton";
+    [camera addChild:pauseButton]; 
+    
     if ([KKGameData sharedGameData].numberOfLives == 0) {
         [KKGameData sharedGameData].numberOfLives = 3;
     }
@@ -534,8 +546,8 @@ BOOL isJumpButton;
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
-    if (!isPandaFall && !isDieAnimation && !isExit) {
-        if ([node.name isEqualToString:@"jumpButton"]) {
+    if (!isPandaFall && !isDieAnimation && !isExit && !isPause) {
+        if ([node.name isEqualToString:@"jumpButton"] && !isPandaJump) {
             //Jump
             
             [jumpButton setTexture:[SKTexture textureWithImageNamed:@"greenjumpbutton"]];
@@ -546,10 +558,10 @@ BOOL isJumpButton;
             //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
             //[panda removeActionForKey:@"StayAnimation"];
             [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
+                isPandaJump = NO;
                 if (isLeftMoveButton == YES || isRightMoveButton == YES) {
                     [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
                 }
-                isPandaJump = NO;
                 //[panda removeAllActions];
                 //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
             }];
@@ -586,10 +598,23 @@ BOOL isJumpButton;
     //Touch end button DELETE
     //CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     //SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
-    if ([node.name isEqualToString:@"endGame"]) {
+    /*if ([node.name isEqualToString:@"endGame"]) {
         isExit = YES;
         [self endLevel:kEndReasonWin];
+    }*/
+    
+    //Touch Pause Button
+    if ([node.name isEqualToString:@"pauseButton"]) {
+        if (isPause) {
+            isPause = NO;
+            pauseButton.texture = [SKTexture textureWithImageNamed:@"pauseButtonOff"];
+        }
+        else {
+            isPause = YES;
+            pauseButton.texture = [SKTexture textureWithImageNamed:@"pauseButtonOn"];
+        }
     }
+
     
     if ([node.name isEqualToString:@"homebutton"] || [node.name isEqualToString:@"levelsbutton"] || [node.name isEqualToString:@"restartbutton"] || [node.name isEqualToString:@"playbutton"]) {
         
@@ -773,189 +798,192 @@ BOOL isJumpButton;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    [super update:currentTime]; //Calls the Visualiser
-    
-    [self saveLittlePandas];
-    
-    [self pandaFallinWater];
-    
-    [self littlePandasMove];
-    
-    //[self updateHUD];
-    
-    SKNode *panda = [self childNodeWithName:@"Panda"];
-    
-    if (!isPandaFall && !isDieAnimation) {
-        if (isLeftMoveButton == YES) {
-            panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
-        }
-        if (isRightMoveButton == YES) {
-            panda.position = CGPointMake(panda.position.x + 5, panda.position.y);
-        }
-    }
-    
-    
-    if ([KKGameData sharedGameData].isAccelerometerON == YES) {
-        [self accelerometerUpdate];
-    }
-    
-    // Score for coins
-    //SKSpriteNode *coin = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"coin"]];
-    for (int i = 0; i < [coins count]; i++) {
-        if ([panda intersectsNode:coins[i]]) {
-            [self playSoundNamed:@"coin" ofType:@"wav"];
-            [KKGameData sharedGameData].score += 100;
-            [self updateScoreHUD];
-            [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
-            [coins[i] removeAllActions];
-            [coins removeObject:coins[i]];
-        }
-    }
-    
-    //Pick Up Hearts
-    for (int i = 0; i < [pickUpHearts count]; i++) {
-        if ([panda intersectsNode:pickUpHearts[i]]) {
-            [self playSoundNamed:@"pickupheart" ofType:@"wav"];
-            [KKGameData sharedGameData].score += 1000;
-            [self updateScoreHUD];
-            
-            if ([KKGameData sharedGameData].numberOfLives < 3) {
-                [KKGameData sharedGameData].numberOfLives++;
-//                SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartFull"];
-//                heart.position = CGPointMake(-480 + ([KKGameData sharedGameData].numberOfLives - 1)*50, 350);
-//                heart.zPosition = 1000;
-//                heart.name = [NSString stringWithFormat:@"heart%i",[KKGameData sharedGameData].numberOfLives - 1];
-//                heart.scale = 0.8;
-//                [camera addChild:heart];
-//                [hearts insertObject:heart atIndex:[KKGameData sharedGameData].numberOfLives - 1];
-                [hearts[[KKGameData sharedGameData].numberOfLives - 1] setTexture:
-                                                                    [SKTexture textureWithImageNamed:@"hud_heartFull"]];
-
+    if (!isPause) {
+        [super update:currentTime]; //Calls the Visualiser
+        
+        [self saveLittlePandas];
+        
+        [self pandaFallinWater];
+        
+        [self littlePandasMove];
+        
+        //[self updateHUD];
+        
+        SKNode *panda = [self childNodeWithName:@"Panda"];
+        
+        if (!isPandaFall && !isDieAnimation) {
+            if (isLeftMoveButton == YES) {
+                panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
             }
-
-            
-            [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpHearts[i], nil]];
-            [pickUpHearts removeObject:pickUpHearts[i]];
+            if (isRightMoveButton == YES) {
+                panda.position = CGPointMake(panda.position.x + 5, panda.position.y);
+            }
         }
-    }
-    
-    //Pick Up Clocks
-    for (int i = 0; i < [pickUpClocks count]; i++) {
-        if ([panda intersectsNode:pickUpClocks[i]]) {
-            [self playSoundNamed:@"pickupheart" ofType:@"wav"];
-            [KKGameData sharedGameData].score += 500;
-            [self updateScoreHUD];
-            
-            [KKGameData sharedGameData].time -= 5;
+        
+        
+        if ([KKGameData sharedGameData].isAccelerometerON == YES) {
+            [self accelerometerUpdate];
+        }
+        
+        // Score for coins
+        //SKSpriteNode *coin = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"coin"]];
+        for (int i = 0; i < [coins count]; i++) {
+            if ([panda intersectsNode:coins[i]]) {
+                [self playSoundNamed:@"coin" ofType:@"wav"];
+                [KKGameData sharedGameData].score += 100;
+                [self updateScoreHUD];
+                [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
+                [coins[i] removeAllActions];
+                [coins removeObject:coins[i]];
+            }
+        }
+        
+        //Pick Up Hearts
+        for (int i = 0; i < [pickUpHearts count]; i++) {
+            if ([panda intersectsNode:pickUpHearts[i]]) {
+                [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+                [KKGameData sharedGameData].score += 1000;
+                [self updateScoreHUD];
+                
+                if ([KKGameData sharedGameData].numberOfLives < 3) {
+                    [KKGameData sharedGameData].numberOfLives++;
+                    //                SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartFull"];
+                    //                heart.position = CGPointMake(-480 + ([KKGameData sharedGameData].numberOfLives - 1)*50, 350);
+                    //                heart.zPosition = 1000;
+                    //                heart.name = [NSString stringWithFormat:@"heart%i",[KKGameData sharedGameData].numberOfLives - 1];
+                    //                heart.scale = 0.8;
+                    //                [camera addChild:heart];
+                    //                [hearts insertObject:heart atIndex:[KKGameData sharedGameData].numberOfLives - 1];
+                    [hearts[[KKGameData sharedGameData].numberOfLives - 1] setTexture:
+                     [SKTexture textureWithImageNamed:@"hud_heartFull"]];
+                    
+                }
+                
+                
+                [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpHearts[i], nil]];
+                [pickUpHearts removeObject:pickUpHearts[i]];
+            }
+        }
+        
+        //Pick Up Clocks
+        for (int i = 0; i < [pickUpClocks count]; i++) {
+            if ([panda intersectsNode:pickUpClocks[i]]) {
+                [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+                [KKGameData sharedGameData].score += 500;
+                [self updateScoreHUD];
+                
+                [KKGameData sharedGameData].time -= 5;
+                
+                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+                [dateFormatter setDateFormat:@"mm:ss"];
+                NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[KKGameData sharedGameData].time];
+                
+                _time.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:date]];
+                SKAction *labelMoveIn = [SKAction scaleTo:1.2 duration:0.2];
+                SKAction *labelMoveOut = [SKAction scaleTo:1.0 duration:0.2];
+                [_time runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
+                
+                [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpClocks[i], nil]];
+                [pickUpClocks removeObject:pickUpClocks[i]];
+            }
+        }
+        
+        //Pick Up Stars
+        for (int i = 0; i < [pickUpStars count]; i++) {
+            if ([panda intersectsNode:pickUpStars[i]]) {
+                [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+                [KKGameData sharedGameData].score += 2000;
+                [self updateScoreHUD];
+                
+                //Animation for picked star
+                NSMutableArray *textures = [NSMutableArray new];
+                for (int i = 1; i <= 6; i++) {
+                    [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"star0%i",i]]];
+                }
+                SKAction *starAnimation = [SKAction animateWithTextures:textures timePerFrame:0.1];
+                
+                SKSpriteNode *pickedStar = [SKSpriteNode spriteNodeWithImageNamed:@"star01"];
+                pickedStar.position = pickUpStars[i].position;
+                pickedStar.zPosition = 5;
+                [self addChild:pickedStar];
+                [pickedStar runAction:starAnimation completion:^{
+                    [pickedStar removeFromParent];
+                }];
+                
+                [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpStars[i], nil]];
+                [pickUpStars removeObject:pickUpStars[i]];
+            }
+        }
+        
+        
+        //Score for times
+        static NSTimeInterval _lastCurrentTime = 0;
+        if (currentTime-_lastCurrentTime>1 && !isDieAnimation &&!isPandaFall && !isExit) {
+            [KKGameData sharedGameData].time++;
             
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat:@"mm:ss"];
             NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[KKGameData sharedGameData].time];
             
             _time.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:date]];
-            SKAction *labelMoveIn = [SKAction scaleTo:1.2 duration:0.2];
-            SKAction *labelMoveOut = [SKAction scaleTo:1.0 duration:0.2];
-            [_time runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
-            
-            [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpClocks[i], nil]];
-            [pickUpClocks removeObject:pickUpClocks[i]];
+            _lastCurrentTime = currentTime;
         }
-    }
-    
-    //Pick Up Stars
-    for (int i = 0; i < [pickUpStars count]; i++) {
-        if ([panda intersectsNode:pickUpStars[i]]) {
-            [self playSoundNamed:@"pickupheart" ofType:@"wav"];
-            [KKGameData sharedGameData].score += 2000;
-            [self updateScoreHUD];
-            
-            //Animation for picked star
-            NSMutableArray *textures = [NSMutableArray new];
-            for (int i = 1; i <= 6; i++) {
-                [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"star0%i",i]]];
+        
+        
+        //Move score label when camera moves
+        
+        //NSLog(@"%f", camera.position.x);
+        //NSLog(@"%f\n\n", lastCameraPosition);
+        
+        /*  if (lastCameraPosition < camera.position.x) {
+         //_score.position = CGPointMake(_score.position.x + (camera.position.x - lastCameraPosition), _score.position.y);
+         
+         
+         //        [_score runAction:[SKAction moveTo:CGPointMake(camera.position.x - 362, 130) duration:0.1] completion:^{
+         //            [_score removeAllActions];
+         //        }];
+         //[_score runAction:[SKAction moveTo:CGPointMake(camera.position.x - 362, 130) duration:0.5] withKey:@"ScoreMove"];
+         
+         
+         
+         _time.position = CGPointMake(_time.position.x + (camera.position.x - lastCameraPosition), _time.position.y);
+         endGame.position = CGPointMake(endGame.position.x + (camera.position.x - lastCameraPosition), endGame.position.y);
+         leftMoveButton.position = CGPointMake(leftMoveButton.position.x + (camera.position.x - lastCameraPosition), leftMoveButton.position.y);
+         rightMoveButton.position = CGPointMake(rightMoveButton.position.x + (camera.position.x - lastCameraPosition), rightMoveButton.position.y);
+         jumpButton.position = CGPointMake(jumpButton.position.x + (camera.position.x - lastCameraPosition), jumpButton.position.y);
+         }
+         else if ((lastCameraPosition > camera.position.x) && (lastCameraPosition >= 150)) {
+         if (lastCameraPosition >= 500) {
+         endGame.position = CGPointMake(endGame.position.x - (lastCameraPosition - camera.position.x), endGame.position.y);
+         jumpButton.position = CGPointMake(jumpButton.position.x + (camera.position.x - lastCameraPosition),
+         jumpButton.position.y);
+         }
+         _score.position = CGPointMake(_score.position.x - (lastCameraPosition - camera.position.x), _score.position.y);
+         _time.position = CGPointMake(_time.position.x - (lastCameraPosition - camera.position.x), _time.position.y);
+         leftMoveButton.position = CGPointMake(leftMoveButton.position.x + (camera.position.x - lastCameraPosition), leftMoveButton.position.y);
+         rightMoveButton.position = CGPointMake(rightMoveButton.position.x + (camera.position.x - lastCameraPosition), rightMoveButton.position.y);
+         } */
+        
+        
+        [self exit];
+        
+        [self enemies:bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:self.blueSnailHurtAnimation];
+        [self enemies:redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:self.redSnailHurtAnimation];
+        [self enemies:mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:self.mushroomHurtAnimation];
+        [self flowersEnemies];
+        
+        if (!isExit) {
+            [self spitMovingUpdate];
+        }
+        else {
+            for (int i = 0; i < [flowersSpit count]; i++) {
+                [flowersSpit[i] removeFromParent];
             }
-            SKAction *starAnimation = [SKAction animateWithTextures:textures timePerFrame:0.1];
-            
-            SKSpriteNode *pickedStar = [SKSpriteNode spriteNodeWithImageNamed:@"star01"];
-            pickedStar.position = pickUpStars[i].position;
-            pickedStar.zPosition = 5;
-            [self addChild:pickedStar];
-            [pickedStar runAction:starAnimation completion:^{
-                [pickedStar removeFromParent];
-            }];
-            
-            [self removeChildrenInArray:[NSArray arrayWithObjects:pickUpStars[i], nil]];
-            [pickUpStars removeObject:pickUpStars[i]];
         }
+        
+        //lastCameraPosition = camera.position.x;
     }
     
-    
-    //Score for times
-    static NSTimeInterval _lastCurrentTime = 0;
-    if (currentTime-_lastCurrentTime>1 && !isDieAnimation &&!isPandaFall && !isExit) {
-        [KKGameData sharedGameData].time++;
-        
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"mm:ss"];
-        NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[KKGameData sharedGameData].time];
-        
-        _time.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:date]];
-        _lastCurrentTime = currentTime;
-    }
-    
-    
-    //Move score label when camera moves
-    
-    //NSLog(@"%f", camera.position.x);
-    //NSLog(@"%f\n\n", lastCameraPosition);
-
-  /*  if (lastCameraPosition < camera.position.x) {
-        //_score.position = CGPointMake(_score.position.x + (camera.position.x - lastCameraPosition), _score.position.y);
-        
-        
-//        [_score runAction:[SKAction moveTo:CGPointMake(camera.position.x - 362, 130) duration:0.1] completion:^{
-//            [_score removeAllActions];
-//        }];
-        //[_score runAction:[SKAction moveTo:CGPointMake(camera.position.x - 362, 130) duration:0.5] withKey:@"ScoreMove"];
-        
-
-        
-        _time.position = CGPointMake(_time.position.x + (camera.position.x - lastCameraPosition), _time.position.y);
-        endGame.position = CGPointMake(endGame.position.x + (camera.position.x - lastCameraPosition), endGame.position.y);
-        leftMoveButton.position = CGPointMake(leftMoveButton.position.x + (camera.position.x - lastCameraPosition), leftMoveButton.position.y);
-        rightMoveButton.position = CGPointMake(rightMoveButton.position.x + (camera.position.x - lastCameraPosition), rightMoveButton.position.y);
-        jumpButton.position = CGPointMake(jumpButton.position.x + (camera.position.x - lastCameraPosition), jumpButton.position.y);
-    }
-    else if ((lastCameraPosition > camera.position.x) && (lastCameraPosition >= 150)) {
-        if (lastCameraPosition >= 500) {
-            endGame.position = CGPointMake(endGame.position.x - (lastCameraPosition - camera.position.x), endGame.position.y);
-            jumpButton.position = CGPointMake(jumpButton.position.x + (camera.position.x - lastCameraPosition),
-                                              jumpButton.position.y);
-        }
-        _score.position = CGPointMake(_score.position.x - (lastCameraPosition - camera.position.x), _score.position.y);
-        _time.position = CGPointMake(_time.position.x - (lastCameraPosition - camera.position.x), _time.position.y);
-        leftMoveButton.position = CGPointMake(leftMoveButton.position.x + (camera.position.x - lastCameraPosition), leftMoveButton.position.y);
-        rightMoveButton.position = CGPointMake(rightMoveButton.position.x + (camera.position.x - lastCameraPosition), rightMoveButton.position.y);
-    } */
-    
-    
-    [self exit];
-    
-    [self enemies:bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:self.blueSnailHurtAnimation];
-    [self enemies:redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:self.redSnailHurtAnimation];
-    [self enemies:mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:self.mushroomHurtAnimation];
-    [self flowersEnemies];
-
-    if (!isExit) {
-        [self spitMovingUpdate];
-    }
-    else {
-        for (int i = 0; i < [flowersSpit count]; i++) {
-            [flowersSpit[i] removeFromParent];
-        }
-    }
-    
-    //lastCameraPosition = camera.position.x;
 }
 
 BOOL isDieAnimation;
@@ -1053,7 +1081,27 @@ BOOL isDieAnimation;
                 
                 [self playSoundNamed:@"jumpland" ofType:@"wav"];
                 
-                if (isPandaJump == NO) {
+                //SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 100) duration:0.05];
+                //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
+                //[panda removeActionForKey:@"StayAnimation"];
+                //[panda runAction:jumpMove withKey:@"JumpAction"];
+                //[panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
+                
+                //[flowers[i] removeActionForKey:@"FlowerIdleAnimation"];
+                [enemiesArray[i] removeAllActions];
+                
+                SKSpriteNode *tempSnail = [SKSpriteNode new];
+                tempSnail = enemiesArray[i];
+                [enemiesArray removeObject:enemiesArray[i]];
+                [KKGameData sharedGameData].score += 1000;
+                [self updateScoreHUD];
+                [tempSnail setPhysicsBody:NULL];
+                [tempSnail runAction:hurtAnimation completion:^{
+                    [tempSnail removeFromParent];
+                    [tempSnail removeAllActions];
+                }];
+                break;
+                /* if (isPandaJump == NO) {
                     //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 72, 85)];
                     SKAction *up = [SKAction moveByX:0 y:panda.frame.origin.y + 300 duration:0.4];
                     SKAction *down = [SKAction moveByX:0 y:panda.frame.origin.y - 300 duration:0.4];
@@ -1079,10 +1127,7 @@ BOOL isDieAnimation;
                     [tempSnail removeFromParent];
                     [tempSnail removeAllActions];
                 }];
-                
-                
-                
-                break;
+                break; */
             }
             if (enemiesArray[i].xScale < 0) {
                 //Right move
