@@ -444,8 +444,7 @@ NSMutableArray *soundsArray;
             [waters addObject:child];
         }
     }
-    
-    
+   
 }
 
 //Score
@@ -525,7 +524,94 @@ SKLabelNode* _time;
     [soundsArray addObject:sound];
     
 }
+SKSpriteNode *pauseWindow;
+SKLabelNode *pausedLabel;
+SKSpriteNode *pauseMusicButton;
+SKSpriteNode *pauseSoundButton;
+SKSpriteNode *pauseResumeButton;
+SKSpriteNode *pauseRestartButton;
+SKSpriteNode *pauseHomeButton;
+SKSpriteNode *pauseLevelsButton;
 
+- (void)setupPauseWindow {
+    pauseWindow = [SKSpriteNode spriteNodeWithImageNamed:@"pausewindow"];
+    pauseWindow.zPosition = 1000;
+    pauseWindow.position = CGPointMake(camera.position.x, 385);
+    pauseWindow.scale = 0.8;
+    
+    pausedLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
+    pausedLabel.fontSize = 55.0;
+    pausedLabel.position = CGPointMake(camera.position.x, 583);
+    pausedLabel.zPosition = 1002;
+    pausedLabel.fontColor = [SKColor whiteColor];
+    pausedLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    pausedLabel.text = @"Paused";
+    
+    if ([KKGameData sharedGameData].isMusicON == YES) {
+        pauseMusicButton = [SKSpriteNode spriteNodeWithImageNamed:@"musicbutton_on"];
+    }
+    else {
+        pauseMusicButton = [SKSpriteNode spriteNodeWithImageNamed:@"musicbutton_off"];
+    }
+    pauseMusicButton.zPosition = 1001;
+    pauseMusicButton.position = CGPointMake(camera.position.x - 49, 485);
+    pauseMusicButton.scale = 0.4;
+    pauseMusicButton.name = @"pauseMusicButton";
+    
+    if ([KKGameData sharedGameData].isSoundON == YES) {
+        pauseSoundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundbutton_on"];
+    }
+    else {
+        pauseSoundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundbutton_off"];
+    }
+    pauseSoundButton.zPosition = 1001;
+    pauseSoundButton.position = CGPointMake(camera.position.x + 49, 485);
+    pauseSoundButton.scale = 0.4;
+    pauseSoundButton.name = @"pauseSoundButton";
+    
+    pauseResumeButton = [SKSpriteNode spriteNodeWithImageNamed:@"resumeButton"];
+    pauseResumeButton.zPosition = 1001;
+    pauseResumeButton.position = CGPointMake(camera.position.x, 404);
+    pauseResumeButton.scale = 0.4;
+    pauseResumeButton.name = @"pauseButton";
+    
+    pauseRestartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restartButton"];
+    pauseRestartButton.zPosition = 1001;
+    pauseRestartButton.position = CGPointMake(camera.position.x, 324);
+    pauseRestartButton.scale = 0.4;
+    pauseRestartButton.name = @"restartbutton";
+    
+    pauseHomeButton = [SKSpriteNode spriteNodeWithImageNamed:@"blueHomeButton"];
+    pauseHomeButton.zPosition = 1001;
+    pauseHomeButton.position = CGPointMake(camera.position.x - 49, 244);
+    pauseHomeButton.scale = 0.4;
+    pauseHomeButton.name = @"homebutton";
+    
+    pauseLevelsButton = [SKSpriteNode spriteNodeWithImageNamed:@"blueLevelButton"];
+    pauseLevelsButton.zPosition = 1001;
+    pauseLevelsButton.position = CGPointMake(camera.position.x + 49, 244);
+    pauseLevelsButton.scale = 0.4;
+    pauseLevelsButton.name = @"levelsbutton";
+    
+    [self addChild:pauseWindow];
+    [self addChild:pausedLabel];
+    [self addChild:pauseMusicButton];
+    [self addChild:pauseSoundButton];
+    [self addChild:pauseResumeButton];
+    [self addChild:pauseRestartButton];
+    [self addChild:pauseHomeButton];
+    [self addChild:pauseLevelsButton];
+}
+- (void)removePauseWindow {
+    [pauseWindow removeFromParent];
+    [pausedLabel removeFromParent];
+    [pauseMusicButton removeFromParent];
+    [pauseSoundButton removeFromParent];
+    [pauseResumeButton removeFromParent];
+    [pauseRestartButton removeFromParent];
+    [pauseHomeButton removeFromParent];
+    [pauseLevelsButton removeFromParent];
+}
 
 const int kMoveSpeed = 200;
 static const NSTimeInterval kHugeTime = 9999.0;
@@ -607,14 +693,51 @@ BOOL isJumpButton;
     if ([node.name isEqualToString:@"pauseButton"]) {
         if (isPause) {
             isPause = NO;
+            [self removePauseWindow];
             pauseButton.texture = [SKTexture textureWithImageNamed:@"pauseButtonOff"];
         }
         else {
             isPause = YES;
+            [self setupPauseWindow];
             pauseButton.texture = [SKTexture textureWithImageNamed:@"pauseButtonOn"];
         }
     }
+    
+    //Touch music button in pause window
+    if ([node.name isEqualToString:@"pauseMusicButton"]) {
+        
+        [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
+        
+        if ([KKGameData sharedGameData].musicVolume > 0) {
+            [KKGameData sharedGameData].musicVolume = 0;
+            [KKGameData sharedGameData].isMusicON = NO;
+            node.texture = [SKTexture textureWithImageNamed:@"musicbutton_off"];
+        }
+        
+        else {
+            [KKGameData sharedGameData].musicVolume = 0.5;
+            [KKGameData sharedGameData].isMusicON = YES;
+            node.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
+        }
+        [[KKGameData sharedGameData]save];
+        backgroundGameMusic.volume = [KKGameData sharedGameData].musicVolume;
+    }
 
+    //Touch sound button in pause window
+    if ([node.name isEqualToString:@"pauseSoundButton"]) {
+        if ([KKGameData sharedGameData].soundVolume > 0) {
+            [KKGameData sharedGameData].soundVolume = 0;
+            [KKGameData sharedGameData].isSoundON = NO;
+            node.texture = [SKTexture textureWithImageNamed:@"soundbutton_off"];
+        }
+        
+        else {
+            [KKGameData sharedGameData].soundVolume = 0.75;
+            [KKGameData sharedGameData].isSoundON = YES;
+            node.texture = [SKTexture textureWithImageNamed:@"soundbutton_on"];
+        }
+        [[KKGameData sharedGameData]save];
+    }
     
     if ([node.name isEqualToString:@"homebutton"] || [node.name isEqualToString:@"levelsbutton"] || [node.name isEqualToString:@"restartbutton"] || [node.name isEqualToString:@"playbutton"]) {
         
@@ -623,12 +746,14 @@ BOOL isJumpButton;
         SKView * skView = (SKView *)self.view;
         MenuScenesController *scene = [MenuScenesController new];
         if ([node.name isEqualToString:@"homebutton"]) {
+            [backgroundGameMusic stop];
             [[[GameViewController alloc]init]playMenuBackgroundMusic];
             scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
             scene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:scene];
         }
         else if ([node.name isEqualToString:@"levelsbutton"]) {
+            [backgroundGameMusic stop];
             [[[GameViewController alloc]init]playMenuBackgroundMusic];
             scene = [MenuScenesController nodeWithFileNamed:@"GameLevels"];
             scene.scaleMode = SKSceneScaleModeAspectFill;
