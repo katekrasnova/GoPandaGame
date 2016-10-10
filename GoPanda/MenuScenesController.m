@@ -187,7 +187,8 @@ float tempVolumeSounds;
     //Accelerometer on and off button
     if ([node.name isEqualToString:@"checkbutton"]) {
         
-        if ([KKGameData sharedGameData].isAccelerometerON == YES) {
+        //if ([KKGameData sharedGameData].isAccelerometerON == YES) {
+        if ([self image:[UIImage imageWithCGImage:node.texture.CGImage] isEqualTo:[UIImage imageNamed:@"checkbuttonon"]]) {
             node.texture =  [SKTexture textureWithImageNamed:@"checkbuttonoff"];
             _accelerometerSetting = NO;
         }

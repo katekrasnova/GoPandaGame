@@ -102,7 +102,7 @@ static const int KKNumberOfLives = 3;
     self.score = 0;
     self.time = 0;
     self.numberOfLives = KKNumberOfLives;
-    self.currentLevel = 0;
+    //self.currentLevel = 0;
 }
 
 @end

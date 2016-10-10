@@ -79,6 +79,7 @@ NSMutableArray *soundsArray;
     isHurtAnimationRunning = NO;
     
     level = [KKGameData sharedGameData].currentLevel;
+    NSLog(@"currentLevel start %i", level);
     
     //Set background music
     
@@ -690,7 +691,7 @@ BOOL isJumpButton;
     }*/
     
     //Touch Pause Button
-    if ([node.name isEqualToString:@"pauseButton"]) {
+    if ([node.name isEqualToString:@"pauseButton"] && !isExit) {
         if (isPause) {
             isPause = NO;
             [self removePauseWindow];
@@ -747,6 +748,7 @@ BOOL isJumpButton;
         MenuScenesController *scene = [MenuScenesController new];
         if ([node.name isEqualToString:@"homebutton"]) {
             [backgroundGameMusic stop];
+            [[KKGameData sharedGameData] reset];
             [[[GameViewController alloc]init]playMenuBackgroundMusic];
             scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
             scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -754,6 +756,7 @@ BOOL isJumpButton;
         }
         else if ([node.name isEqualToString:@"levelsbutton"]) {
             [backgroundGameMusic stop];
+            [[KKGameData sharedGameData] reset];
             [[[GameViewController alloc]init]playMenuBackgroundMusic];
             scene = [MenuScenesController nodeWithFileNamed:@"GameLevels"];
             scene.scaleMode = SKSceneScaleModeAspectFill;
@@ -764,6 +767,7 @@ BOOL isJumpButton;
             
             [KKGameData sharedGameData].currentLevel = level + 1;
             [[KKGameData sharedGameData] save];
+            [[KKGameData sharedGameData] reset];
             
             NSLog(@"completeLevels %i", [KKGameData sharedGameData].completeLevels);
             NSLog(@"currentLevel %i", [KKGameData sharedGameData].currentLevel);
@@ -772,10 +776,18 @@ BOOL isJumpButton;
             [skView presentScene:gameScene];
         }
         else if ([node.name isEqualToString:@"restartbutton"]) {
-            GameScene *gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", level]];
+            
+            GameScene *gameScene;
+            if (level < 1) {
+                gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", 1]];
+            }
+            else {
+                gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", level]];
+            }
             
             [KKGameData sharedGameData].currentLevel = level;
             [[KKGameData sharedGameData] save];
+            [[KKGameData sharedGameData] reset];
             
             NSLog(@"completeLevels %i", [KKGameData sharedGameData].completeLevels);
             NSLog(@"currentLevel %i", [KKGameData sharedGameData].currentLevel);
@@ -873,7 +885,7 @@ BOOL isJumpButton;
     SKNode *panda = [self childNodeWithName:@"Panda"];
     for (int i = 0; i < [waters count]; i++) {
         if ([panda intersectsNode:waters[i]] && panda.position.y <= 150) {
-            
+            isExit = YES;
             if (!isPandaFall) {
                 
                 for (int i = 0; i < [hearts count];i++) {
@@ -913,7 +925,7 @@ BOOL isJumpButton;
         if ([panda intersectsNode:littlePandas[i]]) {
             [self playSoundNamed:@"pickupheart" ofType:@"wav"];
 
-            [KKGameData sharedGameData].score += 10000;
+            [KKGameData sharedGameData].score += 500;
             [self updateScoreHUD];
             [littlePandas[i] removeFromParent];
             [littlePandas[i] removeAllActions];
@@ -955,7 +967,7 @@ BOOL isJumpButton;
         for (int i = 0; i < [coins count]; i++) {
             if ([panda intersectsNode:coins[i]]) {
                 [self playSoundNamed:@"coin" ofType:@"wav"];
-                [KKGameData sharedGameData].score += 100;
+                [KKGameData sharedGameData].score += 10;
                 [self updateScoreHUD];
                 [self removeChildrenInArray:[NSArray arrayWithObjects:coins[i], nil]];
                 [coins[i] removeAllActions];
@@ -967,7 +979,7 @@ BOOL isJumpButton;
         for (int i = 0; i < [pickUpHearts count]; i++) {
             if ([panda intersectsNode:pickUpHearts[i]]) {
                 [self playSoundNamed:@"pickupheart" ofType:@"wav"];
-                [KKGameData sharedGameData].score += 1000;
+                [KKGameData sharedGameData].score += 50;
                 [self updateScoreHUD];
                 
                 if ([KKGameData sharedGameData].numberOfLives < 3) {
@@ -994,7 +1006,7 @@ BOOL isJumpButton;
         for (int i = 0; i < [pickUpClocks count]; i++) {
             if ([panda intersectsNode:pickUpClocks[i]]) {
                 [self playSoundNamed:@"pickupheart" ofType:@"wav"];
-                [KKGameData sharedGameData].score += 500;
+                [KKGameData sharedGameData].score += 50;
                 [self updateScoreHUD];
                 
                 [KKGameData sharedGameData].time -= 5;
@@ -1017,7 +1029,7 @@ BOOL isJumpButton;
         for (int i = 0; i < [pickUpStars count]; i++) {
             if ([panda intersectsNode:pickUpStars[i]]) {
                 [self playSoundNamed:@"pickupheart" ofType:@"wav"];
-                [KKGameData sharedGameData].score += 2000;
+                [KKGameData sharedGameData].score += 200;
                 [self updateScoreHUD];
                 
                 //Animation for picked star
@@ -1218,7 +1230,7 @@ BOOL isDieAnimation;
                 SKSpriteNode *tempSnail = [SKSpriteNode new];
                 tempSnail = enemiesArray[i];
                 [enemiesArray removeObject:enemiesArray[i]];
-                [KKGameData sharedGameData].score += 1000;
+                [KKGameData sharedGameData].score += 100;
                 [self updateScoreHUD];
                 [tempSnail setPhysicsBody:NULL];
                 [tempSnail runAction:hurtAnimation completion:^{
@@ -1371,7 +1383,7 @@ BOOL isFlowerAttackAnimation;
             SKSpriteNode *tempSnail = [SKSpriteNode new];
             tempSnail = flowers[i];
             [flowers removeObject:flowers[i]];
-            [KKGameData sharedGameData].score += 1000;
+            [KKGameData sharedGameData].score += 100;
             [self updateScoreHUD];
             [tempSnail setPhysicsBody:NULL];
             [tempSnail runAction:self.flowerHurtAnimation completion:^{
@@ -1409,6 +1421,8 @@ BOOL isFlowerAttackAnimation;
 }
 
 - (void)endLevel:(EndReason)endReason {
+    
+    isExit = YES;
     
     if (endReason == kEndReasonWin) {
         [KKGameData sharedGameData].totalScore += [KKGameData sharedGameData].score;
