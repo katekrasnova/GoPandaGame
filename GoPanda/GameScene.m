@@ -47,6 +47,7 @@ NSMutableArray<SKSpriteNode *> *redsnails;
 NSMutableArray<SKSpriteNode *> *mushrooms;
 NSMutableArray<SKSpriteNode *> *flowers;
 NSMutableArray<SKSpriteNode *> *flowersSpit;
+NSMutableArray *isFlowerAttackAnimation;
 NSMutableArray<SKSpriteNode *> *borders;
 NSMutableArray<SKSpriteNode *> *waters;
 NSMutableArray<SKSpriteNode *> *littlePandas;
@@ -64,7 +65,7 @@ NSMutableArray *soundsArray;
     
     soundsArray = [NSMutableArray new];
     
-    isFlowerAttackAnimation = NO;
+    //isFlowerAttackAnimation = NO;
     
     isLeftMoveButton = NO;
     isRightMoveButton = NO;
@@ -394,6 +395,10 @@ NSMutableArray *soundsArray;
         }
     }
     flowersSpit = [NSMutableArray new];
+    isFlowerAttackAnimation = [NSMutableArray new];
+    for (NSInteger i = 0; i < [flowers count]; i++) {
+        [isFlowerAttackAnimation addObject:[NSNumber numberWithInteger:0]];
+        NSLog(@"%lu %@", (unsigned long)[flowers count], isFlowerAttackAnimation[i]); }
     
     //Setup array of little pandas
     littlePandas = [NSMutableArray new];
@@ -620,7 +625,7 @@ static const NSTimeInterval kHugeTime = 9999.0;
 BOOL isLeftMoveButton;
 BOOL isRightMoveButton;
 BOOL isJumpButton;
-
+BOOL isSecondTouchJumpButton;
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
@@ -634,24 +639,28 @@ BOOL isJumpButton;
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
     if (!isPandaFall && !isDieAnimation && !isExit && !isPause) {
-        if ([node.name isEqualToString:@"jumpButton"] && !isPandaJump) {
-            //Jump
-            
-            [jumpButton setTexture:[SKTexture textureWithImageNamed:@"greenjumpbutton"]];
-            
-            isJumpButton = YES;
-            isPandaJump = YES;
-            SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.1];
-            //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-            //[panda removeActionForKey:@"StayAnimation"];
-            [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
-                isPandaJump = NO;
-                if (isLeftMoveButton == YES || isRightMoveButton == YES) {
-                    [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
-                }
-                //[panda removeAllActions];
-                //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
-            }];
+        if ([node.name isEqualToString:@"jumpButton"]) {
+            if (!isPandaJump) {
+                //Jump
+                [jumpButton setTexture:[SKTexture textureWithImageNamed:@"greenjumpbutton"]];
+                
+                isJumpButton = YES;
+                isPandaJump = YES;
+                SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.1];
+                //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
+                //[panda removeActionForKey:@"StayAnimation"];
+                [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
+                    isPandaJump = NO;
+                    if (isLeftMoveButton == YES || isRightMoveButton == YES) {
+                        [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
+                    }
+                    //[panda removeAllActions];
+                    //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+                }];
+            }
+            else {
+                isSecondTouchJumpButton = YES;
+            }
         }
         
         if ([node.name isEqualToString:@"leftMoveButton"]) {
@@ -820,24 +829,31 @@ BOOL isJumpButton;
     [super touchesEnded:touches withEvent:event];
     [self reduceTouches:touches withEvent:event];
     
-    if ((isLeftMoveButton == YES || isRightMoveButton == YES) && isJumpButton != YES) {
-        [panda removeActionForKey:@"MoveAction"];
-        [panda removeActionForKey:@"MoveAnimation"];
-        [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
-        
-        isLeftMoveButton = NO;
-        isRightMoveButton = NO;
-        
-        [leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"leftbutton"]];
-        [rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"rightbutton"]];
+    NSLog(@"isLeftMoveButton = %i; isRightMoveButton = %i; isJumpButton = %i; isPandaJump = %i", isLeftMoveButton, isRightMoveButton, isJumpButton, isPandaJump);
+    
+    if ((isLeftMoveButton || isRightMoveButton) && !isJumpButton) {
+        if (!isSecondTouchJumpButton) {
+            [panda removeActionForKey:@"MoveAction"];
+            [panda removeActionForKey:@"MoveAnimation"];
+            [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
+            
+            isLeftMoveButton = NO;
+            isRightMoveButton = NO;
+            
+            [leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"leftbutton"]];
+            [rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"rightbutton"]];
+        }
+        else if (isSecondTouchJumpButton){
+            isSecondTouchJumpButton = NO;
+        }
     }
     
-    if (isJumpButton == YES) {
+    else if (isJumpButton) {
         
         [jumpButton setTexture:[SKTexture textureWithImageNamed:@"jumpbutton"]];
         
         isJumpButton = NO;
-        if (isRightMoveButton != YES && isLeftMoveButton != YES) {
+        if (!isRightMoveButton && !isLeftMoveButton) {
             [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
 
         }
@@ -1278,7 +1294,7 @@ BOOL isDieAnimation;
     }
 }
 
-BOOL isFlowerAttackAnimation;
+//BOOL isFlowerAttackAnimation;
 
 - (SKAction *) attackAnimationForFlower:(SKSpriteNode *)flower {
     //Create flower attack animation
@@ -1337,11 +1353,11 @@ BOOL isFlowerAttackAnimation;
     for (int i = 0; i < [flowers count]; i++) {
         
         
-        if (flowers[i].position.x >= camera.position.x - self.frame.size.width/2 && flowers[i].position.x <= camera.position.x + self.frame.size.width/2 && !isFlowerAttackAnimation && !isExit) {
+        if (flowers[i].position.x >= camera.position.x - self.frame.size.width/2 && flowers[i].position.x <= camera.position.x + self.frame.size.width/2 && isFlowerAttackAnimation[i] == [NSNumber numberWithInteger:0] && !isExit) {
             
-            isFlowerAttackAnimation = YES;
+            isFlowerAttackAnimation[i] = [NSNumber numberWithInteger:1];
             [flowers[i] runAction:[self attackAnimationForFlower:flowers[i]] completion:^{
-                isFlowerAttackAnimation = NO;
+                isFlowerAttackAnimation[i] = [NSNumber numberWithInteger:0];
             }];
         }
         
@@ -1383,6 +1399,7 @@ BOOL isFlowerAttackAnimation;
             SKSpriteNode *tempSnail = [SKSpriteNode new];
             tempSnail = flowers[i];
             [flowers removeObject:flowers[i]];
+            [isFlowerAttackAnimation removeObject:isFlowerAttackAnimation[i]];
             [KKGameData sharedGameData].score += 100;
             [self updateScoreHUD];
             [tempSnail setPhysicsBody:NULL];
