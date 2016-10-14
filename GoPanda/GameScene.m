@@ -811,6 +811,42 @@ BOOL isSecondTouchJumpButton;
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
     
+    SKNode *panda = [self childNodeWithName:@"Panda"];
+
+    CGPoint touchLocation = [[touches anyObject] locationInNode:self];
+    SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
+    
+    if (isLeftMoveButton || isRightMoveButton) {
+        if ([node.name isEqualToString:@"leftMoveButton"]) {
+            
+            [leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"greenleftbutton"]];
+            [rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"rightbutton"]];
+
+            //left move
+            isLeftMoveButton = YES;
+            isRightMoveButton = NO;
+            panda.xScale = -1.0*ABS(panda.xScale);
+            //SKAction *leftMove = [SKAction applyForce:CGVectorMake(-150, 0) duration:kHugeTime];
+            //[panda runAction:leftMove withKey:@"MoveAction"];
+            panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
+            //[panda runAction:self.runAnimation withKey:@"MoveAnimation"];
+            
+        }
+        if ([node.name isEqualToString:@"rightMoveButton"]) {
+            
+            [rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"greenrightbutton"]];
+            [leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"leftbutton"]];
+
+            //right move
+            isRightMoveButton = YES;
+            isLeftMoveButton = NO;
+            panda.xScale = 1.0*ABS(panda.xScale);
+            //SKAction *rightMove = [SKAction applyForce:CGVectorMake(150, 0) duration:kHugeTime];
+            //[panda runAction:rightMove withKey:@"MoveAction"];
+            panda.position = CGPointMake(panda.position.x + 5, panda.position.y);
+            //[panda runAction:self.runAnimation withKey:@"MoveAnimation"];
+        }
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
