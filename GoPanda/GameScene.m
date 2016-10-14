@@ -808,26 +808,16 @@ BOOL isSecondTouchJumpButton;
 
 }
 
-
-
-- (void)reduceTouches:(NSSet *)touches withEvent:(UIEvent *)event {
-    //SKNode *panda = [self childNodeWithName:@"Panda"];
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [super touchesMoved:touches withEvent:event];
     
-    
-    //CGPoint touchLocation = [[touches anyObject] locationInNode:self];
-    //SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
-    
-    //moveTouches = 0;
 }
-
-
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     SKNode *panda = [self childNodeWithName:@"Panda"];
 
     [super touchesEnded:touches withEvent:event];
-    [self reduceTouches:touches withEvent:event];
     
     NSLog(@"isLeftMoveButton = %i; isRightMoveButton = %i; isJumpButton = %i; isPandaJump = %i", isLeftMoveButton, isRightMoveButton, isJumpButton, isPandaJump);
     
@@ -863,8 +853,6 @@ BOOL isSecondTouchJumpButton;
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [super touchesCancelled:touches withEvent:event];
-    [self reduceTouches:touches withEvent:event];
-    
     
 }
 
@@ -1387,11 +1375,11 @@ BOOL isDieAnimation;
             
             [self playSoundNamed:@"jumpland" ofType:@"wav"];
             
-            SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 100) duration:0.05];
+            //SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 100) duration:0.05];
             //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-            [panda removeActionForKey:@"StayAnimation"];
-            [panda runAction:jumpMove withKey:@"JumpAction"];
-            [panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
+            //[panda removeActionForKey:@"StayAnimation"];
+            //[panda runAction:jumpMove withKey:@"JumpAction"];
+            //[panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
             
             //[flowers[i] removeActionForKey:@"FlowerIdleAnimation"];
             [flowers[i] removeAllActions];
