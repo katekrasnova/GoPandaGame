@@ -40,6 +40,7 @@
 		D160979F1D78069100607FA5 /* pickupheart.wav in Resources */ = {isa = PBXBuildFile; fileRef = D160979E1D78069100607FA5 /* pickupheart.wav */; };
 		D16097A11D78454300607FA5 /* lose_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D16097A01D78454300607FA5 /* lose_sound.mp3 */; };
 		D168BEF61D7F633F00361BEB /* win_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = D168BEF51D7F633F00361BEB /* win_sound.wav */; };
+		D175AE1E1DB16E19006F9E61 /* Level5Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */; };
 		D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8661D4B9CBC003DB8C2 /* click1.wav */; };
 		D17EA8691D4B9CC8003DB8C2 /* mainTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */; };
 		D19866001D5377B70015C937 /* menuTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D19865FF1D5377B70015C937 /* menuTheme.mp3 */; };
@@ -47,7 +48,6 @@
 		D1EBD1371D149D4E00C82F48 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */; };
 		D1F27DFA1D98F89100DF7FD2 /* Level1Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DF91D98F89100DF7FD2 /* Level1Scene.sks */; };
 		D1F27E071D98F89F00DF7FD2 /* Level4Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFB1D98F89F00DF7FD2 /* Level4Scene.sks */; };
-		D1F27E081D98F89F00DF7FD2 /* Level5Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFC1D98F89F00DF7FD2 /* Level5Scene.sks */; };
 		D1F27E091D98F89F00DF7FD2 /* Level6Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFD1D98F89F00DF7FD2 /* Level6Scene.sks */; };
 		D1F27E0A1D98F89F00DF7FD2 /* Level7Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFE1D98F89F00DF7FD2 /* Level7Scene.sks */; };
 		D1F27E0B1D98F89F00DF7FD2 /* Level8Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFF1D98F89F00DF7FD2 /* Level8Scene.sks */; };
@@ -126,6 +126,7 @@
 		D160979E1D78069100607FA5 /* pickupheart.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickupheart.wav; sourceTree = "<group>"; };
 		D16097A01D78454300607FA5 /* lose_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose_sound.mp3; sourceTree = "<group>"; };
 		D168BEF51D7F633F00361BEB /* win_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win_sound.wav; sourceTree = "<group>"; };
+		D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5Scene.sks; sourceTree = "<group>"; };
 		D17EA8661D4B9CBC003DB8C2 /* click1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click1.wav; sourceTree = "<group>"; };
 		D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainTheme.mp3; sourceTree = "<group>"; };
 		D19865FF1D5377B70015C937 /* menuTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menuTheme.mp3; sourceTree = "<group>"; };
@@ -134,7 +135,6 @@
 		D1EBD1361D149D4D00C82F48 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		D1F27DF91D98F89100DF7FD2 /* Level1Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1Scene.sks; sourceTree = "<group>"; };
 		D1F27DFB1D98F89F00DF7FD2 /* Level4Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4Scene.sks; sourceTree = "<group>"; };
-		D1F27DFC1D98F89F00DF7FD2 /* Level5Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5Scene.sks; sourceTree = "<group>"; };
 		D1F27DFD1D98F89F00DF7FD2 /* Level6Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level6Scene.sks; sourceTree = "<group>"; };
 		D1F27DFE1D98F89F00DF7FD2 /* Level7Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level7Scene.sks; sourceTree = "<group>"; };
 		D1F27DFF1D98F89F00DF7FD2 /* Level8Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level8Scene.sks; sourceTree = "<group>"; };
@@ -201,7 +201,7 @@
 				D11391B21D93F39A0023F45C /* Level2Scene.sks */,
 				D11391B41D93F3AB0023F45C /* Level3Scene.sks */,
 				D1F27DFB1D98F89F00DF7FD2 /* Level4Scene.sks */,
-				D1F27DFC1D98F89F00DF7FD2 /* Level5Scene.sks */,
+				D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */,
 				D1F27DFD1D98F89F00DF7FD2 /* Level6Scene.sks */,
 				D1F27DFE1D98F89F00DF7FD2 /* Level7Scene.sks */,
 				D1F27DFF1D98F89F00DF7FD2 /* Level8Scene.sks */,
@@ -459,10 +459,10 @@
 				D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */,
 				D1F27E0E1D98F89F00DF7FD2 /* Level11Scene.sks in Resources */,
 				D1F27E0D1D98F89F00DF7FD2 /* Level10Scene.sks in Resources */,
-				D1F27E081D98F89F00DF7FD2 /* Level5Scene.sks in Resources */,
 				D1F27E101D98F89F00DF7FD2 /* Level13Scene.sks in Resources */,
 				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
 				D1516FB31D3647BF002DE76C /* LevelScene.sks in Resources */,
+				D175AE1E1DB16E19006F9E61 /* Level5Scene.sks in Resources */,
 				D1F27E111D98F89F00DF7FD2 /* Level14Scene.sks in Resources */,
 				D1F27E121D98F89F00DF7FD2 /* Level15Scene.sks in Resources */,
 				D157518D1D37DAA30075A4B0 /* spark.png in Resources */,

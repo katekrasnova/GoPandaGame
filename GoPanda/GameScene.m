@@ -137,7 +137,7 @@ NSMutableArray *soundsArray;
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Jump2_00%i",i]]];
     }
 //    self.jumpAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
-    self.jumpAnimation = [SKAction animateWithTextures:textures timePerFrame:0.05];
+    self.jumpAnimation = [SKAction animateWithTextures:textures timePerFrame:0.04];
     
     //Create Panda idle animation
     textures = [NSMutableArray new];
@@ -396,7 +396,7 @@ NSMutableArray *soundsArray;
     }
     flowersSpit = [NSMutableArray new];
     isFlowerAttackAnimation = [NSMutableArray new];
-    for (NSInteger i = 0; i < [flowers count]; i++) {
+    for (NSInteger i = 0; i < [flowers count] + 10; i++) {
         [isFlowerAttackAnimation addObject:[NSNumber numberWithInteger:0]];
         NSLog(@"%lu %@", (unsigned long)[flowers count], isFlowerAttackAnimation[i]); }
     
@@ -855,7 +855,7 @@ BOOL isSecondTouchJumpButton;
 
     [super touchesEnded:touches withEvent:event];
     
-    NSLog(@"isLeftMoveButton = %i; isRightMoveButton = %i; isJumpButton = %i; isPandaJump = %i", isLeftMoveButton, isRightMoveButton, isJumpButton, isPandaJump);
+    //NSLog(@"isLeftMoveButton = %i; isRightMoveButton = %i; isJumpButton = %i; isPandaJump = %i", isLeftMoveButton, isRightMoveButton, isJumpButton, isPandaJump);
     
     if ((isLeftMoveButton || isRightMoveButton) && !isJumpButton) {
         if (!isSecondTouchJumpButton) {
@@ -975,6 +975,12 @@ BOOL isSecondTouchJumpButton;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
+    
+    //NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
+    //NSLog(@"spits - %lu", (unsigned long)[flowersSpit count]);
+    //NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
+
+    
     if (!isPause) {
         [super update:currentTime]; //Calls the Visualiser
         
@@ -1374,8 +1380,12 @@ BOOL isDieAnimation;
 
 - (void)flowersEnemies {
     SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
-    for (int i = 0; i < [flowers count]; i++) {
+    int i = 0;
+    
+    while (i < [flowers count]) {
         
+    
+    //for (int i = 0; i < [flowers count]; i++) {
         
         if (flowers[i].position.x >= camera.position.x - self.frame.size.width/2 && flowers[i].position.x <= camera.position.x + self.frame.size.width/2 && isFlowerAttackAnimation[i] == [NSNumber numberWithInteger:0] && !isExit) {
             
@@ -1422,8 +1432,19 @@ BOOL isDieAnimation;
             
             SKSpriteNode *tempSnail = [SKSpriteNode new];
             tempSnail = flowers[i];
-            [flowers removeObject:flowers[i]];
+            NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
+            NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
+            NSLog(@"i - %i", i);
+
             [isFlowerAttackAnimation removeObject:isFlowerAttackAnimation[i]];
+            NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
+            NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
+            NSLog(@"i - %i", i);
+
+            [flowers removeObject:flowers[i]];
+            NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
+            NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
+            NSLog(@"i - %i", i);
             [KKGameData sharedGameData].score += 100;
             [self updateScoreHUD];
             [tempSnail setPhysicsBody:NULL];
@@ -1431,8 +1452,9 @@ BOOL isDieAnimation;
                 [tempSnail removeFromParent];
                 [tempSnail removeAllActions];
             }];
-            break;
+            //break;
         }
+        i++;
     }
 }
 
