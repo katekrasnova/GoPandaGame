@@ -272,7 +272,7 @@ NSMutableArray *soundsArray;
     //left move button
     leftMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"leftbutton"];
     leftMoveButton.alpha = 0.5;
-    leftMoveButton.scale = 0.7;
+    leftMoveButton.scale = 0.8;
     leftMoveButton.position = CGPointMake(-440, -218);
     leftMoveButton.zPosition = 20;
     leftMoveButton.name = @"leftMoveButton";
@@ -280,7 +280,7 @@ NSMutableArray *soundsArray;
     //right move button
     rightMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"rightbutton"];
     rightMoveButton.alpha = 0.5;
-    rightMoveButton.scale = 0.7;
+    rightMoveButton.scale = 0.8;
     rightMoveButton.position = CGPointMake(-280, -218);
     rightMoveButton.zPosition = 20;
     rightMoveButton.name = @"rightMoveButton";
@@ -288,7 +288,7 @@ NSMutableArray *soundsArray;
     //jump button
     jumpButton = [SKSpriteNode spriteNodeWithImageNamed:@"jumpbutton"];
     jumpButton.alpha = 0.5;
-    jumpButton.scale = 0.7;
+    jumpButton.scale = 0.8;
     jumpButton.position = CGPointMake(440, -218);
     jumpButton.zPosition = 20;
     jumpButton.name = @"jumpButton";
@@ -1432,19 +1432,9 @@ BOOL isDieAnimation;
             
             SKSpriteNode *tempSnail = [SKSpriteNode new];
             tempSnail = flowers[i];
-            NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
-            NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
-            NSLog(@"i - %i", i);
 
             [isFlowerAttackAnimation removeObject:isFlowerAttackAnimation[i]];
-            NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
-            NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
-            NSLog(@"i - %i", i);
-
             [flowers removeObject:flowers[i]];
-            NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
-            NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
-            NSLog(@"i - %i", i);
             [KKGameData sharedGameData].score += 100;
             [self updateScoreHUD];
             [tempSnail setPhysicsBody:NULL];
