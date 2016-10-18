@@ -974,12 +974,20 @@ BOOL isSecondTouchJumpButton;
     }
 }
 
+float lastPlatformPosition;
+
 -(void)update:(CFTimeInterval)currentTime {
     
     //NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
     //NSLog(@"spits - %lu", (unsigned long)[flowersSpit count]);
     //NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
-
+    SKNode *panda = [self childNodeWithName:@"Panda"];
+    SKNode *platform = [self childNodeWithName:@"horizontalPlatform"];
+    
+    if (CGRectGetMinY(panda.frame) <= CGRectGetMaxY(platform.frame)+10 && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(platform.frame)-10 && panda.position.x >= platform.position.x-77 && panda.position.x <= platform.position.x+77) {
+        panda.position = CGPointMake(panda.position.x + (platform.position.x - lastPlatformPosition), panda.position.y);
+    }
+    lastPlatformPosition = platform.position.x;
     
     if (!isPause) {
         [super update:currentTime]; //Calls the Visualiser
@@ -992,7 +1000,6 @@ BOOL isSecondTouchJumpButton;
         
         //[self updateHUD];
         
-        SKNode *panda = [self childNodeWithName:@"Panda"];
         
         if (!isPandaFall && !isDieAnimation) {
             if (isLeftMoveButton == YES) {
