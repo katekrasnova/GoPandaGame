@@ -49,6 +49,10 @@ NSMutableArray<SKSpriteNode *> *flowers;
 NSMutableArray<SKSpriteNode *> *flowersSpit;
 NSMutableArray *isFlowerAttackAnimation;
 NSMutableArray<SKSpriteNode *> *borders;
+
+NSMutableArray<SKSpriteNode *> *horizontalPlatforms;
+NSMutableArray *lastPlatformPositions;
+
 NSMutableArray<SKSpriteNode *> *waters;
 NSMutableArray<SKSpriteNode *> *littlePandas;
 NSMutableArray<SKSpriteNode *> *littlePandasMoving;
@@ -440,6 +444,16 @@ NSMutableArray *soundsArray;
     for (SKSpriteNode *child in [self children]) {
         if ([child.name isEqualToString:@"border"]) {
             [borders addObject:child];
+        }
+    }
+    
+    //Setup array of horizontal platforms
+    horizontalPlatforms = [NSMutableArray new];
+    lastPlatformPositions = [NSMutableArray new];
+    for (SKSpriteNode *child in [self children]) {
+        if ([child.name isEqualToString:@"horizontalPlatform"]) {
+            [horizontalPlatforms addObject:child];
+            [lastPlatformPositions addObject:[NSNumber numberWithFloat:0]];
         }
     }
     
@@ -974,20 +988,20 @@ BOOL isSecondTouchJumpButton;
     }
 }
 
-float lastPlatformPosition;
-
 -(void)update:(CFTimeInterval)currentTime {
     
     //NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
     //NSLog(@"spits - %lu", (unsigned long)[flowersSpit count]);
     //NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
     SKNode *panda = [self childNodeWithName:@"Panda"];
-    SKNode *platform = [self childNodeWithName:@"horizontalPlatform"];
-    
-    if (CGRectGetMinY(panda.frame) <= CGRectGetMaxY(platform.frame)+10 && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(platform.frame)-10 && panda.position.x >= platform.position.x-77 && panda.position.x <= platform.position.x+77) {
-        panda.position = CGPointMake(panda.position.x + (platform.position.x - lastPlatformPosition), panda.position.y);
+    //SKNode *platform = [self childNodeWithName:@"horizontalPlatform"];
+    for (int i = 0; i < [horizontalPlatforms count]; i++) {
+        if (CGRectGetMinY(panda.frame) <= CGRectGetMaxY(horizontalPlatforms[i].frame)+10 && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(horizontalPlatforms[i].frame)-10 && panda.position.x >= horizontalPlatforms[i].position.x-77 && panda.position.x <= horizontalPlatforms[i].position.x+77) {
+            panda.position = CGPointMake(panda.position.x + (horizontalPlatforms[i].position.x - [lastPlatformPositions[i] floatValue]), panda.position.y);
+        }
+        lastPlatformPositions[i] = [NSNumber numberWithFloat:horizontalPlatforms[i].position.x];
     }
-    lastPlatformPosition = platform.position.x;
+    
     
     if (!isPause) {
         [super update:currentTime]; //Calls the Visualiser
