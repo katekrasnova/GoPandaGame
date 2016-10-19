@@ -20,6 +20,12 @@ static NSString* const SSGameDataMusicVolumeKey = @"musicVolume";
 static NSString* const SSGameDataSoundVolumeKey = @"soundVolume";
 static NSString* const SSGameDataIsMusicONKey = @"isMusicON";
 static NSString* const SSGameDataIsSoundONKey = @"isSoundON";
+static NSString* const SSGameDataIs1millionPointsAchievementKey = @"is1millionPointsAchievement";
+static NSString* const SSGameDataIs30secAchievementKey = @"is30secAchievement";
+static NSString* const SSGameDataIs60secAchievementKey = @"is60secAchievement";
+static NSString* const SSGameDataIsAllLevelsAchievementKey = @"isAllLevelsAchievement";
+static NSString* const SSGameDataIsDestroyAllEnemiesAchievementKey = @"isDestroyAllEnemiesAchievement";
+
 
 static const int KKNumberOfLevels = 15;
 static const int KKNumberOfLives = 3;
@@ -38,7 +44,11 @@ static const int KKNumberOfLives = 3;
     [encoder encodeBool:self.isMusicON forKey:SSGameDataIsMusicONKey];
     [encoder encodeBool:self.isSoundON forKey:SSGameDataIsSoundONKey];
 
-    
+    [encoder encodeBool:self.is1millionPointsAchievement forKey:SSGameDataIs1millionPointsAchievementKey];
+    [encoder encodeBool:self.is30secAchievement forKey:SSGameDataIs30secAchievementKey];
+    [encoder encodeBool:self.is60secAchievement forKey:SSGameDataIs60secAchievementKey];
+    [encoder encodeBool:self.isAllLevelsAchievement forKey:SSGameDataIsAllLevelsAchievementKey];
+    [encoder encodeBool:self.isDestroyAllEnemiesAchievement forKey:SSGameDataIsDestroyAllEnemiesAchievementKey];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder
@@ -55,6 +65,12 @@ static const int KKNumberOfLives = 3;
         _isSoundON = [decoder decodeBoolForKey:SSGameDataIsSoundONKey];
         _numberOfLevels = KKNumberOfLevels;
         _numberOfLives = KKNumberOfLives;
+        
+        _is1millionPointsAchievement = [decoder decodeBoolForKey:SSGameDataIs1millionPointsAchievementKey];
+        _is30secAchievement = [decoder decodeBoolForKey:SSGameDataIs30secAchievementKey];
+        _is60secAchievement = [decoder decodeBoolForKey:SSGameDataIs60secAchievementKey];
+        _isAllLevelsAchievement = [decoder decodeBoolForKey:SSGameDataIsAllLevelsAchievementKey];
+        _isDestroyAllEnemiesAchievement = [decoder decodeBoolForKey:SSGameDataIsDestroyAllEnemiesAchievementKey];
     }
     return self;
 }

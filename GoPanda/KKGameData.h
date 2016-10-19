@@ -28,6 +28,12 @@
 @property (assign, nonatomic) int completeLevels;
 @property (assign, readonly) int numberOfLevels;
 
+@property (assign, nonatomic) BOOL is1millionPointsAchievement;
+@property (assign, nonatomic) BOOL is30secAchievement;
+@property (assign, nonatomic) BOOL is60secAchievement;
+@property (assign, nonatomic) BOOL isAllLevelsAchievement;
+@property (assign, nonatomic) BOOL isDestroyAllEnemiesAchievement;
+
 +(instancetype)sharedGameData;
 -(void)reset;
 -(void)save;

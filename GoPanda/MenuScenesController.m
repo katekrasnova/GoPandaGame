@@ -88,6 +88,34 @@ BOOL isFirstCall;
             level.texture = [SKTexture textureWithImageNamed:@"levellock"];
         }
     }
+
+    
+    //For Game Achievements scene ///////////////////////////////////////////////////////////////////////////////////////////
+    if ([KKGameData sharedGameData].is1millionPointsAchievement) {
+        SKSpriteNode *achievement1 = (SKSpriteNode *)[self childNodeWithName:@"achievement1"];
+        achievement1.texture = [SKTexture textureWithImageNamed:@"1millionPointsAchievement"];
+        achievement1.alpha = 1;
+    }
+    if ([KKGameData sharedGameData].is30secAchievement) {
+        SKSpriteNode *achievement2 = (SKSpriteNode *)[self childNodeWithName:@"achievement2"];
+        achievement2.texture = [SKTexture textureWithImageNamed:@"30secAchievement"];
+        achievement2.alpha = 1;
+    }
+    if ([KKGameData sharedGameData].is60secAchievement) {
+        SKSpriteNode *achievement3 = (SKSpriteNode *)[self childNodeWithName:@"achievement3"];
+        achievement3.texture = [SKTexture textureWithImageNamed:@"60secAchievement"];
+        achievement3.alpha = 1;
+    }
+    if ([KKGameData sharedGameData].isAllLevelsAchievement) {
+        SKSpriteNode *achievement4 = (SKSpriteNode *)[self childNodeWithName:@"achievement4"];
+        achievement4.texture = [SKTexture textureWithImageNamed:@"AllLevelsAchievement"];
+        achievement4.alpha = 1;
+    }
+    if ([KKGameData sharedGameData].isDestroyAllEnemiesAchievement) {
+        SKSpriteNode *achievement5 = (SKSpriteNode *)[self childNodeWithName:@"achievement5"];
+        achievement5.texture = [SKTexture textureWithImageNamed:@"DestroyAllEnemiesAchievement"];
+        achievement5.alpha = 1;
+    }
 }
 
 - (void)updateMusicVolumeLabelWithVolume:(float)volume {

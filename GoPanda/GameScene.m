@@ -1076,7 +1076,7 @@ BOOL isSecondTouchJumpButton;
                 [KKGameData sharedGameData].score += 50;
                 [self updateScoreHUD];
                 
-                [KKGameData sharedGameData].time -= 5;
+                [KKGameData sharedGameData].time -= 10;
                 
                 NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
                 [dateFormatter setDateFormat:@"mm:ss"];
@@ -1494,6 +1494,37 @@ BOOL isDieAnimation;
     }
 }
 
+- (void)addAchievementLabel:(NSString *)achievement {
+    SKSpriteNode *achievementBadge = [SKSpriteNode spriteNodeWithImageNamed:achievement];
+    achievementBadge.zPosition = 1010;
+    achievementBadge.position = CGPointMake(camera.position.x + 214.637, 365);
+    achievementBadge.scale = 0.5;
+    achievementBadge.alpha = 1.0;
+    [self addChild:achievementBadge];
+    
+    SKLabelNode *newLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
+    newLabel.fontSize = 40.0;
+    newLabel.position = CGPointMake(camera.position.x + 288.602, 484.414);
+    newLabel.zPosition = 1010;
+    newLabel.fontColor = [SKColor redColor];
+    newLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    newLabel.text = @"New";
+    newLabel.zRotation = 326;
+    newLabel.alpha = 1.0;
+    [self addChild:newLabel];
+    
+    SKLabelNode *achievementLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
+    achievementLabel.fontSize = 40.0;
+    achievementLabel.position = CGPointMake(camera.position.x +  266.253, 446.547);
+    achievementLabel.zPosition = 1010;
+    achievementLabel.fontColor = [SKColor redColor];
+    achievementLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    achievementLabel.text = @"Achievement!";
+    achievementLabel.zRotation = 326;
+    achievementLabel.alpha = 1.0;
+    [self addChild:achievementLabel];
+}
+
 - (void)endLevel:(EndReason)endReason {
     
     isExit = YES;
@@ -1504,6 +1535,8 @@ BOOL isDieAnimation;
             [KKGameData sharedGameData].completeLevels += 1;
         }
     }
+    
+    
     
     [[KKGameData sharedGameData] save];
     long k = [KKGameData sharedGameData].score;
@@ -1516,6 +1549,38 @@ BOOL isDieAnimation;
     //SKView * skView = (SKView *)self.view;
 
     if (endReason == kEndReasonWin) {
+        
+        //Achievements
+        if (![KKGameData sharedGameData].is30secAchievement && t <= 30) {
+            [KKGameData sharedGameData].is30secAchievement = YES;
+            NSString *achievement = [NSString stringWithFormat:@"30secAchievement"];
+            [self addAchievementLabel:achievement];
+        }
+        
+        if (![KKGameData sharedGameData].is60secAchievement && t <= 60 && t > 30) {
+            [KKGameData sharedGameData].is60secAchievement = YES;
+            NSString *achievement = [NSString stringWithFormat:@"60secAchievement"];
+            [self addAchievementLabel:achievement];
+        }
+        
+        if (![KKGameData sharedGameData].is1millionPointsAchievement && [KKGameData sharedGameData].totalScore >= 1000000) {
+            [KKGameData sharedGameData].is1millionPointsAchievement = YES;
+            NSString *achievement = [NSString stringWithFormat:@"1millionPointsAchievement"];
+            [self addAchievementLabel:achievement];
+        }
+        
+        if (![KKGameData sharedGameData].isAllLevelsAchievement && [KKGameData sharedGameData].completeLevels == [KKGameData sharedGameData].numberOfLevels) {
+            [KKGameData sharedGameData].isAllLevelsAchievement = YES;
+            NSString *achievement = [NSString stringWithFormat:@"AllLevelsAchievement"];
+            [self addAchievementLabel:achievement];
+        }
+        
+        if (![KKGameData sharedGameData].isDestroyAllEnemiesAchievement && [bluesnails count] == 0 && [redsnails count] == 0 && [mushrooms count] == 0 && [flowers count] == 0 ) {
+            [KKGameData sharedGameData].isDestroyAllEnemiesAchievement = YES;
+            NSString *achievement = [NSString stringWithFormat:@"DestroyAllEnemiesAchievement"];
+            [self addAchievementLabel:achievement];
+        }
+        [[KKGameData sharedGameData] save];
         
         SKSpriteNode *windowWin = [SKSpriteNode spriteNodeWithImageNamed:@"windowwin"];
         windowWin.zPosition = 1000;
@@ -1598,6 +1663,7 @@ BOOL isDieAnimation;
         [self addChild:homeButton];
         [self addChild:levelsButton];
         [self addChild:playButton];
+        
 
         if ([pickUpStars count] < 3) {
             SKSpriteNode *star1 = [SKSpriteNode spriteNodeWithImageNamed:@"starsmall"];
