@@ -42,6 +42,7 @@
 		D168BEF61D7F633F00361BEB /* win_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = D168BEF51D7F633F00361BEB /* win_sound.wav */; };
 		D175AE1E1DB16E19006F9E61 /* Level5Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */; };
 		D175AE201DB4E2A9006F9E61 /* Level6Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE1F1DB4E2A9006F9E61 /* Level6Scene.sks */; };
+		D175AE221DB90AE6006F9E61 /* Level10Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE211DB90AE6006F9E61 /* Level10Scene.sks */; };
 		D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8661D4B9CBC003DB8C2 /* click1.wav */; };
 		D17EA8691D4B9CC8003DB8C2 /* mainTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */; };
 		D19866001D5377B70015C937 /* menuTheme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D19865FF1D5377B70015C937 /* menuTheme.mp3 */; };
@@ -52,7 +53,6 @@
 		D1F27E0A1D98F89F00DF7FD2 /* Level7Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFE1D98F89F00DF7FD2 /* Level7Scene.sks */; };
 		D1F27E0B1D98F89F00DF7FD2 /* Level8Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27DFF1D98F89F00DF7FD2 /* Level8Scene.sks */; };
 		D1F27E0C1D98F89F00DF7FD2 /* Level9Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E001D98F89F00DF7FD2 /* Level9Scene.sks */; };
-		D1F27E0D1D98F89F00DF7FD2 /* Level10Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E011D98F89F00DF7FD2 /* Level10Scene.sks */; };
 		D1F27E0E1D98F89F00DF7FD2 /* Level11Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E021D98F89F00DF7FD2 /* Level11Scene.sks */; };
 		D1F27E0F1D98F89F00DF7FD2 /* Level12Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E031D98F89F00DF7FD2 /* Level12Scene.sks */; };
 		D1F27E101D98F89F00DF7FD2 /* Level13Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1F27E041D98F89F00DF7FD2 /* Level13Scene.sks */; };
@@ -128,6 +128,7 @@
 		D168BEF51D7F633F00361BEB /* win_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win_sound.wav; sourceTree = "<group>"; };
 		D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5Scene.sks; sourceTree = "<group>"; };
 		D175AE1F1DB4E2A9006F9E61 /* Level6Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level6Scene.sks; sourceTree = "<group>"; };
+		D175AE211DB90AE6006F9E61 /* Level10Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level10Scene.sks; sourceTree = "<group>"; };
 		D17EA8661D4B9CBC003DB8C2 /* click1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click1.wav; sourceTree = "<group>"; };
 		D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = mainTheme.mp3; sourceTree = "<group>"; };
 		D19865FF1D5377B70015C937 /* menuTheme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = menuTheme.mp3; sourceTree = "<group>"; };
@@ -139,7 +140,6 @@
 		D1F27DFE1D98F89F00DF7FD2 /* Level7Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level7Scene.sks; sourceTree = "<group>"; };
 		D1F27DFF1D98F89F00DF7FD2 /* Level8Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level8Scene.sks; sourceTree = "<group>"; };
 		D1F27E001D98F89F00DF7FD2 /* Level9Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level9Scene.sks; sourceTree = "<group>"; };
-		D1F27E011D98F89F00DF7FD2 /* Level10Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level10Scene.sks; sourceTree = "<group>"; };
 		D1F27E021D98F89F00DF7FD2 /* Level11Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level11Scene.sks; sourceTree = "<group>"; };
 		D1F27E031D98F89F00DF7FD2 /* Level12Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level12Scene.sks; sourceTree = "<group>"; };
 		D1F27E041D98F89F00DF7FD2 /* Level13Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level13Scene.sks; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 				D1F27DFE1D98F89F00DF7FD2 /* Level7Scene.sks */,
 				D1F27DFF1D98F89F00DF7FD2 /* Level8Scene.sks */,
 				D1F27E001D98F89F00DF7FD2 /* Level9Scene.sks */,
-				D1F27E011D98F89F00DF7FD2 /* Level10Scene.sks */,
+				D175AE211DB90AE6006F9E61 /* Level10Scene.sks */,
 				D1F27E021D98F89F00DF7FD2 /* Level11Scene.sks */,
 				D1F27E031D98F89F00DF7FD2 /* Level12Scene.sks */,
 				D1F27E041D98F89F00DF7FD2 /* Level13Scene.sks */,
@@ -451,6 +451,7 @@
 				D15461941D072E4600127DB3 /* GameStart.sks in Resources */,
 				D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */,
 				D16097A11D78454300607FA5 /* lose_sound.mp3 in Resources */,
+				D175AE221DB90AE6006F9E61 /* Level10Scene.sks in Resources */,
 				D1F27E0F1D98F89F00DF7FD2 /* Level12Scene.sks in Resources */,
 				D1F27DFA1D98F89100DF7FD2 /* Level1Scene.sks in Resources */,
 				D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */,
@@ -458,7 +459,6 @@
 				D11391B51D93F3AB0023F45C /* Level3Scene.sks in Resources */,
 				D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */,
 				D1F27E0E1D98F89F00DF7FD2 /* Level11Scene.sks in Resources */,
-				D1F27E0D1D98F89F00DF7FD2 /* Level10Scene.sks in Resources */,
 				D1F27E101D98F89F00DF7FD2 /* Level13Scene.sks in Resources */,
 				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
 				D1516FB31D3647BF002DE76C /* LevelScene.sks in Resources */,
