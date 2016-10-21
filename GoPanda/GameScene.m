@@ -323,6 +323,7 @@ NSMutableArray *soundsArray;
     [self setupHUD];
     _score.text = [NSString stringWithFormat:@"%li", [KKGameData sharedGameData].totalScore];
     _time.text = @"00:00";
+    _littlePandaScore.text = @"x 3";
     
     
     //Setup array of coins
@@ -464,15 +465,45 @@ NSMutableArray *soundsArray;
             [waters addObject:child];
         }
     }
-   
+    if ([KKGameData sharedGameData].currentLevel == 1) {
+        SKLabelNode *warningLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
+        warningLabel.fontSize = 70.0;
+        warningLabel.position = CGPointMake(-0, 0);
+        warningLabel.fontColor = [SKColor blackColor];
+        warningLabel.zPosition = 1000;
+        warningLabel.alpha = 0.6;
+        warningLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+        [camera addChild:warningLabel];
+        warningLabel.text = @"Rescue all little pandas to exit";
+        SKAction *labelMoveIn = [SKAction scaleTo:1.0 duration:6];
+        SKAction *labelMoveOut = [SKAction scaleTo:0.0 duration:1];
+        [warningLabel runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
+    }
+    
 }
 
 //Score
 SKLabelNode* _score;
+SKLabelNode* _littlePandaScore;
 SKLabelNode* _time;
 
 -(void)setupHUD
 {
+    SKSpriteNode *littlePanda = [SKSpriteNode spriteNodeWithImageNamed:@"littlePandaEat_02"];
+    littlePanda.position = CGPointMake(-280, 265);
+    littlePanda.zPosition = 1000;
+    littlePanda.name = [NSString stringWithFormat:@"littlePanda"];
+    littlePanda.scale = 1;
+    [camera addChild:littlePanda];
+    
+    _littlePandaScore = [[SKLabelNode alloc] initWithFontNamed:@"MarkerFelt-Wide"];
+    _littlePandaScore.fontSize = 35.0;
+    _littlePandaScore.position = CGPointMake(-242, 252);
+    _littlePandaScore.fontColor = [SKColor blackColor];
+    _littlePandaScore.zPosition = 1000;
+    _littlePandaScore.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
+    [camera addChild:_littlePandaScore];
+    
     _score = [[SKLabelNode alloc] initWithFontNamed:@"MarkerFelt-Wide"];
     _score.fontSize = 30.0;
     _score.position = CGPointMake(-497, 155);
@@ -988,6 +1019,10 @@ BOOL isSecondTouchJumpButton;
             [littlePandas[i] removeFromParent];
             [littlePandas[i] removeAllActions];
             [littlePandas removeObject:littlePandas[i]];
+            _littlePandaScore.text = [NSString stringWithFormat:@"x %lu",(unsigned long)[littlePandas count]];
+            SKAction *labelMoveIn = [SKAction scaleTo:1.2 duration:0.2];
+            SKAction *labelMoveOut = [SKAction scaleTo:1.0 duration:0.2];
+            [_littlePandaScore runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
         }
     }
 }
