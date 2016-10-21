@@ -349,10 +349,14 @@ float tempVolumeSounds;
     
     else if ([node.name isEqualToString:@"levelPlayButton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-
-        GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].completeLevels + 1]];
+        if ([KKGameData sharedGameData].completeLevels < [KKGameData sharedGameData].numberOfLevels) {
+            [KKGameData sharedGameData].currentLevel = [KKGameData sharedGameData].completeLevels + 1;
+        }
+        else {
+            [KKGameData sharedGameData].currentLevel = [KKGameData sharedGameData].completeLevels;
+        }
+        GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].currentLevel]];
         
-        [KKGameData sharedGameData].currentLevel = [KKGameData sharedGameData].completeLevels + 1;
         [[KKGameData sharedGameData] save];
         
         scene.scaleMode = SKSceneScaleModeAspectFill;

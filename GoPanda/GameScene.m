@@ -786,9 +786,13 @@ BOOL isSecondTouchJumpButton;
             [skView presentScene:scene];
         }
         else if ([node.name isEqualToString:@"playbutton"]) {
-            GameScene *gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", level + 1]];
-            
-            [KKGameData sharedGameData].currentLevel = level + 1;
+            if (level < [KKGameData sharedGameData].numberOfLevels) {
+                [KKGameData sharedGameData].currentLevel = level + 1;
+            }
+            else {
+                [KKGameData sharedGameData].currentLevel = level;
+            }
+            GameScene *gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].currentLevel]];
             [[KKGameData sharedGameData] save];
             [[KKGameData sharedGameData] reset];
             
