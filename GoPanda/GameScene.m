@@ -467,14 +467,14 @@ NSMutableArray *soundsArray;
     }
     if ([KKGameData sharedGameData].currentLevel == 1) {
         SKLabelNode *warningLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
-        warningLabel.fontSize = 70.0;
+        warningLabel.fontSize = 58.0;
         warningLabel.position = CGPointMake(-0, 0);
         warningLabel.fontColor = [SKColor blackColor];
         warningLabel.zPosition = 1000;
         warningLabel.alpha = 0.6;
         warningLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
         [camera addChild:warningLabel];
-        warningLabel.text = @"Rescue all little pandas to exit";
+        warningLabel.text = @"Rescue all little pandas to open exit";
         SKAction *labelMoveIn = [SKAction scaleTo:1.0 duration:6];
         SKAction *labelMoveOut = [SKAction scaleTo:0.0 duration:1];
         [warningLabel runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
