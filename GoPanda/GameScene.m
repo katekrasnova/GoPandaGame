@@ -1246,6 +1246,7 @@ BOOL isDieAnimation;
         if ([KKGameData sharedGameData].numberOfLives == 0) {
             
             isDieAnimation = YES;
+            isExit = YES;
             
             if (isLeftMoveButton) {
                 isLeftMoveButton = NO;
@@ -1297,6 +1298,15 @@ BOOL isDieAnimation;
                 }
                 else if (enemiesArray[i].xScale > 0) {
                     enemiesArray[i].xScale = -1.0*ABS(enemiesArray[i].xScale);
+                }
+            }
+            
+            while ([enemiesArray[i] intersectsNode:borders[k]]) {
+                if (enemiesArray[i].xScale < 0) {
+                    enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.15, enemiesArray[i].position.y);
+                }
+                else if (enemiesArray[i].xScale > 0) {
+                    enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x - 0.15, enemiesArray[i].position.y);
                 }
             }
             
