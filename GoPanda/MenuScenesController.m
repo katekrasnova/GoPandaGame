@@ -36,7 +36,6 @@ BOOL isFirstCall;
         [KKGameData sharedGameData].isSoundON = YES;
 
         [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
-        //[[[GameViewController alloc]init]setVolumeOfSounds:1.0];
         musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
         soundbutton.texture = [SKTexture textureWithImageNamed:@"soundbutton_on"];
         isFirstCall = YES;
@@ -70,15 +69,10 @@ BOOL isFirstCall;
         accelButton.texture = [SKTexture textureWithImageNamed:@"checkbuttonoff"];
     }
     //Volume of music and sounds
-    //[self updateVolumeLabels];
     [self updateMusicVolumeLabelWithVolume:[KKGameData sharedGameData].musicVolume*1000];
     [self updateSoundsVolumeLabelWithVolume:[KKGameData sharedGameData].soundVolume*1000];
 
     //For game levels scene - number open levels //////////////////////////////////////////////////////////////////////////
-
-    NSLog(@"%i", [KKGameData sharedGameData].numberOfLevels);
-    NSLog(@"%i", [KKGameData sharedGameData].completeLevels);
-
     for (int i = 1; i <= [KKGameData sharedGameData].numberOfLevels; i++) {
         SKSpriteNode *level = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"level%i", i]];
         if (i <= [KKGameData sharedGameData].completeLevels + 1) {

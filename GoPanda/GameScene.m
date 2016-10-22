@@ -32,7 +32,6 @@ BOOL isPause;
 float lastCameraPosition;
 int level;
 SKNode *exitSign;
-//SKSpriteNode *endGame;
 SKSpriteNode *pauseButton;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *coins;
@@ -69,8 +68,6 @@ NSMutableArray *soundsArray;
     
     soundsArray = [NSMutableArray new];
     
-    //isFlowerAttackAnimation = NO;
-    
     isLeftMoveButton = NO;
     isRightMoveButton = NO;
     isJumpButton = NO;
@@ -84,25 +81,16 @@ NSMutableArray *soundsArray;
     isHurtAnimationRunning = NO;
     
     level = [KKGameData sharedGameData].currentLevel;
-    NSLog(@"currentLevel start %i", level);
     
     //Set background music
-    
     NSString *path = [[NSBundle mainBundle] pathForResource:@"mainTheme" ofType:@"mp3"];
     backgroundGameMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
     backgroundGameMusic.delegate = self;
     backgroundGameMusic.numberOfLoops = -1;
     backgroundGameMusic.volume = [KKGameData sharedGameData].musicVolume;
     [backgroundGameMusic play];
-
     
-    // Set boundaries
-    /*SKNode *background = [self childNodeWithName:@"background"];
-    SKPhysicsBody *borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:background.frame];
-    self.physicsBody = borderBody;
-    self.physicsBody.friction = 1.0f; */
-    
-    // Set boundaries and background   //NEW
+    // Set boundaries and background
     exitSign = [self childNodeWithName:@"exitSign"];
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, exitSign.position.x + 200, 680)];
     
@@ -120,19 +108,12 @@ NSMutableArray *soundsArray;
     
     
     //Add Panda Character
-    /*SKSpriteNode *panda = [SKSpriteNode spriteNodeWithImageNamed:@"Idle_001"];
-    panda.xScale = 0.5;
-    panda.yScale = 0.5;
-    panda.anchorPoint = CGPointZero;
-    panda.position = CGPointMake(0, 0);
-    [self addChild:panda]; */
-    
+
     //Create Panda run animation
     NSMutableArray<SKTexture *> *textures = [NSMutableArray new];
     for (int i = 0; i <= 5; i++) {
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Run_00%i",i]]];
     }
-//    [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Idle_000"]]];
     self.runAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
     
     //Create Panda jump animation
@@ -140,7 +121,6 @@ NSMutableArray *soundsArray;
     for (int i = 0; i <= 9; i++) {
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Jump2_00%i",i]]];
     }
-//    self.jumpAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
     self.jumpAnimation = [SKAction animateWithTextures:textures timePerFrame:0.04];
     
     //Create Panda idle animation
@@ -163,7 +143,6 @@ NSMutableArray *soundsArray;
         [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"Die_00%i", i]]];
     }
     self.dieAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.2] count:1]]];
-    //[SKAction waitForDuration:3.0]
     
     //Create Coin animation
     textures = [NSMutableArray new];
@@ -270,7 +249,6 @@ NSMutableArray *soundsArray;
     id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(exitSign.position.x + 200 - camera.position.x)]];
     id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 10 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
-    //lastCameraPosition = camera.position.x;
     
     //Add moving buttons to screen
     //left move button
@@ -297,15 +275,6 @@ NSMutableArray *soundsArray;
     jumpButton.zPosition = 20;
     jumpButton.name = @"jumpButton";
     [camera addChild:jumpButton];
-    
-    
-    
-    //End game button
-    /*endGame = [SKSpriteNode spriteNodeWithImageNamed:@"okbutton"];
-    endGame.size = CGSizeMake(91, 95);
-    endGame.position = CGPointMake(440, 230);
-    endGame.name = @"endGame";
-    [camera addChild:endGame]; */
     
     //Pause Button
     pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"pauseButtonOff"];
@@ -403,7 +372,7 @@ NSMutableArray *soundsArray;
     isFlowerAttackAnimation = [NSMutableArray new];
     for (NSInteger i = 0; i < [flowers count] + 10; i++) {
         [isFlowerAttackAnimation addObject:[NSNumber numberWithInteger:0]];
-        NSLog(@"%lu %@", (unsigned long)[flowers count], isFlowerAttackAnimation[i]); }
+    }
     
     //Setup array of little pandas
     littlePandas = [NSMutableArray new];
@@ -421,8 +390,6 @@ NSMutableArray *soundsArray;
             }
             else {
                 [child runAction:self.littlePandaMove withKey:@"LittlePandaMoveAnimation"];
-                //NSNumber *k = [NSNumber numberWithFloat:child.position.x];
-                //[littlePandasMoveStartPosition addObject:k];
             }
         }
     }
@@ -549,12 +516,6 @@ SKLabelNode* _time;
 - (void)updateHeartsHUD {
     //update hearts
     if ([KKGameData sharedGameData].numberOfLives < [hearts count]) {
-//        SKSpriteNode *emptyHeart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartEmpty"];
-//        emptyHeart.position = hearts[[hearts count] - 1].position;
-//        emptyHeart.scale = 0.8;
-//        [camera addChild:emptyHeart];
-//        [hearts[[hearts count] - 1] removeFromParent];
-//        [hearts removeObject:hearts[[hearts count] - 1]];
         [hearts[[KKGameData sharedGameData].numberOfLives] setTexture:[SKTexture textureWithImageNamed:@"hud_heartEmpty"]];
     }
 }
@@ -676,9 +637,6 @@ BOOL isSecondTouchJumpButton;
     [super touchesBegan:touches withEvent:event];
     
     SKNode *panda = [self childNodeWithName:@"Panda"];
-    //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
-    
-
     
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
@@ -688,19 +646,14 @@ BOOL isSecondTouchJumpButton;
             if (!isPandaJump) {
                 //Jump
                 [jumpButton setTexture:[SKTexture textureWithImageNamed:@"greenjumpbutton"]];
-                
                 isJumpButton = YES;
                 isPandaJump = YES;
                 SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.1];
-                //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-                //[panda removeActionForKey:@"StayAnimation"];
                 [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
                     isPandaJump = NO;
                     if (isLeftMoveButton == YES || isRightMoveButton == YES) {
                         [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
                     }
-                    //[panda removeAllActions];
-                    //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
                 }];
             }
             else {
@@ -715,8 +668,6 @@ BOOL isSecondTouchJumpButton;
             //left move
             isLeftMoveButton = YES;
             panda.xScale = -1.0*ABS(panda.xScale);
-            //SKAction *leftMove = [SKAction applyForce:CGVectorMake(-150, 0) duration:kHugeTime];
-            //[panda runAction:leftMove withKey:@"MoveAction"];
             panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
             [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
             
@@ -728,21 +679,10 @@ BOOL isSecondTouchJumpButton;
             //right move
             isRightMoveButton = YES;
             panda.xScale = 1.0*ABS(panda.xScale);
-            //SKAction *rightMove = [SKAction applyForce:CGVectorMake(150, 0) duration:kHugeTime];
-            //[panda runAction:rightMove withKey:@"MoveAction"];
             panda.position = CGPointMake(panda.position.x + 5, panda.position.y);
             [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
         }
     }
-    
-    
-    //Touch end button DELETE
-    //CGPoint touchLocation = [[touches anyObject] locationInNode:self];
-    //SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
-    /*if ([node.name isEqualToString:@"endGame"]) {
-        isExit = YES;
-        [self endLevel:kEndReasonWin];
-    }*/
     
     //Touch Pause Button
     if ([node.name isEqualToString:@"pauseButton"] && !isExit) {
@@ -796,8 +736,6 @@ BOOL isSecondTouchJumpButton;
     
     if ([node.name isEqualToString:@"homebutton"] || [node.name isEqualToString:@"levelsbutton"] || [node.name isEqualToString:@"restartbutton"] || [node.name isEqualToString:@"playbutton"]) {
         
-        
-        
         SKView * skView = (SKView *)self.view;
         MenuScenesController *scene = [MenuScenesController new];
         if ([node.name isEqualToString:@"homebutton"]) {
@@ -826,9 +764,6 @@ BOOL isSecondTouchJumpButton;
             GameScene *gameScene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].currentLevel]];
             [[KKGameData sharedGameData] save];
             [[KKGameData sharedGameData] reset];
-            
-            NSLog(@"completeLevels %i", [KKGameData sharedGameData].completeLevels);
-            NSLog(@"currentLevel %i", [KKGameData sharedGameData].currentLevel);
 
             gameScene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:gameScene];
@@ -846,9 +781,6 @@ BOOL isSecondTouchJumpButton;
             [KKGameData sharedGameData].currentLevel = level;
             [[KKGameData sharedGameData] save];
             [[KKGameData sharedGameData] reset];
-            
-            NSLog(@"completeLevels %i", [KKGameData sharedGameData].completeLevels);
-            NSLog(@"currentLevel %i", [KKGameData sharedGameData].currentLevel);
             
             gameScene.scaleMode = SKSceneScaleModeAspectFill;
             [skView presentScene:gameScene];
@@ -875,10 +807,7 @@ BOOL isSecondTouchJumpButton;
             isLeftMoveButton = YES;
             isRightMoveButton = NO;
             panda.xScale = -1.0*ABS(panda.xScale);
-            //SKAction *leftMove = [SKAction applyForce:CGVectorMake(-150, 0) duration:kHugeTime];
-            //[panda runAction:leftMove withKey:@"MoveAction"];
             panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
-            //[panda runAction:self.runAnimation withKey:@"MoveAnimation"];
             
         }
         if ([node.name isEqualToString:@"rightMoveButton"]) {
@@ -890,10 +819,7 @@ BOOL isSecondTouchJumpButton;
             isRightMoveButton = YES;
             isLeftMoveButton = NO;
             panda.xScale = 1.0*ABS(panda.xScale);
-            //SKAction *rightMove = [SKAction applyForce:CGVectorMake(150, 0) duration:kHugeTime];
-            //[panda runAction:rightMove withKey:@"MoveAction"];
             panda.position = CGPointMake(panda.position.x + 5, panda.position.y);
-            //[panda runAction:self.runAnimation withKey:@"MoveAnimation"];
         }
     }
 }
@@ -903,8 +829,6 @@ BOOL isSecondTouchJumpButton;
     SKNode *panda = [self childNodeWithName:@"Panda"];
 
     [super touchesEnded:touches withEvent:event];
-    
-    //NSLog(@"isLeftMoveButton = %i; isRightMoveButton = %i; isJumpButton = %i; isPandaJump = %i", isLeftMoveButton, isRightMoveButton, isJumpButton, isPandaJump);
     
     if ((isLeftMoveButton || isRightMoveButton) && !isJumpButton) {
         if (!isSecondTouchJumpButton) {
@@ -938,7 +862,6 @@ BOOL isSecondTouchJumpButton;
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [super touchesCancelled:touches withEvent:event];
-    
 }
 
 - (void)willMoveFromView:(SKView *)view {
@@ -986,8 +909,6 @@ BOOL isSecondTouchJumpButton;
                 panda.physicsBody = nil;
                 SKAction *jumpFallUp = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y + 200) duration:0.3];
                 SKAction *jumpFallDown = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y - 150) duration:0.3];
-                //SKAction *fadeOutUp = [SKAction fadeAlphaTo:0.7 duration:0.35];
-                //SKAction *fadeOutDown = [SKAction fadeAlphaTo:0.2 duration:0.35];
                 [panda runAction:[SKAction sequence:@[jumpFallUp,[SKAction waitForDuration:1]]] completion:^{
                     [panda runAction:[SKAction sequence:@[jumpFallDown]] completion:^{
                         [self endLevel:kEndReasonLose];
@@ -996,12 +917,6 @@ BOOL isSecondTouchJumpButton;
             }
             
             isPandaFall = YES;
-            
-            
-            //        SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 30) duration:0.15];
-            //        [panda runAction:[SKAction sequence:@[jumpMove, self.jumpAnimation]] completion:^{
-            //            [self endLevel:kEndReasonLose];
-            //        }];
         }
     }
     
@@ -1028,12 +943,7 @@ BOOL isSecondTouchJumpButton;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    
-    //NSLog(@"flowers - %lu", (unsigned long)[flowers count]);
-    //NSLog(@"spits - %lu", (unsigned long)[flowersSpit count]);
-    //NSLog(@"isFlowerAttackAnimation - %lu", (unsigned long)[isFlowerAttackAnimation count]);
     SKNode *panda = [self childNodeWithName:@"Panda"];
-    //SKNode *platform = [self childNodeWithName:@"horizontalPlatform"];
     for (int i = 0; i < [horizontalPlatforms count]; i++) {
         if (CGRectGetMinY(panda.frame) <= CGRectGetMaxY(horizontalPlatforms[i].frame)+10 && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(horizontalPlatforms[i].frame)-10 && panda.position.x >= horizontalPlatforms[i].position.x-77 && panda.position.x <= horizontalPlatforms[i].position.x+77) {
             panda.position = CGPointMake(panda.position.x + (horizontalPlatforms[i].position.x - [lastPlatformPositions[i] floatValue]), panda.position.y);
@@ -1051,9 +961,6 @@ BOOL isSecondTouchJumpButton;
         
         [self littlePandasMove];
         
-        //[self updateHUD];
-        
-        
         if (!isPandaFall && !isDieAnimation) {
             if (isLeftMoveButton == YES) {
                 panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
@@ -1069,7 +976,6 @@ BOOL isSecondTouchJumpButton;
         }
         
         // Score for coins
-        //SKSpriteNode *coin = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"coin"]];
         for (int i = 0; i < [coins count]; i++) {
             if ([panda intersectsNode:coins[i]]) {
                 [self playSoundNamed:@"coin" ofType:@"wav"];
@@ -1090,13 +996,6 @@ BOOL isSecondTouchJumpButton;
                 
                 if ([KKGameData sharedGameData].numberOfLives < 3) {
                     [KKGameData sharedGameData].numberOfLives++;
-                    //                SKSpriteNode *heart = [SKSpriteNode spriteNodeWithImageNamed:@"hud_heartFull"];
-                    //                heart.position = CGPointMake(-480 + ([KKGameData sharedGameData].numberOfLives - 1)*50, 350);
-                    //                heart.zPosition = 1000;
-                    //                heart.name = [NSString stringWithFormat:@"heart%i",[KKGameData sharedGameData].numberOfLives - 1];
-                    //                heart.scale = 0.8;
-                    //                [camera addChild:heart];
-                    //                [hearts insertObject:heart atIndex:[KKGameData sharedGameData].numberOfLives - 1];
                     [hearts[[KKGameData sharedGameData].numberOfLives - 1] setTexture:
                      [SKTexture textureWithImageNamed:@"hud_heartFull"]];
                     
@@ -1172,42 +1071,6 @@ BOOL isSecondTouchJumpButton;
             _lastCurrentTime = currentTime;
         }
         
-        
-        //Move score label when camera moves
-        
-        //NSLog(@"%f", camera.position.x);
-        //NSLog(@"%f\n\n", lastCameraPosition);
-        
-        /*  if (lastCameraPosition < camera.position.x) {
-         //_score.position = CGPointMake(_score.position.x + (camera.position.x - lastCameraPosition), _score.position.y);
-         
-         
-         //        [_score runAction:[SKAction moveTo:CGPointMake(camera.position.x - 362, 130) duration:0.1] completion:^{
-         //            [_score removeAllActions];
-         //        }];
-         //[_score runAction:[SKAction moveTo:CGPointMake(camera.position.x - 362, 130) duration:0.5] withKey:@"ScoreMove"];
-         
-         
-         
-         _time.position = CGPointMake(_time.position.x + (camera.position.x - lastCameraPosition), _time.position.y);
-         endGame.position = CGPointMake(endGame.position.x + (camera.position.x - lastCameraPosition), endGame.position.y);
-         leftMoveButton.position = CGPointMake(leftMoveButton.position.x + (camera.position.x - lastCameraPosition), leftMoveButton.position.y);
-         rightMoveButton.position = CGPointMake(rightMoveButton.position.x + (camera.position.x - lastCameraPosition), rightMoveButton.position.y);
-         jumpButton.position = CGPointMake(jumpButton.position.x + (camera.position.x - lastCameraPosition), jumpButton.position.y);
-         }
-         else if ((lastCameraPosition > camera.position.x) && (lastCameraPosition >= 150)) {
-         if (lastCameraPosition >= 500) {
-         endGame.position = CGPointMake(endGame.position.x - (lastCameraPosition - camera.position.x), endGame.position.y);
-         jumpButton.position = CGPointMake(jumpButton.position.x + (camera.position.x - lastCameraPosition),
-         jumpButton.position.y);
-         }
-         _score.position = CGPointMake(_score.position.x - (lastCameraPosition - camera.position.x), _score.position.y);
-         _time.position = CGPointMake(_time.position.x - (lastCameraPosition - camera.position.x), _time.position.y);
-         leftMoveButton.position = CGPointMake(leftMoveButton.position.x + (camera.position.x - lastCameraPosition), leftMoveButton.position.y);
-         rightMoveButton.position = CGPointMake(rightMoveButton.position.x + (camera.position.x - lastCameraPosition), rightMoveButton.position.y);
-         } */
-        
-        
         [self exit];
         
         [self enemies:bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:self.blueSnailHurtAnimation];
@@ -1223,10 +1086,7 @@ BOOL isSecondTouchJumpButton;
                 [flowersSpit[i] removeFromParent];
             }
         }
-        
-        //lastCameraPosition = camera.position.x;
     }
-    
 }
 
 BOOL isDieAnimation;
@@ -1242,7 +1102,6 @@ BOOL isDieAnimation;
         [KKGameData sharedGameData].numberOfLives--;
         [self updateHeartsHUD];
         
-        //NSLog(@"%i",[KKGameData sharedGameData].numberOfLives);
         if ([KKGameData sharedGameData].numberOfLives == 0) {
             
             isDieAnimation = YES;
@@ -1265,7 +1124,6 @@ BOOL isDieAnimation;
             [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
 
             [panda runAction:self.dieAnimation completion:^{
-                //[panda removeFromParent];
                 panda.alpha = 0.0;
                 [self endLevel:kEndReasonLose];
             }];
@@ -1327,20 +1185,11 @@ BOOL isDieAnimation;
                 
             }
             
-            //NSLog(@"%f - %f, %f - %f", CGRectGetMinY(panda.frame), CGRectGetMinY(enemiesArray[i].frame), CGRectGetMinY(panda.frame), CGRectGetMaxY(enemiesArray[i].frame));
-            
             //Killing enemy
             if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMinY(enemiesArray[i].frame) + 20 && CGRectGetMinY(panda.frame) <= CGRectGetMaxY(enemiesArray[i].frame)) {
                 
                 [self playSoundNamed:@"jumpland" ofType:@"wav"];
-                
-                //SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 100) duration:0.05];
-                //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-                //[panda removeActionForKey:@"StayAnimation"];
-                //[panda runAction:jumpMove withKey:@"JumpAction"];
-                //[panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
-                
-                //[flowers[i] removeActionForKey:@"FlowerIdleAnimation"];
+
                 [enemiesArray[i] removeAllActions];
                 
                 SKSpriteNode *tempSnail = [SKSpriteNode new];
@@ -1354,33 +1203,6 @@ BOOL isDieAnimation;
                     [tempSnail removeAllActions];
                 }];
                 break;
-                /* if (isPandaJump == NO) {
-                    //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 72, 85)];
-                    SKAction *up = [SKAction moveByX:0 y:panda.frame.origin.y + 300 duration:0.4];
-                    SKAction *down = [SKAction moveByX:0 y:panda.frame.origin.y - 300 duration:0.4];
-                    SKAction *jumpMove = [SKAction sequence:@[up, down, self.jumpAnimation]];
-                    [panda removeActionForKey:@"StayAnimation"];
-                    [panda runAction:jumpMove completion:^{
-                        if (isLeftMoveButton != YES && isRightMoveButton != YES) {
-                            //[panda runAction:self.idleAnimation withKey:@"StayAnimation"];
-                        }
-                    }];
-                }
-                
-                
-                [enemiesArray[i] removeActionForKey:idleAnimationKey];
-                
-                SKSpriteNode *tempSnail = [SKSpriteNode new];
-                tempSnail = enemiesArray[i];
-                [enemiesArray removeObject:enemiesArray[i]];
-                [KKGameData sharedGameData].score += 1000;
-                [self updateScoreHUD];
-                [tempSnail setPhysicsBody:NULL];
-                [tempSnail runAction:hurtAnimation completion:^{
-                    [tempSnail removeFromParent];
-                    [tempSnail removeAllActions];
-                }];
-                break; */
             }
             if (enemiesArray[i].xScale < 0) {
                 //Right move
@@ -1393,8 +1215,6 @@ BOOL isDieAnimation;
         }
     }
 }
-
-//BOOL isFlowerAttackAnimation;
 
 - (SKAction *) attackAnimationForFlower:(SKSpriteNode *)flower {
     //Create flower attack animation
@@ -1427,7 +1247,6 @@ BOOL isDieAnimation;
     SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
 
     for (int i = 0; i < [flowersSpit count]; i++) {
-        //NSLog(@"%f", flowersSpit[i].position.x);
         //Moving spits
         if (flowersSpit[i].xScale > 0) {
             flowersSpit[i].position = CGPointMake(flowersSpit[i].position.x - 5, flowersSpit[i].position.y);
@@ -1454,9 +1273,6 @@ BOOL isDieAnimation;
     
     while (i < [flowers count]) {
         
-    
-    //for (int i = 0; i < [flowers count]; i++) {
-        
         if (flowers[i].position.x >= camera.position.x - self.frame.size.width/2 && flowers[i].position.x <= camera.position.x + self.frame.size.width/2 && isFlowerAttackAnimation[i] == [NSNumber numberWithInteger:0] && !isExit) {
             
             isFlowerAttackAnimation[i] = [NSNumber numberWithInteger:1];
@@ -1472,14 +1288,6 @@ BOOL isDieAnimation;
             flowers[i].xScale = -1.0*ABS(flowers[i].xScale);
         }
         
-        //NSLog(@"panda: %f flower: %f", CGRectGetMaxX(panda.frame), CGRectGetMinX(enemiesArray[i].frame));
-        //NSLog(@"%i", [flowers[i] intersectsNode:panda]);
-        //NSLog(@"%f , %f", CGRectGetMinX(panda.frame), CGRectGetMaxX(flowers[i].frame));
-        //NSLog(@"%f", CGRectGetMaxX(panda.frame) - CGRectGetMinX(flowers[i].frame));
-        //NSLog(@"%f", CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame));
-        //NSLog(@"%f", CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame));
-        //NSLog(@"min camera X = %f, max camera X = %f", camera.position.x - self.frame.size.width/2, camera.position.x + self.frame.size.width/2);
-        
         //Intersecting panda and enemy
         if ([flowers[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(flowers[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(flowers[i].frame) && CGRectGetMaxX(panda.frame) - CGRectGetMinX(flowers[i].frame) >= 20 && (CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) >= -6) && !isHurtAnimationRunning && !isDieAnimation) {
             
@@ -1491,13 +1299,6 @@ BOOL isDieAnimation;
             
             [self playSoundNamed:@"jumpland" ofType:@"wav"];
             
-            //SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 100) duration:0.05];
-            //[panda.physicsBody setAccessibilityFrame:CGRectMake(panda.position.x, panda.position.y, 125, 222)];
-            //[panda removeActionForKey:@"StayAnimation"];
-            //[panda runAction:jumpMove withKey:@"JumpAction"];
-            //[panda runAction:self.jumpAnimation withKey:@"JumpAnimation"];
-            
-            //[flowers[i] removeActionForKey:@"FlowerIdleAnimation"];
             [flowers[i] removeAllActions];
             
             SKSpriteNode *tempSnail = [SKSpriteNode new];
@@ -1593,10 +1394,7 @@ BOOL isDieAnimation;
     [[KKGameData sharedGameData] reset];
     
     [backgroundGameMusic stop];
-    //[[[GameViewController alloc]init]playMenuBackgroundMusic];
     
-    //SKView * skView = (SKView *)self.view;
-
     if (endReason == kEndReasonWin) {
         
         //Achievements
@@ -1734,19 +1532,6 @@ BOOL isDieAnimation;
                 }
             }
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        /* MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameWin"];
-        scene.scaleMode = SKSceneScaleModeAspectFill;
-        [skView presentScene:scene]; */
     }
     
     else if (endReason == kEndReasonLose) {
@@ -1819,7 +1604,6 @@ BOOL isDieAnimation;
     CMDeviceMotion *motion = self.motionManager.deviceMotion;
     if (motion) {
         CMAttitude *attitude = motion.attitude;
-        NSLog(@"%f", attitude.pitch);
         if ((attitude.pitch > -0.2) && (attitude.pitch < 0.0)) {
             panda.xScale = 1.0*ABS(panda.xScale);
             SKAction *rightAccelMove = [SKAction moveBy:CGVectorMake(1.0*kMoveSpeed*kHugeTime, 0) duration:kHugeTime];
