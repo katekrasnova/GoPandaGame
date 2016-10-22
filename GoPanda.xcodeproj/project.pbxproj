@@ -19,13 +19,11 @@
 		D141033E1DBA94C500377D7C /* Level13Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D141033D1DBA94C500377D7C /* Level13Scene.sks */; };
 		D14103401DBA9BE800377D7C /* Level14Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D141033F1DBA9BE800377D7C /* Level14Scene.sks */; };
 		D14103421DBAA88F00377D7C /* Level15Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D14103411DBAA88F00377D7C /* Level15Scene.sks */; };
-		D1516FB31D3647BF002DE76C /* LevelScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1516FB21D3647BF002DE76C /* LevelScene.sks */; };
 		D15286F01D089A7400C948CB /* GameAchievement.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15286EF1D089A7400C948CB /* GameAchievement.sks */; };
 		D15379741D2BACB7004411E7 /* KKGameData.m in Sources */ = {isa = PBXBuildFile; fileRef = D15379731D2BACB7004411E7 /* KKGameData.m */; };
 		D154615D1D07294800127DB3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615C1D07294800127DB3 /* main.m */; };
 		D15461601D07294800127DB3 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D154615F1D07294800127DB3 /* AppDelegate.m */; };
 		D15461631D07294800127DB3 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461621D07294800127DB3 /* GameScene.m */; };
-		D15461651D07294800127DB3 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15461641D07294800127DB3 /* GameScene.sks */; };
 		D15461681D07294800127DB3 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D15461671D07294800127DB3 /* GameViewController.m */; };
 		D154616B1D07294800127DB3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D15461691D07294800127DB3 /* Main.storyboard */; };
 		D154616D1D07294800127DB3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D154616C1D07294800127DB3 /* Assets.xcassets */; };
@@ -95,7 +93,6 @@
 		D141033D1DBA94C500377D7C /* Level13Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level13Scene.sks; sourceTree = "<group>"; };
 		D141033F1DBA9BE800377D7C /* Level14Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level14Scene.sks; sourceTree = "<group>"; };
 		D14103411DBAA88F00377D7C /* Level15Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level15Scene.sks; sourceTree = "<group>"; };
-		D1516FB21D3647BF002DE76C /* LevelScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LevelScene.sks; sourceTree = "<group>"; };
 		D15286EF1D089A7400C948CB /* GameAchievement.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameAchievement.sks; sourceTree = "<group>"; };
 		D15379721D2BACB7004411E7 /* KKGameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KKGameData.h; sourceTree = "<group>"; };
 		D15379731D2BACB7004411E7 /* KKGameData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KKGameData.m; sourceTree = "<group>"; };
@@ -105,7 +102,6 @@
 		D154615F1D07294800127DB3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		D15461611D07294800127DB3 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
 		D15461621D07294800127DB3 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
-		D15461641D07294800127DB3 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		D15461661D07294800127DB3 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
 		D15461671D07294800127DB3 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		D154616A1D07294800127DB3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -196,7 +192,6 @@
 		D1516FB11D36478F002DE76C /* Level scenes */ = {
 			isa = PBXGroup;
 			children = (
-				D1516FB21D3647BF002DE76C /* LevelScene.sks */,
 				D1F27DF91D98F89100DF7FD2 /* Level1Scene.sks */,
 				D11391B21D93F39A0023F45C /* Level2Scene.sks */,
 				D11391B41D93F3AB0023F45C /* Level3Scene.sks */,
@@ -212,7 +207,6 @@
 				D141033D1DBA94C500377D7C /* Level13Scene.sks */,
 				D141033F1DBA9BE800377D7C /* Level14Scene.sks */,
 				D14103411DBAA88F00377D7C /* Level15Scene.sks */,
-				D15461641D07294800127DB3 /* GameScene.sks */,
 				D157518A1D37DAA30075A4B0 /* ParticleExit.sks */,
 				D157518B1D37DAA30075A4B0 /* spark.png */,
 			);
@@ -432,7 +426,6 @@
 				D11391B31D93F39A0023F45C /* Level2Scene.sks in Resources */,
 				D157518C1D37DAA30075A4B0 /* ParticleExit.sks in Resources */,
 				D175AE201DB4E2A9006F9E61 /* Level6Scene.sks in Resources */,
-				D15461651D07294800127DB3 /* GameScene.sks in Resources */,
 				D160979D1D67039C00607FA5 /* jumpland.wav in Resources */,
 				D16097991D66F24900607FA5 /* coin.wav in Resources */,
 				D160979F1D78069100607FA5 /* pickupheart.wav in Resources */,
@@ -461,7 +454,6 @@
 				D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */,
 				D154616D1D07294800127DB3 /* Assets.xcassets in Resources */,
 				D141033E1DBA94C500377D7C /* Level13Scene.sks in Resources */,
-				D1516FB31D3647BF002DE76C /* LevelScene.sks in Resources */,
 				D175AE1E1DB16E19006F9E61 /* Level5Scene.sks in Resources */,
 				D14103401DBA9BE800377D7C /* Level14Scene.sks in Resources */,
 				D14103421DBAA88F00377D7C /* Level15Scene.sks in Resources */,
