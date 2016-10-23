@@ -31,6 +31,9 @@ BOOL isExit;
 BOOL isPause;
 float lastCameraPosition;
 int level;
+
+SKSpriteNode *panda;
+
 SKNode *exitSign;
 SKSpriteNode *pauseButton;
 SKCameraNode *camera;
@@ -237,7 +240,7 @@ NSMutableArray *soundsArray;
     self.littlePandaMove = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.2]];
     
     //Create camera
-    SKNode *panda = [self childNodeWithName:@"Panda"];
+    panda = (SKSpriteNode*)[self childNodeWithName:@"Panda"];
     [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
     
     
@@ -636,8 +639,6 @@ BOOL isSecondTouchJumpButton;
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     
-    SKNode *panda = [self childNodeWithName:@"Panda"];
-    
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
@@ -792,8 +793,6 @@ BOOL isSecondTouchJumpButton;
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesMoved:touches withEvent:event];
     
-    SKNode *panda = [self childNodeWithName:@"Panda"];
-
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
@@ -826,8 +825,6 @@ BOOL isSecondTouchJumpButton;
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    SKNode *panda = [self childNodeWithName:@"Panda"];
-
     [super touchesEnded:touches withEvent:event];
     
     if ((isLeftMoveButton || isRightMoveButton) && !isJumpButton) {
@@ -894,7 +891,6 @@ BOOL isSecondTouchJumpButton;
 
 
 - (void)pandaFallinWater {
-    SKNode *panda = [self childNodeWithName:@"Panda"];
     for (int i = 0; i < [waters count]; i++) {
         if ([panda intersectsNode:waters[i]] && panda.position.y <= 150) {
             isExit = YES;
@@ -923,8 +919,6 @@ BOOL isSecondTouchJumpButton;
 }
 
 - (void)saveLittlePandas {
-    SKNode *panda = [self childNodeWithName:@"Panda"];
-    
     for (int i = 0; i < [littlePandas count]; i++) {
         if ([panda intersectsNode:littlePandas[i]]) {
             [self playSoundNamed:@"pickupheart" ofType:@"wav"];
@@ -943,7 +937,6 @@ BOOL isSecondTouchJumpButton;
 }
 
 -(void)update:(CFTimeInterval)currentTime {
-    SKNode *panda = [self childNodeWithName:@"Panda"];
     for (int i = 0; i < [horizontalPlatforms count]; i++) {
         if (CGRectGetMinY(panda.frame) <= CGRectGetMaxY(horizontalPlatforms[i].frame)+10 && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(horizontalPlatforms[i].frame)-10 && panda.position.x >= horizontalPlatforms[i].position.x-77 && panda.position.x <= horizontalPlatforms[i].position.x+77) {
             panda.position = CGPointMake(panda.position.x + (horizontalPlatforms[i].position.x - [lastPlatformPositions[i] floatValue]), panda.position.y);
@@ -1093,7 +1086,6 @@ BOOL isDieAnimation;
 
 - (void)pandaHurts {
     if ([KKGameData sharedGameData].numberOfLives > 0) {
-        SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
         isDieAnimation = NO;
         
         //play "oops" sound
@@ -1145,7 +1137,6 @@ BOOL isDieAnimation;
 }
 
 - (void)enemies:(NSMutableArray<SKSpriteNode *> *)enemiesArray withIdleAnimationKey:(NSString *)idleAnimationKey withHurtAnimation:(SKAction *)hurtAnimation {
-    SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
     for (int i = 0; i < [enemiesArray count]; i++) {
         for (int k = 0; k < [borders count]; k++) {
             
@@ -1244,8 +1235,6 @@ BOOL isDieAnimation;
 }
 
 - (void)spitMovingUpdate {
-    SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
-
     for (int i = 0; i < [flowersSpit count]; i++) {
         //Moving spits
         if (flowersSpit[i].xScale > 0) {
@@ -1268,7 +1257,6 @@ BOOL isDieAnimation;
 }
 
 - (void)flowersEnemies {
-    SKSpriteNode *panda = (SKSpriteNode *)[self childNodeWithName:@"Panda"];
     int i = 0;
     
     while (i < [flowers count]) {
@@ -1321,7 +1309,6 @@ BOOL isDieAnimation;
 
 - (void)exit {
     static NSTimeInterval lastCurrentTime = 0;
-    SKNode *panda = [self childNodeWithName:@"Panda"];
     SKEmitterNode *particleExit = (SKEmitterNode *)[self childNodeWithName:@"particleExit"];
     if ([littlePandas count] == 0) {
         particleExit.alpha = 1.0;
@@ -1592,8 +1579,6 @@ BOOL isDieAnimation;
 }
 
 - (void)accelerometerUpdate {
-    SKNode *panda = [self childNodeWithName:@"Panda"];
-    
     /* Set up the motion manager if necessary */
     if (!self.motionManager) {
         self.motionManager = [CMMotionManager new];
