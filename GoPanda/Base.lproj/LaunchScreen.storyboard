@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,43 +15,46 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="CRe-e5-abE">
-                                <frame key="frameInset" width="600" height="600"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Pandaload" translatesAutoresizingMaskIntoConstraints="NO" id="h1Q-TQ-vxo">
-                                <frame key="frameInset" minX="203" minY="175" width="195" height="250"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ile-Zp-7vp"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Pandaload" translatesAutoresizingMaskIntoConstraints="NO" id="uvQ-g0-YIT">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="195" id="5i0-gF-UgF"/>
-                                    <constraint firstAttribute="height" constant="250" id="w9w-fw-Xgr"/>
+                                    <constraint firstAttribute="width" constant="212" id="Cxv-fJ-vXR"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQ0-9V-pNi">
-                                <frame key="frameInset" minX="203" minY="425" width="195" height="36"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label autoresizesSubviews="NO" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwj-zg-Kl3">
+                                <attributedString key="attributedText">
+                                    <fragment content="Loading...">
+                                        <attributes>
+                                            <font key="NSFont" size="48" name="ChalkboardSE-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="CRe-e5-abE" secondAttribute="bottom" id="3tY-IN-a4v"/>
-                            <constraint firstItem="FQ0-9V-pNi" firstAttribute="width" secondItem="h1Q-TQ-vxo" secondAttribute="width" id="82L-1p-i3c"/>
-                            <constraint firstItem="h1Q-TQ-vxo" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="GMx-Au-BuG"/>
-                            <constraint firstItem="FQ0-9V-pNi" firstAttribute="top" secondItem="h1Q-TQ-vxo" secondAttribute="bottom" id="MPo-6I-wMZ"/>
-                            <constraint firstItem="h1Q-TQ-vxo" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="PLm-IL-4uH"/>
-                            <constraint firstItem="CRe-e5-abE" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="dF7-fZ-8Kg"/>
-                            <constraint firstItem="FQ0-9V-pNi" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ly5-3M-4Y8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="CRe-e5-abE" secondAttribute="trailing" constant="-20" id="rHz-YW-GFB"/>
-                            <constraint firstItem="CRe-e5-abE" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="unf-18-3AF"/>
+                            <constraint firstItem="uvQ-g0-YIT" firstAttribute="centerX" secondItem="ile-Zp-7vp" secondAttribute="centerX" id="0SZ-bh-YtR"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="uvQ-g0-YIT" secondAttribute="bottom" constant="57" id="6cx-2a-tQI"/>
+                            <constraint firstItem="nwj-zg-Kl3" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ez1-To-erq"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="ile-Zp-7vp" secondAttribute="bottom" id="NGJ-xy-6t7"/>
+                            <constraint firstItem="ile-Zp-7vp" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="S35-04-4g8"/>
+                            <constraint firstItem="uvQ-g0-YIT" firstAttribute="top" secondItem="ile-Zp-7vp" secondAttribute="top" id="Xnc-jA-qHe"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="nwj-zg-Kl3" secondAttribute="bottom" constant="6" id="cdw-X7-wQk"/>
+                            <constraint firstItem="uvQ-g0-YIT" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="ea2-C1-PoW"/>
+                            <constraint firstItem="uvQ-g0-YIT" firstAttribute="centerX" secondItem="nwj-zg-Kl3" secondAttribute="centerX" id="vxV-dm-aLY"/>
+                            <constraint firstAttribute="trailing" secondItem="ile-Zp-7vp" secondAttribute="trailing" id="wHC-1g-phR"/>
+                            <constraint firstItem="ile-Zp-7vp" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="wSE-j9-7sL"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="146.83098591549296" y="395.625"/>
         </scene>
     </scenes>
     <resources>
