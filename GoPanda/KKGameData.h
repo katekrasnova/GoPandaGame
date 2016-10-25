@@ -22,8 +22,6 @@
 @property (assign, nonatomic) BOOL isMusicON;
 @property (assign, nonatomic) BOOL isSoundON;
 
-@property (assign, nonatomic) BOOL isAccelerometerON;
-
 @property (assign, nonatomic) int currentLevel;
 @property (assign, nonatomic) int completeLevels;
 @property (assign, readonly) int numberOfLevels;

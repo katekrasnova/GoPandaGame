@@ -8,10 +8,10 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "CoreMotion/CoreMotion.h"
-#import "MotionHUD/MHMotionHUDScene.h"
+//#import "MotionHUD/MHMotionHUDScene.h"
 @import AVFoundation;
 
-@interface GameScene : MHMotionHUDScene <AVAudioPlayerDelegate>
+@interface GameScene : SKScene <AVAudioPlayerDelegate>
 
 @property (nonatomic) SKAction *runAnimation;
 @property (nonatomic) SKAction *jumpAnimation;

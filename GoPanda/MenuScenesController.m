@@ -14,7 +14,6 @@
 
 @interface MenuScenesController ()
 
-@property (nonatomic) BOOL accelerometerSetting;
 @property (assign) SystemSoundID clickSound;
 
 @end
@@ -60,14 +59,6 @@ BOOL isFirstCall;
     
     
     //For game settings scene /////////////////////////////////////////////////////////////////////////////////////////////
-    //accelerometer
-    SKSpriteNode *accelButton = (SKSpriteNode *)[self childNodeWithName:@"checkbutton"];
-    if ([KKGameData sharedGameData].isAccelerometerON == YES) {
-        accelButton.texture = [SKTexture textureWithImageNamed:@"checkbuttonon"];
-    }
-    else {
-        accelButton.texture = [SKTexture textureWithImageNamed:@"checkbuttonoff"];
-    }
     //Volume of music and sounds
     [self updateMusicVolumeLabelWithVolume:[KKGameData sharedGameData].musicVolume*1000];
     [self updateSoundsVolumeLabelWithVolume:[KKGameData sharedGameData].soundVolume*1000];
@@ -206,19 +197,6 @@ float tempVolumeSounds;
     
     
     //for Game Settings scene //////////////////////////////////////////////////////////////////////////////////////////////
-    //Accelerometer on and off button
-    if ([node.name isEqualToString:@"checkbutton"]) {
-        
-        //if ([KKGameData sharedGameData].isAccelerometerON == YES) {
-        if ([self image:[UIImage imageWithCGImage:node.texture.CGImage] isEqualTo:[UIImage imageNamed:@"checkbuttonon"]]) {
-            node.texture =  [SKTexture textureWithImageNamed:@"checkbuttonoff"];
-            _accelerometerSetting = NO;
-        }
-        else {
-            node.texture = [SKTexture textureWithImageNamed:@"checkbuttonon"];
-            _accelerometerSetting = YES;
-        }
-    }
     //Volume
     if ([node.name isEqualToString:@"musicminus"] || [node.name isEqualToString:@"musicplus"] || [node.name isEqualToString:@"soundsminus"] || [node.name isEqualToString:@"soundsplus"]) {
 
@@ -292,7 +270,6 @@ float tempVolumeSounds;
         else if ([node.name isEqualToString:@"oksettingsbutton"]) {
             [KKGameData sharedGameData].isMusicON = YES;
             [KKGameData sharedGameData].isSoundON = YES;
-            [KKGameData sharedGameData].isAccelerometerON = _accelerometerSetting;
             
             if (isMusicVolumeChange == YES) { [KKGameData sharedGameData].musicVolume = tempVolumeMusic; }
             if (isSoundsVolumeChange == YES) { [KKGameData sharedGameData].soundVolume = tempVolumeSounds; }

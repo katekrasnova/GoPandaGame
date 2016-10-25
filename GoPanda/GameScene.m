@@ -963,11 +963,6 @@ BOOL isSecondTouchJumpButton;
             }
         }
         
-        
-        if ([KKGameData sharedGameData].isAccelerometerON == YES) {
-            [self accelerometerUpdate];
-        }
-        
         // Score for coins
         for (int i = 0; i < [coins count]; i++) {
             if ([panda intersectsNode:coins[i]]) {
@@ -1574,43 +1569,6 @@ BOOL isDieAnimation;
         [self addChild:homeButton];
         [self addChild:levelsButton];
         [self addChild:restartButton];
-    }
-    
-}
-
-- (void)accelerometerUpdate {
-    /* Set up the motion manager if necessary */
-    if (!self.motionManager) {
-        self.motionManager = [CMMotionManager new];
-        self.motionManager.deviceMotionUpdateInterval = 0.1;
-        [self.motionManager startDeviceMotionUpdatesUsingReferenceFrame:CMAttitudeReferenceFrameXArbitraryZVertical];
-    }
-    
-    CMDeviceMotion *motion = self.motionManager.deviceMotion;
-    if (motion) {
-        CMAttitude *attitude = motion.attitude;
-        if ((attitude.pitch > -0.2) && (attitude.pitch < 0.0)) {
-            panda.xScale = 1.0*ABS(panda.xScale);
-            SKAction *rightAccelMove = [SKAction moveBy:CGVectorMake(1.0*kMoveSpeed*kHugeTime, 0) duration:kHugeTime];
-            [panda removeActionForKey:@"StayAnimation"];
-            [panda runAction:rightAccelMove withKey:@"MoveAction"];
-            [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
-        }
-        else if ((attitude.pitch < 0.2) && (attitude.pitch > 0.0)) {
-            panda.xScale = -1.0*ABS(panda.xScale);
-            SKAction *leftAccelMove = [SKAction moveBy:CGVectorMake(-1.0*kMoveSpeed*kHugeTime, 0) duration:kHugeTime];
-            [panda removeActionForKey:@"StayAnimation"];
-            [panda runAction:leftAccelMove withKey:@"MoveAction"];
-            [panda runAction:self.runAnimation withKey:@"MoveAnimation"];
-        }
-        else if ((attitude.pitch < 0.005) && (attitude.pitch > -0.005)) {
-            [panda removeActionForKey:@"MoveAnimation"];
-            [panda removeActionForKey:@"MoveAction"];
-            [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
-        }
-    }
-    else {
-        [panda runAction:self.idleAnimation withKey:@"StayAnimation"];
     }
 }
 
