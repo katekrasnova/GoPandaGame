@@ -629,7 +629,7 @@ SKSpriteNode *pauseLevelsButton;
 }
 
 const int kMoveSpeed = 200;
-static const NSTimeInterval kHugeTime = 9999.0;
+//static const NSTimeInterval kHugeTime = 9999.0;
 
 BOOL isLeftMoveButton;
 BOOL isRightMoveButton;
