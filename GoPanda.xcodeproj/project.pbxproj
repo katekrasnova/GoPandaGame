@@ -40,6 +40,7 @@
 		D160979F1D78069100607FA5 /* pickupheart.wav in Resources */ = {isa = PBXBuildFile; fileRef = D160979E1D78069100607FA5 /* pickupheart.wav */; };
 		D16097A11D78454300607FA5 /* lose_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D16097A01D78454300607FA5 /* lose_sound.mp3 */; };
 		D1684F971DD9C0420040510B /* Panda.m in Sources */ = {isa = PBXBuildFile; fileRef = D1684F961DD9C0420040510B /* Panda.m */; };
+		D1684F9A1DDA18BF0040510B /* HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D1684F991DDA18BF0040510B /* HUD.m */; };
 		D168BEF61D7F633F00361BEB /* win_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = D168BEF51D7F633F00361BEB /* win_sound.wav */; };
 		D175AE1E1DB16E19006F9E61 /* Level5Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */; };
 		D175AE201DB4E2A9006F9E61 /* Level6Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE1F1DB4E2A9006F9E61 /* Level6Scene.sks */; };
@@ -121,6 +122,8 @@
 		D16097A01D78454300607FA5 /* lose_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose_sound.mp3; sourceTree = "<group>"; };
 		D1684F951DD9C0420040510B /* Panda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panda.h; sourceTree = "<group>"; };
 		D1684F961DD9C0420040510B /* Panda.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Panda.m; sourceTree = "<group>"; };
+		D1684F981DDA18BF0040510B /* HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HUD.h; sourceTree = "<group>"; };
+		D1684F991DDA18BF0040510B /* HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HUD.m; sourceTree = "<group>"; };
 		D168BEF51D7F633F00361BEB /* win_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win_sound.wav; sourceTree = "<group>"; };
 		D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5Scene.sks; sourceTree = "<group>"; };
 		D175AE1F1DB4E2A9006F9E61 /* Level6Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level6Scene.sks; sourceTree = "<group>"; };
@@ -305,6 +308,8 @@
 				D15461621D07294800127DB3 /* GameScene.m */,
 				D1684F951DD9C0420040510B /* Panda.h */,
 				D1684F961DD9C0420040510B /* Panda.m */,
+				D1684F981DDA18BF0040510B /* HUD.h */,
+				D1684F991DDA18BF0040510B /* HUD.m */,
 			);
 			name = GameScene;
 			sourceTree = "<group>";
@@ -542,6 +547,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D1684F971DD9C0420040510B /* Panda.m in Sources */,
+				D1684F9A1DDA18BF0040510B /* HUD.m in Sources */,
 				D15461681D07294800127DB3 /* GameViewController.m in Sources */,
 				D19866091D5C91390015C937 /* MenuScenesController.m in Sources */,
 				D15379741D2BACB7004411E7 /* KKGameData.m in Sources */,
