@@ -15,7 +15,6 @@
 
 @interface GameScene : SKScene <AVAudioPlayerDelegate>
 
-@property (strong, nonatomic) Panda *panda;
 @property (nonatomic) SKAction *coinAnimation;
 @property (nonatomic) SKAction *blueSnailIdleAnimation;
 @property (nonatomic) SKAction *blueSnailHurtAnimation;
