@@ -8,16 +8,18 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "CoreMotion/CoreMotion.h"
+#import "Panda.h"
 //#import "MotionHUD/MHMotionHUDScene.h"
 @import AVFoundation;
 
 @interface GameScene : SKScene <AVAudioPlayerDelegate>
 
-@property (nonatomic) SKAction *runAnimation;
-@property (nonatomic) SKAction *jumpAnimation;
-@property (nonatomic) SKAction *idleAnimation;
-@property (nonatomic) SKAction *hurtAnimation;
-@property (nonatomic) SKAction *dieAnimation;
+//@property (nonatomic) SKAction *runAnimation;//Delete
+//@property (nonatomic) SKAction *jumpAnimation;//Delete
+//@property (nonatomic) SKAction *idleAnimation;//Delete
+//@property (nonatomic) SKAction *hurtAnimation;//Delete
+//@property (nonatomic) SKAction *dieAnimation; //Delete
+@property (strong, nonatomic) Panda *panda;
 @property (nonatomic) SKAction *coinAnimation;
 @property (nonatomic) SKAction *blueSnailIdleAnimation;
 @property (nonatomic) SKAction *blueSnailHurtAnimation;

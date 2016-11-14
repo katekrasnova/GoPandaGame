@@ -10,10 +10,6 @@
 		D11391B31D93F39A0023F45C /* Level2Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D11391B21D93F39A0023F45C /* Level2Scene.sks */; };
 		D11391B51D93F3AB0023F45C /* Level3Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D11391B41D93F3AB0023F45C /* Level3Scene.sks */; };
 		D12FF8131D0D5B8800AE8128 /* GameInfo.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF8121D0D5B8800AE8128 /* GameInfo.sks */; };
-		D12FF8181D0D610900AE8128 /* GameWin.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF8171D0D610900AE8128 /* GameWin.sks */; };
-		D12FF81B1D0D612300AE8128 /* GameWin.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF81A1D0D612300AE8128 /* GameWin.m */; };
-		D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */ = {isa = PBXBuildFile; fileRef = D12FF81C1D0D613300AE8128 /* GameLose.sks */; };
-		D12FF8201D0D614900AE8128 /* GameLose.m in Sources */ = {isa = PBXBuildFile; fileRef = D12FF81F1D0D614900AE8128 /* GameLose.m */; };
 		D141033A1DBA58A000377D7C /* Level11Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D14103391DBA58A000377D7C /* Level11Scene.sks */; };
 		D141033C1DBA71A700377D7C /* Level12Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D141033B1DBA71A700377D7C /* Level12Scene.sks */; };
 		D141033E1DBA94C500377D7C /* Level13Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D141033D1DBA94C500377D7C /* Level13Scene.sks */; };
@@ -33,6 +29,7 @@
 		D15461941D072E4600127DB3 /* GameStart.sks in Resources */ = {isa = PBXBuildFile; fileRef = D15461931D072E4600127DB3 /* GameStart.sks */; };
 		D1566F721D362BA800A79A4A /* GameLevels.sks in Resources */ = {isa = PBXBuildFile; fileRef = D1566F711D362BA800A79A4A /* GameLevels.sks */; };
 		D156F3481D07FDEF00C3282B /* GameSettings.sks in Resources */ = {isa = PBXBuildFile; fileRef = D156F3471D07FDEF00C3282B /* GameSettings.sks */; };
+		D1572BA71DC87D4400BA9BF6 /* savePanda.wav in Resources */ = {isa = PBXBuildFile; fileRef = D1572BA61DC87D4400BA9BF6 /* savePanda.wav */; };
 		D157518C1D37DAA30075A4B0 /* ParticleExit.sks in Resources */ = {isa = PBXBuildFile; fileRef = D157518A1D37DAA30075A4B0 /* ParticleExit.sks */; };
 		D157518D1D37DAA30075A4B0 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = D157518B1D37DAA30075A4B0 /* spark.png */; };
 		D16097931D63AE9500607FA5 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = D16097921D63AE9400607FA5 /* click.wav */; };
@@ -42,6 +39,7 @@
 		D160979D1D67039C00607FA5 /* jumpland.wav in Resources */ = {isa = PBXBuildFile; fileRef = D160979C1D67039C00607FA5 /* jumpland.wav */; };
 		D160979F1D78069100607FA5 /* pickupheart.wav in Resources */ = {isa = PBXBuildFile; fileRef = D160979E1D78069100607FA5 /* pickupheart.wav */; };
 		D16097A11D78454300607FA5 /* lose_sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = D16097A01D78454300607FA5 /* lose_sound.mp3 */; };
+		D1684F971DD9C0420040510B /* Panda.m in Sources */ = {isa = PBXBuildFile; fileRef = D1684F961DD9C0420040510B /* Panda.m */; };
 		D168BEF61D7F633F00361BEB /* win_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = D168BEF51D7F633F00361BEB /* win_sound.wav */; };
 		D175AE1E1DB16E19006F9E61 /* Level5Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */; };
 		D175AE201DB4E2A9006F9E61 /* Level6Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE1F1DB4E2A9006F9E61 /* Level6Scene.sks */; };
@@ -82,12 +80,6 @@
 		D11391B21D93F39A0023F45C /* Level2Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2Scene.sks; sourceTree = "<group>"; };
 		D11391B41D93F3AB0023F45C /* Level3Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3Scene.sks; sourceTree = "<group>"; };
 		D12FF8121D0D5B8800AE8128 /* GameInfo.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameInfo.sks; sourceTree = "<group>"; };
-		D12FF8171D0D610900AE8128 /* GameWin.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameWin.sks; sourceTree = "<group>"; };
-		D12FF8191D0D612300AE8128 /* GameWin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameWin.h; sourceTree = "<group>"; };
-		D12FF81A1D0D612300AE8128 /* GameWin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameWin.m; sourceTree = "<group>"; };
-		D12FF81C1D0D613300AE8128 /* GameLose.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameLose.sks; sourceTree = "<group>"; };
-		D12FF81E1D0D614900AE8128 /* GameLose.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameLose.h; sourceTree = "<group>"; };
-		D12FF81F1D0D614900AE8128 /* GameLose.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameLose.m; sourceTree = "<group>"; };
 		D14103391DBA58A000377D7C /* Level11Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level11Scene.sks; sourceTree = "<group>"; };
 		D141033B1DBA71A700377D7C /* Level12Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level12Scene.sks; sourceTree = "<group>"; };
 		D141033D1DBA94C500377D7C /* Level13Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level13Scene.sks; sourceTree = "<group>"; };
@@ -117,6 +109,7 @@
 		D15461931D072E4600127DB3 /* GameStart.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameStart.sks; sourceTree = "<group>"; };
 		D1566F711D362BA800A79A4A /* GameLevels.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameLevels.sks; sourceTree = "<group>"; };
 		D156F3471D07FDEF00C3282B /* GameSettings.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameSettings.sks; sourceTree = "<group>"; };
+		D1572BA61DC87D4400BA9BF6 /* savePanda.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = savePanda.wav; sourceTree = "<group>"; };
 		D157518A1D37DAA30075A4B0 /* ParticleExit.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = ParticleExit.sks; sourceTree = "<group>"; };
 		D157518B1D37DAA30075A4B0 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
 		D16097921D63AE9400607FA5 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = "<group>"; };
@@ -126,6 +119,8 @@
 		D160979C1D67039C00607FA5 /* jumpland.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = jumpland.wav; sourceTree = "<group>"; };
 		D160979E1D78069100607FA5 /* pickupheart.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = pickupheart.wav; sourceTree = "<group>"; };
 		D16097A01D78454300607FA5 /* lose_sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = lose_sound.mp3; sourceTree = "<group>"; };
+		D1684F951DD9C0420040510B /* Panda.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panda.h; sourceTree = "<group>"; };
+		D1684F961DD9C0420040510B /* Panda.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Panda.m; sourceTree = "<group>"; };
 		D168BEF51D7F633F00361BEB /* win_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win_sound.wav; sourceTree = "<group>"; };
 		D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5Scene.sks; sourceTree = "<group>"; };
 		D175AE1F1DB4E2A9006F9E61 /* Level6Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level6Scene.sks; sourceTree = "<group>"; };
@@ -239,36 +234,20 @@
 			isa = PBXGroup;
 			children = (
 				D198660A1D5C95660015C937 /* Scenes */,
-				D1516FB11D36478F002DE76C /* Level scenes */,
-				D15461611D07294800127DB3 /* GameScene.h */,
-				D15461621D07294800127DB3 /* GameScene.m */,
+				D1684F941DD9BC4E0040510B /* GameScene */,
 				D15379721D2BACB7004411E7 /* KKGameData.h */,
 				D15379731D2BACB7004411E7 /* KKGameData.m */,
 				D19866071D5C91390015C937 /* MenuScenesController.h */,
 				D19866081D5C91390015C937 /* MenuScenesController.m */,
 				D15461661D07294800127DB3 /* GameViewController.h */,
 				D15461671D07294800127DB3 /* GameViewController.m */,
-				D12FF8191D0D612300AE8128 /* GameWin.h */,
-				D12FF81A1D0D612300AE8128 /* GameWin.m */,
-				D12FF81E1D0D614900AE8128 /* GameLose.h */,
-				D12FF81F1D0D614900AE8128 /* GameLose.m */,
 				D154615E1D07294800127DB3 /* AppDelegate.h */,
 				D154615F1D07294800127DB3 /* AppDelegate.m */,
 				D15461691D07294800127DB3 /* Main.storyboard */,
 				D154616E1D07294800127DB3 /* LaunchScreen.storyboard */,
 				D154616C1D07294800127DB3 /* Assets.xcassets */,
 				D15461711D07294800127DB3 /* Info.plist */,
-				D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */,
-				D19865FF1D5377B70015C937 /* menuTheme.mp3 */,
-				D16097941D66EAB900607FA5 /* oops.wav */,
-				D16097A01D78454300607FA5 /* lose_sound.mp3 */,
-				D168BEF51D7F633F00361BEB /* win_sound.wav */,
-				D16097981D66F24900607FA5 /* coin.wav */,
-				D160979E1D78069100607FA5 /* pickupheart.wav */,
-				D160979C1D67039C00607FA5 /* jumpland.wav */,
-				D160979A1D6702B900607FA5 /* spitting.wav */,
-				D16097921D63AE9400607FA5 /* click.wav */,
-				D17EA8661D4B9CBC003DB8C2 /* click1.wav */,
+				D1684F931DD9BB980040510B /* Sounds */,
 				D154615B1D07294800127DB3 /* Supporting Files */,
 			);
 			path = GoPanda;
@@ -300,16 +279,45 @@
 			path = GoPandaUITests;
 			sourceTree = "<group>";
 		};
+		D1684F931DD9BB980040510B /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				D17EA8681D4B9CC8003DB8C2 /* mainTheme.mp3 */,
+				D19865FF1D5377B70015C937 /* menuTheme.mp3 */,
+				D16097941D66EAB900607FA5 /* oops.wav */,
+				D16097A01D78454300607FA5 /* lose_sound.mp3 */,
+				D168BEF51D7F633F00361BEB /* win_sound.wav */,
+				D16097981D66F24900607FA5 /* coin.wav */,
+				D160979E1D78069100607FA5 /* pickupheart.wav */,
+				D1572BA61DC87D4400BA9BF6 /* savePanda.wav */,
+				D160979C1D67039C00607FA5 /* jumpland.wav */,
+				D160979A1D6702B900607FA5 /* spitting.wav */,
+				D16097921D63AE9400607FA5 /* click.wav */,
+				D17EA8661D4B9CBC003DB8C2 /* click1.wav */,
+			);
+			name = Sounds;
+			sourceTree = "<group>";
+		};
+		D1684F941DD9BC4E0040510B /* GameScene */ = {
+			isa = PBXGroup;
+			children = (
+				D15461611D07294800127DB3 /* GameScene.h */,
+				D15461621D07294800127DB3 /* GameScene.m */,
+				D1684F951DD9C0420040510B /* Panda.h */,
+				D1684F961DD9C0420040510B /* Panda.m */,
+			);
+			name = GameScene;
+			sourceTree = "<group>";
+		};
 		D198660A1D5C95660015C937 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				D1516FB11D36478F002DE76C /* Level scenes */,
 				D15461931D072E4600127DB3 /* GameStart.sks */,
 				D156F3471D07FDEF00C3282B /* GameSettings.sks */,
 				D15286EF1D089A7400C948CB /* GameAchievement.sks */,
 				D1566F711D362BA800A79A4A /* GameLevels.sks */,
 				D12FF8121D0D5B8800AE8128 /* GameInfo.sks */,
-				D12FF8171D0D610900AE8128 /* GameWin.sks */,
-				D12FF81C1D0D613300AE8128 /* GameLose.sks */,
 			);
 			name = Scenes;
 			sourceTree = "<group>";
@@ -379,12 +387,13 @@
 		D15461501D07294800127DB3 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Ekaterina Krasnova";
 				TargetAttributes = {
 					D15461571D07294800127DB3 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = VFT96SPKF7;
+						ProvisioningStyle = Automatic;
 					};
 					D15461751D07294900127DB3 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -430,11 +439,11 @@
 				D16097991D66F24900607FA5 /* coin.wav in Resources */,
 				D160979F1D78069100607FA5 /* pickupheart.wav in Resources */,
 				D141033A1DBA58A000377D7C /* Level11Scene.sks in Resources */,
-				D12FF8181D0D610900AE8128 /* GameWin.sks in Resources */,
 				D1F27E0B1D98F89F00DF7FD2 /* Level8Scene.sks in Resources */,
 				D12FF8131D0D5B8800AE8128 /* GameInfo.sks in Resources */,
 				D16097931D63AE9500607FA5 /* click.wav in Resources */,
 				D16097951D66EAB900607FA5 /* oops.wav in Resources */,
+				D1572BA71DC87D4400BA9BF6 /* savePanda.wav in Resources */,
 				D160979B1D6702B900607FA5 /* spitting.wav in Resources */,
 				D1F27E0A1D98F89F00DF7FD2 /* Level7Scene.sks in Resources */,
 				D168BEF61D7F633F00361BEB /* win_sound.wav in Resources */,
@@ -448,7 +457,6 @@
 				D16097A11D78454300607FA5 /* lose_sound.mp3 in Resources */,
 				D175AE221DB90AE6006F9E61 /* Level10Scene.sks in Resources */,
 				D1F27DFA1D98F89100DF7FD2 /* Level1Scene.sks in Resources */,
-				D12FF81D1D0D613300AE8128 /* GameLose.sks in Resources */,
 				D1566F721D362BA800A79A4A /* GameLevels.sks in Resources */,
 				D11391B51D93F3AB0023F45C /* Level3Scene.sks in Resources */,
 				D17EA8671D4B9CBC003DB8C2 /* click1.wav in Resources */,
@@ -533,14 +541,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1684F971DD9C0420040510B /* Panda.m in Sources */,
 				D15461681D07294800127DB3 /* GameViewController.m in Sources */,
 				D19866091D5C91390015C937 /* MenuScenesController.m in Sources */,
 				D15379741D2BACB7004411E7 /* KKGameData.m in Sources */,
 				D15461601D07294800127DB3 /* AppDelegate.m in Sources */,
-				D12FF8201D0D614900AE8128 /* GameLose.m in Sources */,
 				D15461631D07294800127DB3 /* GameScene.m in Sources */,
 				D154615D1D07294800127DB3 /* main.m in Sources */,
-				D12FF81B1D0D612300AE8128 /* GameWin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -609,8 +616,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -632,7 +641,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -654,8 +663,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -671,7 +682,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -685,8 +696,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = VFT96SPKF7;
 				INFOPLIST_FILE = GoPanda/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPanda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -700,8 +713,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = VFT96SPKF7;
 				INFOPLIST_FILE = GoPanda/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = novaK.GoPanda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
