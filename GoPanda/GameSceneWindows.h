@@ -1,5 +1,5 @@
 //
-//  PauseWindow.h
+//  GameSceneWindows.h
 //  GoPanda
 //
 //  Created by Ekaterina Krasnova on 14/11/2016.
@@ -10,7 +10,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "KKGameData.h"
 
-@interface PauseWindow : NSObject
+@interface GameSceneWindows : NSObject
 
 @property (strong, nonatomic) SKSpriteNode *pauseWindow;
 @property (strong, nonatomic) SKLabelNode *pausedLabel;
@@ -23,5 +23,7 @@
 
 - (void)setupPauseWindowForScene:(SKScene *)scene withCamera:(SKCameraNode *)camera;
 - (void)removePauseWindow;
+- (void)setupLoseWindowForScene:(SKScene *)scene withCamera:(SKCameraNode *)camera;
+- (void)setupWinWindowForScene:(SKScene *)scene withCamera:(SKCameraNode *)camera winTime:(long)t winScore:(long)k andPickedUpStars:(NSMutableArray *)stars;
 
 @end

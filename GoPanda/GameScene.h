@@ -12,7 +12,7 @@
 #import "Panda.h"
 #import "HUD.h"
 #import "GameItems.h"
-#import "PauseWindow.h"
+#import "GameSceneWindows.h"
 
 @interface GameScene : SKScene <AVAudioPlayerDelegate>
 

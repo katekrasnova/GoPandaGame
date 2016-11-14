@@ -32,7 +32,7 @@ int level;
 HUD *hud;
 Panda *panda;
 GameItems *items;
-PauseWindow *pauseWindow;
+GameSceneWindows *windowController;
 
 SKNode *exitSign;
 SKCameraNode *camera;
@@ -207,7 +207,7 @@ NSMutableArray *soundsArray;
     hud.littlePandaScore.text = @"x 3";
     
     //Init pause window
-    pauseWindow = [[PauseWindow alloc]init];
+    windowController = [[GameSceneWindows alloc]init];
     
     items = [[GameItems alloc]init];
     [items setupItemsForScene:self];
@@ -404,12 +404,12 @@ BOOL isSecondTouchJumpButton;
     //Touch Pause Button
     if ([node.name isEqualToString:@"pauseButton"] && !isExit) {
         if (isPause) {
-            [pauseWindow removePauseWindow];
+            [windowController removePauseWindow];
             hud.pauseButton.texture = [SKTexture textureWithImageNamed:@"pauseButtonOff"];
             isPause = NO;
         }
         else {
-            [pauseWindow setupPauseWindowForScene:self withCamera:camera];
+            [windowController setupPauseWindowForScene:self withCamera:camera];
             hud.pauseButton.texture = [SKTexture textureWithImageNamed:@"pauseButtonOn"];
             isPause = YES;
         }
@@ -1112,164 +1112,11 @@ BOOL isSecondTouchJumpButton;
         }
         [[KKGameData sharedGameData] save];
         
-        SKSpriteNode *windowWin = [SKSpriteNode spriteNodeWithImageNamed:@"windowwin"];
-        windowWin.zPosition = 1000;
-        windowWin.position = CGPointMake(camera.position.x, 410);
-        windowWin.scale = 0.8;
+        [windowController setupWinWindowForScene:self withCamera:camera winTime:t winScore:k andPickedUpStars:items.pickUpStars];
         
-        SKLabelNode *completeLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
-        completeLabel.fontSize = 30.0;
-        completeLabel.position = CGPointMake(camera.position.x, 598);
-        completeLabel.zPosition = 1001;
-        completeLabel.fontColor = [SKColor whiteColor];
-        completeLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-        completeLabel.text = @"Level Complete";
-        
-        SKLabelNode *scoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
-        scoreLabel.fontSize = 32.0;
-        scoreLabel.position = CGPointMake(camera.position.x - 108, 360);
-        scoreLabel.zPosition = 1001;
-        scoreLabel.fontColor = [SKColor blueColor];
-        scoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-        scoreLabel.text = @"Score";
-        
-        SKLabelNode *totalScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
-        totalScoreLabel.fontSize = 32.0;
-        totalScoreLabel.position = CGPointMake(camera.position.x + 20, 360);
-        totalScoreLabel.zPosition = 1001;
-        totalScoreLabel.fontColor = [SKColor whiteColor];
-        totalScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
-        totalScoreLabel.text = [NSString stringWithFormat:@"%ld",k];
-        
-        SKLabelNode *timeLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
-        timeLabel.fontSize = 32.0;
-        timeLabel.position = CGPointMake(camera.position.x - 108, 280);
-        timeLabel.zPosition = 1001;
-        timeLabel.fontColor = [SKColor blueColor];
-        timeLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-        timeLabel.text = @"Time";
-        
-        SKSpriteNode *clock = [SKSpriteNode spriteNodeWithImageNamed:@"clock"];
-        clock.zPosition = 1000;
-        clock.position = CGPointMake(camera.position.x - 14, 290);
-        clock.scale = 0.8;
-        
-        SKLabelNode *timeScoreLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
-        timeScoreLabel.fontSize = 32.0;
-        timeScoreLabel.position = CGPointMake(camera.position.x + 25, 280);
-        timeScoreLabel.zPosition = 1001;
-        timeScoreLabel.fontColor = [SKColor whiteColor];
-        timeScoreLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeLeft;
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"mm:ss"];
-        NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:t];
-        timeScoreLabel.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:date]];
-        
-        SKSpriteNode *homeButton = [SKSpriteNode spriteNodeWithImageNamed:@"homebutton"];
-        homeButton.zPosition = 1001;
-        homeButton.position = CGPointMake(camera.position.x - 112, 179);
-        homeButton.scale = 0.6;
-        homeButton.name = @"homebutton";
-        
-        SKSpriteNode *levelsButton = [SKSpriteNode spriteNodeWithImageNamed:@"levelsbutton"];
-        levelsButton.zPosition = 1001;
-        levelsButton.position = CGPointMake(camera.position.x - 2, 179);
-        levelsButton.scale = 0.6;
-        levelsButton.name = @"levelsbutton";
-        
-        SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithImageNamed:@"playbuttonsmall"];
-        playButton.zPosition = 1001;
-        playButton.position = CGPointMake(camera.position.x + 108, 179);
-        playButton.scale = 0.6;
-        playButton.name = @"playbutton";
-        
-        [self addChild:windowWin];
-        [self addChild:completeLabel];
-        [self addChild:scoreLabel];
-        [self addChild:totalScoreLabel];
-        [self addChild:timeLabel];
-        [self addChild:timeScoreLabel];
-        [self addChild:clock];
-        [self addChild:homeButton];
-        [self addChild:levelsButton];
-        [self addChild:playButton];
-        
-
-        if ([items.pickUpStars count] < 3) {
-            SKSpriteNode *star1 = [SKSpriteNode spriteNodeWithImageNamed:@"starsmall"];
-            star1.zPosition = 1001;
-            star1.position = CGPointMake(camera.position.x - 104.5, 472);
-            [self addChild:star1];
-            
-            if ([items.pickUpStars count] < 2) {
-                SKSpriteNode *star2 = [SKSpriteNode spriteNodeWithImageNamed:@"starbig"];
-                star2.zPosition = 1001;
-                star2.position = CGPointMake(camera.position.x - 10, 505);
-                [self addChild:star2];
-                
-                if ([items.pickUpStars count] < 1) {
-                    SKSpriteNode *star3 = [SKSpriteNode spriteNodeWithImageNamed:@"starsmall"];
-                    star3.zPosition = 1001;
-                    star3.position = CGPointMake(camera.position.x + 89, 472);
-                    [self addChild:star3];
-                }
-            }
-        }
     }
-    
     else if (endReason == kEndReasonLose) {
-        
-        SKSpriteNode *windowLose = [SKSpriteNode spriteNodeWithImageNamed:@"windowlose"];
-        windowLose.zPosition = 1000;
-        windowLose.position = CGPointMake(camera.position.x, 385);
-        windowLose.scale = 0.8;
-        
-        SKSpriteNode *tapeLose = [SKSpriteNode spriteNodeWithImageNamed:@"tapelose"];
-        tapeLose.zPosition = 1001;
-        tapeLose.position = CGPointMake(camera.position.x, 591);
-        tapeLose.scale = 0.8;
-        
-        SKLabelNode *failedLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
-        failedLabel.fontSize = 39.0;
-        failedLabel.position = CGPointMake(camera.position.x, 593);
-        failedLabel.zPosition = 1002;
-        failedLabel.fontColor = [SKColor whiteColor];
-        failedLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-        failedLabel.text = @"Level Failed";
-        
-        SKLabelNode *loseLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
-        loseLabel.fontSize = 53.0;
-        loseLabel.position = CGPointMake(camera.position.x, 394);
-        loseLabel.zPosition = 1001;
-        loseLabel.fontColor = [SKColor blackColor];
-        loseLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-        loseLabel.text = @"You Lose";
-        
-        SKSpriteNode *homeButton = [SKSpriteNode spriteNodeWithImageNamed:@"homebutton"];
-        homeButton.zPosition = 1001;
-        homeButton.position = CGPointMake(camera.position.x - 112, 183);
-        homeButton.scale = 0.6;
-        homeButton.name = @"homebutton";
-        
-        SKSpriteNode *levelsButton = [SKSpriteNode spriteNodeWithImageNamed:@"levelsbutton"];
-        levelsButton.zPosition = 1001;
-        levelsButton.position = CGPointMake(camera.position.x - 2, 183);
-        levelsButton.scale = 0.6;
-        levelsButton.name = @"levelsbutton";
-        
-        SKSpriteNode *restartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restartbutton"];
-        restartButton.zPosition = 1001;
-        restartButton.position = CGPointMake(camera.position.x + 108, 183);
-        restartButton.scale = 0.6;
-        restartButton.name = @"restartbutton";
-        
-        [self addChild:windowLose];
-        [self addChild:tapeLose];
-        [self addChild:failedLabel];
-        [self addChild:loseLabel];
-        [self addChild:homeButton];
-        [self addChild:levelsButton];
-        [self addChild:restartButton];
+        [windowController setupLoseWindowForScene:self withCamera:camera];
     }
 }
 
