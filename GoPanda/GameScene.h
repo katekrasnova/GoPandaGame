@@ -13,6 +13,7 @@
 #import "HUD.h"
 #import "GameItems.h"
 #import "GameSceneWindows.h"
+#import "LittlePandas.h"
 
 @interface GameScene : SKScene <AVAudioPlayerDelegate>
 
@@ -25,8 +26,8 @@
 @property (nonatomic) SKAction *flowerIdleAnimation;
 @property (nonatomic) SKAction *flowerHurtAnimation;
 @property (nonatomic) SKAction *flowerAttackAnimation;
-@property (nonatomic) SKAction *littlePandaEat;
-@property (nonatomic) SKAction *littlePandaSleep;
-@property (nonatomic) SKAction *littlePandaMove;
+//@property (nonatomic) SKAction *littlePandaEat;
+//@property (nonatomic) SKAction *littlePandaSleep;
+//@property (nonatomic) SKAction *littlePandaMove;
 
 @end

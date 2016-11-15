@@ -145,6 +145,7 @@
 }
 
 - (void)setupWinWindowForScene:(SKScene *)scene withCamera:(SKCameraNode *)camera winTime:(long)t winScore:(long)k andPickedUpStars:(NSMutableArray *)stars {
+    
     SKSpriteNode *windowWin = [SKSpriteNode spriteNodeWithImageNamed:@"windowwin"];
     windowWin.zPosition = 1000;
     windowWin.position = CGPointMake(camera.position.x, 410);
@@ -248,8 +249,41 @@
             }
         }
     }
-
 }
+
+- (void)addAchievement:(NSString *)achievement forScene:(SKScene *)scene withCamera:(SKCameraNode *)camera{
+    
+    SKSpriteNode *achievementBadge = [SKSpriteNode spriteNodeWithImageNamed:achievement];
+    achievementBadge.zPosition = 1010;
+    achievementBadge.position = CGPointMake(camera.position.x + 214.637, 365);
+    achievementBadge.scale = 0.5;
+    achievementBadge.alpha = 1.0;
+    [scene addChild:achievementBadge];
+    
+    SKLabelNode *newLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
+    newLabel.fontSize = 40.0;
+    newLabel.position = CGPointMake(camera.position.x + 288.602, 484.414);
+    newLabel.zPosition = 1010;
+    newLabel.fontColor = [SKColor redColor];
+    newLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    newLabel.text = @"New";
+    newLabel.zRotation = 326;
+    newLabel.alpha = 1.0;
+    [scene addChild:newLabel];
+    
+    SKLabelNode *achievementLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
+    achievementLabel.fontSize = 40.0;
+    achievementLabel.position = CGPointMake(camera.position.x +  266.253, 446.547);
+    achievementLabel.zPosition = 1010;
+    achievementLabel.fontColor = [SKColor redColor];
+    achievementLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
+    achievementLabel.text = @"Achievement!";
+    achievementLabel.zRotation = 326;
+    achievementLabel.alpha = 1.0;
+    [scene addChild:achievementLabel];
+}
+
+
 
 @end
 
