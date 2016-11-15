@@ -46,6 +46,7 @@
 		D1684FA31DDAF75A0040510B /* LittlePandas.m in Sources */ = {isa = PBXBuildFile; fileRef = D1684FA21DDAF7590040510B /* LittlePandas.m */; };
 		D1684FA61DDAFDA40040510B /* SoundController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1684FA51DDAFDA40040510B /* SoundController.m */; };
 		D1684FA91DDB03380040510B /* Enemies.m in Sources */ = {isa = PBXBuildFile; fileRef = D1684FA81DDB03380040510B /* Enemies.m */; };
+		D1684FAC1DDB121A0040510B /* Tiles.m in Sources */ = {isa = PBXBuildFile; fileRef = D1684FAB1DDB121A0040510B /* Tiles.m */; };
 		D168BEF61D7F633F00361BEB /* win_sound.wav in Resources */ = {isa = PBXBuildFile; fileRef = D168BEF51D7F633F00361BEB /* win_sound.wav */; };
 		D175AE1E1DB16E19006F9E61 /* Level5Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */; };
 		D175AE201DB4E2A9006F9E61 /* Level6Scene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D175AE1F1DB4E2A9006F9E61 /* Level6Scene.sks */; };
@@ -139,6 +140,8 @@
 		D1684FA51DDAFDA40040510B /* SoundController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundController.m; sourceTree = "<group>"; };
 		D1684FA71DDB03380040510B /* Enemies.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Enemies.h; sourceTree = "<group>"; };
 		D1684FA81DDB03380040510B /* Enemies.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Enemies.m; sourceTree = "<group>"; };
+		D1684FAA1DDB121A0040510B /* Tiles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tiles.h; sourceTree = "<group>"; };
+		D1684FAB1DDB121A0040510B /* Tiles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tiles.m; sourceTree = "<group>"; };
 		D168BEF51D7F633F00361BEB /* win_sound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win_sound.wav; sourceTree = "<group>"; };
 		D175AE1D1DB16E19006F9E61 /* Level5Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5Scene.sks; sourceTree = "<group>"; };
 		D175AE1F1DB4E2A9006F9E61 /* Level6Scene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level6Scene.sks; sourceTree = "<group>"; };
@@ -335,6 +338,8 @@
 				D1684F9F1DDA2C9C0040510B /* GameSceneWindows.m */,
 				D1684FA41DDAFDA40040510B /* SoundController.h */,
 				D1684FA51DDAFDA40040510B /* SoundController.m */,
+				D1684FAA1DDB121A0040510B /* Tiles.h */,
+				D1684FAB1DDB121A0040510B /* Tiles.m */,
 			);
 			name = GameScene;
 			sourceTree = "<group>";
@@ -576,6 +581,7 @@
 				D1684F9A1DDA18BF0040510B /* HUD.m in Sources */,
 				D15461681D07294800127DB3 /* GameViewController.m in Sources */,
 				D19866091D5C91390015C937 /* MenuScenesController.m in Sources */,
+				D1684FAC1DDB121A0040510B /* Tiles.m in Sources */,
 				D1684FA61DDAFDA40040510B /* SoundController.m in Sources */,
 				D1684FA91DDB03380040510B /* Enemies.m in Sources */,
 				D15379741D2BACB7004411E7 /* KKGameData.m in Sources */,

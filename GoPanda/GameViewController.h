@@ -12,8 +12,6 @@
 
 @interface GameViewController : UIViewController <AVAudioPlayerDelegate>
 
-//@property (nonatomic, retain) AVAudioPlayer *theAudio;
-
 - (void) playMenuBackgroundMusic;
 - (void) stopMenuBackgroundMusic;
 - (void) playClickSoundWithVolume:(float)volume;

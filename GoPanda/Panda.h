@@ -11,8 +11,6 @@
 
 @interface Panda : SKSpriteNode
 
-//Sprite Node for Panda
-//@property (strong, nonatomic) SKSpriteNode *panda;
 //Animations for Panda
 @property (strong, nonatomic) SKAction *runAnimation;
 @property (strong, nonatomic) SKAction *jumpAnimation;

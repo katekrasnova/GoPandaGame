@@ -30,5 +30,5 @@
 
 - (void)setupEnemiesArraysForScene:(SKScene *)scene;
 - (SKAction *) attackAnimationForFlower:(SKSpriteNode *)flower inScene:(SKScene *)scene;
-- (void)flowersSpitMovingWithExitSign:(SKNode *)exitSign;
+
 @end

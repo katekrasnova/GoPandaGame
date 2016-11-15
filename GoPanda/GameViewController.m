@@ -15,26 +15,19 @@
 AVAudioPlayer *menuBackgroundSound;
 AVAudioPlayer *clickSound;
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
     [self configureMenuBackgroundSound];
     [menuBackgroundSound play];
-    
-    //[self configureClickSound];
-    
     [super viewDidLoad];
-
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = NO;
     skView.showsNodeCount = NO;
     /* Sprite Kit applies additional optimizations to improve rendering performance */
     skView.ignoresSiblingOrder = NO;
-    
     // Create and configure the scene.
     MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
     scene.scaleMode = SKSceneScaleModeAspectFill;
-    
     // Present the scene.
     [skView presentScene:scene];
 }
@@ -47,22 +40,11 @@ AVAudioPlayer *clickSound;
     menuBackgroundSound.numberOfLoops = -1;
 }
 
-//- (void) configureClickSoundWithVolume:(float)volume {
-//    NSString *path = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
-//    clickSound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
-//    //clickSound.delegate = self;
-//    clickSound.volume = volume;
-//    clickSound.numberOfLoops = 0;
-//}
-
 - (void)playClickSoundWithVolume:(float)volume {
-//    [self configureClickSound];
     NSString *path = [[NSBundle mainBundle] pathForResource:@"click" ofType:@"wav"];
     clickSound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
-    //clickSound.delegate = self;
     clickSound.volume = volume;
     clickSound.numberOfLoops = 0;
-    
     [clickSound prepareToPlay];
     [clickSound play];
 }
@@ -76,7 +58,6 @@ AVAudioPlayer *clickSound;
 }
 
 - (void)viewWillDisappear {
-    
 }
 
 - (void) playMenuBackgroundMusic {
@@ -89,13 +70,11 @@ AVAudioPlayer *clickSound;
     [menuBackgroundSound stop];
 }
 
-- (BOOL)shouldAutorotate
-{
+- (BOOL)shouldAutorotate {
     return YES;
 }
 
-- (UIInterfaceOrientationMask)supportedInterfaceOrientations
-{
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations {
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         return UIInterfaceOrientationMaskAllButUpsideDown;
     } else {
@@ -103,10 +82,8 @@ AVAudioPlayer *clickSound;
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (BOOL)prefersStatusBarHidden {

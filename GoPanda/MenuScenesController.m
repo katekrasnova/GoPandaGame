@@ -23,17 +23,14 @@
 BOOL isFirstCall;
 
 - (void) didMoveToView:(SKView *)view {
-    
     //For Game Start Scene
     SKSpriteNode *musicbutton = (SKSpriteNode *)[self childNodeWithName:@"musicbutton"];
     SKSpriteNode *soundbutton = (SKSpriteNode *)[self childNodeWithName:@"soundbutton"];
-
     if ([[NSUserDefaults standardUserDefaults] integerForKey:@"numOfLCalls"] == 1 && isFirstCall != YES) {
         [KKGameData sharedGameData].musicVolume = 0.5;
         [KKGameData sharedGameData].soundVolume = 0.75;
         [KKGameData sharedGameData].isMusicON = YES;
         [KKGameData sharedGameData].isSoundON = YES;
-
         [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
         musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
         soundbutton.texture = [SKTexture textureWithImageNamed:@"soundbutton_on"];
@@ -46,7 +43,6 @@ BOOL isFirstCall;
         else {
             musicbutton.texture = [SKTexture textureWithImageNamed:@"musicbutton_off"];
         }
-        
         if ([KKGameData sharedGameData].isSoundON == YES) {
             soundbutton.texture = [SKTexture textureWithImageNamed:@"soundbutton_on"];
         }
@@ -54,16 +50,11 @@ BOOL isFirstCall;
             soundbutton.texture = [SKTexture textureWithImageNamed:@"soundbutton_off"];
         }
     }
-    
-    
-    
-    
-    //For game settings scene /////////////////////////////////////////////////////////////////////////////////////////////
+    //For game settings scene
     //Volume of music and sounds
     [self updateMusicVolumeLabelWithVolume:[KKGameData sharedGameData].musicVolume*1000];
     [self updateSoundsVolumeLabelWithVolume:[KKGameData sharedGameData].soundVolume*1000];
-
-    //For game levels scene - number open levels //////////////////////////////////////////////////////////////////////////
+    //For game levels scene - number open levels
     for (int i = 1; i <= [KKGameData sharedGameData].numberOfLevels; i++) {
         SKSpriteNode *level = (SKSpriteNode *)[self childNodeWithName:[NSString stringWithFormat:@"level%i", i]];
         if (i <= [KKGameData sharedGameData].completeLevels + 1) {
@@ -73,9 +64,7 @@ BOOL isFirstCall;
             level.texture = [SKTexture textureWithImageNamed:@"levellock"];
         }
     }
-
-    
-    //For Game Achievements scene ///////////////////////////////////////////////////////////////////////////////////////////
+    //For Game Achievements scene
     if ([KKGameData sharedGameData].is1millionPointsAchievement) {
         SKSpriteNode *achievement1 = (SKSpriteNode *)[self childNodeWithName:@"achievement1"];
         achievement1.texture = [SKTexture textureWithImageNamed:@"1millionPointsAchievement"];
@@ -116,7 +105,6 @@ BOOL isFirstCall;
 {
     NSData *data1 = UIImagePNGRepresentation(image1);
     NSData *data2 = UIImagePNGRepresentation(image2);
-    
     return [data1 isEqual:data2];
 }
 
@@ -126,12 +114,10 @@ float tempVolumeMusic;
 float tempVolumeSounds;
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     SKView * skView = (SKView *)self.view;
-    
-    //for Game Start scene /////////////////////////////////////////////////////////////////////////////////////////////////
+    //for Game Start scene
     if ([node.name isEqualToString:@"playbutton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameLevels"];
@@ -140,36 +126,29 @@ float tempVolumeSounds;
     }
     else if ([node.name isEqualToString:@"settingsbutton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameSettings"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     else if ([node.name isEqualToString:@"achievementsbutton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameAchievement"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
     else if ([node.name isEqualToString:@"infobutton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameInfo"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
-    
     else if ([node.name isEqualToString:@"musicbutton"]) {
-        
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-        
         if ([self image:[UIImage imageWithCGImage:node.texture.CGImage] isEqualTo:[UIImage imageNamed:@"musicbutton_on"]]) {
             [KKGameData sharedGameData].musicVolume = 0;
             [KKGameData sharedGameData].isMusicON = NO;
             node.texture = [SKTexture textureWithImageNamed:@"musicbutton_off"];
         }
-
         else {
             [KKGameData sharedGameData].musicVolume = 0.5;
             [KKGameData sharedGameData].isMusicON = YES;
@@ -178,7 +157,6 @@ float tempVolumeSounds;
         [[KKGameData sharedGameData]save];
         [[[GameViewController alloc]init] setVolumeOfMenuBackgroundSound:[KKGameData sharedGameData].musicVolume];
     }
-    
     else if ([node.name isEqualToString:@"soundbutton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
         if ([self image:[UIImage imageWithCGImage:node.texture.CGImage] isEqualTo:[UIImage imageNamed:@"soundbutton_on"]]) {
@@ -186,7 +164,6 @@ float tempVolumeSounds;
             [KKGameData sharedGameData].isSoundON = NO;
             node.texture = [SKTexture textureWithImageNamed:@"soundbutton_off"];
         }
-        
         else {
             [KKGameData sharedGameData].soundVolume = 0.75;
             [KKGameData sharedGameData].isSoundON = YES;
@@ -194,12 +171,9 @@ float tempVolumeSounds;
         }
         [[KKGameData sharedGameData]save];
     }
-    
-    
-    //for Game Settings scene //////////////////////////////////////////////////////////////////////////////////////////////
+    //for Game Settings scene
     //Volume
     if ([node.name isEqualToString:@"musicminus"] || [node.name isEqualToString:@"musicplus"] || [node.name isEqualToString:@"soundsminus"] || [node.name isEqualToString:@"soundsplus"]) {
-
         if ([node.name isEqualToString:@"musicminus"]) {
             if (isMusicVolumeChange == YES) {
                 if (tempVolumeMusic > 0) { tempVolumeMusic -= 0.125; }
@@ -230,7 +204,6 @@ float tempVolumeSounds;
             }
             isSoundsVolumeChange = YES;
         }
-        
         else if ([node.name isEqualToString:@"soundsplus"]) {
             if (isSoundsVolumeChange == YES) {
                 if (tempVolumeSounds < 1) { tempVolumeSounds += 0.125; }
@@ -241,7 +214,6 @@ float tempVolumeSounds;
             }
             isSoundsVolumeChange = YES;
         }
-        
         if (isMusicVolumeChange == YES || isSoundsVolumeChange == YES) {
             if (isMusicVolumeChange == YES) {
                 [[[GameViewController alloc]init]setVolumeOfMenuBackgroundSound:tempVolumeMusic];
@@ -256,7 +228,6 @@ float tempVolumeSounds;
         }
         else { [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume]; }
     }
-    
     //Ok and cancel buttons
     if ([node.name isEqualToString:@"cancelsettingsbutton"] || [node.name isEqualToString:@"oksettingsbutton"]) {
         //Cancel button - settings not saving
@@ -265,24 +236,18 @@ float tempVolumeSounds;
             [self updateMusicVolumeLabelWithVolume:[KKGameData sharedGameData].musicVolume*1000];
             [self updateSoundsVolumeLabelWithVolume:[KKGameData sharedGameData].soundVolume*1000];
         }
-        
         //OK button - settings saving
         else if ([node.name isEqualToString:@"oksettingsbutton"]) {
             [KKGameData sharedGameData].isMusicON = YES;
             [KKGameData sharedGameData].isSoundON = YES;
-            
             if (isMusicVolumeChange == YES) { [KKGameData sharedGameData].musicVolume = tempVolumeMusic; }
             if (isSoundsVolumeChange == YES) { [KKGameData sharedGameData].soundVolume = tempVolumeSounds; }
-            
             if ([KKGameData sharedGameData].musicVolume == 0.0) { [KKGameData sharedGameData].isMusicON = NO; }
             else { [KKGameData sharedGameData].isMusicON = YES; }
-            
             if ([KKGameData sharedGameData].soundVolume == 0.0) { [KKGameData sharedGameData].isSoundON = NO; }
             else { [KKGameData sharedGameData].isSoundON = YES; }
-            
             [[KKGameData sharedGameData]save];
         }
-        
         isMusicVolumeChange = NO;
         isSoundsVolumeChange = NO;
         tempVolumeMusic = 0.0;
@@ -290,34 +255,22 @@ float tempVolumeSounds;
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
         [self presentStartScene];
     }
-    
-    
-    
-    
-    
-    //for GameAchievement scene ///////////////////////////////////////////////////////////////////////////////////////////
+    //for GameAchievement scene
     else if ([node.name isEqualToString:@"okachievementsbutton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-
         [self presentStartScene];
-
     }
-    
-    //for GameLevels scene ////////////////////////////////////////////////////////////////////////////////////////////////
+    //for GameLevels scene
     else if ([node.name isEqualToString:@"levelHomeButton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-
         [self presentStartScene];
     }
-    
     else if ([node.name isEqualToString:@"levelSettingsButton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-
         MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameSettings"];
         scene.scaleMode = SKSceneScaleModeAspectFill;
         [skView presentScene:scene];
     }
-    
     else if ([node.name isEqualToString:@"levelPlayButton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
         if ([KKGameData sharedGameData].completeLevels < [KKGameData sharedGameData].numberOfLevels) {
@@ -327,44 +280,30 @@ float tempVolumeSounds;
             [KKGameData sharedGameData].currentLevel = [KKGameData sharedGameData].completeLevels;
         }
         GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", [KKGameData sharedGameData].currentLevel]];
-        
         [[KKGameData sharedGameData] save];
-        
         scene.scaleMode = SKSceneScaleModeAspectFill;
-        
         [[[GameViewController alloc]init]stopMenuBackgroundMusic];
-        
         [skView presentScene:scene];
     }
-    
     for (int i = 1; i <= [KKGameData sharedGameData].completeLevels + 1; i++) {
         if ([node.name isEqualToString:[NSString stringWithFormat:@"level%i", i]]) {
             [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-
             GameScene *scene = [GameScene nodeWithFileNamed:[NSString stringWithFormat:@"Level%iScene", i]];
             scene.scaleMode = SKSceneScaleModeAspectFill;
-            
             [KKGameData sharedGameData].currentLevel = i;
             [[KKGameData sharedGameData] save];
-            
             [[[GameViewController alloc]init]stopMenuBackgroundMusic];
-
-            
             [skView presentScene:scene];
         }
     }
-    
-    //for Game Info scene ////////////////////////////////////////////////////////////////////////////////////////////////
+    //for Game Info scene
     if ([node.name isEqualToString:@"okinfobutton"]) {
         [[[GameViewController alloc]init]playClickSoundWithVolume:[KKGameData sharedGameData].soundVolume];
-
         [self presentStartScene];
     }
-    
 }
 
 - (void)presentStartScene {
-
     SKView * skView = (SKView *)self.view;
     MenuScenesController *scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
     scene.scaleMode = SKSceneScaleModeAspectFill;

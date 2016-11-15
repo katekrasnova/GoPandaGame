@@ -17,6 +17,7 @@
 #import "LittlePandas.h"
 #import "SoundController.h"
 #import "Enemies.h"
+#import "Tiles.h"
 
 @interface GameScene : SKScene <AVAudioPlayerDelegate>
 

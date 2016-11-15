@@ -20,6 +20,10 @@
 @property (strong, nonatomic) SKLabelNode *score;
 @property (strong, nonatomic) SKLabelNode *littlePandaScore;
 @property (strong, nonatomic) SKLabelNode *time;
+@property (nonatomic) BOOL isLeftMoveButton;
+@property (nonatomic) BOOL isRightMoveButton;
+@property (nonatomic) BOOL isJumpButton;
+@property (nonatomic) BOOL isSecondTouchJumpButton;
 
 - (void)addButtonsAndLabelsWithCameraNode:(SKCameraNode *)camera;
 - (void)updateScoreHUD;

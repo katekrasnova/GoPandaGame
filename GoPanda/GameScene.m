@@ -8,12 +8,6 @@
 
 #import "GameScene.h"
 
-@interface GameScene ()
-
-@property (strong, nonatomic) SKSpriteNode *background;
-
-@end
-
 typedef enum {
     kEndReasonWin,
     kEndReasonLose
@@ -32,18 +26,10 @@ Enemies *enemies;
 GameItems *items;
 GameSceneWindows *windowController;
 SoundController *soundController;
-SKNode *exitSign;
+Tiles *tiles;
 SKCameraNode *camera;
-NSMutableArray<SKSpriteNode *> *borders;
-NSMutableArray<SKSpriteNode *> *horizontalPlatforms;
-NSMutableArray *lastPlatformPositions;
-NSMutableArray<SKSpriteNode *> *waters;
 
 -(void)didMoveToView:(SKView *)view {
-    
-    isLeftMoveButton = NO;
-    isRightMoveButton = NO;
-    isJumpButton = NO;
     isExit = NO;
     isPause = NO;
     level = [KKGameData sharedGameData].currentLevel;
@@ -52,19 +38,12 @@ NSMutableArray<SKSpriteNode *> *waters;
     [soundController setupBackgroundGameMusic];
     soundController.backgroundGameMusic.delegate = self;
     [soundController.backgroundGameMusic play];
+    //Init tiles
+    tiles = [[Tiles alloc]init];
+    [tiles setupTilesForScene:self];
     // Set boundaries and background
-    exitSign = [self childNodeWithName:@"exitSign"];
-    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, exitSign.position.x + 200, 680)];
-    int k = exitSign.position.x / 1024;
-    for (int i = 0; i <= k; i++) {
-        _background = [SKSpriteNode spriteNodeWithImageNamed:@"background"];
-        _background.xScale = 1.03;
-        _background.yScale = 1.03;
-        _background.zPosition = -99;
-        _background.anchorPoint = CGPointZero;
-        _background.position = CGPointMake(i * _background.size.width, 0);
-        [self addChild:_background];
-    }
+    self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, tiles.exitSign.position.x + 200, 680)];
+    [tiles setupBackgroundImageForScene:self];
     //Init Little Pandas
     littlePandas = [[LittlePandas alloc]init];
     [littlePandas setupArrayOfLittlePandasForScene:self];
@@ -79,8 +58,8 @@ NSMutableArray<SKSpriteNode *> *waters;
     id vertConstraint = [SKConstraint distance:[SKRange rangeWithUpperLimit:0] toNode:panda];
     id leftConstraint = [SKConstraint positionX:[SKRange rangeWithLowerLimit:camera.position.x]];
     id bottomConstraint = [SKConstraint positionY:[SKRange rangeWithLowerLimit:camera.position.y]];
-    id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(exitSign.position.x + 200 - camera.position.x)]];
-    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(_background.frame.size.height - 10 - camera.position.y)]];
+    id rightConstraint = [SKConstraint positionX:[SKRange rangeWithUpperLimit:(tiles.exitSign.position.x + 200 - camera.position.x)]];
+    id topConstraint = [SKConstraint positionY:[SKRange rangeWithUpperLimit:(tiles.background.frame.size.height - 10 - camera.position.y)]];
     [camera setConstraints:@[horizConstraint, vertConstraint, leftConstraint, bottomConstraint, rightConstraint, topConstraint]];
     if ([KKGameData sharedGameData].numberOfLives == 0) {
         [KKGameData sharedGameData].numberOfLives = 3;
@@ -88,9 +67,6 @@ NSMutableArray<SKSpriteNode *> *waters;
     //Add moving buttons to screen
     hud = [[HUD alloc]init];
     [hud addButtonsAndLabelsWithCameraNode:camera];
-    hud.score.text = [NSString stringWithFormat:@"%li", [KKGameData sharedGameData].totalScore];
-    hud.time.text = @"00:00";
-    hud.littlePandaScore.text = @"x 3";
     //Init pause window
     windowController = [[GameSceneWindows alloc]init];
     //Init items
@@ -99,39 +75,10 @@ NSMutableArray<SKSpriteNode *> *waters;
     //Init enemies
     enemies = [[Enemies alloc]init];
     [enemies setupEnemiesArraysForScene:self];
-    //Setup array of borders
-    borders = [NSMutableArray new];
-    for (SKSpriteNode *child in [self children]) {
-        if ([child.name isEqualToString:@"border"]) {
-            [borders addObject:child];
-        }
-    }
-    //Setup array of horizontal platforms
-    horizontalPlatforms = [NSMutableArray new];
-    lastPlatformPositions = [NSMutableArray new];
-    for (SKSpriteNode *child in [self children]) {
-        if ([child.name isEqualToString:@"horizontalPlatform"]) {
-            [horizontalPlatforms addObject:child];
-            [lastPlatformPositions addObject:[NSNumber numberWithFloat:0]];
-        }
-    }
-    //Setup array of waters
-    waters = [NSMutableArray new];
-    for (SKSpriteNode *child in [self children]) {
-        if ([child.name isEqualToString:@"water"]) {
-            [waters addObject:child];
-        }
-    }
     if ([KKGameData sharedGameData].currentLevel == 1) {
         [windowController initLabelForfirstLevelForScene:self];
     }
 }
-
-const int kMoveSpeed = 200;
-BOOL isLeftMoveButton;
-BOOL isRightMoveButton;
-BOOL isJumpButton;
-BOOL isSecondTouchJumpButton;
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
@@ -142,33 +89,32 @@ BOOL isSecondTouchJumpButton;
             if (!panda.isJump) {
                 //Jump
                 [hud.jumpButton setTexture:[SKTexture textureWithImageNamed:@"greenjumpbutton"]];
-                isJumpButton = YES;
+                hud.isJumpButton = YES;
                 panda.isJump = YES;
                 [panda removePandaActionForKey:@"MoveAnimation"];
                 SKAction *jumpMove = [SKAction applyImpulse:CGVectorMake(0, 200) duration:0.1];
                 [panda runAction:[SKAction sequence:@[jumpMove, panda.jumpAnimation]] completion:^{
                     panda.isJump = NO;
-                    if (isLeftMoveButton == YES || isRightMoveButton == YES) {
+                    if (hud.isLeftMoveButton == YES || hud.isRightMoveButton == YES) {
                         [panda runAction:panda.runAnimation withKey:@"MoveAnimation"];
                     }
                 }];
             }
             else {
-                isSecondTouchJumpButton = YES;
+                hud.isSecondTouchJumpButton = YES;
             }
         }
         if ([node.name isEqualToString:@"leftMoveButton"]) {
             //left move
             [hud.leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"greenleftbutton"]];
-            isLeftMoveButton = YES;
+            hud.isLeftMoveButton = YES;
             [panda leftMove];
             [panda run];
-            
         }
         if ([node.name isEqualToString:@"rightMoveButton"]) {
             //right move
             [hud.rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"greenrightbutton"]];
-            isRightMoveButton = YES;
+            hud.isRightMoveButton = YES;
             [panda rightMove];
             [panda run];
         }
@@ -216,7 +162,6 @@ BOOL isSecondTouchJumpButton;
         }
         [[KKGameData sharedGameData]save];
     }
-    
     if ([node.name isEqualToString:@"homebutton"] || [node.name isEqualToString:@"levelsbutton"] || [node.name isEqualToString:@"restartbutton"] || [node.name isEqualToString:@"playbutton"]) {
         
         SKView * skView = (SKView *)self.view;
@@ -271,21 +216,21 @@ BOOL isSecondTouchJumpButton;
     [super touchesMoved:touches withEvent:event];
     CGPoint touchLocation = [[touches anyObject] locationInNode:self];
     SKSpriteNode *node = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
-    if (isLeftMoveButton || isRightMoveButton) {
+    if (hud.isLeftMoveButton || hud.isRightMoveButton) {
         if ([node.name isEqualToString:@"leftMoveButton"]) {
             [hud.leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"greenleftbutton"]];
             [hud.rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"rightbutton"]];
             //left move
-            isLeftMoveButton = YES;
-            isRightMoveButton = NO;
+            hud.isLeftMoveButton = YES;
+            hud.isRightMoveButton = NO;
             [panda leftMove];
         }
         if ([node.name isEqualToString:@"rightMoveButton"]) {
             [hud.rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"greenrightbutton"]];
             [hud.leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"leftbutton"]];
             //right move
-            isRightMoveButton = YES;
-            isLeftMoveButton = NO;
+            hud.isRightMoveButton = YES;
+            hud.isLeftMoveButton = NO;
             [panda rightMove];
         }
     }
@@ -294,25 +239,25 @@ BOOL isSecondTouchJumpButton;
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [super touchesEnded:touches withEvent:event];
-    if ((isLeftMoveButton || isRightMoveButton) && !isJumpButton) {
-        if (!isSecondTouchJumpButton) {
+    if ((hud.isLeftMoveButton || hud.isRightMoveButton) && !hud.isJumpButton) {
+        if (!hud.isSecondTouchJumpButton) {
             [panda removePandaActionForKey:@"MoveAction"];
             [panda removePandaActionForKey:@"MoveAnimation"];
             [panda idle];
-            isLeftMoveButton = NO;
-            isRightMoveButton = NO;
+            hud.isLeftMoveButton = NO;
+            hud.isRightMoveButton = NO;
             [hud.leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"leftbutton"]];
             [hud.rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"rightbutton"]];
         }
-        else if (isSecondTouchJumpButton){
-            isSecondTouchJumpButton = NO;
+        else if (hud.isSecondTouchJumpButton){
+            hud.isSecondTouchJumpButton = NO;
         }
     }
     
-    else if (isJumpButton) {
+    else if (hud.isJumpButton) {
         [hud.jumpButton setTexture:[SKTexture textureWithImageNamed:@"jumpbutton"]];
-        isJumpButton = NO;
-        if (!isRightMoveButton && !isLeftMoveButton) {
+        hud.isJumpButton = NO;
+        if (!hud.isRightMoveButton && !hud.isLeftMoveButton) {
             [panda idle];
         }
     }
@@ -323,9 +268,123 @@ BOOL isSecondTouchJumpButton;
     [super touchesCancelled:touches withEvent:event];
 }
 
+-(void)update:(CFTimeInterval)currentTime {
+    [panda moveOnHorizontalPlatforms:tiles.horizontalPlatforms withLastPlatformPositions:tiles.lastPlatformPositions];
+    if (!isPause) {
+        [super update:currentTime]; //Calls the Visualiser
+        [self saveLittlePandas];
+        [self pandaFallinWater];
+        [littlePandas littlePandasMove];
+        if (!panda.isFall && !panda.isDie) {
+            if (hud.isLeftMoveButton == YES) {
+                panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
+            }
+            if (hud.isRightMoveButton == YES) {
+                panda.position = CGPointMake(panda.position.x + 5, panda.position.y);
+            }
+        }
+        [self pickUpItemsByPanda];
+        //Score for times
+        static NSTimeInterval _lastCurrentTime = 0;
+        if (currentTime-_lastCurrentTime>1 && !panda.isDie &&!panda.isFall && !isExit) {
+            [KKGameData sharedGameData].time++;
+            
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"mm:ss"];
+            NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[KKGameData sharedGameData].time];
+            
+            hud.time.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:date]];
+            _lastCurrentTime = currentTime;
+        }
+        [self exit];
+        [self enemies:enemies.bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:enemies.blueSnailHurtAnimation];
+        [self enemies:enemies.redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:enemies.redSnailHurtAnimation];
+        [self enemies:enemies.mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:enemies.mushroomHurtAnimation];
+        [self flowersEnemies];
+        if (!isExit) {
+            [self flowersSpitMovingUpdate];
+        }
+        else {
+            for (int i = 0; i < [enemies.flowersSpit count]; i++) {
+                [enemies.flowersSpit[i] removeFromParent];
+            }
+        }
+    }
+}
+
+- (void)pickUpItemsByPanda {
+    // Score for coins
+    for (int i = 0; i < [items.coins count]; i++) {
+        if ([panda intersectsNode:items.coins[i]]) {
+            [soundController playSoundNamed:@"coin" ofType:@"wav"];
+            [KKGameData sharedGameData].score += 10;
+            [hud updateScoreHUD];
+            [self removeChildrenInArray:[NSArray arrayWithObjects:items.coins[i], nil]];
+            [items.coins[i] removeAllActions];
+            [items.coins removeObject:items.coins[i]];
+        }
+    }
+    //Pick Up Hearts
+    for (int i = 0; i < [items.pickUpHearts count]; i++) {
+        if ([panda intersectsNode:items.pickUpHearts[i]]) {
+            [soundController playSoundNamed:@"pickupheart" ofType:@"wav"];
+            [KKGameData sharedGameData].score += 50;
+            [hud updateScoreHUD];
+            if ([KKGameData sharedGameData].numberOfLives < 3) {
+                [KKGameData sharedGameData].numberOfLives++;
+                [hud.hearts[[KKGameData sharedGameData].numberOfLives - 1] setTexture:
+                 [SKTexture textureWithImageNamed:@"hud_heartFull"]];
+            }
+            [self removeChildrenInArray:[NSArray arrayWithObjects:items.pickUpHearts[i], nil]];
+            [items.pickUpHearts removeObject:items.pickUpHearts[i]];
+        }
+    }
+    //Pick Up Clocks
+    for (int i = 0; i < [items.pickUpClocks count]; i++) {
+        if ([panda intersectsNode:items.pickUpClocks[i]]) {
+            [soundController playSoundNamed:@"pickupheart" ofType:@"wav"];
+            [KKGameData sharedGameData].score += 50;
+            [hud updateScoreHUD];
+            [KKGameData sharedGameData].time -= 10;
+            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+            [dateFormatter setDateFormat:@"mm:ss"];
+            NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[KKGameData sharedGameData].time];
+            hud.time.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:date]];
+            SKAction *labelMoveIn = [SKAction scaleTo:1.2 duration:0.2];
+            SKAction *labelMoveOut = [SKAction scaleTo:1.0 duration:0.2];
+            [hud.time runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
+            [self removeChildrenInArray:[NSArray arrayWithObjects:items.pickUpClocks[i], nil]];
+            [items.pickUpClocks removeObject:items.pickUpClocks[i]];
+        }
+    }
+    //Pick Up Stars
+    for (int i = 0; i < [items.pickUpStars count]; i++) {
+        if ([panda intersectsNode:items.pickUpStars[i]]) {
+            [soundController playSoundNamed:@"pickupheart" ofType:@"wav"];
+            [KKGameData sharedGameData].score += 200;
+            [hud updateScoreHUD];
+            //Animation for picked star
+            NSMutableArray *textures = [NSMutableArray new];
+            for (int i = 1; i <= 6; i++) {
+                [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"star0%i",i]]];
+            }
+            SKAction *starAnimation = [SKAction animateWithTextures:textures timePerFrame:0.1];
+            SKSpriteNode *pickedStar = [SKSpriteNode spriteNodeWithImageNamed:@"star01"];
+            pickedStar.position = items.pickUpStars[i].position;
+            pickedStar.zPosition = 5;
+            [self addChild:pickedStar];
+            [pickedStar runAction:starAnimation completion:^{
+                [pickedStar removeFromParent];
+            }];
+            [self removeChildrenInArray:[NSArray arrayWithObjects:items.pickUpStars[i], nil]];
+            [items.pickUpStars removeObject:items.pickUpStars[i]];
+        }
+    }
+}
+
 - (void)pandaFallinWater {
-    for (int i = 0; i < [waters count]; i++) {
-        if ([panda intersectsNode:waters[i]] && panda.position.y <= 150) {
+    for (int i = 0; i < [tiles.waters count]; i++) {
+        if ([panda intersectsNode:tiles.waters[i]] && panda.position.y <= 150) {
             isExit = YES;
             if (!panda.isFall) {
                 for (int i = 0; i < [hud.hearts count];i++) {
@@ -364,117 +423,6 @@ BOOL isSecondTouchJumpButton;
     }
 }
 
--(void)update:(CFTimeInterval)currentTime {
-    [panda moveOnHorizontalPlatforms:horizontalPlatforms withLastPlatformPositions:lastPlatformPositions];
-    if (!isPause) {
-        [super update:currentTime]; //Calls the Visualiser
-        [self saveLittlePandas];
-        [self pandaFallinWater];
-        [littlePandas littlePandasMove];
-        
-        if (!panda.isFall && !panda.isDie) {
-            if (isLeftMoveButton == YES) {
-                panda.position = CGPointMake(panda.position.x - 5, panda.position.y);
-            }
-            if (isRightMoveButton == YES) {
-                panda.position = CGPointMake(panda.position.x + 5, panda.position.y);
-            }
-        }
-        // Score for coins
-        for (int i = 0; i < [items.coins count]; i++) {
-            if ([panda intersectsNode:items.coins[i]]) {
-                [soundController playSoundNamed:@"coin" ofType:@"wav"];
-                [KKGameData sharedGameData].score += 10;
-                [hud updateScoreHUD];
-                [self removeChildrenInArray:[NSArray arrayWithObjects:items.coins[i], nil]];
-                [items.coins[i] removeAllActions];
-                [items.coins removeObject:items.coins[i]];
-            }
-        }
-        //Pick Up Hearts
-        for (int i = 0; i < [items.pickUpHearts count]; i++) {
-            if ([panda intersectsNode:items.pickUpHearts[i]]) {
-                [soundController playSoundNamed:@"pickupheart" ofType:@"wav"];
-                [KKGameData sharedGameData].score += 50;
-                [hud updateScoreHUD];
-                if ([KKGameData sharedGameData].numberOfLives < 3) {
-                    [KKGameData sharedGameData].numberOfLives++;
-                    [hud.hearts[[KKGameData sharedGameData].numberOfLives - 1] setTexture:
-                     [SKTexture textureWithImageNamed:@"hud_heartFull"]];
-                }
-                [self removeChildrenInArray:[NSArray arrayWithObjects:items.pickUpHearts[i], nil]];
-                [items.pickUpHearts removeObject:items.pickUpHearts[i]];
-            }
-        }
-        //Pick Up Clocks
-        for (int i = 0; i < [items.pickUpClocks count]; i++) {
-            if ([panda intersectsNode:items.pickUpClocks[i]]) {
-                [soundController playSoundNamed:@"pickupheart" ofType:@"wav"];
-                [KKGameData sharedGameData].score += 50;
-                [hud updateScoreHUD];
-                [KKGameData sharedGameData].time -= 10;
-                NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-                [dateFormatter setDateFormat:@"mm:ss"];
-                NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[KKGameData sharedGameData].time];
-                hud.time.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:date]];
-                SKAction *labelMoveIn = [SKAction scaleTo:1.2 duration:0.2];
-                SKAction *labelMoveOut = [SKAction scaleTo:1.0 duration:0.2];
-                [hud.time runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
-                [self removeChildrenInArray:[NSArray arrayWithObjects:items.pickUpClocks[i], nil]];
-                [items.pickUpClocks removeObject:items.pickUpClocks[i]];
-            }
-        }
-        //Pick Up Stars
-        for (int i = 0; i < [items.pickUpStars count]; i++) {
-            if ([panda intersectsNode:items.pickUpStars[i]]) {
-                [soundController playSoundNamed:@"pickupheart" ofType:@"wav"];
-                [KKGameData sharedGameData].score += 200;
-                [hud updateScoreHUD];
-                //Animation for picked star
-                NSMutableArray *textures = [NSMutableArray new];
-                for (int i = 1; i <= 6; i++) {
-                    [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"star0%i",i]]];
-                }
-                SKAction *starAnimation = [SKAction animateWithTextures:textures timePerFrame:0.1];
-                SKSpriteNode *pickedStar = [SKSpriteNode spriteNodeWithImageNamed:@"star01"];
-                pickedStar.position = items.pickUpStars[i].position;
-                pickedStar.zPosition = 5;
-                [self addChild:pickedStar];
-                [pickedStar runAction:starAnimation completion:^{
-                    [pickedStar removeFromParent];
-                }];
-                [self removeChildrenInArray:[NSArray arrayWithObjects:items.pickUpStars[i], nil]];
-                [items.pickUpStars removeObject:items.pickUpStars[i]];
-            }
-        }
-        //Score for times
-        static NSTimeInterval _lastCurrentTime = 0;
-        if (currentTime-_lastCurrentTime>1 && !panda.isDie &&!panda.isFall && !isExit) {
-            [KKGameData sharedGameData].time++;
-            
-            NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-            [dateFormatter setDateFormat:@"mm:ss"];
-            NSDate *date = [NSDate dateWithTimeIntervalSinceReferenceDate:[KKGameData sharedGameData].time];
-            
-            hud.time.text = [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:date]];
-            _lastCurrentTime = currentTime;
-        }
-        [self exit];
-        [self enemies:enemies.bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:enemies.blueSnailHurtAnimation];
-        [self enemies:enemies.redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:enemies.redSnailHurtAnimation];
-        [self enemies:enemies.mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:enemies.mushroomHurtAnimation];
-        [self flowersEnemies];
-        if (!isExit) {
-            [self flowersSpitMovingUpdate];
-        }
-        else {
-            for (int i = 0; i < [enemies.flowersSpit count]; i++) {
-                [enemies.flowersSpit[i] removeFromParent];
-            }
-        }
-    }
-}
-
 - (void)pandaHurts {
     if ([KKGameData sharedGameData].numberOfLives > 0) {
         panda.isDie = NO;
@@ -485,16 +433,16 @@ BOOL isSecondTouchJumpButton;
         if ([KKGameData sharedGameData].numberOfLives == 0) {
             panda.isDie = YES;
             isExit = YES;
-            if (isLeftMoveButton) {
-                isLeftMoveButton = NO;
+            if (hud.isLeftMoveButton) {
+                hud.isLeftMoveButton = NO;
                 [hud.leftMoveButton setTexture:[SKTexture textureWithImageNamed:@"leftbutton"]];
             }
-            if (isRightMoveButton) {
-                isRightMoveButton = NO;
+            if (hud.isRightMoveButton) {
+                hud.isRightMoveButton = NO;
                 [hud.rightMoveButton setTexture:[SKTexture textureWithImageNamed:@"rightbutton"]];
             }
-            if (isJumpButton) {
-                isJumpButton = NO;
+            if (hud.isJumpButton) {
+                hud.isJumpButton = NO;
                 [hud.jumpButton setTexture:[SKTexture textureWithImageNamed:@"jumpbutton"]];
             }
             [soundController.backgroundGameMusic stop];
@@ -508,7 +456,7 @@ BOOL isSecondTouchJumpButton;
         if (!panda.isDie) {
             panda.isHurt = YES;
             [panda hurt];
-            if (isLeftMoveButton == YES || isRightMoveButton == YES || isJumpButton == YES) {
+            if (hud.isLeftMoveButton == YES || hud.isRightMoveButton == YES || hud.isJumpButton == YES) {
                 [panda run];
             }
         }
@@ -517,8 +465,8 @@ BOOL isSecondTouchJumpButton;
 
 - (void)enemies:(NSMutableArray<SKSpriteNode *> *)enemiesArray withIdleAnimationKey:(NSString *)idleAnimationKey withHurtAnimation:(SKAction *)hurtAnimation {
     for (int i = 0; i < [enemiesArray count]; i++) {
-        for (int k = 0; k < [borders count]; k++) {
-            if ([enemiesArray[i] intersectsNode:borders[k]]) {
+        for (int k = 0; k < [tiles.borders count]; k++) {
+            if ([enemiesArray[i] intersectsNode:tiles.borders[k]]) {
                 if (enemiesArray[i].xScale < 0) {
                     enemiesArray[i].xScale = 1.0*ABS(enemiesArray[i].xScale);
                 }
@@ -526,7 +474,7 @@ BOOL isSecondTouchJumpButton;
                     enemiesArray[i].xScale = -1.0*ABS(enemiesArray[i].xScale);
                 }
             }
-            while ([enemiesArray[i] intersectsNode:borders[k]]) {
+            while ([enemiesArray[i] intersectsNode:tiles.borders[k]]) {
                 if (enemiesArray[i].xScale < 0) {
                     enemiesArray[i].position = CGPointMake(enemiesArray[i].position.x + 0.15, enemiesArray[i].position.y);
                 }
@@ -589,7 +537,7 @@ BOOL isSecondTouchJumpButton;
             [self pandaHurts];
         }
         //Delete spits
-        if (enemies.flowersSpit[i].position.x <= -200 || enemies.flowersSpit[i].position.x >= exitSign.position.x + 400) {
+        if (enemies.flowersSpit[i].position.x <= -200 || enemies.flowersSpit[i].position.x >= tiles.exitSign.position.x + 400) {
             [enemies.flowersSpit removeObject:enemies.flowersSpit[i]];
         }
     }
@@ -679,41 +627,43 @@ BOOL isSecondTouchJumpButton;
     long tempScore = [KKGameData sharedGameData].score;
     long tempTime = [KKGameData sharedGameData].time;
     [[KKGameData sharedGameData] reset];
-    
     [soundController.backgroundGameMusic stop];
-    
     if (endReason == kEndReasonWin) {
         //Achievements
-        if (![KKGameData sharedGameData].is30secAchievement && tempTime <= 30) {
-            [KKGameData sharedGameData].is30secAchievement = YES;
-            NSString *achievement = [NSString stringWithFormat:@"30secAchievement"];
-            [windowController addAchievement:achievement forScene:self withCamera:camera];
-        }
-        if (![KKGameData sharedGameData].is60secAchievement && tempTime <= 60 && tempTime > 30) {
-            [KKGameData sharedGameData].is60secAchievement = YES;
-            NSString *achievement = [NSString stringWithFormat:@"60secAchievement"];
-            [windowController addAchievement:achievement forScene:self withCamera:camera];
-        }
-        if (![KKGameData sharedGameData].is1millionPointsAchievement && [KKGameData sharedGameData].totalScore >= 1000000) {
-            [KKGameData sharedGameData].is1millionPointsAchievement = YES;
-            NSString *achievement = [NSString stringWithFormat:@"1millionPointsAchievement"];
-            [windowController addAchievement:achievement forScene:self withCamera:camera];
-        }
-        if (![KKGameData sharedGameData].isAllLevelsAchievement && [KKGameData sharedGameData].completeLevels == [KKGameData sharedGameData].numberOfLevels) {
-            [KKGameData sharedGameData].isAllLevelsAchievement = YES;
-            NSString *achievement = [NSString stringWithFormat:@"AllLevelsAchievement"];
-            [windowController addAchievement:achievement forScene:self withCamera:camera];
-        }
-        if (![KKGameData sharedGameData].isDestroyAllEnemiesAchievement && [enemies.bluesnails count] == 0 && [enemies.redsnails count] == 0 && [enemies.mushrooms count] == 0 && [enemies.flowers count] == 0 ) {
-            [KKGameData sharedGameData].isDestroyAllEnemiesAchievement = YES;
-            NSString *achievement = [NSString stringWithFormat:@"DestroyAllEnemiesAchievement"];
-            [windowController addAchievement:achievement forScene:self withCamera:camera];
-        }
+        [self setAchievementsForTimeOfLevel:tempTime];
         [[KKGameData sharedGameData] save];
         [windowController setupWinWindowForScene:self withCamera:camera winTime:tempTime winScore:tempScore andPickedUpStars:items.pickUpStars];
     }
     else if (endReason == kEndReasonLose) {
         [windowController setupLoseWindowForScene:self withCamera:camera];
+    }
+}
+
+- (void)setAchievementsForTimeOfLevel:(long)time {
+    if (![KKGameData sharedGameData].is30secAchievement && time <= 30) {
+        [KKGameData sharedGameData].is30secAchievement = YES;
+        NSString *achievement = [NSString stringWithFormat:@"30secAchievement"];
+        [windowController addAchievement:achievement forScene:self withCamera:camera];
+    }
+    if (![KKGameData sharedGameData].is60secAchievement && time <= 60 && time > 30) {
+        [KKGameData sharedGameData].is60secAchievement = YES;
+        NSString *achievement = [NSString stringWithFormat:@"60secAchievement"];
+        [windowController addAchievement:achievement forScene:self withCamera:camera];
+    }
+    if (![KKGameData sharedGameData].is1millionPointsAchievement && [KKGameData sharedGameData].totalScore >= 1000000) {
+        [KKGameData sharedGameData].is1millionPointsAchievement = YES;
+        NSString *achievement = [NSString stringWithFormat:@"1millionPointsAchievement"];
+        [windowController addAchievement:achievement forScene:self withCamera:camera];
+    }
+    if (![KKGameData sharedGameData].isAllLevelsAchievement && [KKGameData sharedGameData].completeLevels == [KKGameData sharedGameData].numberOfLevels) {
+        [KKGameData sharedGameData].isAllLevelsAchievement = YES;
+        NSString *achievement = [NSString stringWithFormat:@"AllLevelsAchievement"];
+        [windowController addAchievement:achievement forScene:self withCamera:camera];
+    }
+    if (![KKGameData sharedGameData].isDestroyAllEnemiesAchievement && [enemies.bluesnails count] == 0 && [enemies.redsnails count] == 0 && [enemies.mushrooms count] == 0 && [enemies.flowers count] == 0 ) {
+        [KKGameData sharedGameData].isDestroyAllEnemiesAchievement = YES;
+        NSString *achievement = [NSString stringWithFormat:@"DestroyAllEnemiesAchievement"];
+        [windowController addAchievement:achievement forScene:self withCamera:camera];
     }
 }
 

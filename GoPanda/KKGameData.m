@@ -24,24 +24,19 @@ static NSString* const SSGameDataIs30secAchievementKey = @"is30secAchievement";
 static NSString* const SSGameDataIs60secAchievementKey = @"is60secAchievement";
 static NSString* const SSGameDataIsAllLevelsAchievementKey = @"isAllLevelsAchievement";
 static NSString* const SSGameDataIsDestroyAllEnemiesAchievementKey = @"isDestroyAllEnemiesAchievement";
-
-
 static const int KKNumberOfLevels = 15;
 static const int KKNumberOfLives = 3;
 
-- (void)encodeWithCoder:(NSCoder *)encoder
-{
+- (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeDouble:self.totalScore forKey: SSGameDataTotalScoreKey];
     [encoder encodeInt:self.completeLevels forKey:SSGameDataCompleteLevelsKey];
     [encoder encodeInt:self.currentLevel forKey:SSGameDataCurrentLevelKey];
-    //[encoder encodeInt:self.numberOfLevels forKey:SSGameDataNumberOfLevelsKey];
     _numberOfLevels = KKNumberOfLevels;
     [encoder encodeInt:self.numberOfLives forKey:SSGameDataNumberOfLivesKey];
     [encoder encodeFloat:self.musicVolume forKey:SSGameDataMusicVolumeKey];
     [encoder encodeFloat:self.soundVolume forKey:SSGameDataSoundVolumeKey];
     [encoder encodeBool:self.isMusicON forKey:SSGameDataIsMusicONKey];
     [encoder encodeBool:self.isSoundON forKey:SSGameDataIsSoundONKey];
-
     [encoder encodeBool:self.is1millionPointsAchievement forKey:SSGameDataIs1millionPointsAchievementKey];
     [encoder encodeBool:self.is30secAchievement forKey:SSGameDataIs30secAchievementKey];
     [encoder encodeBool:self.is60secAchievement forKey:SSGameDataIs60secAchievementKey];
@@ -49,8 +44,7 @@ static const int KKNumberOfLives = 3;
     [encoder encodeBool:self.isDestroyAllEnemiesAchievement forKey:SSGameDataIsDestroyAllEnemiesAchievementKey];
 }
 
-- (instancetype)initWithCoder:(NSCoder *)decoder
-{
+- (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [self init];
     if (self) {
         _totalScore = [decoder decodeDoubleForKey: SSGameDataTotalScoreKey];
@@ -62,7 +56,6 @@ static const int KKNumberOfLives = 3;
         _isSoundON = [decoder decodeBoolForKey:SSGameDataIsSoundONKey];
         _numberOfLevels = KKNumberOfLevels;
         _numberOfLives = KKNumberOfLives;
-        
         _is1millionPointsAchievement = [decoder decodeBoolForKey:SSGameDataIs1millionPointsAchievementKey];
         _is30secAchievement = [decoder decodeBoolForKey:SSGameDataIs30secAchievementKey];
         _is60secAchievement = [decoder decodeBoolForKey:SSGameDataIs60secAchievementKey];
@@ -72,8 +65,7 @@ static const int KKNumberOfLives = 3;
     return self;
 }
 
-+ (NSString*)filePath
-{
++ (NSString*)filePath {
     static NSString* filePath = nil;
     if (!filePath) {
         filePath =
@@ -83,20 +75,17 @@ static const int KKNumberOfLives = 3;
     return filePath;
 }
 
-+ (instancetype)loadInstance
-{
++ (instancetype)loadInstance {
     NSData* decodedData = [NSData dataWithContentsOfFile: [KKGameData filePath]];
     if (decodedData) {
         KKGameData* gameData = [NSKeyedUnarchiver unarchiveObjectWithData:decodedData];
         return gameData;
     }
-    
     return [[KKGameData alloc] init];
 }
 
 + (instancetype)sharedGameData {
     static id sharedInstance = nil;
-    
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedInstance = [self loadInstance];
@@ -104,18 +93,15 @@ static const int KKNumberOfLives = 3;
     return sharedInstance;
 }
 
--(void)save
-{
+-(void)save {
     NSData* encodedData = [NSKeyedArchiver archivedDataWithRootObject: self];
     [encodedData writeToFile:[KKGameData filePath] atomically:YES];
 }
 
--(void)reset
-{
+-(void)reset {
     self.score = 0;
     self.time = 0;
     self.numberOfLives = KKNumberOfLives;
-    //self.currentLevel = 0;
 }
 
 @end

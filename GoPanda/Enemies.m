@@ -124,30 +124,9 @@
     spit.alpha = 0;
     spit.xScale = flower.xScale;
     [scene addChild:spit];
-    //[soundController playSoundNamed:@"spitting" ofType:@"wav"];
     [spit runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5f], [SKAction fadeAlphaTo:1 duration:0.0f]]]];
     [self.flowersSpit addObject:spit];
     return self.flowerAttackAnimation;
-}
-
-- (void)flowersSpitMovingWithExitSign:(SKNode *)exitSign {
-    for (int i = 0; i < [self.flowersSpit count]; i++) {
-        //Moving spits
-        if (self.flowersSpit[i].xScale > 0) {
-            self.flowersSpit[i].position = CGPointMake(self.flowersSpit[i].position.x - 5, self.flowersSpit[i].position.y);
-        }
-        else {
-            self.flowersSpit[i].position = CGPointMake(self.flowersSpit[i].position.x + 5, self.flowersSpit[i].position.y);
-        }
-//        //Intersecting spit with panda
-//        if ([panda intersectsNode:flowersSpit[i]] && !panda.isHurt &&!panda.isDie) {
-//            [self pandaHurts];
-//        }
-        //Delete spits
-        if (self.flowersSpit[i].position.x <= -200 || self.flowersSpit[i].position.x >= exitSign.position.x + 400) {
-            [self.flowersSpit removeObject:self.flowersSpit[i]];
-        }
-    }
 }
 
 @end

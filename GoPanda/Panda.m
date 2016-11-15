@@ -10,8 +10,7 @@
 
 @implementation Panda
 
-+ (instancetype)initPanda
-{
++ (instancetype)initPanda {
     Panda *panda = [[Panda alloc] init];
     return panda;
 }

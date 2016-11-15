@@ -11,6 +11,11 @@
 @implementation HUD
 
 - (void)addButtonsAndLabelsWithCameraNode:(SKCameraNode *)camera {
+    //Init BOOL properties
+    self.isLeftMoveButton = NO;
+    self.isRightMoveButton = NO;
+    self.isJumpButton = NO;
+    self.isSecondTouchJumpButton = NO;
     //left move button
     self.leftMoveButton = [SKSpriteNode spriteNodeWithImageNamed:@"leftbutton"];
     self.leftMoveButton.alpha = 0.5;
@@ -95,6 +100,10 @@
         [camera addChild:heart];
         [self.hearts insertObject:heart atIndex:i];
     }
+    //Init score labels
+    self.score.text = [NSString stringWithFormat:@"%li", [KKGameData sharedGameData].totalScore];
+    self.time.text = @"00:00";
+    self.littlePandaScore.text = @"x 3";
 }
 
 - (void)updateScoreHUD {
