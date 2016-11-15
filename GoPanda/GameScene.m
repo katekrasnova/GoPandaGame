@@ -7,9 +7,6 @@
 //
 
 #import "GameScene.h"
-#import "MenuScenesController.h"
-#import "KKGameData.h"
-#import "GameViewController.h"
 
 @interface GameScene ()
 
@@ -31,17 +28,12 @@ int level;
 HUD *hud;
 Panda *panda;
 LittlePandas *littlePandas;
+Enemies *enemies;
 GameItems *items;
 GameSceneWindows *windowController;
 SoundController *soundController;
 SKNode *exitSign;
 SKCameraNode *camera;
-NSMutableArray<SKSpriteNode *> *bluesnails;
-NSMutableArray<SKSpriteNode *> *redsnails;
-NSMutableArray<SKSpriteNode *> *mushrooms;
-NSMutableArray<SKSpriteNode *> *flowers;
-NSMutableArray<SKSpriteNode *> *flowersSpit;
-NSMutableArray *isFlowerAttackAnimation;
 NSMutableArray<SKSpriteNode *> *borders;
 NSMutableArray<SKSpriteNode *> *horizontalPlatforms;
 NSMutableArray *lastPlatformPositions;
@@ -73,62 +65,6 @@ NSMutableArray<SKSpriteNode *> *waters;
         _background.position = CGPointMake(i * _background.size.width, 0);
         [self addChild:_background];
     }
-    //Create blue snails idle animation
-    NSMutableArray<SKTexture *> *textures = [NSMutableArray new];
-    for (int i = 2; i <= 5; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"bluesnail_0%i", i]]];
-    }
-    self.blueSnailIdleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
-    //Create blue Snail Hurt Animation
-    textures = [NSMutableArray new];
-    for (int i = 6; i <= 9; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"bluesnail_0%i",i]]];
-    }
-    self.blueSnailHurtAnimation = [SKAction sequence:@[
-                        [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.15] count:1],
-                        [SKAction fadeOutWithDuration:1.5]]];
-    //Create red snails idle animation
-    textures = [NSMutableArray new];
-    for (int i = 2; i <= 5; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"redsnail_0%i", i]]];
-    }
-    self.redSnailIdleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
-    //Create red Snail Hurt Animation
-    textures = [NSMutableArray new];
-    for (int i = 6; i <= 9; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"redsnail_0%i",i]]];
-    }
-    self.redSnailHurtAnimation = [SKAction sequence:@[
-                        [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.15] count:1],
-                        [SKAction fadeOutWithDuration:1.5]]];
-    //Create mushroom idle animation
-    textures = [NSMutableArray new];
-    for (int i = 1; i <= 6; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"mushroom_0%i", i]]];
-    }
-    self.mushroomIdleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
-    //Create mushroom hurt animation
-    textures = [NSMutableArray new];
-    for (int i = 1; i <= 8; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"mushroomhurt_0%i", i]]];
-    }
-    self.mushroomHurtAnimation = [SKAction sequence:@[
-                        [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1],
-                        [SKAction fadeOutWithDuration:1.5]]];
-    //Create flower idle animation
-    textures = [NSMutableArray new];
-    for (int i = 1; i <= 6; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"floweridle_0%i", i]]];
-    }
-    self.flowerIdleAnimation = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
-    //Create flower hurt animation
-    textures = [NSMutableArray new];
-    for (int i = 1; i <= 7; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"flowerhurt_0%i", i]]];
-    }
-    self.flowerHurtAnimation = [SKAction sequence:@[
-                                            [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1],
-                                            [SKAction fadeOutWithDuration:1.5]]];
     //Init Little Pandas
     littlePandas = [[LittlePandas alloc]init];
     [littlePandas setupArrayOfLittlePandasForScene:self];
@@ -160,47 +96,9 @@ NSMutableArray<SKSpriteNode *> *waters;
     //Init items
     items = [[GameItems alloc]init];
     [items setupItemsForScene:self];
-    //Setup array of blue snails
-    bluesnails = [NSMutableArray new];
-    for (SKSpriteNode *child in [self children]) {
-        if ([child.name isEqualToString:@"bluesnail"]) {
-            [child runAction:self.blueSnailIdleAnimation withKey:@"BlueSnailIdleAnimation"];
-            [child setPhysicsBody:nil];
-            [bluesnails addObject:child];
-        }
-    }
-    //Setup array of red snails
-    redsnails = [NSMutableArray new];
-    for (SKSpriteNode *child in [self children]) {
-        if ([child.name isEqualToString:@"redsnail"]) {
-            [child runAction:self.redSnailIdleAnimation withKey:@"RedSnailIdleAnimation"];
-            [child setPhysicsBody:nil];
-            [redsnails addObject:child];
-        }
-    }
-    //Setup array of mushrooms
-    mushrooms = [NSMutableArray new];
-    for (SKSpriteNode *child in [self children]) {
-        if ([child.name isEqualToString:@"mushroom"]) {
-            [child runAction:self.mushroomIdleAnimation withKey:@"MushroomIdleAnimation"];
-            [child setPhysicsBody:nil];
-            [mushrooms addObject:child];
-        }
-    }
-    //Setup array of flowers
-    flowers = [NSMutableArray new];
-    for (SKSpriteNode *child in [self children]) {
-        if ([child.name isEqualToString:@"flower"]) {
-            [child runAction:self.flowerIdleAnimation withKey:@"FlowerIdleAnimation"];
-            [child setPhysicsBody:nil];
-            [flowers addObject:child];
-        }
-    }
-    flowersSpit = [NSMutableArray new];
-    isFlowerAttackAnimation = [NSMutableArray new];
-    for (NSInteger i = 0; i < [flowers count] + 10; i++) {
-        [isFlowerAttackAnimation addObject:[NSNumber numberWithInteger:0]];
-    }
+    //Init enemies
+    enemies = [[Enemies alloc]init];
+    [enemies setupEnemiesArraysForScene:self];
     //Setup array of borders
     borders = [NSMutableArray new];
     for (SKSpriteNode *child in [self children]) {
@@ -225,18 +123,7 @@ NSMutableArray<SKSpriteNode *> *waters;
         }
     }
     if ([KKGameData sharedGameData].currentLevel == 1) {
-        SKLabelNode *warningLabel = [[SKLabelNode alloc] initWithFontNamed:@"ChalkboardSE-Bold"];
-        warningLabel.fontSize = 58.0;
-        warningLabel.position = CGPointMake(-0, 0);
-        warningLabel.fontColor = [SKColor blackColor];
-        warningLabel.zPosition = 1000;
-        warningLabel.alpha = 0.6;
-        warningLabel.horizontalAlignmentMode = SKLabelHorizontalAlignmentModeCenter;
-        [camera addChild:warningLabel];
-        warningLabel.text = @"Rescue all little pandas to open exit";
-        SKAction *labelMoveIn = [SKAction scaleTo:1.0 duration:6];
-        SKAction *labelMoveOut = [SKAction scaleTo:0.0 duration:1];
-        [warningLabel runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
+        [windowController initLabelForfirstLevelForScene:self];
     }
 }
 
@@ -573,16 +460,16 @@ BOOL isSecondTouchJumpButton;
             _lastCurrentTime = currentTime;
         }
         [self exit];
-        [self enemies:bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:self.blueSnailHurtAnimation];
-        [self enemies:redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:self.redSnailHurtAnimation];
-        [self enemies:mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:self.mushroomHurtAnimation];
+        [self enemies:enemies.bluesnails withIdleAnimationKey:@"BlueSnailIdleAnimation" withHurtAnimation:enemies.blueSnailHurtAnimation];
+        [self enemies:enemies.redsnails withIdleAnimationKey:@"RedSnailIdleAnimation" withHurtAnimation:enemies.redSnailHurtAnimation];
+        [self enemies:enemies.mushrooms withIdleAnimationKey:@"MushroomIdleAnimation" withHurtAnimation:enemies.mushroomHurtAnimation];
         [self flowersEnemies];
         if (!isExit) {
-            [self spitMovingUpdate];
+            [self flowersSpitMovingUpdate];
         }
         else {
-            for (int i = 0; i < [flowersSpit count]; i++) {
-                [flowersSpit[i] removeFromParent];
+            for (int i = 0; i < [enemies.flowersSpit count]; i++) {
+                [enemies.flowersSpit[i] removeFromParent];
             }
         }
     }
@@ -688,87 +575,64 @@ BOOL isSecondTouchJumpButton;
     }
 }
 
-- (SKAction *) attackAnimationForFlower:(SKSpriteNode *)flower {
-    //Create flower attack animation
-    NSMutableArray *textures = [NSMutableArray new];
-    for (int i = 1; i <= 9; i++) {
-        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"flowerattack_0%i", i]]];
-    }
-    SKSpriteNode *spit = [SKSpriteNode spriteNodeWithImageNamed:@"flowersspit"];
-    if (flower.xScale >= 0) {
-        spit.position = CGPointMake(flower.position.x + 70, flower.position.y - 10);
-    }
-    else {
-        spit.position = CGPointMake(flower.position.x - 50, flower.position.y - 10);
-    }
-    spit.zPosition = 3;
-    spit.alpha = 0;
-    spit.xScale = flower.xScale;
-    [self addChild:spit];
-    [soundController playSoundNamed:@"spitting" ofType:@"wav"];
-    [spit runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5f], [SKAction fadeAlphaTo:1 duration:0.0f]]]];
-    self.flowerAttackAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1], [SKAction waitForDuration:2.0f]]];
-    [flowersSpit addObject:spit];
-    return self.flowerAttackAnimation;
-}
-
-- (void)spitMovingUpdate {
-    for (int i = 0; i < [flowersSpit count]; i++) {
+- (void)flowersSpitMovingUpdate {
+    for (int i = 0; i < [enemies.flowersSpit count]; i++) {
         //Moving spits
-        if (flowersSpit[i].xScale > 0) {
-            flowersSpit[i].position = CGPointMake(flowersSpit[i].position.x - 5, flowersSpit[i].position.y);
+        if (enemies.flowersSpit[i].xScale > 0) {
+            enemies.flowersSpit[i].position = CGPointMake(enemies.flowersSpit[i].position.x - 5, enemies.flowersSpit[i].position.y);
         }
         else {
-            flowersSpit[i].position = CGPointMake(flowersSpit[i].position.x + 5, flowersSpit[i].position.y);
+            enemies.flowersSpit[i].position = CGPointMake(enemies.flowersSpit[i].position.x + 5, enemies.flowersSpit[i].position.y);
         }
         //Intersecting spit with panda
-        if ([panda intersectsNode:flowersSpit[i]] && !panda.isHurt &&!panda.isDie) {
+        if ([panda intersectsNode:enemies.flowersSpit[i]] && !panda.isHurt &&!panda.isDie) {
             [self pandaHurts];
         }
         //Delete spits
-        if (flowersSpit[i].position.x <= -200 || flowersSpit[i].position.x >= exitSign.position.x + 400) {
-            [flowersSpit removeObject:flowersSpit[i]];
+        if (enemies.flowersSpit[i].position.x <= -200 || enemies.flowersSpit[i].position.x >= exitSign.position.x + 400) {
+            [enemies.flowersSpit removeObject:enemies.flowersSpit[i]];
         }
     }
 }
 
 - (void)flowersEnemies {
     int i = 0;
-    while (i < [flowers count]) {
-        if (flowers[i].position.x >= camera.position.x - self.frame.size.width/2 && flowers[i].position.x <= camera.position.x + self.frame.size.width/2 && isFlowerAttackAnimation[i] == [NSNumber numberWithInteger:0] && !isExit) {
+    while (i < [enemies.flowers count]) {
+        if (enemies.flowers[i].position.x >= camera.position.x - self.frame.size.width/2 && enemies.flowers[i].position.x <= camera.position.x + self.frame.size.width/2 && enemies.isFlowerAttackAnimation[i] == [NSNumber numberWithInteger:0] && !isExit) {
             
-            isFlowerAttackAnimation[i] = [NSNumber numberWithInteger:1];
-            [flowers[i] runAction:[self attackAnimationForFlower:flowers[i]] completion:^{
-                isFlowerAttackAnimation[i] = [NSNumber numberWithInteger:0];
+            enemies.isFlowerAttackAnimation[i] = [NSNumber numberWithInteger:1];
+            [soundController playSoundNamed:@"spitting" ofType:@"wav"];
+            [enemies.flowers[i] runAction:[enemies attackAnimationForFlower:enemies.flowers[i] inScene:self] completion:^{
+                enemies.isFlowerAttackAnimation[i] = [NSNumber numberWithInteger:0];
             }];
         }
-        if (panda.position.x < flowers[i].position.x) {
-            flowers[i].xScale = 1.0*ABS(flowers[i].xScale);
+        if (panda.position.x < enemies.flowers[i].position.x) {
+            enemies.flowers[i].xScale = 1.0*ABS(enemies.flowers[i].xScale);
         }
         else {
-            flowers[i].xScale = -1.0*ABS(flowers[i].xScale);
+            enemies.flowers[i].xScale = -1.0*ABS(enemies.flowers[i].xScale);
         }
         //Intersecting panda and enemy
-        if ([flowers[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(flowers[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(flowers[i].frame) && CGRectGetMaxX(panda.frame) - CGRectGetMinX(flowers[i].frame) >= 20 && (CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(flowers[i].frame) - CGRectGetMinY(panda.frame) >= -6) && !panda.isHurt && !panda.isDie) {
+        if ([enemies.flowers[i] intersectsNode:panda] && CGRectGetMinX(panda.frame) <= CGRectGetMaxX(enemies.flowers[i].frame) && CGRectGetMaxX(panda.frame) >= CGRectGetMinX(enemies.flowers[i].frame) && CGRectGetMaxX(panda.frame) - CGRectGetMinX(enemies.flowers[i].frame) >= 20 && (CGRectGetMinY(enemies.flowers[i].frame) - CGRectGetMinY(panda.frame) <= 3 && CGRectGetMinY(enemies.flowers[i].frame) - CGRectGetMinY(panda.frame) >= -6) && !panda.isHurt && !panda.isDie) {
             
             [self pandaHurts];
         }
         //Killing enemy
-        if ([flowers[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(flowers[i].frame) - 20 ) {
+        if ([enemies.flowers[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(enemies.flowers[i].frame) - 20 ) {
             
             [soundController playSoundNamed:@"jumpland" ofType:@"wav"];
             
-            [flowers[i] removeAllActions];
+            [enemies.flowers[i] removeAllActions];
             
             SKSpriteNode *tempSnail = [SKSpriteNode new];
-            tempSnail = flowers[i];
+            tempSnail = enemies.flowers[i];
 
-            [isFlowerAttackAnimation removeObject:isFlowerAttackAnimation[i]];
-            [flowers removeObject:flowers[i]];
+            [enemies.isFlowerAttackAnimation removeObject:enemies.isFlowerAttackAnimation[i]];
+            [enemies.flowers removeObject:enemies.flowers[i]];
             [KKGameData sharedGameData].score += 100;
             [hud updateScoreHUD];
             [tempSnail setPhysicsBody:NULL];
-            [tempSnail runAction:self.flowerHurtAnimation completion:^{
+            [tempSnail runAction:enemies.flowerHurtAnimation completion:^{
                 [tempSnail removeFromParent];
                 [tempSnail removeAllActions];
             }];
@@ -840,7 +704,7 @@ BOOL isSecondTouchJumpButton;
             NSString *achievement = [NSString stringWithFormat:@"AllLevelsAchievement"];
             [windowController addAchievement:achievement forScene:self withCamera:camera];
         }
-        if (![KKGameData sharedGameData].isDestroyAllEnemiesAchievement && [bluesnails count] == 0 && [redsnails count] == 0 && [mushrooms count] == 0 && [flowers count] == 0 ) {
+        if (![KKGameData sharedGameData].isDestroyAllEnemiesAchievement && [enemies.bluesnails count] == 0 && [enemies.redsnails count] == 0 && [enemies.mushrooms count] == 0 && [enemies.flowers count] == 0 ) {
             [KKGameData sharedGameData].isDestroyAllEnemiesAchievement = YES;
             NSString *achievement = [NSString stringWithFormat:@"DestroyAllEnemiesAchievement"];
             [windowController addAchievement:achievement forScene:self withCamera:camera];

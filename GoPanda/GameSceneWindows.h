@@ -26,5 +26,6 @@
 - (void)setupLoseWindowForScene:(SKScene *)scene withCamera:(SKCameraNode *)camera;
 - (void)setupWinWindowForScene:(SKScene *)scene withCamera:(SKCameraNode *)camera winTime:(long)t winScore:(long)k andPickedUpStars:(NSMutableArray *)stars;
 - (void)addAchievement:(NSString *)achievement forScene:(SKScene *)scene withCamera:(SKCameraNode *)camera;
+- (void)initLabelForfirstLevelForScene:(SKScene *)scene;
 
 @end
