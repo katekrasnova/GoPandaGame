@@ -33,6 +33,7 @@ Panda *panda;
 LittlePandas *littlePandas;
 GameItems *items;
 GameSceneWindows *windowController;
+SoundController *soundController;
 SKNode *exitSign;
 SKCameraNode *camera;
 NSMutableArray<SKSpriteNode *> *bluesnails;
@@ -45,29 +46,20 @@ NSMutableArray<SKSpriteNode *> *borders;
 NSMutableArray<SKSpriteNode *> *horizontalPlatforms;
 NSMutableArray *lastPlatformPositions;
 NSMutableArray<SKSpriteNode *> *waters;
-//NSMutableArray<SKSpriteNode *> *littlePandas;
-//NSMutableArray<SKSpriteNode *> *littlePandasMoving;
-//NSMutableArray<NSNumber *> *littlePandasMoveStartPosition;
-AVAudioPlayer *backgroundGameMusic;
-AVAudioPlayer *sound;
-NSMutableArray *soundsArray;
 
 -(void)didMoveToView:(SKView *)view {
     
-    soundsArray = [NSMutableArray new];
     isLeftMoveButton = NO;
     isRightMoveButton = NO;
     isJumpButton = NO;
     isExit = NO;
     isPause = NO;
     level = [KKGameData sharedGameData].currentLevel;
-    //Set background music
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"mainTheme" ofType:@"mp3"];
-    backgroundGameMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
-    backgroundGameMusic.delegate = self;
-    backgroundGameMusic.numberOfLoops = -1;
-    backgroundGameMusic.volume = [KKGameData sharedGameData].musicVolume;
-    [backgroundGameMusic play];
+    //Init sound controller and background music
+    soundController = [[SoundController alloc]init];
+    [soundController setupBackgroundGameMusic];
+    soundController.backgroundGameMusic.delegate = self;
+    [soundController.backgroundGameMusic play];
     // Set boundaries and background
     exitSign = [self childNodeWithName:@"exitSign"];
     self.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(0, 0, exitSign.position.x + 200, 680)];
@@ -137,24 +129,6 @@ NSMutableArray *soundsArray;
     self.flowerHurtAnimation = [SKAction sequence:@[
                                             [SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1],
                                             [SKAction fadeOutWithDuration:1.5]]];
-//    //Creat little panda eat animation
-//    textures = [NSMutableArray new];
-//    for (int i = 2; i <= 9; i++) {
-//        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"littlePandaEat_0%i", i]]];
-//    }
-//    self.littlePandaEat = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.2]];
-//    //Creat little panda sleep animation
-//    textures = [NSMutableArray new];
-//    for (int i = 1; i <= 12; i++) {
-//        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"littlePandaSleep_%i", i]]];
-//    }
-//    self.littlePandaSleep = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.1]];
-//    //Creat little panda move animation
-//    textures = [NSMutableArray new];
-//    for (int i = 1; i <= 3; i++) {
-//        [textures addObject:[SKTexture textureWithImageNamed:[NSString stringWithFormat:@"littlePandaMove_0%i", i]]];
-//    }
-//    self.littlePandaMove = [SKAction repeatActionForever:[SKAction animateWithTextures:textures timePerFrame:0.2]];
     //Init Little Pandas
     littlePandas = [[LittlePandas alloc]init];
     [littlePandas setupArrayOfLittlePandasForScene:self];
@@ -227,35 +201,6 @@ NSMutableArray *soundsArray;
     for (NSInteger i = 0; i < [flowers count] + 10; i++) {
         [isFlowerAttackAnimation addObject:[NSNumber numberWithInteger:0]];
     }
-//    //Setup array of little pandas
-//    littlePandas = [NSMutableArray new];
-//    for (SKSpriteNode *child in [self children]) {
-//        if ([child.name isEqualToString:@"littlePandaEat"] || [child.name isEqualToString:@"littlePandaSleep"] || [child.name isEqualToString:@"littlePandaMove"]) {
-//            [child setPhysicsBody:nil];
-//            [littlePandas addObject:child];
-//            if ([child.name isEqualToString:@"littlePandaEat"]) {
-//                [child runAction:self.littlePandaEat withKey:@"LittlePandaEatAnimation"];
-//            }
-//            else if ([child.name isEqualToString:@"littlePandaSleep"]) {
-//                [child runAction:self.littlePandaSleep withKey:@"LittlePandaSleepAnimation"];
-//            }
-//            else {
-//                [child runAction:self.littlePandaMove withKey:@"LittlePandaMoveAnimation"];
-//            }
-//        }
-//    }
-//    littlePandasMoveStartPosition = [NSMutableArray new];
-//    littlePandasMoving = [NSMutableArray new];
-//    int i = 0;
-//    for (SKSpriteNode *panda in littlePandas) {
-//        if ([panda.name isEqualToString:@"littlePandaMove"]) {
-//            [littlePandasMoving insertObject:panda atIndex:i];
-//            
-//            NSNumber *k = [NSNumber numberWithFloat:panda.position.x];
-//            [littlePandasMoveStartPosition insertObject:k atIndex:i];
-//            i++;
-//        }
-//    }
     //Setup array of borders
     borders = [NSMutableArray new];
     for (SKSpriteNode *child in [self children]) {
@@ -293,21 +238,6 @@ NSMutableArray *soundsArray;
         SKAction *labelMoveOut = [SKAction scaleTo:0.0 duration:1];
         [warningLabel runAction:[SKAction sequence:@[labelMoveIn, labelMoveOut]]];
     }
-}
-
-- (void)playSoundNamed:(NSString *)soundName ofType:(NSString *)soundType {
-    for (int i = 0; i < [soundsArray count]; i++) {
-        if (![soundsArray[i] isPlaying]) {
-            [soundsArray removeObject:soundsArray[i]];
-        }
-    }
-    NSString *path = [[NSBundle mainBundle] pathForResource:soundName ofType:soundType];
-    sound = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path] error:NULL];
-    sound.volume = [KKGameData sharedGameData].soundVolume;
-    sound.numberOfLoops = 0;
-    [sound prepareToPlay];
-    [sound play];
-    [soundsArray addObject:sound];
 }
 
 const int kMoveSpeed = 200;
@@ -383,7 +313,7 @@ BOOL isSecondTouchJumpButton;
             node.texture = [SKTexture textureWithImageNamed:@"musicbutton_on"];
         }
         [[KKGameData sharedGameData]save];
-        backgroundGameMusic.volume = [KKGameData sharedGameData].musicVolume;
+        soundController.backgroundGameMusic.volume = [KKGameData sharedGameData].musicVolume;
     }
     //Touch sound button in pause window
     if ([node.name isEqualToString:@"pauseSoundButton"]) {
@@ -405,7 +335,7 @@ BOOL isSecondTouchJumpButton;
         SKView * skView = (SKView *)self.view;
         MenuScenesController *scene = [MenuScenesController new];
         if ([node.name isEqualToString:@"homebutton"]) {
-            [backgroundGameMusic stop];
+            [soundController.backgroundGameMusic stop];
             [[KKGameData sharedGameData] reset];
             [[[GameViewController alloc]init]playMenuBackgroundMusic];
             scene = [MenuScenesController nodeWithFileNamed:@"GameStart"];
@@ -413,7 +343,7 @@ BOOL isSecondTouchJumpButton;
             [skView presentScene:scene];
         }
         else if ([node.name isEqualToString:@"levelsbutton"]) {
-            [backgroundGameMusic stop];
+            [soundController.backgroundGameMusic stop];
             [[KKGameData sharedGameData] reset];
             [[[GameViewController alloc]init]playMenuBackgroundMusic];
             scene = [MenuScenesController nodeWithFileNamed:@"GameLevels"];
@@ -506,27 +436,6 @@ BOOL isSecondTouchJumpButton;
     [super touchesCancelled:touches withEvent:event];
 }
 
-//- (void)littlePandasMove {
-//    for (int i = 0; i < [littlePandasMoving count]; i++) {
-//        if (littlePandasMoving[i].xScale > 0) {
-//            if (littlePandasMoving[i].position.x >= [[littlePandasMoveStartPosition objectAtIndex:i] floatValue] - 40) {
-//                littlePandasMoving[i].position = CGPointMake(littlePandasMoving[i].position.x - 1, littlePandasMoving[i].position.y);
-//            }
-//            else {
-//                littlePandasMoving[i].xScale = -1.0*ABS(littlePandasMoving[i].xScale);
-//            }
-//        }
-//        else {
-//            if (littlePandasMoving[i].position.x <= [[littlePandasMoveStartPosition objectAtIndex:i] floatValue] + 40) {
-//                littlePandasMoving[i].position = CGPointMake(littlePandasMoving[i].position.x + 1, littlePandasMoving[i].position.y);
-//            }
-//            else {
-//                littlePandasMoving[i].xScale = 1.0*ABS(littlePandasMoving[i].xScale);
-//            }
-//        }
-//    }
-//}
-
 - (void)pandaFallinWater {
     for (int i = 0; i < [waters count]; i++) {
         if ([panda intersectsNode:waters[i]] && panda.position.y <= 150) {
@@ -535,8 +444,8 @@ BOOL isSecondTouchJumpButton;
                 for (int i = 0; i < [hud.hearts count];i++) {
                     [hud.hearts[i] setTexture:[SKTexture textureWithImageNamed:@"hud_heartEmpty"]];
                 }
-                [backgroundGameMusic stop];
-                [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
+                [soundController.backgroundGameMusic stop];
+                [soundController playSoundNamed:@"lose_sound" ofType:@"mp3"];
                 panda.physicsBody = nil;
                 SKAction *jumpFallUp = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y + 200) duration:0.3];
                 SKAction *jumpFallDown = [SKAction moveTo:CGPointMake(panda.position.x, panda.position.y - 150) duration:0.3];
@@ -554,7 +463,7 @@ BOOL isSecondTouchJumpButton;
 - (void)saveLittlePandas {
     for (int i = 0; i < [littlePandas.littlePandas count]; i++) {
         if ([panda intersectsNode:littlePandas.littlePandas[i]]) {
-            [self playSoundNamed:@"savePanda" ofType:@"wav"];
+            [soundController playSoundNamed:@"savePanda" ofType:@"wav"];
             [KKGameData sharedGameData].score += 500;
             [hud updateScoreHUD];
             [littlePandas.littlePandas[i] removeFromParent];
@@ -587,7 +496,7 @@ BOOL isSecondTouchJumpButton;
         // Score for coins
         for (int i = 0; i < [items.coins count]; i++) {
             if ([panda intersectsNode:items.coins[i]]) {
-                [self playSoundNamed:@"coin" ofType:@"wav"];
+                [soundController playSoundNamed:@"coin" ofType:@"wav"];
                 [KKGameData sharedGameData].score += 10;
                 [hud updateScoreHUD];
                 [self removeChildrenInArray:[NSArray arrayWithObjects:items.coins[i], nil]];
@@ -598,7 +507,7 @@ BOOL isSecondTouchJumpButton;
         //Pick Up Hearts
         for (int i = 0; i < [items.pickUpHearts count]; i++) {
             if ([panda intersectsNode:items.pickUpHearts[i]]) {
-                [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+                [soundController playSoundNamed:@"pickupheart" ofType:@"wav"];
                 [KKGameData sharedGameData].score += 50;
                 [hud updateScoreHUD];
                 if ([KKGameData sharedGameData].numberOfLives < 3) {
@@ -613,7 +522,7 @@ BOOL isSecondTouchJumpButton;
         //Pick Up Clocks
         for (int i = 0; i < [items.pickUpClocks count]; i++) {
             if ([panda intersectsNode:items.pickUpClocks[i]]) {
-                [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+                [soundController playSoundNamed:@"pickupheart" ofType:@"wav"];
                 [KKGameData sharedGameData].score += 50;
                 [hud updateScoreHUD];
                 [KKGameData sharedGameData].time -= 10;
@@ -631,7 +540,7 @@ BOOL isSecondTouchJumpButton;
         //Pick Up Stars
         for (int i = 0; i < [items.pickUpStars count]; i++) {
             if ([panda intersectsNode:items.pickUpStars[i]]) {
-                [self playSoundNamed:@"pickupheart" ofType:@"wav"];
+                [soundController playSoundNamed:@"pickupheart" ofType:@"wav"];
                 [KKGameData sharedGameData].score += 200;
                 [hud updateScoreHUD];
                 //Animation for picked star
@@ -683,7 +592,7 @@ BOOL isSecondTouchJumpButton;
     if ([KKGameData sharedGameData].numberOfLives > 0) {
         panda.isDie = NO;
         //play "oops" sound
-        [self playSoundNamed:@"oops" ofType:@"wav"];
+        [soundController playSoundNamed:@"oops" ofType:@"wav"];
         [KKGameData sharedGameData].numberOfLives--;
         [hud updateHeartsHUD];
         if ([KKGameData sharedGameData].numberOfLives == 0) {
@@ -701,8 +610,8 @@ BOOL isSecondTouchJumpButton;
                 isJumpButton = NO;
                 [hud.jumpButton setTexture:[SKTexture textureWithImageNamed:@"jumpbutton"]];
             }
-            [backgroundGameMusic stop];
-            [self playSoundNamed:@"lose_sound" ofType:@"mp3"];
+            [soundController.backgroundGameMusic stop];
+            [soundController playSoundNamed:@"lose_sound" ofType:@"mp3"];
 
             [panda runAction:panda.dieAnimation completion:^{
                 panda.alpha = 0.0;
@@ -753,7 +662,7 @@ BOOL isSecondTouchJumpButton;
             //Killing enemy
             if ([enemiesArray[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMinY(enemiesArray[i].frame) + 20 && CGRectGetMinY(panda.frame) <= CGRectGetMaxY(enemiesArray[i].frame)) {
                 
-                [self playSoundNamed:@"jumpland" ofType:@"wav"];
+                [soundController playSoundNamed:@"jumpland" ofType:@"wav"];
                 [enemiesArray[i] removeAllActions];
                 SKSpriteNode *tempSnail = [SKSpriteNode new];
                 tempSnail = enemiesArray[i];
@@ -796,7 +705,7 @@ BOOL isSecondTouchJumpButton;
     spit.alpha = 0;
     spit.xScale = flower.xScale;
     [self addChild:spit];
-    [self playSoundNamed:@"spitting" ofType:@"wav"];
+    [soundController playSoundNamed:@"spitting" ofType:@"wav"];
     [spit runAction:[SKAction sequence:@[[SKAction waitForDuration:0.5f], [SKAction fadeAlphaTo:1 duration:0.0f]]]];
     self.flowerAttackAnimation = [SKAction sequence:@[[SKAction repeatAction:[SKAction animateWithTextures:textures timePerFrame:0.1] count:1], [SKAction waitForDuration:2.0f]]];
     [flowersSpit addObject:spit];
@@ -847,7 +756,7 @@ BOOL isSecondTouchJumpButton;
         //Killing enemy
         if ([flowers[i] intersectsNode:panda] && CGRectGetMinY(panda.frame) >= CGRectGetMaxY(flowers[i].frame) - 20 ) {
             
-            [self playSoundNamed:@"jumpland" ofType:@"wav"];
+            [soundController playSoundNamed:@"jumpland" ofType:@"wav"];
             
             [flowers[i] removeAllActions];
             
@@ -884,7 +793,7 @@ BOOL isSecondTouchJumpButton;
             if (lastCurrentTime >= 30 && !isExit && [littlePandas.littlePandas count] == 0) {
                 lastCurrentTime = 0;
                 isExit = YES;
-                [self playSoundNamed:@"win_sound" ofType:@"wav"];
+                [soundController playSoundNamed:@"win_sound" ofType:@"wav"];
                 [panda runAction:[SKAction waitForDuration:0.8] completion:^{
                     [self endLevel:kEndReasonWin];
                 }];
@@ -907,7 +816,7 @@ BOOL isSecondTouchJumpButton;
     long tempTime = [KKGameData sharedGameData].time;
     [[KKGameData sharedGameData] reset];
     
-    [backgroundGameMusic stop];
+    [soundController.backgroundGameMusic stop];
     
     if (endReason == kEndReasonWin) {
         //Achievements

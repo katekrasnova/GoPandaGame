@@ -8,12 +8,13 @@
 
 @import AVFoundation;
 #import <SpriteKit/SpriteKit.h>
-#import "CoreMotion/CoreMotion.h"
+//#import "CoreMotion/CoreMotion.h"
 #import "Panda.h"
 #import "HUD.h"
 #import "GameItems.h"
 #import "GameSceneWindows.h"
 #import "LittlePandas.h"
+#import "SoundController.h"
 
 @interface GameScene : SKScene <AVAudioPlayerDelegate>
 
@@ -26,8 +27,5 @@
 @property (nonatomic) SKAction *flowerIdleAnimation;
 @property (nonatomic) SKAction *flowerHurtAnimation;
 @property (nonatomic) SKAction *flowerAttackAnimation;
-//@property (nonatomic) SKAction *littlePandaEat;
-//@property (nonatomic) SKAction *littlePandaSleep;
-//@property (nonatomic) SKAction *littlePandaMove;
 
 @end
